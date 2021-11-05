@@ -1,0 +1,71 @@
+
+# 🅒🅖🅦 Coingrig Mobile Wallet
+Next-Gen Crypto Wallet. A powerful crypto wallet for everyone,
+unique features and open source
+
+### Building Locally
+
+The code is built using React-Native.
+
+-   Install [Node.js](https://nodejs.org)
+
+    -   If you are using [nvm](https://github.com/creationix/nvm#installation) (recommended) running `nvm use` will automatically choose the right node version for you.
+
+-   Install the shared [React Native dependencies](https://reactnative.dev/docs/environment-setup#installing-dependencies) (`React Native CLI`, _not_ `Expo CLI`)
+
+-   Install [cocoapods](https://guides.cocoapods.org/using/getting-started.html) by running:
+
+```bash
+sudo gem install cocoapods
+```
+
+-   Clone this repo and install our dependencies:
+
+```bash
+git clone https://github.com/coingrig/mobile-wallet
+cd mobile-wallet
+yarn # this will install all dependecies
+cd ios && pod install && cd .. # install pods for iOS
+```
+#### Android
+
+-   Install the Android SDK, via [Android Studio](https://developer.android.com/studio).
+    -   _MetaMask Only:_ To create production builds, you need to install Google Play Licensing Library via the SDK Manager in Android Studio.
+-   Install the Android NDK, via [Android Studio](https://developer.android.com/studio)'s SDK Manager.
+-   Install the correct emulator
+    -   Follow the instructions at:
+        -   [React Native Getting Started - Android](https://reactnative.dev/docs/environment-setup#installing-dependencies) _(React Native CLI Quickstart -> [your OS] -> Android)_
+        -   More details can be found [on the Android Developer site](https://developer.android.com/studio/run/emulator)
+-   Finally, start the emulator from Android Studio, and run:
+
+```bash
+npx react-native run-android
+```
+
+#### iOS
+
+-   Install the iOS dependencies
+    -   [React Native Getting Started - iOS](https://reactnative.dev/docs/environment-setup#installing-dependencies) _(React Native CLI Quickstart -> [your OS] -> iOS)_
+        -   You do **not** need CocoaPods
+-   Install the correct simulator
+```bash
+npx react-native run-ios
+```
+
+* * *
+
+## Code of Conduct
+
+This library has adopted a Code of Conduct that we expect project participants to adhere to. Please read the [full text](CODE_OF_CONDUCT.md) so that you can understand what actions will and will not be tolerated.
+
+
+
+## License
+
+The Coingrig Core Library is licensed under the [License](LICENSE).
+
+
+
+Follow us on [Twitter](https://twitter.com/coingrig)
+
+Website [coingrig.com](https://coingrig.com)

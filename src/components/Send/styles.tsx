@@ -1,0 +1,147 @@
+import {StyleSheet} from 'react-native';
+import {Colors} from 'utils/colors';
+import {SIZE} from 'utils/constants';
+
+export const styles = StyleSheet.create({
+  maincontainer: {
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+  },
+  container: {
+    justifyContent: 'space-between',
+    borderRadius: 10,
+    marginHorizontal: 10,
+    marginBottom: 15,
+    paddingBottom: 10,
+  },
+  centerText: {
+    flex: 1,
+    fontSize: 18,
+    padding: 32,
+    color: '#777',
+  },
+  toFiat: {
+    marginLeft: 20,
+    marginTop: 10,
+    fontSize: 28,
+    fontWeight: 'bold',
+    fontFamily: 'RobotoSlab-Bold',
+    color: Colors.foreground,
+  },
+  textBold: {
+    fontWeight: '500',
+    color: '#000',
+  },
+  cameracontainer: {
+    height: SIZE.height / 1.7,
+    margin: 10,
+    backgroundColor: 'black',
+  },
+  confirmtx: {
+    fontSize: 20,
+    textAlign: 'center',
+    marginTop: 15,
+    fontFamily: 'RobotoSlab-Bold',
+    color: '#353333',
+  },
+  exectx: {
+    backgroundColor: Colors.black,
+    marginTop: 30,
+    marginBottom: 30,
+  },
+  totalusd: {
+    fontWeight: 'bold',
+    marginTop: 15,
+    fontSize: 16,
+    color: Colors.black,
+  },
+  amountusd: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  preparetx: {flex: 1, justifyContent: 'flex-end', marginBottom: 30},
+  buttonText: {
+    fontSize: 21,
+    color: 'white',
+    marginVertical: 10,
+    textAlign: 'center',
+  },
+  buttonTouchable: {
+    padding: 16,
+  },
+  coinName: {
+    fontSize: 20,
+    fontFamily: 'RobotoSlab-Regular',
+    textAlign: 'center',
+    color: '#756156',
+  },
+  subtitle: {
+    fontSize: 17,
+    fontFamily: 'RobotoSlab-Bold',
+    marginLeft: 20,
+    color: '#756156',
+    marginTop: 10,
+    marginBottom: 5,
+  },
+  topContainer: {
+    flex: 2,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  bottomContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 50,
+  },
+  input: {
+    flex: 1,
+    minHeight: 50,
+    borderWidth: 0.5,
+    padding: 10,
+    borderRadius: 5,
+    fontSize: 14,
+    marginVertical: 10,
+    marginBottom: 0,
+    borderColor: Colors.inputBackground,
+    marginHorizontal: 15,
+    backgroundColor: Colors.inputBackground,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  moreBtn: {
+    justifyContent: 'center',
+    marginRight: 20,
+    paddingLeft: 10,
+  },
+  moreBtn2: {
+    justifyContent: 'center',
+    marginRight: 10,
+  },
+  value: {
+    height: 40,
+    marginVertical: 10,
+    borderWidth: 0.5,
+    padding: 10,
+    borderRadius: 5,
+    borderColor: '#756156',
+    fontSize: 14,
+    marginHorizontal: 20,
+    backgroundColor: Colors.background,
+  },
+  yourBTC: {
+    fontSize: 15,
+    fontFamily: 'RobotoSlab-Regular',
+    marginBottom: 10,
+    width: 200,
+    marginTop: 10,
+  },
+  paragraph: {
+    textAlign: 'center',
+    marginVertical: 20,
+    marginHorizontal: 40,
+    fontSize: 14,
+    color: 'brown',
+  },
+});

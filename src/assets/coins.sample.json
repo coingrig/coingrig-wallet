@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "version": 1
+  },
+  "list": [
+    {
+      "symbol": "USDC",
+      "name": "USDC",
+      "chain": "BSC",
+      "type": "coin",
+      "decimals": 8,
+      "contract": null
+    },
+    {
+      "symbol": "USDC",
+      "name": "USDC",
+      "chain": "ETH",
+      "type": "coin",
+      "decimals": 8,
+      "contract": null
+    }
+  ]
+}

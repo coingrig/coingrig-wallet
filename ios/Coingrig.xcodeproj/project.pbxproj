@@ -1,0 +1,979 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00E356F31AD99517003FC87E /* CoingrigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* CoingrigTests.m */; };
+		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		4E5404A726CD83330055EE3E /* RobotoSlab-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E54049E26CD83320055EE3E /* RobotoSlab-Bold.ttf */; };
+		4E5404A826CD83330055EE3E /* RobotoSlab-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E54049F26CD83320055EE3E /* RobotoSlab-ExtraLight.ttf */; };
+		4E5404A926CD83330055EE3E /* RobotoSlab-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E5404A026CD83320055EE3E /* RobotoSlab-ExtraBold.ttf */; };
+		4E5404AA26CD83330055EE3E /* RobotoSlab-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E5404A126CD83320055EE3E /* RobotoSlab-Light.ttf */; };
+		4E5404AB26CD83330055EE3E /* RobotoSlab-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E5404A226CD83320055EE3E /* RobotoSlab-Medium.ttf */; };
+		4E5404AC26CD83330055EE3E /* RobotoSlab-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E5404A326CD83320055EE3E /* RobotoSlab-SemiBold.ttf */; };
+		4E5404AD26CD83330055EE3E /* RobotoSlab-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E5404A426CD83320055EE3E /* RobotoSlab-Regular.ttf */; };
+		4E5404AE26CD83330055EE3E /* RobotoSlab-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E5404A526CD83320055EE3E /* RobotoSlab-Black.ttf */; };
+		4E5404AF26CD83330055EE3E /* RobotoSlab-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E5404A626CD83330055EE3E /* RobotoSlab-Thin.ttf */; };
+		5BBFAFBAD85CB9128AC703B4 /* libPods-Coingrig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87AEA7FC882C6B7889BFB6C8 /* libPods-Coingrig.a */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		A67F9FDA26E782FA00CC9AD1 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67F9FD926E782FA00CC9AD1 /* test.swift */; };
+		B74FE546EF460F39C063FDB6 /* libPods-Coingrig-CoingrigTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 233248F8EBC736D4AA067C7D /* libPods-Coingrig-CoingrigTests.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
+			remoteInfo = Coingrig;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00E356EE1AD99517003FC87E /* CoingrigTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoingrigTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* CoingrigTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoingrigTests.m; sourceTree = "<group>"; };
+		12461A5DA3CE2FFCA4594F13 /* Pods-Coingrig.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coingrig.release.xcconfig"; path = "Target Support Files/Pods-Coingrig/Pods-Coingrig.release.xcconfig"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* Coingrig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Coingrig.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Coingrig/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Coingrig/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Coingrig/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Coingrig/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Coingrig/main.m; sourceTree = "<group>"; };
+		15027C24D0974D3CB8B72F84 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		212EE65988BEA698DF4683F3 /* Pods-Coingrig-CoingrigTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coingrig-CoingrigTests.release.xcconfig"; path = "Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests.release.xcconfig"; sourceTree = "<group>"; };
+		233248F8EBC736D4AA067C7D /* libPods-Coingrig-CoingrigTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Coingrig-CoingrigTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		25277035794F4D3792CC654C /* RobotoSlab-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Medium.ttf"; path = "../src/assets/fonts/RobotoSlab-Medium.ttf"; sourceTree = "<group>"; };
+		2A03A6603E1A4889A6FCB33A /* RobotoSlab-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-ExtraBold.ttf"; path = "../src/assets/fonts/RobotoSlab-ExtraBold.ttf"; sourceTree = "<group>"; };
+		3C2D2CB1FE3D42C89FC8726A /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		4E54049E26CD83320055EE3E /* RobotoSlab-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoSlab-Bold.ttf"; path = "../src/assets/fonts/RobotoSlab-Bold.ttf"; sourceTree = "<group>"; };
+		4E54049F26CD83320055EE3E /* RobotoSlab-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoSlab-ExtraLight.ttf"; path = "../src/assets/fonts/RobotoSlab-ExtraLight.ttf"; sourceTree = "<group>"; };
+		4E5404A026CD83320055EE3E /* RobotoSlab-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoSlab-ExtraBold.ttf"; path = "../src/assets/fonts/RobotoSlab-ExtraBold.ttf"; sourceTree = "<group>"; };
+		4E5404A126CD83320055EE3E /* RobotoSlab-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoSlab-Light.ttf"; path = "../src/assets/fonts/RobotoSlab-Light.ttf"; sourceTree = "<group>"; };
+		4E5404A226CD83320055EE3E /* RobotoSlab-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoSlab-Medium.ttf"; path = "../src/assets/fonts/RobotoSlab-Medium.ttf"; sourceTree = "<group>"; };
+		4E5404A326CD83320055EE3E /* RobotoSlab-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoSlab-SemiBold.ttf"; path = "../src/assets/fonts/RobotoSlab-SemiBold.ttf"; sourceTree = "<group>"; };
+		4E5404A426CD83320055EE3E /* RobotoSlab-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoSlab-Regular.ttf"; path = "../src/assets/fonts/RobotoSlab-Regular.ttf"; sourceTree = "<group>"; };
+		4E5404A526CD83320055EE3E /* RobotoSlab-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoSlab-Black.ttf"; path = "../src/assets/fonts/RobotoSlab-Black.ttf"; sourceTree = "<group>"; };
+		4E5404A626CD83330055EE3E /* RobotoSlab-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoSlab-Thin.ttf"; path = "../src/assets/fonts/RobotoSlab-Thin.ttf"; sourceTree = "<group>"; };
+		4ECEF88926CC36B80069C5C1 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
+		4ECEF88A26CC36B80069C5C1 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
+		4ECEF88B26CC36B80069C5C1 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
+		4ECEF88C26CC36B80069C5C1 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
+		4ECEF88D26CC36B80069C5C1 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
+		4ECEF88E26CC36B80069C5C1 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialCommunityIcons.ttf; sourceTree = "<group>"; };
+		4ECEF88F26CC36B80069C5C1 /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AntDesign.ttf; sourceTree = "<group>"; };
+		4ECEF89026CC36B80069C5C1 /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Foundation.ttf; sourceTree = "<group>"; };
+		4ECEF89126CC36B80069C5C1 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
+		4ECEF89226CC36B80069C5C1 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Solid.ttf; sourceTree = "<group>"; };
+		4ECEF89326CC36B80069C5C1 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
+		4ECEF89426CC36B80069C5C1 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		4ECEF89526CC36B80069C5C1 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
+		4ECEF89626CC36B80069C5C1 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
+		4ECEF89726CC36B80069C5C1 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
+		4ECEF89826CC36B80069C5C1 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		51BB8C5211F4446D987FE6CD /* RobotoSlab-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Black.ttf"; path = "../src/assets/fonts/RobotoSlab-Black.ttf"; sourceTree = "<group>"; };
+		535D86E5C0974FA2B6181149 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		54525C124F5D466C8E17B012 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		62E2855EB1614071B6ACF6AA /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		67D0B4F4B0254DD2BD61F654 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Coingrig/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		81B27697F091481A948F91AA /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		865FD0F7B68D4BDAB3577A94 /* RobotoSlab-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Light.ttf"; path = "../src/assets/fonts/RobotoSlab-Light.ttf"; sourceTree = "<group>"; };
+		87AEA7FC882C6B7889BFB6C8 /* libPods-Coingrig.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Coingrig.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		968B866E1160F5B82451E656 /* Pods-Coingrig-CoingrigTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coingrig-CoingrigTests.debug.xcconfig"; path = "Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9A1F3FBCDE5B4BA5BE1705C8 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		9A2B60DAAC424A81AC7403D4 /* RobotoSlab-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-SemiBold.ttf"; path = "../src/assets/fonts/RobotoSlab-SemiBold.ttf"; sourceTree = "<group>"; };
+		A05B5316E83D7F83AC804D7B /* Pods-Coingrig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coingrig.debug.xcconfig"; path = "Target Support Files/Pods-Coingrig/Pods-Coingrig.debug.xcconfig"; sourceTree = "<group>"; };
+		A253347E5B3640B98626F5E3 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		A67F9FD626E7829D00CC9AD1 /* liblottie-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "liblottie-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A67F9FD826E782FA00CC9AD1 /* Coingrig-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Coingrig-Bridging-Header.h"; sourceTree = "<group>"; };
+		A67F9FD926E782FA00CC9AD1 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		ACB5A85A930F46F38B91DA3F /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		AF0958351FDB448C9C8BFC30 /* RobotoSlab-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Bold.ttf"; path = "../src/assets/fonts/RobotoSlab-Bold.ttf"; sourceTree = "<group>"; };
+		C5FEFDC753BE4DB9A5E9B522 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
+		CBAE19816AB34107BF1CE967 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		CC296406A1854F699C1A7295 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		D7F920DE5F5242BCAE2ACC6B /* RobotoSlab-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-ExtraLight.ttf"; path = "../src/assets/fonts/RobotoSlab-ExtraLight.ttf"; sourceTree = "<group>"; };
+		DD47B5C5F2FF4C1F9233447D /* RobotoSlab-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Regular.ttf"; path = "../src/assets/fonts/RobotoSlab-Regular.ttf"; sourceTree = "<group>"; };
+		DE2F220E83CD499D925FF398 /* RobotoSlab-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Thin.ttf"; path = "../src/assets/fonts/RobotoSlab-Thin.ttf"; sourceTree = "<group>"; };
+		E124AE95F9F74764BC787314 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EFEE5B6179DC4EBBBFCB511D /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
+		F20250E480104A3799A6A04E /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		00E356EB1AD99517003FC87E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B74FE546EF460F39C063FDB6 /* libPods-Coingrig-CoingrigTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BBFAFBAD85CB9128AC703B4 /* libPods-Coingrig.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		00E356EF1AD99517003FC87E /* CoingrigTests */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F21AD99517003FC87E /* CoingrigTests.m */,
+				00E356F01AD99517003FC87E /* Supporting Files */,
+			);
+			path = CoingrigTests;
+			sourceTree = "<group>";
+		};
+		00E356F01AD99517003FC87E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F11AD99517003FC87E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		13B07FAE1A68108700A75B9A /* Coingrig */ = {
+			isa = PBXGroup;
+			children = (
+				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				13B07FB61A68108700A75B9A /* Info.plist */,
+				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
+				13B07FB71A68108700A75B9A /* main.m */,
+			);
+			name = Coingrig;
+			sourceTree = "<group>";
+		};
+		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A67F9FD626E7829D00CC9AD1 /* liblottie-ios.a */,
+				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
+				87AEA7FC882C6B7889BFB6C8 /* libPods-Coingrig.a */,
+				233248F8EBC736D4AA067C7D /* libPods-Coingrig-CoingrigTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4ECEF88826CC36B80069C5C1 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				4ECEF88926CC36B80069C5C1 /* Fontisto.ttf */,
+				4ECEF88A26CC36B80069C5C1 /* Octicons.ttf */,
+				4ECEF88B26CC36B80069C5C1 /* Feather.ttf */,
+				4ECEF88C26CC36B80069C5C1 /* Entypo.ttf */,
+				4ECEF88D26CC36B80069C5C1 /* FontAwesome5_Brands.ttf */,
+				4ECEF88E26CC36B80069C5C1 /* MaterialCommunityIcons.ttf */,
+				4ECEF88F26CC36B80069C5C1 /* AntDesign.ttf */,
+				4ECEF89026CC36B80069C5C1 /* Foundation.ttf */,
+				4ECEF89126CC36B80069C5C1 /* Ionicons.ttf */,
+				4ECEF89226CC36B80069C5C1 /* FontAwesome5_Solid.ttf */,
+				4ECEF89326CC36B80069C5C1 /* FontAwesome5_Regular.ttf */,
+				4ECEF89426CC36B80069C5C1 /* FontAwesome.ttf */,
+				4ECEF89526CC36B80069C5C1 /* Zocial.ttf */,
+				4ECEF89626CC36B80069C5C1 /* EvilIcons.ttf */,
+				4ECEF89726CC36B80069C5C1 /* SimpleLineIcons.ttf */,
+				4ECEF89826CC36B80069C5C1 /* MaterialIcons.ttf */,
+			);
+			name = Fonts;
+			path = "../node_modules/react-native-vector-icons/Fonts";
+			sourceTree = "<group>";
+		};
+		51478C07FE8E345391B530BD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A05B5316E83D7F83AC804D7B /* Pods-Coingrig.debug.xcconfig */,
+				12461A5DA3CE2FFCA4594F13 /* Pods-Coingrig.release.xcconfig */,
+				968B866E1160F5B82451E656 /* Pods-Coingrig-CoingrigTests.debug.xcconfig */,
+				212EE65988BEA698DF4683F3 /* Pods-Coingrig-CoingrigTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		6D1E83F5BA4747E38ACBC5AF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				51BB8C5211F4446D987FE6CD /* RobotoSlab-Black.ttf */,
+				AF0958351FDB448C9C8BFC30 /* RobotoSlab-Bold.ttf */,
+				2A03A6603E1A4889A6FCB33A /* RobotoSlab-ExtraBold.ttf */,
+				D7F920DE5F5242BCAE2ACC6B /* RobotoSlab-ExtraLight.ttf */,
+				865FD0F7B68D4BDAB3577A94 /* RobotoSlab-Light.ttf */,
+				25277035794F4D3792CC654C /* RobotoSlab-Medium.ttf */,
+				DD47B5C5F2FF4C1F9233447D /* RobotoSlab-Regular.ttf */,
+				9A2B60DAAC424A81AC7403D4 /* RobotoSlab-SemiBold.ttf */,
+				DE2F220E83CD499D925FF398 /* RobotoSlab-Thin.ttf */,
+				C5FEFDC753BE4DB9A5E9B522 /* AntDesign.ttf */,
+				A253347E5B3640B98626F5E3 /* Entypo.ttf */,
+				CBAE19816AB34107BF1CE967 /* EvilIcons.ttf */,
+				ACB5A85A930F46F38B91DA3F /* Feather.ttf */,
+				CC296406A1854F699C1A7295 /* FontAwesome.ttf */,
+				EFEE5B6179DC4EBBBFCB511D /* FontAwesome5_Brands.ttf */,
+				67D0B4F4B0254DD2BD61F654 /* FontAwesome5_Regular.ttf */,
+				E124AE95F9F74764BC787314 /* FontAwesome5_Solid.ttf */,
+				535D86E5C0974FA2B6181149 /* Fontisto.ttf */,
+				9A1F3FBCDE5B4BA5BE1705C8 /* Foundation.ttf */,
+				3C2D2CB1FE3D42C89FC8726A /* Ionicons.ttf */,
+				15027C24D0974D3CB8B72F84 /* MaterialCommunityIcons.ttf */,
+				54525C124F5D466C8E17B012 /* MaterialIcons.ttf */,
+				81B27697F091481A948F91AA /* Octicons.ttf */,
+				62E2855EB1614071B6ACF6AA /* SimpleLineIcons.ttf */,
+				F20250E480104A3799A6A04E /* Zocial.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		83CBB9F61A601CBA00E9B192 = {
+			isa = PBXGroup;
+			children = (
+				A67F9FD926E782FA00CC9AD1 /* test.swift */,
+				4E5404A526CD83320055EE3E /* RobotoSlab-Black.ttf */,
+				4E54049E26CD83320055EE3E /* RobotoSlab-Bold.ttf */,
+				4E5404A026CD83320055EE3E /* RobotoSlab-ExtraBold.ttf */,
+				4E54049F26CD83320055EE3E /* RobotoSlab-ExtraLight.ttf */,
+				4E5404A126CD83320055EE3E /* RobotoSlab-Light.ttf */,
+				4E5404A226CD83320055EE3E /* RobotoSlab-Medium.ttf */,
+				4E5404A426CD83320055EE3E /* RobotoSlab-Regular.ttf */,
+				4E5404A326CD83320055EE3E /* RobotoSlab-SemiBold.ttf */,
+				4E5404A626CD83330055EE3E /* RobotoSlab-Thin.ttf */,
+				4ECEF88826CC36B80069C5C1 /* Fonts */,
+				13B07FAE1A68108700A75B9A /* Coingrig */,
+				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				00E356EF1AD99517003FC87E /* CoingrigTests */,
+				83CBBA001A601CBA00E9B192 /* Products */,
+				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				51478C07FE8E345391B530BD /* Pods */,
+				6D1E83F5BA4747E38ACBC5AF /* Resources */,
+				A67F9FD826E782FA00CC9AD1 /* Coingrig-Bridging-Header.h */,
+			);
+			indentWidth = 2;
+			sourceTree = "<group>";
+			tabWidth = 2;
+			usesTabs = 0;
+		};
+		83CBBA001A601CBA00E9B192 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				13B07F961A680F5B00A75B9A /* Coingrig.app */,
+				00E356EE1AD99517003FC87E /* CoingrigTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		00E356ED1AD99517003FC87E /* CoingrigTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "CoingrigTests" */;
+			buildPhases = (
+				49246E18F91900362BBB0B33 /* [CP] Check Pods Manifest.lock */,
+				00E356EA1AD99517003FC87E /* Sources */,
+				00E356EB1AD99517003FC87E /* Frameworks */,
+				00E356EC1AD99517003FC87E /* Resources */,
+				7D86DB0E7EA55C227E932909 /* [CP] Embed Pods Frameworks */,
+				F811524E07552643A31C2983 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00E356F51AD99517003FC87E /* PBXTargetDependency */,
+			);
+			name = CoingrigTests;
+			productName = CoingrigTests;
+			productReference = 00E356EE1AD99517003FC87E /* CoingrigTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		13B07F861A680F5B00A75B9A /* Coingrig */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Coingrig" */;
+			buildPhases = (
+				493772A7A2E4C6D141D03CCB /* [CP] Check Pods Manifest.lock */,
+				FD10A7F022414F080027D42C /* Start Packager */,
+				13B07F871A680F5B00A75B9A /* Sources */,
+				13B07F8C1A680F5B00A75B9A /* Frameworks */,
+				13B07F8E1A680F5B00A75B9A /* Resources */,
+				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				720695C266C38D0B6A5DC20D /* [CP] Embed Pods Frameworks */,
+				585ED25C63D587AC88F0039D /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Coingrig;
+			productName = Coingrig;
+			productReference = 13B07F961A680F5B00A75B9A /* Coingrig.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		83CBB9F71A601CBA00E9B192 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1210;
+				TargetAttributes = {
+					00E356ED1AD99517003FC87E = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						LastSwiftMigration = 1240;
+					};
+				};
+			};
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Coingrig" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 83CBB9F61A601CBA00E9B192;
+			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				13B07F861A680F5B00A75B9A /* Coingrig */,
+				00E356ED1AD99517003FC87E /* CoingrigTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		00E356EC1AD99517003FC87E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8E1A680F5B00A75B9A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				4E5404A726CD83330055EE3E /* RobotoSlab-Bold.ttf in Resources */,
+				4E5404A826CD83330055EE3E /* RobotoSlab-ExtraLight.ttf in Resources */,
+				4E5404A926CD83330055EE3E /* RobotoSlab-ExtraBold.ttf in Resources */,
+				4E5404AA26CD83330055EE3E /* RobotoSlab-Light.ttf in Resources */,
+				4E5404AB26CD83330055EE3E /* RobotoSlab-Medium.ttf in Resources */,
+				4E5404AC26CD83330055EE3E /* RobotoSlab-SemiBold.ttf in Resources */,
+				4E5404AD26CD83330055EE3E /* RobotoSlab-Regular.ttf in Resources */,
+				4E5404AE26CD83330055EE3E /* RobotoSlab-Black.ttf in Resources */,
+				4E5404AF26CD83330055EE3E /* RobotoSlab-Thin.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		49246E18F91900362BBB0B33 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Coingrig-CoingrigTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		493772A7A2E4C6D141D03CCB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Coingrig-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		585ED25C63D587AC88F0039D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Coingrig/Pods-Coingrig-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Coingrig/Pods-Coingrig-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Coingrig/Pods-Coingrig-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		720695C266C38D0B6A5DC20D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Coingrig/Pods-Coingrig-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Coingrig/Pods-Coingrig-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Coingrig/Pods-Coingrig-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7D86DB0E7EA55C227E932909 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F811524E07552643A31C2983 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD10A7F022414F080027D42C /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		00E356EA1AD99517003FC87E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00E356F31AD99517003FC87E /* CoingrigTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F871A680F5B00A75B9A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				A67F9FDA26E782FA00CC9AD1 /* test.swift in Sources */,
+				13B07FC11A68108700A75B9A /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13B07F861A680F5B00A75B9A /* Coingrig */;
+			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		00E356F61AD99517003FC87E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 968B866E1160F5B82451E656 /* Pods-Coingrig-CoingrigTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CoingrigTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Coingrig.app/Coingrig";
+			};
+			name = Debug;
+		};
+		00E356F71AD99517003FC87E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 212EE65988BEA698DF4683F3 /* Pods-Coingrig-CoingrigTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				INFOPLIST_FILE = CoingrigTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Coingrig.app/Coingrig";
+			};
+			name = Release;
+		};
+		13B07F941A680F5B00A75B9A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A05B5316E83D7F83AC804D7B /* Pods-Coingrig.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 21;
+				DEVELOPMENT_TEAM = L63HFFVTBZ;
+				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/CocoaAsyncSocket\"",
+					"\"${PODS_ROOT}/Headers/Public/DoubleConversion\"",
+					"\"${PODS_ROOT}/Headers/Public/FBLazyVector\"",
+					"\"${PODS_ROOT}/Headers/Public/FBReactNativeSpec\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper-DoubleConversion\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper-Folly\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper-Glog\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper-PeerTalk\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper-RSocket\"",
+					"\"${PODS_ROOT}/Headers/Public/FlipperKit\"",
+					"\"${PODS_ROOT}/Headers/Public/Permission-Camera\"",
+					"\"${PODS_ROOT}/Headers/Public/RCT-Folly\"",
+					"\"${PODS_ROOT}/Headers/Public/RCTRequired\"",
+					"\"${PODS_ROOT}/Headers/Public/RCTTypeSafety\"",
+					"\"${PODS_ROOT}/Headers/Public/RNCAsyncStorage\"",
+					"\"${PODS_ROOT}/Headers/Public/RNCClipboard\"",
+					"\"${PODS_ROOT}/Headers/Public/RNDeviceInfo\"",
+					"\"${PODS_ROOT}/Headers/Public/RNFastImage\"",
+					"\"${PODS_ROOT}/Headers/Public/RNGestureHandler\"",
+					"\"${PODS_ROOT}/Headers/Public/RNInAppBrowser\"",
+					"\"${PODS_ROOT}/Headers/Public/RNKeychain\"",
+					"\"${PODS_ROOT}/Headers/Public/RNOS\"",
+					"\"${PODS_ROOT}/Headers/Public/RNPermissions\"",
+					"\"${PODS_ROOT}/Headers/Public/RNReanimated\"",
+					"\"${PODS_ROOT}/Headers/Public/RNSVG\"",
+					"\"${PODS_ROOT}/Headers/Public/RNScreens\"",
+					"\"${PODS_ROOT}/Headers/Public/RNShare\"",
+					"\"${PODS_ROOT}/Headers/Public/RNSmartCode\"",
+					"\"${PODS_ROOT}/Headers/Public/RNVectorIcons\"",
+					"\"${PODS_ROOT}/Headers/Public/React-Core\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTBlob\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTText\"",
+					"\"${PODS_ROOT}/Headers/Public/React-callinvoker\"",
+					"\"${PODS_ROOT}/Headers/Public/React-cxxreact\"",
+					"\"${PODS_ROOT}/Headers/Public/React-jsi\"",
+					"\"${PODS_ROOT}/Headers/Public/React-jsiexecutor\"",
+					"\"${PODS_ROOT}/Headers/Public/React-jsinspector\"",
+					"\"${PODS_ROOT}/Headers/Public/React-perflogger\"",
+					"\"${PODS_ROOT}/Headers/Public/React-runtimeexecutor\"",
+					"\"${PODS_ROOT}/Headers/Public/ReactCommon\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImageWebPCoder\"",
+					"\"${PODS_ROOT}/Headers/Public/TouchID\"",
+					"\"${PODS_ROOT}/Headers/Public/Yoga\"",
+					"\"${PODS_ROOT}/Headers/Public/YogaKit\"",
+					"\"${PODS_ROOT}/Headers/Public/glog\"",
+					"\"${PODS_ROOT}/Headers/Public/libevent\"",
+					"\"${PODS_ROOT}/Headers/Public/libwebp\"",
+					"\"${PODS_ROOT}/Headers/Public/lottie-react-native\"",
+					"\"${PODS_ROOT}/Headers/Public/react-native-camera\"",
+					"\"${PODS_ROOT}/Headers/Public/react-native-encrypted-storage\"",
+					"\"${PODS_ROOT}/Headers/Public/react-native-pager-view\"",
+					"\"${PODS_ROOT}/Headers/Public/react-native-randombytes\"",
+					"\"${PODS_ROOT}/Headers/Public/react-native-restart\"",
+					"\"${PODS_ROOT}/Headers/Public/react-native-safe-area-context\"",
+					"\"${PODS_ROOT}/Headers/Public/react-native-splash-screen\"",
+					"\"$(PODS_ROOT)/boost-for-react-native\"",
+					"\"$(PODS_ROOT)/boost-for-react-native\"",
+					"\"$(PODS_ROOT)/glog\"",
+					"\"$(PODS_ROOT)/RCT-Folly\"",
+					"\"$(PODS_ROOT)/Headers/Private/React-Core\"",
+					"\"$(PODS_TARGET_SRCROOT)/include/\"",
+					"\"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+				);
+				INFOPLIST_FILE = Coingrig/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.coingrig.app;
+				PRODUCT_NAME = Coingrig;
+				PROVISIONING_PROFILE_SPECIFIER = "coingrig dist";
+				SWIFT_OBJC_BRIDGING_HEADER = "Coingrig-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		13B07F951A680F5B00A75B9A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 12461A5DA3CE2FFCA4594F13 /* Pods-Coingrig.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 21;
+				DEVELOPMENT_TEAM = L63HFFVTBZ;
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/CocoaAsyncSocket\"",
+					"\"${PODS_ROOT}/Headers/Public/DoubleConversion\"",
+					"\"${PODS_ROOT}/Headers/Public/FBLazyVector\"",
+					"\"${PODS_ROOT}/Headers/Public/FBReactNativeSpec\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper-DoubleConversion\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper-Folly\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper-Glog\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper-PeerTalk\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper-RSocket\"",
+					"\"${PODS_ROOT}/Headers/Public/FlipperKit\"",
+					"\"${PODS_ROOT}/Headers/Public/Permission-Camera\"",
+					"\"${PODS_ROOT}/Headers/Public/RCT-Folly\"",
+					"\"${PODS_ROOT}/Headers/Public/RCTRequired\"",
+					"\"${PODS_ROOT}/Headers/Public/RCTTypeSafety\"",
+					"\"${PODS_ROOT}/Headers/Public/RNCAsyncStorage\"",
+					"\"${PODS_ROOT}/Headers/Public/RNCClipboard\"",
+					"\"${PODS_ROOT}/Headers/Public/RNDeviceInfo\"",
+					"\"${PODS_ROOT}/Headers/Public/RNFastImage\"",
+					"\"${PODS_ROOT}/Headers/Public/RNGestureHandler\"",
+					"\"${PODS_ROOT}/Headers/Public/RNInAppBrowser\"",
+					"\"${PODS_ROOT}/Headers/Public/RNKeychain\"",
+					"\"${PODS_ROOT}/Headers/Public/RNOS\"",
+					"\"${PODS_ROOT}/Headers/Public/RNPermissions\"",
+					"\"${PODS_ROOT}/Headers/Public/RNReanimated\"",
+					"\"${PODS_ROOT}/Headers/Public/RNSVG\"",
+					"\"${PODS_ROOT}/Headers/Public/RNScreens\"",
+					"\"${PODS_ROOT}/Headers/Public/RNShare\"",
+					"\"${PODS_ROOT}/Headers/Public/RNSmartCode\"",
+					"\"${PODS_ROOT}/Headers/Public/RNVectorIcons\"",
+					"\"${PODS_ROOT}/Headers/Public/React-Core\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTBlob\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTText\"",
+					"\"${PODS_ROOT}/Headers/Public/React-callinvoker\"",
+					"\"${PODS_ROOT}/Headers/Public/React-cxxreact\"",
+					"\"${PODS_ROOT}/Headers/Public/React-jsi\"",
+					"\"${PODS_ROOT}/Headers/Public/React-jsiexecutor\"",
+					"\"${PODS_ROOT}/Headers/Public/React-jsinspector\"",
+					"\"${PODS_ROOT}/Headers/Public/React-perflogger\"",
+					"\"${PODS_ROOT}/Headers/Public/React-runtimeexecutor\"",
+					"\"${PODS_ROOT}/Headers/Public/ReactCommon\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImageWebPCoder\"",
+					"\"${PODS_ROOT}/Headers/Public/TouchID\"",
+					"\"${PODS_ROOT}/Headers/Public/Yoga\"",
+					"\"${PODS_ROOT}/Headers/Public/YogaKit\"",
+					"\"${PODS_ROOT}/Headers/Public/glog\"",
+					"\"${PODS_ROOT}/Headers/Public/libevent\"",
+					"\"${PODS_ROOT}/Headers/Public/libwebp\"",
+					"\"${PODS_ROOT}/Headers/Public/lottie-react-native\"",
+					"\"${PODS_ROOT}/Headers/Public/react-native-camera\"",
+					"\"${PODS_ROOT}/Headers/Public/react-native-encrypted-storage\"",
+					"\"${PODS_ROOT}/Headers/Public/react-native-pager-view\"",
+					"\"${PODS_ROOT}/Headers/Public/react-native-randombytes\"",
+					"\"${PODS_ROOT}/Headers/Public/react-native-restart\"",
+					"\"${PODS_ROOT}/Headers/Public/react-native-safe-area-context\"",
+					"\"${PODS_ROOT}/Headers/Public/react-native-splash-screen\"",
+					"\"$(PODS_ROOT)/boost-for-react-native\"",
+					"\"$(PODS_ROOT)/boost-for-react-native\"",
+					"\"$(PODS_ROOT)/glog\"",
+					"\"$(PODS_ROOT)/RCT-Folly\"",
+					"\"$(PODS_ROOT)/Headers/Private/React-Core\"",
+					"\"$(PODS_TARGET_SRCROOT)/include/\"",
+					"\"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+				);
+				INFOPLIST_FILE = Coingrig/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.coingrig.app;
+				PRODUCT_NAME = Coingrig;
+				PROVISIONING_PROFILE_SPECIFIER = "coingrig dist";
+				SWIFT_OBJC_BRIDGING_HEADER = "Coingrig-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		83CBBA201A601CBA00E9B192 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		83CBBA211A601CBA00E9B192 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "CoingrigTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00E356F61AD99517003FC87E /* Debug */,
+				00E356F71AD99517003FC87E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Coingrig" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13B07F941A680F5B00A75B9A /* Debug */,
+				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Coingrig" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83CBBA201A601CBA00E9B192 /* Debug */,
+				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
+}
