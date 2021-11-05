@@ -51,7 +51,7 @@ const WalletScreen = observer(({route}) => {
     const unsubscribe = navigation.addListener('focus', () => {
       setTimeout(() => {
         CryptoService.getAccountBalance();
-      }, 1000);
+      }, 2000);
     });
 
     return unsubscribe;
