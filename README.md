@@ -46,7 +46,6 @@ npx react-native run-android
 
 -   Install the iOS dependencies
     -   [React Native Getting Started - iOS](https://reactnative.dev/docs/environment-setup#installing-dependencies) _(React Native CLI Quickstart -> [your OS] -> iOS)_
-        -   You do **not** need CocoaPods
 -   Install the correct simulator
 ```bash
 npx react-native run-ios
