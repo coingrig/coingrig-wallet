@@ -74,10 +74,13 @@ class CryptoService {
           privKey: chainKeys[chain],
           walletAddress: WalletStore.getWalletAddressByChain(chain),
         });
-        WalletStore.setPrice(
-          wallet.symbol,
-          parseFloat(prices[wallet.name.toLowerCase()]?.usd ?? '0'),
-        );
+        // Don't update the price if none is available from the provider
+        let newPrice = prices[wallet.name.toLowerCase()]?.usd ?? null;
+        if (newPrice !== null) {
+          // The price can be actually 0
+          newPrice = parseFloat(newPrice);
+          WalletStore.setPrice(wallet.symbol, newPrice);
+        }        
         let cryptoWallet = WalletFactory.getWallet(wallet);
         const balance = await cryptoWallet.getBalance();
         const unconfirmedBalance = balance.getUnconfirmedBalance();
