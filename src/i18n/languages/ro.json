@@ -45,6 +45,7 @@
       "wallet.transactions": "Transactions",
       "wallet.receive": "Receive",
       "wallet.unconfirmed_tx": "Unconfirmed transaction(s) value:",
+      "wallet.buysell": "Cumpara / Vinde",
 
       "coindetails.change": "Change 24h",
       "coindetails.price": "Price",
