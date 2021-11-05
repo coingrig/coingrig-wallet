@@ -173,7 +173,7 @@ const WalletScreen = observer(({route}) => {
           }>
           <Text adjustsFontSizeToFit numberOfLines={1} style={styles.bigText}>
             {formatPrice(
-              WalletStore.getWalletByCoinId(route.params.coin)?.value,
+              WalletStore.getWalletByCoinId(route.params.coin)?.value ?? 0,
             ) || 0}
           </Text>
           <Text style={styles.coins}>
