@@ -1,12 +1,13 @@
 import {COINS_MIN, STORED_CHAIN_KEYS} from 'utils/constants';
 import {MarketStore} from 'stores/market';
 import {WalletStore} from 'stores/wallet';
-import {IWalletConfig, WalletFactory} from '@coingrig/core';
+import {WalletFactory} from '@coingrig/core';
 import {StorageSetItem, StorageGetItem} from './storage';
-import {SettingsStore} from 'stores/settings';
 import endpoints from 'utils/endpoints';
 
 class CryptoService {
+  lastFetchedBalance = 0;
+
   setChainPrivateKeys = async keys => {
     return StorageSetItem(STORED_CHAIN_KEYS, JSON.stringify(keys), true);
   };
@@ -50,6 +51,11 @@ class CryptoService {
   };
 
   getAccountBalance = async () => {
+    const now = Date.now();
+    if (now - this.lastFetchedBalance! < 30 * 1000) {
+      return true;
+    }
+    this.lastFetchedBalance = now;
     try {
       if (MarketStore.coins.length <= 10) {
         let coins = await MarketStore.getTopCoins(COINS_MIN);
