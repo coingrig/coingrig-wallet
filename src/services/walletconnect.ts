@@ -1,75 +1,81 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import WalletConnectClient from '@walletconnect/client';
-import {CLIENT_EVENTS} from '@walletconnect/client';
-import {SessionTypes} from '@walletconnect/types';
+import RNWalletConnect from '@walletconnect/client';
 
-// const wc = new WalletConnectService();
-// setTimeout(() => {
-//   const uri =
-//     'wc:bd39b01d-c861-438c-afd7-d6d4d9ee5815@1?bridge=https%3A%2F%2Fe.bridge.walletconnect.org&key=df479188ca9116bdfcb7d2d8600190cb5e0944da3948b4e119f1a79d97cf4c47';
-//   console.log(
-//     '---------------------------------------------------------------',
-//   );
-//   wc.client.pair({uri});
-// }, 5000);
+const CLIENT_OPTIONS = {
+  clientMeta: {
+    description: 'Coingrig Wallet',
+    url: 'https://coingrig.com',
+    icons: ['https://coingrig.com/assets/logo.png'],
+    name: 'Coingrig',
+    ssl: true,
+  },
+};
+
+// let uri = '-- FROM QR CODE --';
+// const data: any = {uri};
+// data.redirect = '';
+// data.autosign = false;
+// const wc = new WalletConnectService(data);
 
 class WalletConnectService {
-  client: any;
-  constructor() {
-    this.init();
+  walletConnector: any;
+  constructor(options) {
+    this.walletConnector = new RNWalletConnect({...options, ...CLIENT_OPTIONS});
+    this.walletConnector.on('session_request', async (error, payload) => {
+      if (error) {
+        throw error;
+      }
+      console.log(payload);
+      try {
+        const sessionData = {
+          ...payload.params[0],
+          autosign: false,
+        };
+        console.log('WC:', sessionData);
+        setTimeout(async () => {
+          // Ask user
+          const approveData = {
+            chainId: 56,
+            accounts: ['0x1301bae64b42bf67697a3d9be51262c962c0b9a7'],
+          };
+          await this.walletConnector.approveSession(approveData);
+        }, 5000);
+      } catch (e) {
+        this.walletConnector.rejectSession();
+      }
+    });
+    this.walletConnector.on('call_request', async (error, payload) => {
+      if (error) {
+        throw error;
+      }
+      console.log(payload);
+
+      if (payload.method) {
+        if (payload.method === 'eth_sendTransaction') {
+          console.log('-----eth_sendTransaction----');
+        } else if (payload.method === 'eth_sign') {
+          console.log('-----ETH SIGN----');
+        } else if (payload.method === 'personal_sign') {
+          console.log('-----personal_sign----');
+        } else if (payload.method && payload.method === 'eth_signTypedData') {
+          console.log('-----eth_signTypedData----');
+        }
+      }
+    });
+    this.walletConnector.on('disconnect', error => {
+      if (error) {
+        throw error;
+      }
+      this.walletConnector = null;
+      console.log('-----DISCONNECT------');
+    });
+
+    this.walletConnector.on('session_update', (error, payload) => {
+      console.log('WC: Session update', payload);
+      if (error) {
+        throw error;
+      }
+    });
   }
-  init = async () => {
-    //@ts-ignore
-    this.client = await WalletConnectClient.init({
-      //   logger: 'debug',
-      apiKey: '3c5e5b9fc6a64c31f8e7cd697bf541da',
-      controller: true,
-      relayProvider: 'wss://relay.walletconnect.com',
-      metadata: {
-        name: 'Test Wallet',
-        description: 'Test Wallet',
-        url: '#',
-        icons: ['https://walletconnect.com/walletconnect-logo.png'],
-      },
-      storageOptions: {
-        //@ts-ignore
-        asyncStorage: AsyncStorage,
-      },
-    });
-    //start listen
-    this.client.on(CLIENT_EVENTS.pairing.proposal, async proposal => {
-      console.log('pairing.proposal', proposal);
-    });
-
-    this.client.on(CLIENT_EVENTS.pairing.created, async proposal => {
-      console.log('pairing.created', proposal);
-    });
-
-    this.client.on(
-      CLIENT_EVENTS.session.created,
-      async (session: SessionTypes.Created) => {
-        // session created succesfully
-        console.log('session---------', session);
-      },
-    );
-  };
-  handleSessionUserApproval = async (
-    approved: boolean,
-    proposal: SessionTypes.Proposal,
-  ) => {
-    if (true) {
-      // if user approved then include response with accounts matching the chains and wallet metadata
-      const response: SessionTypes.Response = {
-        state: {
-          accounts: ['eip155:1:0x1d85568eEAbad713fBB5293B45ea066e552A90De'],
-        },
-      };
-      await this.client.approve({proposal, response});
-    } else {
-      // if user didn't approve then reject with no response
-      await this.client.reject({proposal});
-    }
-  };
 }
 
 export default WalletConnectService;
