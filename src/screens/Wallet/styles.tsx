@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     backgroundColor: Colors.foreground,
-    padding: 15,
+    alignItems: 'center',
     borderRadius: 50,
   },
   item: {

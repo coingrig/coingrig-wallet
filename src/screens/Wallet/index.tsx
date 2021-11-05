@@ -24,6 +24,7 @@ import {CryptoService} from 'services/crypto';
 import {Colors} from 'utils/colors';
 import {showMessage} from 'react-native-flash-message';
 import {SettingsStore} from 'stores/settings';
+import endpoints from 'utils/endpoints';
 
 const WalletScreen = observer(({route}) => {
   const navigation = useNavigation();
@@ -35,13 +36,24 @@ const WalletScreen = observer(({route}) => {
     navigation.setOptions({
       headerTitle: route.params.coin + ' ' + t('wallet.wallet'),
       headerRight: () => (
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('CoinDetailScreen', {coin: route.params.coin})
-          }
-          style={styles.moreBtn}>
-          <Icon name="stats-chart" size={20} color={Colors.foreground} />
-        </TouchableOpacity>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            onPress={() => showTransactions()}
+            style={styles.moreBtn}>
+            <Icon
+              name="list-circle-outline"
+              size={28}
+              color={Colors.foreground}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('CoinDetailScreen', {coin: route.params.coin})
+            }
+            style={styles.moreBtn}>
+            <Icon name="stats-chart" size={20} color={Colors.foreground} />
+          </TouchableOpacity>
+        </View>
       ),
     });
     getData();
@@ -108,6 +120,21 @@ const WalletScreen = observer(({route}) => {
     openLink(CryptoService.getBlockExplorer(route.params.coin));
   };
 
+  const buySellAction = () => {
+    const wallet = WalletStore.getWalletByCoinId(route.params.coin);
+    const address = WalletStore.getWalletAddressByChain(wallet?.chain ?? '');
+    const link =
+      endpoints.ramper +
+      '&onlyCryptos=' +
+      route.params.coin +
+      '&wallets=' +
+      route.params.coin +
+      ':' +
+      address;
+    console.log(link);
+    openLink(link);
+  };
+
   const renderUnconfirmedTx = () => {
     const unconfTx = WalletStore.getWalletByCoinId(
       route.params.coin,
@@ -170,11 +197,15 @@ const WalletScreen = observer(({route}) => {
             </View>
             <View style={{marginHorizontal: 15}}>
               <TouchableOpacity
-                onPress={() => showTransactions()}
+                onPress={() => buySellAction()}
                 style={styles.roundBtn}>
-                <Icon name="list" size={20} color={Colors.background} />
+                <Icon
+                  name="swap-horizontal"
+                  size={20}
+                  color={Colors.background}
+                />
               </TouchableOpacity>
-              <Text style={styles.roundb}>{t('wallet.transactions')}</Text>
+              <Text style={styles.roundb}>{t('wallet.buysell')}</Text>
             </View>
             <View style={{marginHorizontal: 15}}>
               <TouchableOpacity
