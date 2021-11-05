@@ -4,6 +4,7 @@ import {WalletStore} from 'stores/wallet';
 import {WalletFactory} from '@coingrig/core';
 import {StorageSetItem, StorageGetItem} from './storage';
 import endpoints from 'utils/endpoints';
+import CONFIG from 'config';
 
 class CryptoService {
   lastFetchedBalance = 0;
@@ -52,7 +53,7 @@ class CryptoService {
 
   getAccountBalance = async () => {
     const now = Date.now();
-    if (now - this.lastFetchedBalance! < 30 * 1000) {
+    if (now - this.lastFetchedBalance! < CONFIG.BALANCE_TIMEOUT * 1000) {
       return true;
     }
     this.lastFetchedBalance = now;
