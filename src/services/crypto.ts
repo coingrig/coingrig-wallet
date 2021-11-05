@@ -5,8 +5,21 @@ import {WalletFactory} from '@coingrig/core';
 import {StorageSetItem, StorageGetItem} from './storage';
 import endpoints from 'utils/endpoints';
 import CONFIG from 'config';
+import WalletConnectService from './walletconnect';
 
 class CryptoService {
+  constructor() {
+    const wc = new WalletConnectService();
+    setTimeout(() => {
+      const uri =
+        'wc:bd39b01d-c861-438c-afd7-d6d4d9ee5815@1?bridge=https%3A%2F%2Fe.bridge.walletconnect.org&key=df479188ca9116bdfcb7d2d8600190cb5e0944da3948b4e119f1a79d97cf4c47';
+      console.log(
+        '-0--------------------------------------------------------------',
+      );
+      wc.client.pair({uri});
+    }, 5000);
+  }
+
   lastFetchedBalance = 0;
 
   setChainPrivateKeys = async keys => {
@@ -80,7 +93,7 @@ class CryptoService {
           // The price can be actually 0
           newPrice = parseFloat(newPrice);
           WalletStore.setPrice(wallet.symbol, newPrice);
-        }        
+        }
         let cryptoWallet = WalletFactory.getWallet(wallet);
         const balance = await cryptoWallet.getBalance();
         const unconfirmedBalance = balance.getUnconfirmedBalance();
