@@ -38,9 +38,7 @@ const WalletScreen = observer(({route}) => {
       headerRight: () => (
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('CoinDetailScreen', {coin: route.params.coin})
-            }
+            onPress={() => showTransactions()}
             style={styles.moreBtn}>
             <Icon
               name="list-circle-outline"
@@ -49,7 +47,9 @@ const WalletScreen = observer(({route}) => {
             />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => showTransactions()}
+            onPress={() =>
+              navigation.navigate('CoinDetailScreen', {coin: route.params.coin})
+            }
             style={styles.moreBtn}>
             <Icon name="stats-chart" size={20} color={Colors.foreground} />
           </TouchableOpacity>
