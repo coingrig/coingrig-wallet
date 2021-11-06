@@ -40,7 +40,6 @@ export function SendContainer(props) {
   const [wallet, setWallet] = useState<any>();
   const [fees, setFees] = useState<any>();
   const [feeFiat, setFeeFiat] = useState<any>(0);
-  const [max, setMax] = useState<any>(0);
   const [toFiat, setToFiat] = useState<string>('$0');
   const [keyboardEnabled, setKeyboardEnabled] = useState(false);
 
@@ -60,7 +59,6 @@ export function SendContainer(props) {
   }, []);
 
   const setupWallet = async () => {
-    setMax(WalletStore.getWalletByCoinId(props.coin)?.balance ?? 0);
     let chainKeys = await CryptoService.getChainPrivateKeys();
     let descriptor = Object.assign({}, props.coinDescriptor, {
       privKey: chainKeys[props.coinDescriptor.chain],

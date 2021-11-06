@@ -41,5 +41,5 @@ class AppsStatesService {
     );
   }
 }
-
+//@ts-ignore
 export default new AppsStatesService();

@@ -14,7 +14,7 @@ import {Colors} from 'utils/colors';
 import {COIN_LIST} from 'utils/constants';
 import {showMessage} from 'react-native-flash-message';
 
-export default function ImportWalletScreen({route}) {
+export default function ImportWalletScreen({}) {
   const {t} = useTranslation();
   const navigation = useNavigation();
   const [copiedText, setCopiedText] = React.useState('');

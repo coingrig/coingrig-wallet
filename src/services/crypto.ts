@@ -80,7 +80,7 @@ class CryptoService {
           // The price can be actually 0
           newPrice = parseFloat(newPrice);
           WalletStore.setPrice(wallet.symbol, newPrice);
-        }        
+        }
         let cryptoWallet = WalletFactory.getWallet(wallet);
         const balance = await cryptoWallet.getBalance();
         const unconfirmedBalance = balance.getUnconfirmedBalance();
