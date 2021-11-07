@@ -3242,7 +3242,7 @@ combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-command-exists@^1.2.8:
+command-exists@^1.2.8, command-exists@^1.2.9:
   version "1.2.9"
   resolved "https://registry.yarnpkg.com/command-exists/-/command-exists-1.2.9.tgz#c50725af3808c8ab0260fd60b01fbfa25b954f69"
   integrity sha512-LTQ/SGc+s0Xc0Fu5WaKnR0YiygZkm9eKFvyS+fRsU7/ZWFF8ykFM6Pc9aCVf1+xasOOZpO3BAVgVrKvsqKHV7w==
@@ -8362,6 +8362,14 @@ react-native-animatable@1.3.3:
   dependencies:
     prop-types "^15.7.2"
 
+react-native-big-list@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/react-native-big-list/-/react-native-big-list-1.4.3.tgz#b5b8980e119183dd6337c0afbcea957eec9bc9ee"
+  integrity sha512-gP6CWSquEuLcKJmkmP/YbWhU9nyetpJ9jXYJHRor+iuRUSoA+21gK71GC0eGMPEg0Scl3+lfPhCH9JfECwYAXw==
+  dependencies:
+    prop-types "^15.7.2"
+    yarpm "^1.1.1"
+
 react-native-camera@4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/react-native-camera/-/react-native-camera-4.2.0.tgz#53529a780385214403697c6ff289069d43795fc1"
@@ -10870,3 +10878,11 @@ yargs@^16.2.0:
     string-width "^4.2.0"
     y18n "^5.0.5"
     yargs-parser "^20.2.2"
+
+yarpm@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/yarpm/-/yarpm-1.1.1.tgz#23e25e512b409d941524a9674718f1871e5fb52a"
+  integrity sha512-A3gVdtyld+gYcVmKScvJqS2oT/i9xdsb/SqDsY9c0+BeYdYBUJrRfr4pD7UP+5uXEneJ0BL0rC/6rd1fnlYEcg==
+  dependencies:
+    command-exists "^1.2.9"
+    cross-spawn "^7.0.3"

@@ -17,6 +17,7 @@ import {MarketCapCoinType, MarketStore} from 'stores/market';
 import {formatPrice, formatNumber} from 'utils';
 import {getAllCoins} from '@coingrig/core';
 import {showMessage} from 'react-native-flash-message';
+import {CryptoService} from 'services/crypto';
 
 const CoinDetailScreen = observer(({route}) => {
   const navigation = useNavigation();
@@ -29,8 +30,10 @@ const CoinDetailScreen = observer(({route}) => {
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
+    // console.log(route.params.coin.toUpperCase());
     navigation.setOptions({
-      headerTitle: route.params.coin.toUpperCase(),
+      headerTitle:
+        route.params.title?.toUpperCase() ?? route.params.coin.toUpperCase(),
     });
   }, []);
 
@@ -41,9 +44,8 @@ const CoinDetailScreen = observer(({route}) => {
   }, [transitionEnded]);
 
   const getData = async () => {
-    const data = find(MarketStore.coins, o => {
-      return o.symbol === route.params.coin.toLowerCase();
-    });
+    // get data from coingecko
+    const data = await CryptoService.getCoinDetails(route.params.coin);
     if (!data) {
       showMessage({
         message: t('message.error.remote_servers_not_available'),
@@ -52,16 +54,16 @@ const CoinDetailScreen = observer(({route}) => {
       setShowScreen(false);
       return;
     }
-    const p = formatPrice(data?.current_price);
+    const p = formatPrice(data?.market_data.current_price.usd);
     setPrice(p);
     setCoinData(data);
-    setChartData(data?.sparkline_in_7d?.price ?? []);
+    setChartData(data?.market_data.sparkline_7d?.price ?? []);
     setShowScreen(true);
   };
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
-    await getAllCoins(COINS_MAX);
+    await getData();
     setRefreshing(false);
   }, []);
 
@@ -93,7 +95,7 @@ const CoinDetailScreen = observer(({route}) => {
                   {
                     backgroundColor:
                       //@ts-ignore
-                      coinData?.price_change_percentage_24h < 0
+                      coinData?.market_data.price_change_percentage_24h < 0
                         ? '#d9534f'
                         : '#5cb85c',
                   },
@@ -108,7 +110,8 @@ const CoinDetailScreen = observer(({route}) => {
                   ]}
                   adjustsFontSizeToFit
                   numberOfLines={2}>
-                  {coinData?.price_change_percentage_24h.toFixed(2)}%
+                  {coinData?.market_data.price_change_percentage_24h.toFixed(2)}
+                  %
                 </Text>
               </View>
             </View>
@@ -149,7 +152,7 @@ const CoinDetailScreen = observer(({route}) => {
           <FastImage
             style={styles.logoimg}
             source={{
-              uri: coinData?.image,
+              uri: coinData?.image.large,
               priority: FastImage.priority.normal,
               cache: FastImage.cacheControl.immutable,
             }}
@@ -167,37 +170,41 @@ const CoinDetailScreen = observer(({route}) => {
             <View style={styles.item}>
               <Text style={styles.itemtext}>{t('coindetails.marketcap')}:</Text>
               <Text style={styles.textr}>
-                {formatPrice(coinData?.market_cap)}
+                {formatPrice(coinData?.market_data.market_cap.usd)}
               </Text>
             </View>
             <View style={styles.item}>
               <Text style={styles.itemtext}>{t('coindetails.volume')}:</Text>
               <Text style={styles.textr}>
-                {formatPrice(coinData?.total_volume)}
+                {formatPrice(coinData?.market_data.total_volume.usd)}
               </Text>
             </View>
             <View style={styles.item}>
               <Text style={styles.itemtext}>
                 {t('coindetails.all_time_high')}:
               </Text>
-              <Text style={styles.textr}>{formatPrice(coinData?.ath)}</Text>
+              <Text style={styles.textr}>
+                {formatPrice(coinData?.market_data.ath.usd)}
+              </Text>
             </View>
             <View style={styles.item}>
               <Text style={styles.itemtext}>{t('coindetails.high_24')}:</Text>
               <Text style={styles.textr}>
-                {formatPrice(coinData?.high_24h)}
+                {formatPrice(coinData?.market_data.high_24h.usd)}
               </Text>
             </View>
             <View style={styles.item}>
               <Text style={styles.itemtext}>{t('coindetails.low_24h')}:</Text>
-              <Text style={styles.textr}>{formatPrice(coinData?.low_24h)}</Text>
+              <Text style={styles.textr}>
+                {formatPrice(coinData?.market_data.low_24h.usd)}
+              </Text>
             </View>
             <View style={styles.item}>
               <Text style={styles.itemtext}>
                 {t('coindetails.circulating_supply')}:
               </Text>
               <Text style={styles.textr}>
-                {coinData?.circulating_supply != null
+                {coinData?.market_data.circulating_supply != null
                   ? formatNumber(coinData?.circulating_supply)
                   : '-'}
               </Text>
@@ -207,8 +214,8 @@ const CoinDetailScreen = observer(({route}) => {
                 {t('coindetails.max_supply')}:
               </Text>
               <Text style={styles.textr}>
-                {coinData?.max_supply != null
-                  ? formatNumber(coinData?.max_supply)
+                {coinData?.market_data.max_supply != null
+                  ? formatNumber(coinData?.market_data.max_supply)
                   : '-'}
               </Text>
             </View>
@@ -218,7 +225,7 @@ const CoinDetailScreen = observer(({route}) => {
               </Text>
               <Text style={styles.textr}>
                 {coinData?.total_supply != null
-                  ? formatNumber(coinData?.total_supply)
+                  ? formatNumber(coinData?.market_data.total_supply)
                   : '-'}
               </Text>
             </View>

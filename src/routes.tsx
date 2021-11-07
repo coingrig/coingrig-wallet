@@ -10,6 +10,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SplashScreen from 'screens/Splash';
 import DashboardScreen from 'screens/Dashboard';
+import SearchScreen from 'screens/Search';
 import GenerateWalletScreen from 'screens/WalletSetup/generateWallet';
 import ValidateWalletScreen from 'screens/WalletSetup/validateWallet';
 import StartScreen from 'screens/Start';
@@ -263,6 +264,14 @@ export function NavigationScreens() {
             fontSize: 20,
             justifyContent: 'center',
           },
+        }}
+      />
+      <Stack.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{
+          headerShown: false,
+          cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
         }}
       />
       <Stack.Screen

@@ -48,6 +48,7 @@ const WalletScreen = observer(({route}) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() =>
+              // TODO fix params
               navigation.navigate('CoinDetailScreen', {coin: route.params.coin})
             }
             style={styles.moreBtn}>

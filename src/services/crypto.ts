@@ -1,3 +1,4 @@
+var axios = require('axios');
 import {COINS_MIN, STORED_CHAIN_KEYS} from 'utils/constants';
 import {MarketStore} from 'stores/market';
 import {WalletStore} from 'stores/wallet';
@@ -80,7 +81,7 @@ class CryptoService {
           // The price can be actually 0
           newPrice = parseFloat(newPrice);
           WalletStore.setPrice(wallet.symbol, newPrice);
-        }        
+        }
         let cryptoWallet = WalletFactory.getWallet(wallet);
         const balance = await cryptoWallet.getBalance();
         const unconfirmedBalance = balance.getUnconfirmedBalance();
@@ -92,6 +93,22 @@ class CryptoService {
       console.log(error);
       return false;
     }
+  };
+
+  getCoinDetails = symbol => {
+    var config = {
+      method: 'get',
+      url:
+        'https://api.coingecko.com/api/v3/coins/' + symbol + '?sparkline=true',
+    };
+
+    return axios(config)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        return error;
+      });
   };
 }
 

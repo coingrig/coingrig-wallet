@@ -34,7 +34,7 @@ const MarketScreen = observer(() => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
-          onPress={() => navigation.navigate('NewsScreen')}
+          onPress={() => navigation.navigate('SearchScreen')}
           style={styles.moreBtn}>
           <Icon name="newspaper" size={23} color={Colors.foreground} />
         </TouchableOpacity>
@@ -65,7 +65,10 @@ const MarketScreen = observer(() => {
         change={item.price_change_percentage_24h}
         onPress={() =>
           //@ts-ignore
-          navigation.navigate('CoinDetailScreen', {coin: item.symbol})
+          navigation.navigate('CoinDetailScreen', {
+            coin: item.id,
+            title: item.symbol,
+          })
         }
       />
     );
