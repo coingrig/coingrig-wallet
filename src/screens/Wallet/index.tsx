@@ -34,7 +34,7 @@ const WalletScreen = observer(({route}) => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: route.params.coin + ' ' + t('wallet.wallet'),
+      headerTitle: route.params.symbol + ' ' + t('wallet.wallet'),
       headerRight: () => (
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity
@@ -49,7 +49,9 @@ const WalletScreen = observer(({route}) => {
           <TouchableOpacity
             onPress={() =>
               // TODO fix params
-              navigation.navigate('CoinDetailScreen', {coin: route.params.coin})
+              navigation.navigate('CoinDetailScreen', {
+                coin: route.params.coin,
+              })
             }
             style={styles.moreBtn}>
             <Icon name="stats-chart" size={20} color={Colors.foreground} />
@@ -86,7 +88,7 @@ const WalletScreen = observer(({route}) => {
   }, []);
   const getData = async () => {
     const data = find(MarketStore.coins, o => {
-      return o.symbol === route.params.coin.toLowerCase();
+      return o.symbol === route.params.symbol.toLowerCase();
     });
     setCoinData(data);
   };
@@ -118,18 +120,18 @@ const WalletScreen = observer(({route}) => {
   };
 
   const showTransactions = () => {
-    openLink(CryptoService.getBlockExplorer(route.params.coin));
+    openLink(CryptoService.getBlockExplorer(route.params.symbol));
   };
 
   const buySellAction = () => {
-    const wallet = WalletStore.getWalletByCoinId(route.params.coin);
+    const wallet = WalletStore.getWalletByCoinId(route.params.symbol);
     const address = WalletStore.getWalletAddressByChain(wallet?.chain ?? '');
     const link =
       endpoints.ramper +
       '&onlyCryptos=' +
-      route.params.coin +
+      route.params.symbol +
       '&wallets=' +
-      route.params.coin +
+      route.params.symbol +
       ':' +
       address;
     console.log(link);
@@ -138,7 +140,7 @@ const WalletScreen = observer(({route}) => {
 
   const renderUnconfirmedTx = () => {
     const unconfTx = WalletStore.getWalletByCoinId(
-      route.params.coin,
+      route.params.symbol,
     )?.unconfirmedBalance;
     if (SettingsStore.confirmationEnabled && unconfTx !== 0) {
       return (
@@ -152,7 +154,7 @@ const WalletScreen = observer(({route}) => {
                 color: unconfTx! > 0 ? '#5cb85c' : '#d9534f',
               },
             ]}>
-            {unconfTx || 0} {route.params.coin}
+            {unconfTx || 0} {route.params.symbol}
           </Text>
         </View>
       );
@@ -174,19 +176,19 @@ const WalletScreen = observer(({route}) => {
           }>
           <Text adjustsFontSizeToFit numberOfLines={1} style={styles.bigText}>
             {formatPrice(
-              WalletStore.getWalletByCoinId(route.params.coin)?.value ?? 0,
+              WalletStore.getWalletByCoinId(route.params.symbol)?.value ?? 0,
             ) || 0}
           </Text>
           <Text style={styles.coins}>
-            {WalletStore.getWalletByCoinId(route.params.coin)?.balance || 0}{' '}
-            {route.params.coin}
+            {WalletStore.getWalletByCoinId(route.params.symbol)?.balance || 0}{' '}
+            {route.params.symbol}
           </Text>
           <View style={styles.btnCointainers}>
             <View style={{marginHorizontal: 15}}>
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('SendReceiveScreen', {
-                    coin: route.params.coin,
+                    coin: route.params.symbol,
                     name: coinData?.name,
                     receive: false,
                   })
@@ -212,7 +214,7 @@ const WalletScreen = observer(({route}) => {
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('SendReceiveScreen', {
-                    coin: route.params.coin,
+                    coin: route.params.symbol,
                     name: coinData?.name,
                     receive: true,
                   })

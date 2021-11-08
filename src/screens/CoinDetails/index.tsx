@@ -5,32 +5,29 @@ import {View, ScrollView, Text, RefreshControl} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
-import {find} from 'lodash';
 import FastImage from 'react-native-fast-image';
 import {TransitionEnd} from 'utils/hooks';
 import {Colors} from 'utils/colors';
-import {COINS_MAX, SIZE} from 'utils/constants';
+import {SIZE} from 'utils/constants';
 import {styles} from './styles';
 import {LineChart} from 'react-native-chart-kit';
 import {Loader} from 'components/loader';
-import {MarketCapCoinType, MarketStore} from 'stores/market';
-import {formatPrice, formatNumber} from 'utils';
-import {getAllCoins} from '@coingrig/core';
+import {formatPrice, formatNumber, convertExponential} from 'utils';
 import {showMessage} from 'react-native-flash-message';
 import {CryptoService} from 'services/crypto';
+import {SmallButton} from 'components/smallButton';
 
 const CoinDetailScreen = observer(({route}) => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [price, setPrice] = useState('0');
   const [showScreen, setShowScreen] = useState(false);
-  const [coinData, setCoinData] = useState<MarketCapCoinType>();
+  const [coinData, setCoinData] = useState<any>();
   const [chartData, setChartData] = useState([]);
   const transitionEnded = TransitionEnd(navigation);
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    // console.log(route.params.coin.toUpperCase());
     navigation.setOptions({
       headerTitle:
         route.params.title?.toUpperCase() ?? route.params.coin.toUpperCase(),
@@ -54,7 +51,8 @@ const CoinDetailScreen = observer(({route}) => {
       setShowScreen(false);
       return;
     }
-    const p = formatPrice(data?.market_data.current_price.usd);
+    let p = convertExponential(data?.market_data.current_price?.usd);
+    p = formatPrice(p);
     setPrice(p);
     setCoinData(data);
     setChartData(data?.market_data.sparkline_7d?.price ?? []);
@@ -66,6 +64,24 @@ const CoinDetailScreen = observer(({route}) => {
     await getData();
     setRefreshing(false);
   }, []);
+
+  const addToPortfolio = () => {
+    // if chain is supported and if is not already added
+    if (route.params.isSupported) {
+      return (
+        <SmallButton
+          text={t('Add to portfolio')}
+          onPress={() => null}
+          color={Colors.darker}
+          style={{
+            backgroundColor: Colors.foreground,
+            marginTop: 30,
+            borderWidth: 0,
+          }}
+        />
+      );
+    }
+  };
 
   const screen = () => {
     return (
@@ -148,19 +164,19 @@ const CoinDetailScreen = observer(({route}) => {
             )}
             <Text style={styles.txtBg}>{t('coindetails.last_7_days')}</Text>
           </View>
-
-          <FastImage
-            style={styles.logoimg}
-            source={{
-              uri: coinData?.image.large,
-              priority: FastImage.priority.normal,
-              cache: FastImage.cacheControl.immutable,
-            }}
-          />
+          {addToPortfolio()}
           <View style={styles.viewStats}>
-            <Text style={styles.subTitle}>
+            <Text style={styles.subTitle} numberOfLines={1}>
               {coinData?.name + ' ' + t('coindetails.stats')}
             </Text>
+            <FastImage
+              style={styles.logoimg}
+              source={{
+                uri: coinData?.image.large,
+                priority: FastImage.priority.normal,
+                cache: FastImage.cacheControl.immutable,
+              }}
+            />
           </View>
           <View style={styles.viewStatsDetail}>
             <View style={styles.item}>

@@ -271,7 +271,7 @@ export function NavigationScreens() {
         component={SearchScreen}
         options={{
           headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
+          animationEnabled: false,
         }}
       />
       <Stack.Screen

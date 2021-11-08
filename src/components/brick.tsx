@@ -67,7 +67,10 @@ const Brick = observer((props: any) => {
       ]}
       onPress={() =>
         props.coin !== '_END_'
-          ? navigation.navigate('WalletScreen', {coin: props.coin})
+          ? navigation.navigate('WalletScreen', {
+              coin: name.toLowerCase(),
+              symbol: props.coin,
+            })
           : null
       }>
       <View style={styles.container}>

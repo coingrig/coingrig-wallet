@@ -34,7 +34,9 @@ const MarketScreen = observer(() => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
-          onPress={() => navigation.navigate('SearchScreen')}
+          onPress={() =>
+            navigation.navigate('SearchScreen', {onlySupported: false})
+          }
           style={styles.moreBtn}>
           <Icon name="newspaper" size={23} color={Colors.foreground} />
         </TouchableOpacity>

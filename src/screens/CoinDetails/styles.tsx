@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 20,
   },
-  itemtext: {fontWeight: 'bold', color: Colors.foreground},
+  itemtext: {color: Colors.foreground},
   textr: {color: Colors.foreground},
   title: {
     fontSize: 25,
@@ -21,13 +21,13 @@ export const styles = StyleSheet.create({
     marginTop: 0,
   },
   logoimg: {
-    width: 40,
-    height: 40,
-    marginRight: 0,
+    width: 25,
+    height: 25,
+    marginRight: 15,
     justifyContent: 'center',
     alignSelf: 'center',
     opacity: 0.9,
-    marginVertical: 10,
+    marginVertical: 5,
   },
   viewStats: {
     flexDirection: 'row',
@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
   viewStatsDetail: {
     paddingHorizontal: 20,
     backgroundColor: Colors.darker,
-    marginVertical: 3,
+    marginVertical: 1,
     paddingBottom: 20,
   },
   txtBg: {
@@ -98,13 +98,14 @@ export const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   subTitle: {
+    flex: 1,
     fontSize: 18,
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.foreground,
     marginLeft: 20,
   },
   subTitleTop: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'RobotoSlab-Regular',
     color: Colors.foreground,
     marginLeft: 20,

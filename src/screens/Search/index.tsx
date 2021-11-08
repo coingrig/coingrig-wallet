@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -7,19 +7,28 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import BigList from 'react-native-big-list';
-import {useNavigation} from '@react-navigation/native';
-import {Colors} from 'utils/colors';
+import { useNavigation } from '@react-navigation/native';
+import { Colors } from 'utils/colors';
 import FastImage from 'react-native-fast-image';
-const coins = require('../../assets/tokens.json');
+import { TransitionEnd } from 'utils/hooks';
+import { Loader } from 'components/loader';
+const coins = require('../../assets/full_tokens.json');
 
-const SearchScreen = () => {
+
+const SearchScreen = ({ route }) => {
   const navigation = useNavigation();
   const [data, setData] = useState(coins);
+  const [showScreen, setShowScreen] = useState(false);
   const [searchText, setSearchText] = useState('');
+  const transitionEnded = TransitionEnd(navigation);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (transitionEnded) {
+      setShowScreen(true);
+    }
+  }, [transitionEnded]);
 
   const searchCoin = text => {
     let coinsList = data;
@@ -44,12 +53,16 @@ const SearchScreen = () => {
   };
 
   const renderItem = ({item}) => {
+    if (route.params.onlySupported && !item.supported) {
+      return null;
+    }
     return (
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('CoinDetailScreen', {
             coin: item.id,
             title: item.symbol,
+            isSupported: item.supported,
           })
         }
         style={{
@@ -83,15 +96,46 @@ const SearchScreen = () => {
             alignItems: 'center',
           }}>
           <Text
-            style={{color: Colors.foreground, marginLeft: 10, fontSize: 17}}>
+            style={{
+              flex: 5,
+              color: Colors.foreground,
+              marginLeft: 10,
+              fontSize: 17,
+            }}
+            numberOfLines={1}>
             {item.name}
           </Text>
-          <Text style={{color: Colors.lighter, marginLeft: 10, fontSize: 13}}>
-            {item.symbol}
+          <Text
+            style={{
+              flex: 1,
+              color: Colors.lighter,
+              marginLeft: 10,
+              fontSize: 13,
+              textAlign: 'right',
+            }}
+            numberOfLines={1}>
+            {item.symbol.toUpperCase()}
           </Text>
         </View>
       </TouchableOpacity>
     );
+  };
+
+  const renderList = () => {
+    if (showScreen) {
+      return (
+        <BigList
+          data={data}
+          renderItem={renderItem}
+          itemHeight={60}
+          insetBottom={30}
+          insetTop={10}
+          showsVerticalScrollIndicator={false}
+        />
+      );
+    } else {
+      return <Loader />;
+    }
   };
 
   return (
@@ -108,8 +152,10 @@ const SearchScreen = () => {
         <TextInput
           style={{
             flex: 4,
-            fontSize: 17,
-            backgroundColor: Colors.brick,
+            fontSize: 16,
+            borderWidth: 1,
+            borderColor: Colors.brick,
+            backgroundColor: Colors.card,
             paddingHorizontal: 10,
             height: 40,
             borderRadius: 5,
@@ -119,24 +165,16 @@ const SearchScreen = () => {
           autoCorrect={false}
           placeholderTextColor={'gray'}
           onChangeText={text => searchCoin(text)}
-          // value={"text"}
           placeholder={'Coin Search'}
         />
 
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Text style={{color: Colors.foreground}}>Close</Text>
-        </View>
+        <TouchableOpacity
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+          onPress={() => navigation.goBack()}>
+          <Text style={{ color: Colors.foreground }}>Close</Text>
+        </TouchableOpacity>
       </View>
-      <View style={{flex: 1, marginHorizontal: 15}}>
-        <BigList
-          data={data}
-          renderItem={renderItem}
-          itemHeight={60}
-          insetBottom={30}
-          insetTop={20}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
+      <View style={{ flex: 1, marginHorizontal: 15 }}>{renderList()}</View>
     </SafeAreaView>
   );
 };
@@ -144,8 +182,7 @@ const SearchScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: 'red',
-    // marginHorizontal: 20,
+    marginTop: 15,
   },
 });
 
