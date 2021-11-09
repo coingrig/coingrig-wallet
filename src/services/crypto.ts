@@ -85,7 +85,8 @@ class CryptoService {
         let cryptoWallet = WalletFactory.getWallet(wallet);
         // Check if it's a token
         let token = tokenBalances.find(o => o.contract === contract);
-        if (contract && token !== -1) {
+        console.log(token);
+        if (contract && token !== undefined) {
           WalletStore.setBalance(
             wallet.symbol,
             Number(new BigNumber(token.balance).div(10 ** token.decimals)),
@@ -103,6 +104,7 @@ class CryptoService {
           WalletStore.setPrice(wallet.symbol, newPrice);
         }
         const balance = await cryptoWallet.getBalance();
+
         const unconfirmedBalance = balance.getUnconfirmedBalance();
         WalletStore.setBalance(wallet.symbol, balance.getValue());
         WalletStore.setUnconfirmedBalance(wallet.symbol, unconfirmedBalance);
@@ -140,36 +142,47 @@ class CryptoService {
     137: 'POLYGON',
   };
   getBulkTokenBalance = async (walletAddresses: IWalletAddresses[]) => {
-    console.log(walletAddresses);
     let requests: Promise<any>[] = [];
     for (let index = 0; index < walletAddresses.length; index++) {
       const item = walletAddresses[index];
+      if (!this.CHAIN_ID_MAP[item.chain]) {
+        continue;
+      }
+      const url = `https://api.covalenthq.com/v1/${
+        this.CHAIN_ID_MAP[item.chain]
+      }/address/${
+        item.walletAddress
+      }/balances_v2/?&key=ckey_ff9e0a7cfbf94e189b759ef53f`;
+      console.log(url);
+
       var config = {
         method: 'get',
-        url: `https://api.covalenthq.com/v1/${
-          this.CHAIN_ID_MAP[item.chain]
-        }/address/${
-          item.walletAddress
-        }/balances_v2/?&key=ckey_ff9e0a7cfbf94e189b759ef53f`,
+        url: url,
+        timeout: 5000,
       };
 
       requests.push(axios(config));
     }
-    let results = await Promise.all(requests);
     let tokens: any[] = [];
-    for (let index = 0; index < results.length; index++) {
-      const result = results[index];
-      let chainId = result.data.data.chain_id;
-      result.data.data.items.forEach(token => {
-        tokens.push({
-          chain: this.CHAIN_ID_TYPE_MAP[chainId],
-          contract: token.contract_address.toLowerCase(),
-          decimals: token.contract_decimals,
-          balance: token.balance,
-          rate: token.quote_rate,
+    try {
+      let results = await Promise.all(requests);
+      for (let index = 0; index < results.length; index++) {
+        const result = results[index];
+        let chainId = result.data.data.chain_id;
+        result.data.data.items.forEach(token => {
+          tokens.push({
+            chain: this.CHAIN_ID_TYPE_MAP[chainId],
+            contract: token.contract_address.toLowerCase(),
+            decimals: token.contract_decimals,
+            balance: token.balance,
+            rate: token.quote_rate,
+          });
         });
-      });
+      }
+    } catch (error) {
+      console.log(error);
     }
+    console.log(tokens);
     return tokens;
   };
 
@@ -188,44 +201,44 @@ class CryptoService {
 
   prepareNewWallet = async (data, network) => {
     const chain = this.getChainbyName(network);
-    let testw: IWallet = {
-      symbol: 'CGTEST',
-      name: 'CGTEST',
-      cid: null,
-      chain: chain,
-      type: 'token',
-      decimals: 18,
-      contract: '0xaf3acd9361fd975427761adfe1ca234c88137a06',
-      walletAddress: null,
-      privKey: null,
-      balance: 0,
-      unconfirmedBalance: 0,
-      value: 0,
-      price: 0,
-      active: true,
-      image: data.image?.large || null,
-    };
-
-    // let wallet: IWallet = {
-    //   symbol: data.symbol.toUpperCase(),
-    //   name: data.name,
-    //   cid: data.id,
+    // let testw: IWallet = {
+    //   symbol: 'CGTEST',
+    //   name: 'CGTEST',
+    //   cid: null,
     //   chain: chain,
     //   type: 'token',
     //   decimals: 18,
-    //   contract: data.platforms[network] || null,
+    //   contract: '0xaf3acd9361fd975427761adfe1ca234c88137a06',
+    //   walletAddress: null,
     //   privKey: null,
     //   balance: 0,
     //   unconfirmedBalance: 0,
     //   value: 0,
-    //   price: data.market_data?.current_price?.usd ?? null,
+    //   price: 0,
     //   active: true,
     //   image: data.image?.large || null,
-    //   walletAddress: null,
     // };
+
+    let wallet: IWallet = {
+      symbol: data.symbol.toUpperCase(),
+      name: data.name,
+      cid: data.id,
+      chain: chain,
+      type: 'token',
+      decimals: 18,
+      contract: data.platforms[network] || null,
+      privKey: null,
+      balance: 0,
+      unconfirmedBalance: 0,
+      value: 0,
+      price: data.market_data?.current_price?.usd ?? null,
+      active: true,
+      image: data.image?.large || null,
+      walletAddress: null,
+    };
     // console.log(wallet);
     // console.log(testw);
-    WalletStore.addWallet(testw);
+    WalletStore.addWallet(wallet);
   };
 }
 
