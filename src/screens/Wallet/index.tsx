@@ -37,7 +37,7 @@ const WalletScreen = observer(({route}) => {
           <TouchableOpacity
             onPress={() => {
               if (
-                WalletStore.getWalletByCoinId(route.params.symbol)?.value == 0
+                WalletStore.getWalletByCoinId(route.params.symbol)?.price === 0
               ) {
                 showMessage({
                   message: t('No data available !'),
@@ -47,6 +47,7 @@ const WalletScreen = observer(({route}) => {
               }
               navigation.navigate('CoinDetailScreen', {
                 coin: route.params.coin,
+                title: route.params.symbol,
               });
             }}
             style={styles.moreBtn}>

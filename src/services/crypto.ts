@@ -126,23 +126,23 @@ class CryptoService {
 
   prepareNewWallet = async (data, network) => {
     const chain = this.getChainbyName(network);
-    let testw: IWallet = {
-      symbol: 'CGTEST',
-      name: 'CGTEST',
-      cid: null,
-      chain: chain,
-      type: 'token',
-      decimals: 18,
-      contract: '0xaf3acd9361fd975427761adfe1ca234c88137a06',
-      walletAddress: null,
-      privKey: null,
-      balance: 0,
-      unconfirmedBalance: 0,
-      value: 0,
-      price: 0,
-      active: true,
-      image: data.image?.large || null,
-    };
+    // let testw: IWallet = {
+    //   symbol: 'CGTEST',
+    //   name: 'CGTEST',
+    //   cid: null,
+    //   chain: chain,
+    //   type: 'token',
+    //   decimals: 18,
+    //   contract: '0xaf3acd9361fd975427761adfe1ca234c88137a06',
+    //   walletAddress: null,
+    //   privKey: null,
+    //   balance: 0,
+    //   unconfirmedBalance: 0,
+    //   value: 0,
+    //   price: 0,
+    //   active: true,
+    //   image: data.image?.large || null,
+    // };
 
     let wallet: IWallet = {
       symbol: data.symbol.toUpperCase(),
@@ -162,8 +162,8 @@ class CryptoService {
       walletAddress: null,
     };
     console.log(wallet);
-    console.log(testw);
-    WalletStore.addWallet(testw);
+    // console.log(testw);
+    WalletStore.addWallet(wallet);
   };
 }
 
