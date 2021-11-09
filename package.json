@@ -26,6 +26,7 @@
     "assert": "^2.0.0",
     "asyncstorage-down": "4.2.0",
     "axios": "0.21.1",
+    "bignumber.js": "^9.0.1",
     "browserify-sign": "^4.2.1",
     "decimal.js": "10.3.1",
     "events": "^3.3.0",

@@ -6,6 +6,7 @@ import {WalletFactory} from '@coingrig/core';
 import {StorageSetItem, StorageGetItem} from './storage';
 import endpoints from 'utils/endpoints';
 import CONFIG from 'config';
+import BigNumber from 'bignumber.js';
 
 class CryptoService {
   lastFetchedBalance = 0;
@@ -75,10 +76,25 @@ class CryptoService {
       let chainKeys = await this.getChainPrivateKeys();
       for (let i = 0; i < WalletStore.wallets.length; i++) {
         let chain = WalletStore.wallets[i].chain;
+        let contract = WalletStore.wallets[i].contract?.toLowerCase() ?? null;
         let wallet = Object.assign({}, WalletStore.wallets[i], {
           privKey: chainKeys[chain],
           walletAddress: WalletStore.getWalletAddressByChain(chain),
         });
+        //
+        let cryptoWallet = WalletFactory.getWallet(wallet);
+        // Check if it's a token
+        let token = tokenBalances.find(o => o.contract === contract);
+        if (contract && token !== -1) {
+          WalletStore.setBalance(
+            wallet.symbol,
+            Number(new BigNumber(token.balance).div(10 ** token.decimals)),
+          );
+          WalletStore.setPrice(wallet.symbol, token.rate);
+          // Move to next wallet item
+          continue;
+        }
+        // Not a token, then check regular coin balance
         // Don't update the price if none is available from the provider
         let newPrice = prices[wallet.name.toLowerCase()]?.usd ?? null;
         if (newPrice !== null) {
@@ -86,7 +102,6 @@ class CryptoService {
           newPrice = parseFloat(newPrice);
           WalletStore.setPrice(wallet.symbol, newPrice);
         }
-        let cryptoWallet = WalletFactory.getWallet(wallet);
         const balance = await cryptoWallet.getBalance();
         const unconfirmedBalance = balance.getUnconfirmedBalance();
         WalletStore.setBalance(wallet.symbol, balance.getValue());
@@ -119,8 +134,14 @@ class CryptoService {
     BSC: 56,
     POLYGON: 137,
   };
-  getBulkTokenBalance = (walletAddresses: IWalletAddresses[]) => {
+  CHAIN_ID_TYPE_MAP = {
+    1: 'ETH',
+    56: 'BSC',
+    137: 'POLYGON',
+  };
+  getBulkTokenBalance = async (walletAddresses: IWalletAddresses[]) => {
     console.log(walletAddresses);
+    let requests: Promise<any>[] = [];
     for (let index = 0; index < walletAddresses.length; index++) {
       const item = walletAddresses[index];
       var config = {
@@ -132,14 +153,24 @@ class CryptoService {
         }/balances_v2/?&key=ckey_ff9e0a7cfbf94e189b759ef53f`,
       };
 
-      return axios(config)
-        .then(function (response) {
-          return response.data;
-        })
-        .catch(function (error) {
-          return error;
-        });
+      requests.push(axios(config));
     }
+    let results = await Promise.all(requests);
+    let tokens: any[] = [];
+    for (let index = 0; index < results.length; index++) {
+      const result = results[index];
+      let chainId = result.data.data.chain_id;
+      result.data.data.items.forEach(token => {
+        tokens.push({
+          chain: this.CHAIN_ID_TYPE_MAP[chainId],
+          contract: token.contract_address.toLowerCase(),
+          decimals: token.contract_decimals,
+          balance: token.balance,
+          rate: token.quote_rate,
+        });
+      });
+    }
+    return tokens;
   };
 
   getChainbyName = name => {
