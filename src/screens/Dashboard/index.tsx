@@ -106,7 +106,7 @@ const DashboardScreen = observer(() => {
               horizontal
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={{paddingHorizontal: 15}}>
-              {WalletStore.wallets.map((v, i) => {
+              {WalletStore.wallets.slice(0, 2).map((v, i) => {
                 return <Brick coin={v.symbol} key={i} />;
               })}
               <Brick coin={'_END_'} key={'_END_'} />

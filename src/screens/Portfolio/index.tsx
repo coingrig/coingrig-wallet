@@ -3,7 +3,6 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {
   Text,
   View,
-  TextInput,
   FlatList,
   TouchableOpacity,
   RefreshControl,
@@ -11,15 +10,16 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import Icon from 'react-native-vector-icons/Ionicons';
-import MarketItem from 'components/marketItem';
+import WalletListItem from 'components/walletlistitem';
 import {Colors} from 'utils/colors';
 import {MarketStore, MarketCapCoinType} from 'stores/market';
 import {observer} from 'mobx-react-lite';
 import {COINS_MAX} from '../../utils/constants';
 import {styles} from './styles';
 import {showMessage} from 'react-native-flash-message';
+import {IWallet, WalletStore} from 'stores/wallet';
 
-const MarketScreen = observer(() => {
+const PortfolioScreen = observer(() => {
   const FILTER_ALL = 'all';
   const FILTER_GAINERS = 'gainers';
   const FILTER_LOSERS = 'losers';
@@ -38,7 +38,7 @@ const MarketScreen = observer(() => {
             navigation.navigate('SearchScreen', {onlySupported: true})
           }
           style={styles.moreBtn}>
-          <Icon name="newspaper" size={23} color={Colors.foreground} />
+          <Icon name="add-circle" size={25} color={Colors.foreground} />
         </TouchableOpacity>
       ),
     });
@@ -56,52 +56,24 @@ const MarketScreen = observer(() => {
     setRefreshing(false);
   };
 
-  const renderItem = ({item}: {item: MarketCapCoinType}) => {
+  const renderItem = ({item}: {item: IWallet}) => {
     return (
-      <MarketItem
-        key={item.id}
-        coin={item.symbol}
-        name={item.name}
-        price={item.current_price}
-        image={item.image}
-        change={item.price_change_percentage_24h}
+      <WalletListItem
+        key={item.cid}
+        coin={item}
         onPress={() =>
           //@ts-ignore
-          navigation.navigate('CoinDetailScreen', {
-            coin: item.id,
-            title: item.symbol,
+          navigation.navigate('WalletScreen', {
+            coin: item.cid,
+            symbol: item.symbol,
           })
         }
       />
     );
   };
 
-  let getCoinsData = (): MarketCapCoinType[] => {
-    let list = MarketStore.coins ?? [];
-    if (searchFilter !== FILTER_ALL) {
-      list = MarketStore.coins.filter((o: MarketCapCoinType) => {
-        if (searchFilter === FILTER_GAINERS) {
-          return o.price_change_percentage_24h > 0;
-        }
-        return o.price_change_percentage_24h < 0;
-      });
-      list.sort((a: MarketCapCoinType, b: MarketCapCoinType) => {
-        if (searchFilter === FILTER_GAINERS) {
-          return b.price_change_percentage_24h - a.price_change_percentage_24h;
-        }
-        return a.price_change_percentage_24h - b.price_change_percentage_24h;
-      });
-    }
-    if (searchText) {
-      let searchValue = searchText.trim().toLowerCase();
-      return list.filter((o: MarketCapCoinType) => {
-        return (
-          o.name.toLowerCase().indexOf(searchValue) !== -1 ||
-          o.symbol.toLowerCase().indexOf(searchValue) !== -1 ||
-          o.id.toLowerCase().indexOf(searchValue) !== -1
-        );
-      });
-    }
+  let getCoinsData = (): any[] => {
+    let list = WalletStore.wallets ?? [];
     return list;
   };
 
@@ -131,13 +103,6 @@ const MarketScreen = observer(() => {
   const listHeader = () => {
     return (
       <View>
-        <TextInput
-          style={styles.textInputStyle}
-          placeholder={t('market.search_placeholder', {coins: COINS_MAX})}
-          placeholderTextColor={Colors.lighter}
-          onChangeText={text => setSearch(text)}
-          defaultValue={searchText}
-        />
         <View style={styles.pillsContainer}>
           <TouchableOpacity
             style={getCoinFilterStyle(FILTER_ALL)}
@@ -163,7 +128,6 @@ const MarketScreen = observer(() => {
             <Text style={styles.appButtonText}>{t('market.losers')}</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.subtitle}>Coins list</Text>
       </View>
     );
   };
@@ -185,7 +149,7 @@ const MarketScreen = observer(() => {
         }
         data={getCoinsData()}
         renderItem={renderItem}
-        keyExtractor={(item: MarketCapCoinType) => item.id}
+        keyExtractor={(item: any) => item.cid}
         maxToRenderPerBatch={5}
         initialNumToRender={10}
         ListHeaderComponent={listHeader()}
@@ -196,15 +160,7 @@ const MarketScreen = observer(() => {
     <View style={styles.container}>
       <View>
         <View style={{flexDirection: 'row'}}>
-          <Text style={styles.title}>{t('market.market')} </Text>
-          <Text
-            style={[
-              styles.change,
-              // eslint-disable-next-line react-native/no-inline-styles
-              {color: Number(getMarketAverage()) > 0 ? '#5cb85c' : '#d9534f'},
-            ]}>
-            {getMarketAverage()} %
-          </Text>
+          <Text style={styles.title}>{t('Portfolio')} </Text>
         </View>
       </View>
       {renderList()}
@@ -212,4 +168,4 @@ const MarketScreen = observer(() => {
   );
 });
 
-export default MarketScreen;
+export default PortfolioScreen;

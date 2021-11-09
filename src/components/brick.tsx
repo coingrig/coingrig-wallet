@@ -15,15 +15,14 @@ const Brick = observer((props: any) => {
   const color = Colors.brick;
   const navigation = useNavigation();
   const {t} = useTranslation();
+  const wallet = WalletStore.getWalletByCoinId(props.coin);
   React.useEffect(() => {
-    let wallet = WalletStore.getWalletByCoinId(props.coin);
     setName(capitalize(wallet?.name));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderBody = () => {
     if (props.coin !== '_END_') {
-      let wallet = WalletStore.getWalletByCoinId(props.coin);
       return (
         <>
           <Text adjustsFontSizeToFit numberOfLines={2} style={styles.coinName}>
@@ -63,7 +62,9 @@ const Brick = observer((props: any) => {
     <TouchableOpacity
       style={[
         styles.brick,
-        {backgroundColor: props.coin === '_END_' ? Colors.brickEnd : color},
+        {
+          backgroundColor: props.coin === '_END_' ? Colors.brickEnd : color,
+        },
       ]}
       onPress={() =>
         props.coin !== '_END_'
@@ -76,7 +77,11 @@ const Brick = observer((props: any) => {
       <View style={styles.container}>
         <View style={styles.tcontainer}>
           <View style={styles.logo}>
-            <CoinsAvatar style={styles.logoimg} coin={props.coin} />
+            <CoinsAvatar
+              style={styles.logoimg}
+              coin={props.coin}
+              source={wallet?.image}
+            />
           </View>
         </View>
         <View style={styles.bcontainer}>{renderBody()}</View>

@@ -14,9 +14,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import {useTranslation} from 'react-i18next';
 import Svg, {Path} from 'react-native-svg';
-import {find} from 'lodash';
-import {WalletStore} from 'stores/wallet';
-import {MarketCapCoinType, MarketStore} from '../../stores/market';
+import {IWallet, WalletStore} from 'stores/wallet';
 import {formatPrice} from 'utils';
 import FastImage from 'react-native-fast-image';
 import {styles} from './styles';
@@ -29,14 +27,31 @@ import endpoints from 'utils/endpoints';
 const WalletScreen = observer(({route}) => {
   const navigation = useNavigation();
   const {t} = useTranslation();
-  const [coinData, setCoinData] = useState<MarketCapCoinType>();
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: route.params.symbol + ' ' + t('wallet.wallet'),
+      headerTitle: route.params.symbol,
       headerRight: () => (
         <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            onPress={() => {
+              if (
+                WalletStore.getWalletByCoinId(route.params.symbol)?.value == 0
+              ) {
+                showMessage({
+                  message: t('No data available !'),
+                  type: 'warning',
+                });
+                return null;
+              }
+              navigation.navigate('CoinDetailScreen', {
+                coin: route.params.coin,
+              });
+            }}
+            style={styles.moreBtn}>
+            <Icon name="stats-chart" size={20} color={Colors.foreground} />
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => showTransactions()}
             style={styles.moreBtn}>
@@ -46,20 +61,11 @@ const WalletScreen = observer(({route}) => {
               color={Colors.foreground}
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() =>
-              // TODO fix params
-              navigation.navigate('CoinDetailScreen', {
-                coin: route.params.coin,
-              })
-            }
-            style={styles.moreBtn}>
-            <Icon name="stats-chart" size={20} color={Colors.foreground} />
-          </TouchableOpacity>
         </View>
       ),
     });
-    getData();
+    // getData();
+    //@ts-ignore
   }, []);
 
   useEffect(() => {
@@ -86,12 +92,13 @@ const WalletScreen = observer(({route}) => {
     }
     setRefreshing(false);
   }, []);
-  const getData = async () => {
-    const data = find(MarketStore.coins, o => {
-      return o.symbol === route.params.symbol.toLowerCase();
-    });
-    setCoinData(data);
-  };
+  // const getData = async () => {
+  //   const data = find(MarketStore.coins, o => {
+  //     return o.symbol === route.params.symbol.toLowerCase();
+  //   });
+  //   console.log(data);
+  //   setCoinData(data);
+  // };
 
   const openLink = async url => {
     try {
@@ -120,12 +127,13 @@ const WalletScreen = observer(({route}) => {
   };
 
   const showTransactions = () => {
-    openLink(CryptoService.getBlockExplorer(route.params.symbol));
+    const w = WalletStore.getWalletByCoinId(route.params.symbol);
+    openLink(CryptoService.getBlockExplorer(w?.chain!));
   };
 
   const buySellAction = () => {
-    const wallet = WalletStore.getWalletByCoinId(route.params.symbol);
-    const address = WalletStore.getWalletAddressByChain(wallet?.chain ?? '');
+    const w = WalletStore.getWalletByCoinId(route.params.symbol);
+    const address = WalletStore.getWalletAddressByChain(w?.chain!);
     const link =
       endpoints.ramper +
       '&onlyCryptos=' +
@@ -134,7 +142,6 @@ const WalletScreen = observer(({route}) => {
       route.params.symbol +
       ':' +
       address;
-    console.log(link);
     openLink(link);
   };
 
@@ -162,6 +169,7 @@ const WalletScreen = observer(({route}) => {
   };
 
   const screen = () => {
+    const wallet = WalletStore.getWalletByCoinId(route.params.symbol);
     return (
       <View style={{flexGrow: 1}}>
         <ScrollView
@@ -189,7 +197,7 @@ const WalletScreen = observer(({route}) => {
                 onPress={() =>
                   navigation.navigate('SendReceiveScreen', {
                     coin: route.params.symbol,
-                    name: coinData?.name,
+                    name: wallet?.name,
                     receive: false,
                   })
                 }
@@ -215,7 +223,7 @@ const WalletScreen = observer(({route}) => {
                 onPress={() =>
                   navigation.navigate('SendReceiveScreen', {
                     coin: route.params.symbol,
-                    name: coinData?.name,
+                    name: wallet?.name,
                     receive: true,
                   })
                 }
@@ -230,7 +238,7 @@ const WalletScreen = observer(({route}) => {
         <FastImage
           style={styles.logoimg}
           source={{
-            uri: coinData?.image,
+            uri: wallet?.image,
             priority: FastImage.priority.normal,
             cache: FastImage.cacheControl.immutable,
           }}

@@ -1,7 +1,7 @@
 var axios = require('axios');
 import {COINS_MIN, STORED_CHAIN_KEYS} from 'utils/constants';
 import {MarketStore} from 'stores/market';
-import {WalletStore} from 'stores/wallet';
+import {IWallet, WalletStore} from 'stores/wallet';
 import {WalletFactory} from '@coingrig/core';
 import {StorageSetItem, StorageGetItem} from './storage';
 import endpoints from 'utils/endpoints';
@@ -109,6 +109,61 @@ class CryptoService {
       .catch(function (error) {
         return error;
       });
+  };
+
+  getChainbyName = name => {
+    switch (name) {
+      case 'ethereum':
+        return 'ETH';
+      case 'binance-smart-chain':
+        return 'BSC';
+      case 'polygon-pos':
+        return 'POLYGON';
+      default:
+        return '';
+    }
+  };
+
+  prepareNewWallet = async (data, network) => {
+    const chain = this.getChainbyName(network);
+    let testw: IWallet = {
+      symbol: 'CGTEST',
+      name: 'CGTEST',
+      cid: null,
+      chain: chain,
+      type: 'token',
+      decimals: 18,
+      contract: '0xaf3acd9361fd975427761adfe1ca234c88137a06',
+      walletAddress: null,
+      privKey: null,
+      balance: 0,
+      unconfirmedBalance: 0,
+      value: 0,
+      price: 0,
+      active: true,
+      image: data.image?.large || null,
+    };
+
+    let wallet: IWallet = {
+      symbol: data.symbol.toUpperCase(),
+      name: data.name,
+      cid: data.id,
+      chain: chain,
+      type: 'token',
+      decimals: 18,
+      contract: data.platforms[network] || null,
+      privKey: null,
+      balance: 0,
+      unconfirmedBalance: 0,
+      value: 0,
+      price: data.market_data?.current_price?.usd ?? null,
+      active: true,
+      image: data.image?.large || null,
+      walletAddress: null,
+    };
+    console.log(wallet);
+    console.log(testw);
+    WalletStore.addWallet(testw);
   };
 }
 

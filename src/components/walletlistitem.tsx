@@ -1,18 +1,11 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {CoinsAvatar} from 'components/coinsAvatar';
-import {formatPrice} from '../utils';
+import {formatCoins, formatPrice} from '../utils';
 import {Colors} from 'utils/colors';
+import {IWallet} from 'stores/wallet';
 
-const MarketItem = (props: {
-  coin: string;
-  key: string;
-  name: string;
-  price: number;
-  image: string;
-  change: number;
-  onPress?: any;
-}) => {
+const WalletListItem = (props: {coin: IWallet; onPress?: any}) => {
   return (
     <TouchableOpacity
       onPress={props.onPress ? props.onPress : null}
@@ -22,8 +15,8 @@ const MarketItem = (props: {
           <View style={styles.logo}>
             <CoinsAvatar
               style={styles.logoimg}
-              coin={props.coin}
-              source={props.image}
+              coin={props.coin.symbol}
+              source={props.coin.image}
             />
           </View>
           <View style={styles.mcontainer}>
@@ -31,20 +24,18 @@ const MarketItem = (props: {
               adjustsFontSizeToFit
               numberOfLines={2}
               style={styles.coinName}>
-              {props.name}
+              {props.coin.name}
             </Text>
-            <Text style={styles.coinSymbol}>{props.coin.toUpperCase()}</Text>
+            <Text style={styles.coinSymbol} numberOfLines={1}>
+              {props.coin.symbol.toUpperCase()}
+            </Text>
           </View>
           <View style={styles.rcontainer}>
-            <View style={styles.bgprice}>
-              <Text style={styles.price}>{formatPrice(props.price)}</Text>
-            </View>
-            <Text
-              style={[
-                styles.change,
-                {color: props.change > 0 ? '#5cb85c' : '#d9534f'},
-              ]}>
-              {props.change.toFixed(2)} %
+            <Text style={styles.balance} numberOfLines={1}>
+              {formatCoins(props.coin.balance) + ' ' + props.coin.symbol}
+            </Text>
+            <Text style={styles.value} numberOfLines={1}>
+              {formatPrice(props.coin.value)}
             </Text>
           </View>
         </View>
@@ -66,7 +57,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   coinSymbol: {
-    fontSize: 14,
+    fontSize: 13,
     marginBottom: 5,
     fontFamily: 'RobotoSlab-Regular',
     color: Colors.foreground,
@@ -81,6 +72,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 10,
     flex: 1.5,
+    // backgroundColor: 'red',
   },
   chartContainer: {
     flexDirection: 'column',
@@ -94,18 +86,19 @@ const styles = StyleSheet.create({
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.foreground,
   },
-  price: {
-    fontSize: 14,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    color: Colors.foreground,
-  },
-  change: {
+  balance: {
     fontSize: 13,
-    textAlign: 'center',
-    color: Colors.foreground,
+    textAlign: 'right',
     fontWeight: 'bold',
+    color: Colors.foreground,
+    marginRight: 5,
+  },
+  value: {
+    fontSize: 13,
+    textAlign: 'right',
+    color: Colors.lighter,
     marginTop: 5,
+    marginRight: 5,
   },
   logo: {
     width: 35,
@@ -119,15 +112,15 @@ const styles = StyleSheet.create({
   },
   bgprice: {
     padding: 5,
-    backgroundColor: Colors.background,
+    // backgroundColor: Colors.background,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
+    // borderRadius: 5,
   },
   rcontainer: {
     flexDirection: 'column',
     justifyContent: 'center',
-    marginLeft: 15,
+    paddingLeft: 5,
     flex: 1,
   },
   card: {
@@ -142,4 +135,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default React.memo(MarketItem);
+export default React.memo(WalletListItem);

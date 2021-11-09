@@ -13,13 +13,16 @@ export interface IWalletAddresses {
 }
 
 export interface IWallet {
-  symbol: string; // BTC, BNB, DOGE
-  name: string; // bitcoin, binancecoin, dogecoin
+  symbol: string;
+  name: string;
+  cid: string | null;
   chain: string;
+  privKey: string | null;
+  walletAddress: string | null;
   type: string;
-  contract: null;
+  contract: string | null;
   decimals: number;
-  //
+  image: string | null;
   balance: number;
   unconfirmedBalance: number;
   value: number;

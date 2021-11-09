@@ -65,13 +65,18 @@ const CoinDetailScreen = observer(({route}) => {
     setRefreshing(false);
   }, []);
 
+  const addWallet = async () => {
+    await CryptoService.prepareNewWallet(coinData, 'ethereum');
+    console.log('-----------_DONE-----------');
+  };
+
   const addToPortfolio = () => {
     // if chain is supported and if is not already added
     if (route.params.isSupported) {
       return (
         <SmallButton
           text={t('Add to portfolio')}
-          onPress={() => null}
+          onPress={() => addWallet()}
           color={Colors.darker}
           style={{
             backgroundColor: Colors.foreground,

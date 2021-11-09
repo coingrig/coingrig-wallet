@@ -22,6 +22,7 @@ import SettingScreen from 'screens/Settings';
 import SendReceiveScreen from 'screens/SendReceive';
 import WalletScreen from 'screens/Wallet';
 import MarketScreen from 'screens/Market';
+import PortfolioScreen from 'screens/Portfolio';
 import NewsScreen from 'screens/News';
 import CoinDetailScreen from './screens/CoinDetails';
 import OnBoardingScreen from './screens/Onboarding';
@@ -103,7 +104,7 @@ function BottomTabs() {
             ) : (
               <Icon name="wallet" size={24} color={Colors.foreground} />
             );
-          } else if (route.name === 'MarketScreen') {
+          } else if (route.name === 'PortfolioScreen') {
             return focused ? (
               <Icon name="stats-chart" size={24} color={Colors.inverse} />
             ) : (
@@ -120,8 +121,8 @@ function BottomTabs() {
         },
       })}>
       <Tab.Screen
-        name="MarketScreen"
-        component={MarketScreen}
+        name="PortfolioScreen"
+        component={PortfolioScreen}
         options={{
           // unmountOnBlur: true,
           headerShown: true,
