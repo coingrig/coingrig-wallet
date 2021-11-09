@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -7,17 +7,16 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import BigList from 'react-native-big-list';
-import { useNavigation } from '@react-navigation/native';
-import { Colors } from 'utils/colors';
+import {useNavigation} from '@react-navigation/native';
+import {Colors} from 'utils/colors';
 import FastImage from 'react-native-fast-image';
-import { TransitionEnd } from 'utils/hooks';
-import { Loader } from 'components/loader';
+import {TransitionEnd} from 'utils/hooks';
+import {Loader} from 'components/loader';
 const coins = require('../../assets/full_tokens.json');
 
-
-const SearchScreen = ({ route }) => {
+const SearchScreen = ({route}) => {
   const navigation = useNavigation();
   const [data, setData] = useState(coins);
   const [showScreen, setShowScreen] = useState(false);
@@ -161,7 +160,7 @@ const SearchScreen = ({ route }) => {
             borderRadius: 5,
             color: Colors.foreground,
           }}
-          // autoFocus
+          autoFocus
           autoCorrect={false}
           placeholderTextColor={'gray'}
           onChangeText={text => searchCoin(text)}
@@ -169,12 +168,12 @@ const SearchScreen = ({ route }) => {
         />
 
         <TouchableOpacity
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+          style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
           onPress={() => navigation.goBack()}>
-          <Text style={{ color: Colors.foreground }}>Close</Text>
+          <Text style={{color: Colors.foreground}}>Close</Text>
         </TouchableOpacity>
       </View>
-      <View style={{ flex: 1, marginHorizontal: 15 }}>{renderList()}</View>
+      <View style={{flex: 1, marginHorizontal: 15}}>{renderList()}</View>
     </SafeAreaView>
   );
 };
