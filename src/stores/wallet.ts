@@ -21,7 +21,7 @@ export interface IWallet {
   walletAddress: string | null;
   type: string;
   contract: string | null;
-  decimals: number;
+  decimals: number | null;
   image: string | null;
   balance: number;
   unconfirmedBalance: number;

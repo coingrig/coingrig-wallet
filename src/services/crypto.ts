@@ -184,21 +184,20 @@ class CryptoService {
     return tokens;
   };
 
-  getChainbyName = name => {
+  getSupportedChainbyName = name => {
     switch (name) {
       case 'ethereum':
         return 'ETH';
-      case 'binance-smart-chain':
-        return 'BSC';
-      case 'polygon-pos':
-        return 'POLYGON';
+      // case 'binance-smart-chain':
+      //   return 'BSC';
+      // case 'polygon-pos':
+      //   return 'POLYGON';
       default:
         return '';
     }
   };
 
-  prepareNewWallet = async (data, network) => {
-    const chain = this.getChainbyName(network);
+  prepareNewWallet = async (data, chain, contract) => {
     // let testw: IWallet = {
     //   symbol: 'CGTEST',
     //   name: 'CGTEST',
@@ -216,15 +215,14 @@ class CryptoService {
     //   active: true,
     //   image: data.image?.large || null,
     // };
-
     let wallet: IWallet = {
       symbol: data.symbol.toUpperCase(),
       name: data.name,
       cid: data.id || data.symbol.toUpperCase(),
       chain: chain,
       type: 'token',
-      decimals: 18,
-      contract: data.platforms[network] || null,
+      decimals: null,
+      contract: contract || null,
       privKey: null,
       balance: 0,
       unconfirmedBalance: 0,
@@ -234,6 +232,19 @@ class CryptoService {
       image: data.image?.large || null,
       walletAddress: null,
     };
+
+    let cryptoWallet = WalletFactory.getWallet(wallet);
+    let decimals = await cryptoWallet.getDecimals();
+    let balance = await cryptoWallet.getBalance();
+    wallet.decimals = decimals;
+    wallet.balance = balance.confirmedBalance;
+    wallet.unconfirmedBalance = balance.unconfirmedBalance;
+    wallet.value = balance.value;
+    if (wallet.value === 0 && wallet.balance > 0) {
+      wallet.value = Number(
+        new BigNumber(wallet.balance).multipliedBy(wallet.price),
+      );
+    }
     WalletStore.addWallet(wallet);
   };
 }
