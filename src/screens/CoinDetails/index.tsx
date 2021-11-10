@@ -67,7 +67,6 @@ const CoinDetailScreen = observer(({route}) => {
 
   const addWallet = async () => {
     await CryptoService.prepareNewWallet(coinData, 'ethereum');
-    console.log('-----------_DONE-----------');
   };
 
   const addToPortfolio = () => {

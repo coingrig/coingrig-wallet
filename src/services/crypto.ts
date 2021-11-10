@@ -70,9 +70,9 @@ class CryptoService {
           return false;
         }
       }
-      let prices = await MarketStore.getCoinsByList(
-        WalletStore.getCoinNamesList(),
-      );
+      const coninIds = WalletStore.getCoinCIDList() || [];
+      //@ts-ignore
+      let prices = await MarketStore.getCoinsByList(coninIds);
       let chainKeys = await this.getChainPrivateKeys();
       for (let i = 0; i < WalletStore.wallets.length; i++) {
         let chain = WalletStore.wallets[i].chain;
@@ -97,7 +97,7 @@ class CryptoService {
         }
         // Not a token, then check regular coin balance
         // Don't update the price if none is available from the provider
-        let newPrice = prices[wallet.name.toLowerCase()]?.usd ?? null;
+        let newPrice = prices[wallet.cid!.toLowerCase()]?.usd ?? null;
         if (newPrice !== null) {
           // The price can be actually 0
           newPrice = parseFloat(newPrice);
@@ -222,7 +222,7 @@ class CryptoService {
     let wallet: IWallet = {
       symbol: data.symbol.toUpperCase(),
       name: data.name,
-      cid: data.id,
+      cid: data.id || data.symbol.toUpperCase(),
       chain: chain,
       type: 'token',
       decimals: 18,

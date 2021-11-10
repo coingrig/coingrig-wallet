@@ -46,6 +46,8 @@
         "wallet.receive": "Receive",
         "wallet.unconfirmed_tx": "Unconfirmed transaction(s) value:",
         "wallet.buysell": "Buy / Sell",
+        "wallet.delete_wallet": "Delete wallet",
+        "wallet.alert_delete_wallet": "Are you sure you want to delete this wallet?",
 
         "coindetails.change": "Change 24h",
         "coindetails.price": "Price",

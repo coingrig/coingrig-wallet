@@ -32,6 +32,17 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 50,
   },
+  deleteBtn: {
+    width: 50,
+    height: 50,
+    alignContent: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    backgroundColor: '#d9534f',
+    alignItems: 'center',
+    borderRadius: 50,
+    zIndex: 10,
+  },
   item: {
     backgroundColor: 'white',
     padding: 20,

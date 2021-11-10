@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   RefreshControl,
+  Alert,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
@@ -14,7 +15,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import {useTranslation} from 'react-i18next';
 import Svg, {Path} from 'react-native-svg';
-import {IWallet, WalletStore} from 'stores/wallet';
+import {WalletStore} from 'stores/wallet';
 import {formatPrice} from 'utils';
 import FastImage from 'react-native-fast-image';
 import {styles} from './styles';
@@ -28,49 +29,44 @@ const WalletScreen = observer(({route}) => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
-
   useEffect(() => {
     navigation.setOptions({
       headerTitle: route.params.symbol,
       headerRight: () => (
         <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity
-            onPress={() => {
-              if (
-                WalletStore.getWalletByCoinId(route.params.symbol)?.price === 0
-              ) {
-                showMessage({
-                  message: t('No data available !'),
-                  type: 'warning',
+          {WalletStore.getWalletByCoinId(route.params.symbol)?.price ===
+          0 ? null : (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('CoinDetailScreen', {
+                  coin: route.params.coin,
+                  title: route.params.symbol,
                 });
-                return null;
-              }
-              navigation.navigate('CoinDetailScreen', {
-                coin: route.params.coin,
-                title: route.params.symbol,
-              });
-            }}
-            style={styles.moreBtn}>
-            <Icon name="stats-chart" size={20} color={Colors.foreground} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => showTransactions()}
-            style={styles.moreBtn}>
-            <Icon
-              name="list-circle-outline"
-              size={28}
-              color={Colors.foreground}
-            />
-          </TouchableOpacity>
+              }}
+              style={styles.moreBtn}>
+              <Icon name="stats-chart" size={20} color={Colors.foreground} />
+            </TouchableOpacity>
+          )}
+          {WalletStore.getWalletByCoinId(route.params.symbol)?.type ===
+          'token' ? null : (
+            <TouchableOpacity
+              onPress={() => showTransactions()}
+              style={styles.moreBtn}>
+              <Icon
+                name="list-circle-outline"
+                size={28}
+                color={Colors.foreground}
+              />
+            </TouchableOpacity>
+          )}
         </View>
       ),
     });
-    // getData();
-    //@ts-ignore
   }, []);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
+      alert('todo: should get ONLY the balance of this token/coin');
       setTimeout(() => {
         CryptoService.getAccountBalance();
       }, 2000);
@@ -126,7 +122,27 @@ const WalletScreen = observer(({route}) => {
       console.log(error);
     }
   };
-
+  const deleteWallet = async () => {
+    Alert.alert(t('wallet.delete_wallet'), t('wallet.alert_delete_wallet'), [
+      {
+        text: t('settings.cancel'),
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {
+        text: t('settings.yes'),
+        onPress: async () => {
+          const w = WalletStore.getWalletByCoinId(route.params.symbol);
+          console.log();
+          const wIndex = WalletStore.wallets.indexOf(w!);
+          if (wIndex) {
+            WalletStore.deleteWallet(wIndex);
+            navigation.goBack();
+          }
+        },
+      },
+    ]);
+  };
   const showTransactions = () => {
     const w = WalletStore.getWalletByCoinId(route.params.symbol);
     openLink(CryptoService.getBlockExplorer(w?.chain!));
@@ -169,6 +185,32 @@ const WalletScreen = observer(({route}) => {
     }
   };
 
+  const buyOrTx = () => {
+    if (WalletStore.getWalletByCoinId(route.params.symbol)?.type === 'token') {
+      return (
+        <>
+          <TouchableOpacity
+            onPress={() => showTransactions()}
+            style={styles.roundBtn}>
+            <Icon name="list" size={20} color={Colors.background} />
+          </TouchableOpacity>
+          <Text style={styles.roundb}>{t('wallet.transactions')}</Text>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <TouchableOpacity
+            onPress={() => buySellAction()}
+            style={styles.roundBtn}>
+            <Icon name="swap-horizontal" size={20} color={Colors.background} />
+          </TouchableOpacity>
+          <Text style={styles.roundb}>{t('wallet.buysell')}</Text>
+        </>
+      );
+    }
+  };
+
   const screen = () => {
     const wallet = WalletStore.getWalletByCoinId(route.params.symbol);
     return (
@@ -207,18 +249,7 @@ const WalletScreen = observer(({route}) => {
               </TouchableOpacity>
               <Text style={styles.roundb}>{t('wallet.send')}</Text>
             </View>
-            <View style={{marginHorizontal: 15}}>
-              <TouchableOpacity
-                onPress={() => buySellAction()}
-                style={styles.roundBtn}>
-                <Icon
-                  name="swap-horizontal"
-                  size={20}
-                  color={Colors.background}
-                />
-              </TouchableOpacity>
-              <Text style={styles.roundb}>{t('wallet.buysell')}</Text>
-            </View>
+            <View style={{marginHorizontal: 15}}>{buyOrTx()}</View>
             <View style={{marginHorizontal: 15}}>
               <TouchableOpacity
                 onPress={() =>
@@ -253,6 +284,16 @@ const WalletScreen = observer(({route}) => {
             fill={Colors.darker}
           />
         </Svg>
+        {WalletStore.getWalletByCoinId(route.params.symbol)?.type !==
+        'token' ? null : (
+          <View style={{right: 20, bottom: 40, position: 'absolute'}}>
+            <TouchableOpacity
+              onPress={() => deleteWallet()}
+              style={styles.deleteBtn}>
+              <Icon name="trash" size={20} color={Colors.background} />
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     );
   };

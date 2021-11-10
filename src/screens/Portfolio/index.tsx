@@ -12,7 +12,7 @@ import {useTranslation} from 'react-i18next';
 import Icon from 'react-native-vector-icons/Ionicons';
 import WalletListItem from 'components/walletlistitem';
 import {Colors} from 'utils/colors';
-import {MarketStore, MarketCapCoinType} from 'stores/market';
+import {MarketStore} from 'stores/market';
 import {observer} from 'mobx-react-lite';
 import {COINS_MAX} from '../../utils/constants';
 import {styles} from './styles';
@@ -25,10 +25,10 @@ const PortfolioScreen = observer(() => {
   const FILTER_LOSERS = 'losers';
   const navigation = useNavigation();
   // const {t} = useTranslation();
-  const [searchText, setSearch] = useState('');
   const [searchFilter, setSearchFilter] = useState(FILTER_ALL);
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     navigation.setOptions({
@@ -44,6 +44,14 @@ const PortfolioScreen = observer(() => {
     });
     fetchCoins();
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      setReload(true);
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   const fetchCoins = async () => {
     const fetchedCoins = await MarketStore.getTopCoins(COINS_MAX);
@@ -82,22 +90,6 @@ const PortfolioScreen = observer(() => {
       return styles.appButtonContainerSelected;
     }
     return styles.appButtonContainer;
-  };
-
-  let getMarketAverage = (): string => {
-    if (!MarketStore.coins.length) {
-      return '';
-    }
-    return String(
-      (
-        MarketStore.coins.reduce(
-          (sum: number, value: MarketCapCoinType): number => {
-            return sum + value.price_change_percentage_24h;
-          },
-          0,
-        ) / MarketStore.coins.length
-      ).toFixed(2),
-    );
   };
 
   const listHeader = () => {
@@ -147,7 +139,7 @@ const PortfolioScreen = observer(() => {
             colors={[Colors.lighter]}
           />
         }
-        data={getCoinsData()}
+        data={WalletStore.wallets.slice()}
         renderItem={renderItem}
         keyExtractor={(item: any) => item.cid}
         maxToRenderPerBatch={5}

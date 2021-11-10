@@ -49,7 +49,11 @@ class WalletStoreModule {
   });
 
   addWallet = action((wallet: IWallet) => {
-    this.wallets.push(wallet);
+    this.wallets = this.wallets.concat([wallet]);
+  });
+
+  deleteWallet = action((index: number) => {
+    this.wallets.splice(index, 1);
   });
 
   addWalletAddress = action((wallet: IWalletAddresses) => {
@@ -87,6 +91,12 @@ class WalletStoreModule {
   getCoinNamesList = () => {
     return this.wallets.map(o => {
       return o.name;
+    });
+  };
+
+  getCoinCIDList = () => {
+    return this.wallets.map(o => {
+      return o.cid;
     });
   };
 
