@@ -235,6 +235,9 @@ class CryptoService {
 
     let cryptoWallet = WalletFactory.getWallet(wallet);
     let decimals = await cryptoWallet.getDecimals();
+    // Adjust the wallet settings with decimals to prevent
+    // requesting again the decimals when getting the balance
+    cryptoWallet.config.decimals = decimals;
     let balance = await cryptoWallet.getBalance();
     wallet.decimals = decimals;
     wallet.balance = balance.confirmedBalance;
