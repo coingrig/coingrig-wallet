@@ -102,8 +102,9 @@ const PortfolioScreen = observer(() => {
             fontSize: 16,
             fontFamily: 'RobotoSlab-Bold',
             color: Colors.lighter,
-            marginVertical: 10,
+            marginBottom: 10,
             marginLeft: 20,
+            marginTop: 20,
           }}>
           All wallets
         </Text>

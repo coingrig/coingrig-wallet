@@ -66,7 +66,7 @@ const WalletScreen = observer(({route}) => {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      alert('todo: should get ONLY the balance of this token/coin');
+      // alert('todo: should get ONLY the balance of this token/coin');
       setTimeout(() => {
         CryptoService.getAccountBalance();
       }, 2000);
