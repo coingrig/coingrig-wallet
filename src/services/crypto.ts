@@ -60,17 +60,17 @@ class CryptoService {
     }
     this.lastFetchedBalance = now;
     try {
-      const tokenBalances = await this.getBulkTokenBalance(
-        WalletStore.walletAddresses,
-      );
-
       if (MarketStore.coins.length <= 10) {
         let coins = await MarketStore.getTopCoins(COINS_MIN);
         if (!coins) {
           return false;
         }
       }
+      console.log('Refreshing general balance');
       const coninIds = WalletStore.getCoinCIDList() || [];
+      const tokenBalances = await this.getBulkTokenBalance(
+        WalletStore.walletAddresses,
+      );
       //@ts-ignore
       let prices = await MarketStore.getCoinsByList(coninIds);
       let chainKeys = await this.getChainPrivateKeys();
@@ -85,7 +85,6 @@ class CryptoService {
         let cryptoWallet = WalletFactory.getWallet(wallet);
         // Check if it's a token
         let token = tokenBalances.find(o => o.contract === contract);
-        console.log(token);
         if (contract && token !== undefined) {
           WalletStore.setBalance(
             wallet.symbol,
@@ -98,13 +97,13 @@ class CryptoService {
         // Not a token, then check regular coin balance
         // Don't update the price if none is available from the provider
         let newPrice = prices[wallet.cid!.toLowerCase()]?.usd ?? null;
+
         if (newPrice !== null) {
           // The price can be actually 0
           newPrice = parseFloat(newPrice);
           WalletStore.setPrice(wallet.symbol, newPrice);
         }
         const balance = await cryptoWallet.getBalance();
-
         const unconfirmedBalance = balance.getUnconfirmedBalance();
         WalletStore.setBalance(wallet.symbol, balance.getValue());
         WalletStore.setUnconfirmedBalance(wallet.symbol, unconfirmedBalance);
@@ -153,7 +152,6 @@ class CryptoService {
       }/address/${
         item.walletAddress
       }/balances_v2/?&key=ckey_ff9e0a7cfbf94e189b759ef53f`;
-      console.log(url);
 
       var config = {
         method: 'get',
@@ -182,7 +180,7 @@ class CryptoService {
     } catch (error) {
       console.log(error);
     }
-    console.log(tokens);
+    console.log('Refreshed bulk tokens');
     return tokens;
   };
 
@@ -236,8 +234,6 @@ class CryptoService {
       image: data.image?.large || null,
       walletAddress: null,
     };
-    // console.log(wallet);
-    // console.log(testw);
     WalletStore.addWallet(wallet);
   };
 }

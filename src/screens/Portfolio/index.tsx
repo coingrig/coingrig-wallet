@@ -12,12 +12,13 @@ import {useTranslation} from 'react-i18next';
 import Icon from 'react-native-vector-icons/Ionicons';
 import WalletListItem from 'components/walletlistitem';
 import {Colors} from 'utils/colors';
-import {MarketStore} from 'stores/market';
+// import {MarketStore} from 'stores/market';
 import {observer} from 'mobx-react-lite';
 import {COINS_MAX} from '../../utils/constants';
 import {styles} from './styles';
 import {showMessage} from 'react-native-flash-message';
 import {IWallet, WalletStore} from 'stores/wallet';
+import {CryptoService} from 'services/crypto';
 
 const PortfolioScreen = observer(() => {
   const FILTER_ALL = 'all';
@@ -54,7 +55,7 @@ const PortfolioScreen = observer(() => {
   }, [navigation]);
 
   const fetchCoins = async () => {
-    const fetchedCoins = await MarketStore.getTopCoins(COINS_MAX);
+    const fetchedCoins = await CryptoService.getAccountBalance();
     if (!fetchedCoins) {
       showMessage({
         message: t('message.error.remote_servers_not_available'),
