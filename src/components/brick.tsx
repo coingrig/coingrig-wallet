@@ -41,19 +41,18 @@ const Brick = observer((props: any) => {
         <>
           <Text
             adjustsFontSizeToFit
-            numberOfLines={3}
-            style={[
-              styles.coinName,
-              // eslint-disable-next-line react-native/no-inline-styles
-              {
-                color: Colors.background,
-                marginBottom: 40,
-                fontWeight: 'normal',
-                fontSize: 15,
-              },
-            ]}>
-            {t('dashboard.more_wallets_soon')}
+            numberOfLines={2}
+            style={[styles.coinName, {color: Colors.background}]}>
+            {'All wallets'}
           </Text>
+          <Text adjustsFontSizeToFit numberOfLines={2} style={styles.endBrick}>
+            {'Check your entire portfolio'}
+          </Text>
+          <Text
+            adjustsFontSizeToFit
+            numberOfLines={1}
+            style={styles.coinValue}
+          />
         </>
       );
     }
@@ -72,7 +71,10 @@ const Brick = observer((props: any) => {
               coin: name.toLowerCase(),
               symbol: props.coin,
             })
-          : null
+          : navigation.navigate('PortfolioScreen', {
+              coin: name.toLowerCase(),
+              symbol: props.coin,
+            })
       }>
       <View style={styles.container}>
         <View style={styles.tcontainer}>
@@ -116,6 +118,12 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginBottom: 5,
     color: Colors.chart,
+    fontFamily: 'RobotoSlab-Regular',
+  },
+  endBrick: {
+    fontSize: 12,
+    marginBottom: 5,
+    color: Colors.background,
     fontFamily: 'RobotoSlab-Regular',
   },
   svg: {

@@ -95,31 +95,16 @@ const PortfolioScreen = observer(() => {
   const listHeader = () => {
     return (
       <View>
-        <View style={styles.pillsContainer}>
-          <TouchableOpacity
-            style={getCoinFilterStyle(FILTER_ALL)}
-            onPress={() => {
-              setSearchFilter(FILTER_ALL);
-            }}>
-            <Text style={styles.appButtonText}>
-              {t('market.all')} {COINS_MAX}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={getCoinFilterStyle(FILTER_GAINERS)}
-            onPress={() => {
-              setSearchFilter(FILTER_GAINERS);
-            }}>
-            <Text style={styles.appButtonText}>{t('market.gainers')}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={getCoinFilterStyle(FILTER_LOSERS)}
-            onPress={() => {
-              setSearchFilter(FILTER_LOSERS);
-            }}>
-            <Text style={styles.appButtonText}>{t('market.losers')}</Text>
-          </TouchableOpacity>
-        </View>
+        <Text
+          style={{
+            fontSize: 16,
+            fontFamily: 'RobotoSlab-Bold',
+            color: Colors.lighter,
+            marginVertical: 10,
+            marginLeft: 20,
+          }}>
+          All wallets
+        </Text>
       </View>
     );
   };

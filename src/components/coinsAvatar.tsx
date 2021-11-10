@@ -1,5 +1,6 @@
 import React from 'react';
-import {Image, Text} from 'react-native';
+import {Text} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import FastImage from 'react-native-fast-image';
 import {Colors} from 'utils/colors';
 
@@ -18,7 +19,7 @@ export function CoinsAvatar(props: any) {
   } else {
     return (
       <Text style={{fontSize: 30, fontWeight: 'bold', color: Colors.black}}>
-        ?
+        <Icon name="wallet" size={20} />
       </Text>
     );
   }

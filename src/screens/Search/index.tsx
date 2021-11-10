@@ -157,7 +157,8 @@ const SearchScreen = ({route}) => {
             backgroundColor: Colors.card,
             paddingHorizontal: 10,
             height: 40,
-            borderRadius: 5,
+            borderTopLeftRadius: 5,
+            borderBottomLeftRadius: 5,
             color: Colors.foreground,
           }}
           autoFocus
@@ -168,9 +169,18 @@ const SearchScreen = ({route}) => {
         />
 
         <TouchableOpacity
-          style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: Colors.brick,
+            borderTopRightRadius: 5,
+            borderBottomRightRadius: 5,
+          }}
           onPress={() => navigation.goBack()}>
-          <Text style={{color: Colors.foreground}}>Close</Text>
+          <Text style={{color: Colors.foreground, fontWeight: 'bold'}}>
+            Close
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={{flex: 1, marginHorizontal: 15}}>{renderList()}</View>
