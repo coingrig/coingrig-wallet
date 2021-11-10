@@ -279,14 +279,14 @@ const WalletScreen = observer(({route}) => {
           </View>
           {renderUnconfirmedTx()}
         </ScrollView>
-        <FastImage
+        {/* <FastImage
           style={styles.logoimg}
           source={{
             uri: wallet?.image,
             priority: FastImage.priority.normal,
             cache: FastImage.cacheControl.immutable,
           }}
-        />
+        /> */}
         <Svg
           viewBox="0 0 400 150"
           preserveAspectRatio="none"
