@@ -225,6 +225,18 @@ const WalletScreen = observer(({route}) => {
               colors={[Colors.lighter]}
             />
           }>
+          <View
+            style={{
+              backgroundColor: Colors.brick,
+              borderRadius: 5,
+              alignSelf: 'flex-end',
+              padding: 5,
+              margin: 10,
+            }}>
+            <Text style={{fontSize: 12, color: Colors.foreground}}>
+              {WalletStore.getWalletByCoinId(route.params.symbol)?.chain} Chain
+            </Text>
+          </View>
           <Text adjustsFontSizeToFit numberOfLines={1} style={styles.bigText}>
             {formatPrice(
               WalletStore.getWalletByCoinId(route.params.symbol)?.value ?? 0,
@@ -290,7 +302,7 @@ const WalletScreen = observer(({route}) => {
             <TouchableOpacity
               onPress={() => deleteWallet()}
               style={styles.deleteBtn}>
-              <Icon name="trash" size={20} color={Colors.background} />
+              <Icon name="trash" size={20} color="white" />
             </TouchableOpacity>
           </View>
         )}

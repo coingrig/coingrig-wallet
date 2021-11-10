@@ -74,6 +74,7 @@ const PortfolioScreen = observer(() => {
           navigation.navigate('WalletScreen', {
             coin: item.cid,
             symbol: item.symbol,
+            chain: item.chain,
           })
         }
       />
