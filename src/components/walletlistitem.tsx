@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {CoinsAvatar} from 'components/coinsAvatar';
-import {formatCoins, formatPrice} from '../utils';
+import {capitalizeFirstLetter, formatCoins, formatPrice} from '../utils';
 import {Colors} from 'utils/colors';
 import {IWallet} from 'stores/wallet';
 
@@ -26,9 +26,11 @@ const WalletListItem = (props: {coin: IWallet; onPress?: any}) => {
               style={styles.coinName}>
               {props.coin.name}
             </Text>
-            <Text style={styles.coinSymbol} numberOfLines={1}>
-              {props.coin.symbol.toUpperCase()}
-            </Text>
+            <View>
+              <Text style={styles.coinSymbol} numberOfLines={1}>
+                {props.coin.chain} chain
+              </Text>
+            </View>
           </View>
           <View style={styles.rcontainer}>
             <Text style={styles.balance} numberOfLines={1}>
@@ -57,10 +59,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   coinSymbol: {
-    fontSize: 13,
-    marginBottom: 5,
-    fontFamily: 'RobotoSlab-Regular',
-    color: Colors.foreground,
+    fontSize: 11,
+    marginTop: 2,
+    fontFamily: 'RobotoSlab-Bold',
+    color: Colors.lighter,
   },
   chart: {
     paddingRight: 0,

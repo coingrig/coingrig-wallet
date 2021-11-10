@@ -87,9 +87,9 @@ const SettingScreen = observer(() => {
 
   return (
     <View style={styles.container}>
-      <View>
+      {/* <View>
         <Text style={styles.title}>{t('settings.settings')}</Text>
-      </View>
+      </View> */}
       <ScrollView contentContainerStyle={styles.scrollview}>
         <View>
           <Text style={styles.subtitle}>{t('settings.wallet')}</Text>

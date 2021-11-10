@@ -1,12 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useCallback, useEffect, useState} from 'react';
-import {RefreshControl, ScrollView, Text, View} from 'react-native';
+import {
+  RefreshControl,
+  ScrollView,
+  Text,
+  View,
+  TouchableOpacity,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+
 import {WalletStore} from 'stores/wallet';
 import {CryptoService} from 'services/crypto';
 import {useTranslation} from 'react-i18next';
 import Brick from 'components/brick';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon2 from 'react-native-vector-icons/Ionicons';
 import {ListPrices} from 'components/widgets/listPrices';
 import {formatPrice} from '../../utils';
 import {observer} from 'mobx-react-lite';
@@ -20,9 +29,19 @@ import {CONFIG_MODULES, CONFIG_PROPERTIES, ConfigStore} from 'stores/config';
 const DashboardScreen = observer(() => {
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
+  const navigation = useNavigation();
   const [showMarketing, setShowMarketing] = useState(false);
 
   useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('SettingScreen')}
+          style={styles.moreBtn}>
+          <Icon2 name="settings-sharp" size={23} color={Colors.foreground} />
+        </TouchableOpacity>
+      ),
+    });
     fetchBalance();
     setShowMarketing(
       ConfigStore.getModuleProperty(

@@ -54,7 +54,7 @@ const isTestnet = () => {
   }
 };
 
-const SmallLogo = () => {
+const SmallLogo = (inverse = false) => {
   return (
     <View
       style={{
@@ -67,7 +67,7 @@ const SmallLogo = () => {
         style={{
           height: 280 / 13,
           width: 279 / 13,
-          tintColor: Colors.foreground,
+          tintColor: inverse ? Colors.foreground : Colors.background,
           marginLeft: 3,
         }}
       />
@@ -99,22 +99,18 @@ function BottomTabs() {
         },
         tabBarIcon: ({focused}) => {
           if (route.name === 'Dashboard') {
+            return focused ? SmallLogo() : SmallLogo(true);
+          } else if (route.name === 'PortfolioScreen') {
             return focused ? (
-              <Icon name="wallet" size={26} color={Colors.inverse} />
+              <Icon name="wallet" size={24} color={Colors.inverse} />
             ) : (
               <Icon name="wallet" size={24} color={Colors.foreground} />
             );
-          } else if (route.name === 'PortfolioScreen') {
+          } else if (route.name === 'MarketScreen') {
             return focused ? (
-              <Icon name="stats-chart" size={24} color={Colors.inverse} />
+              <Icon name="stats-chart" size={22} color={Colors.inverse} />
             ) : (
               <Icon name="stats-chart" size={22} color={Colors.foreground} />
-            );
-          } else if (route.name === 'SettingScreen') {
-            return focused ? (
-              <Icon name="settings-sharp" size={25} color={Colors.inverse} />
-            ) : (
-              <Icon name="settings-sharp" size={23} color={Colors.foreground} />
             );
           }
           return null;
@@ -165,8 +161,8 @@ function BottomTabs() {
         }}
       />
       <Tab.Screen
-        name="SettingScreen"
-        component={SettingScreen}
+        name="MarketScreen"
+        component={MarketScreen}
         options={{
           headerShown: true,
           headerTitle: props => <SmallLogo />,
@@ -362,6 +358,31 @@ export function NavigationScreens() {
         options={{
           headerShown: true,
           headerTitle: 'News',
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+            letterSpacing: 1,
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 20,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="SettingScreen"
+        component={SettingScreen}
+        options={{
+          headerShown: true,
+          headerTitle: 'Settings',
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios

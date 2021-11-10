@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {createRef, useCallback, useEffect, useState} from 'react';
 import {View, ScrollView, Text, RefreshControl} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
@@ -16,6 +16,9 @@ import {formatPrice, formatNumber, convertExponential} from 'utils';
 import {showMessage} from 'react-native-flash-message';
 import {CryptoService} from 'services/crypto';
 import {SmallButton} from 'components/smallButton';
+import ActionSheet from 'react-native-actions-sheet';
+
+const actionSheetRef = createRef();
 
 const CoinDetailScreen = observer(({route}) => {
   const navigation = useNavigation();
@@ -43,6 +46,7 @@ const CoinDetailScreen = observer(({route}) => {
   const getData = async () => {
     // get data from coingecko
     const data = await CryptoService.getCoinDetails(route.params.coin);
+    console.log(data.platforms);
     if (!data) {
       showMessage({
         message: t('message.error.remote_servers_not_available'),
@@ -66,6 +70,7 @@ const CoinDetailScreen = observer(({route}) => {
   }, []);
 
   const addWallet = async () => {
+    actionSheetRef.current?.setModalVisible(true);
     await CryptoService.prepareNewWallet(coinData, 'ethereum');
   };
 
@@ -254,6 +259,27 @@ const CoinDetailScreen = observer(({route}) => {
             Market data provided by CoinGecko
           </Text>
         </View>
+        <ActionSheet
+          //@ts-ignore
+          ref={actionSheetRef}
+          gestureEnabled={true}
+          headerAlwaysVisible
+          // eslint-disable-next-line react-native/no-inline-styles
+          containerStyle={{flex: 1, backgroundColor: Colors.background}}>
+          <View style={{backgroundColor: Colors.background}}>
+            <Text
+              // eslint-disable-next-line react-native/no-inline-styles
+              style={{
+                fontSize: 20,
+                textAlign: 'center',
+                marginTop: 15,
+                fontFamily: 'RobotoSlab-Bold',
+                color: Colors.foreground,
+              }}>
+              {t('Add to portfolio')}
+            </Text>
+          </View>
+        </ActionSheet>
       </ScrollView>
     );
   };

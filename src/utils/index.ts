@@ -62,3 +62,8 @@ export const convertExponential = (n: string | number) => {
           ? decimal + '0'.repeat(Math.max(+pow - decimal.length || 0, 0))
           : decimal.slice(0, +pow) + '.' + decimal.slice(+pow));
 };
+
+export const capitalizeFirstLetter = string => {
+  const newString = string.toLowerCase();
+  return newString.charAt(0).toUpperCase() + newString.slice(1);
+};
