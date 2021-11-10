@@ -39,6 +39,8 @@
         "dashboard.coming_soon": "Coming soon",
         "dashboard.manage_tokens": "Manage tokens",
         "dashboard.manage_nfts": "Manage NFTs",
+        "wallet.delete_wallet": "Delete wallet",
+        "wallet.alert_delete_wallet": "Are you sure you want to delete this wallet?",
         
         "wallet.wallet": "Portefeuille",
         "wallet.send": "Envoyer",
@@ -62,7 +64,7 @@
         "coindetails.total_supply": "Approvisionnement total",
 
         "market.market": "Marché",
-        "market.search_placeholder": "Rechercher les meilleures {{coins}} cryptos par capitalisation",
+        "market.search_placeholder": "Search thousands of coins",
         "market.all": "Tous",
         "market.gainers": "Gagnants",
         "market.losers": "Perdants",

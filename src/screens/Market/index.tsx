@@ -129,13 +129,15 @@ const MarketScreen = observer(() => {
   const listHeader = () => {
     return (
       <View>
-        <TextInput
-          style={styles.textInputStyle}
-          placeholder={t('market.search_placeholder', {coins: COINS_MAX})}
-          placeholderTextColor={Colors.lighter}
-          onChangeText={text => setSearch(text)}
-          defaultValue={searchText}
-        />
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('SearchScreen', {onlySupported: false})
+          }
+          style={styles.searchbar}>
+          <Text style={styles.textInputStyle}>
+            {t('market.search_placeholder')}
+          </Text>
+        </TouchableOpacity>
         <View style={styles.pillsContainer}>
           <TouchableOpacity
             style={getCoinFilterStyle(FILTER_ALL)}

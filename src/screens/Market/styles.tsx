@@ -11,14 +11,20 @@ export const styles = StyleSheet.create({
     color: '#756156',
   },
   textInputStyle: {
-    borderBottomWidth: 1,
-    borderColor: Colors.lighter,
-    marginVertical: 10,
-    marginLeft: 20,
-    marginRight: 20,
-    fontSize: 16,
-    height: 40,
-    color: Colors.foreground,
+    color: 'gray',
+    marginLeft: 15,
+    fontSize: 14,
+  },
+  searchbar: {
+    marginTop: 10,
+    marginHorizontal: 20,
+    height: 45,
+    borderWidth: 1,
+    borderColor: Colors.brick,
+    backgroundColor: Colors.card,
+    borderRadius: 10,
+    alignContent: 'center',
+    justifyContent: 'center',
   },
   title: {
     fontSize: 35,
@@ -42,7 +48,7 @@ export const styles = StyleSheet.create({
   pillsContainer: {
     marginHorizontal: 20,
     marginBottom: 5,
-    marginTop: 10,
+    marginTop: 15,
     flexDirection: 'row',
   },
   appButtonContainerSelected: {
