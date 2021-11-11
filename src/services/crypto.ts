@@ -202,6 +202,21 @@ class CryptoService {
     }
   };
 
+  getSupportedChainbyID = id => {
+    switch (id) {
+      case 'ETH':
+        return 'Ethereum';
+      case 'binance-smart-chain':
+        return 'Binance smart chain';
+      case 'polygon-pos':
+        return 'Polygon';
+      case 'BTC':
+        return 'Bitcoin';
+      default:
+        return '';
+    }
+  };
+
   prepareNewWallet = async (data, chain, contract) => {
     // let testw: IWallet = {
     //   symbol: 'CGTEST',

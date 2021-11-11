@@ -209,12 +209,6 @@ export function SendContainer(props) {
     <View style={[styles.maincontainer, {flex: keyboardEnabled ? 0 : 1}]}>
       <View style={styles.container}>
         <View style={{marginBottom: 5}}>
-          <View style={styles.available}>
-            <Text>
-              {t('Available')}: {props.coinDescriptor?.balance ?? 0}{' '}
-              {props.coinDescriptor?.symbol ?? ''}
-            </Text>
-          </View>
           <View style={styles.input}>
             <TextInput
               style={{flex: 1, color: Colors.foreground}}
@@ -256,7 +250,25 @@ export function SendContainer(props) {
               <Text style={{color: Colors.foreground}}>{props.coin}</Text>
             </View>
           </View>
-          <Text style={styles.toFiat}>{toFiat}</Text>
+          <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
+            <Text style={styles.toFiat}>{toFiat}</Text>
+            <Text
+              style={[
+                styles.toFiat,
+                {
+                  fontSize: 12,
+                  fontWeight: 'normal',
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                  alignSelf: 'center',
+                  marginRight: 15,
+                  color: Colors.lighter,
+                },
+              ]}>
+              {t('Available')}: {props.coinDescriptor?.balance ?? 0}{' '}
+              {props.coinDescriptor?.symbol ?? ''}
+            </Text>
+          </View>
         </View>
       </View>
       <View style={styles.preparetx}>

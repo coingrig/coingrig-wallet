@@ -4,6 +4,7 @@ import {CoinsAvatar} from 'components/coinsAvatar';
 import {capitalizeFirstLetter, formatCoins, formatPrice} from '../utils';
 import {Colors} from 'utils/colors';
 import {IWallet} from 'stores/wallet';
+import {CryptoService} from 'services/crypto';
 
 const WalletListItem = (props: {coin: IWallet; onPress?: any}) => {
   return (
@@ -28,7 +29,7 @@ const WalletListItem = (props: {coin: IWallet; onPress?: any}) => {
             </Text>
             <View>
               <Text style={styles.coinSymbol} numberOfLines={1}>
-                {props.coin.chain} chain
+                {CryptoService.getSupportedChainbyID(props.coin.chain)} network
               </Text>
             </View>
           </View>
@@ -59,9 +60,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   coinSymbol: {
-    fontSize: 11,
-    marginTop: 2,
-    fontFamily: 'RobotoSlab-Bold',
+    fontSize: 12,
+    marginTop: 3,
     color: Colors.lighter,
   },
   chart: {

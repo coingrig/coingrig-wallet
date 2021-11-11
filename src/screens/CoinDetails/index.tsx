@@ -74,6 +74,7 @@ const CoinDetailScreen = observer(({route}) => {
         contract: value,
       });
     }
+    console.log('-----', mappedPlatforms);
     setPlatforms(mappedPlatforms);
 
     if (!data) {
@@ -114,6 +115,7 @@ const CoinDetailScreen = observer(({route}) => {
       message: t('message.wallet.token.added'),
       type: 'success',
     });
+    navigation.goBack();
   };
 
   const addToPortfolio = () => {
@@ -301,31 +303,64 @@ const CoinDetailScreen = observer(({route}) => {
         gestureEnabled={true}
         headerAlwaysVisible
         // eslint-disable-next-line react-native/no-inline-styles
-        containerStyle={{flex: 1, backgroundColor: Colors.background}}>
+        containerStyle={{
+          flex: 1,
+          backgroundColor: Colors.background,
+        }}>
         <View style={{backgroundColor: Colors.background}}>
+          <Text
+            style={{
+              fontSize: 20,
+              textAlign: 'center',
+              marginTop: 15,
+              fontFamily: 'RobotoSlab-Bold',
+              color: Colors.foreground,
+            }}>
+            {t('Choose network')}
+          </Text>
           <FlatList
             data={platforms}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item}) => (
-              <TouchableWithoutFeedback
-                onPress={() => {
-                  saveWallet(item.chain, item.contract);
-                }}>
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 20,
-                      textAlign: 'center',
-                      marginTop: 15,
-                      fontFamily: 'RobotoSlab-Bold',
-                      color: Colors.foreground,
-                    }}>
-                    {t('Add to portfolio')}: {item.chain}
-                  </Text>
-                </View>
-              </TouchableWithoutFeedback>
+              <View>
+                <SmallButton
+                  text={
+                    CryptoService.getSupportedChainbyID(item.chain) + ' network'
+                  }
+                  onPress={() => {
+                    saveWallet(item.chain, item.contract);
+                  }}
+                  color={Colors.darker}
+                  style={{
+                    backgroundColor: Colors.foreground,
+                    marginTop: 30,
+                    borderWidth: 0,
+                  }}
+                />
+                <Text
+                  style={{
+                    fontSize: 20,
+                    textAlign: 'center',
+                    marginTop: 15,
+                    fontFamily: 'RobotoSlab-Bold',
+                    color: Colors.foreground,
+                  }}
+                />
+              </View>
             )}
           />
+          <Text
+            style={{
+              textAlign: 'center',
+              color: Colors.lighter,
+              width: '80%',
+              alignSelf: 'center',
+              fontSize: 12,
+            }}>
+            {t(
+              'Some assets are available on multiple chains/networks. Assets can not be directly used across chains.',
+            )}
+          </Text>
         </View>
       </ActionSheet>
     </ScrollView>

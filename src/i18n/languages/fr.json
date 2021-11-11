@@ -12,6 +12,7 @@
         "message.error.incorrect_pin": "Votre code n'est pas valide!",
         "message.error.unable_to_create_wallets": "Unable to create wallets!",
         "message.error.unable_to_import_wallets": "Unable to import wallets!",
+        "message.wallet.token.added": "A new asset was added to your portfolio",
 
         "init.new_wallet": "Nouveau portefeuille",
         "init.import_wallet": "Importer un portefeuille",
@@ -65,7 +66,7 @@
 
         "market.market": "Marché",
         "market.search_placeholder": "Search thousands of coins",
-        "market.all": "Tous",
+        "market.top": "Top",
         "market.gainers": "Gagnants",
         "market.losers": "Perdants",
 

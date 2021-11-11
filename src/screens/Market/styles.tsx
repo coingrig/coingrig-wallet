@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
   textInputStyle: {
     color: 'gray',
     marginLeft: 15,
-    fontSize: 14,
+    fontSize: 15,
   },
   searchbar: {
     marginTop: 15,

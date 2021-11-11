@@ -130,7 +130,7 @@ const MarketScreen = observer(() => {
     return (
       <View>
         <TouchableOpacity
-          onPress={() =>
+          onPressIn={() =>
             navigation.navigate('SearchScreen', {onlySupported: false})
           }
           style={styles.searchbar}>
@@ -145,7 +145,7 @@ const MarketScreen = observer(() => {
               setSearchFilter(FILTER_ALL);
             }}>
             <Text style={styles.appButtonText}>
-              {t('market.all')} {COINS_MAX}
+              {t('market.top')} {COINS_MAX}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
