@@ -30,8 +30,6 @@ cd ios && pod install && cd .. # install pods for iOS
 #### Android
 
 -   Install the Android SDK, via [Android Studio](https://developer.android.com/studio).
-    -   _MetaMask Only:_ To create production builds, you need to install Google Play Licensing Library via the SDK Manager in Android Studio.
--   Install the Android NDK, via [Android Studio](https://developer.android.com/studio)'s SDK Manager.
 -   Install the correct emulator
     -   Follow the instructions at:
         -   [React Native Getting Started - Android](https://reactnative.dev/docs/environment-setup#installing-dependencies) _(React Native CLI Quickstart -> [your OS] -> Android)_
