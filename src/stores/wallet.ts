@@ -28,6 +28,7 @@ export interface IWallet {
   value: number;
   price: number;
   active: true;
+  version: number;
 }
 
 class WalletStoreModule {

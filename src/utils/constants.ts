@@ -1,3 +1,4 @@
+import CONFIG from 'config';
 import {Dimensions, ScaledSize} from 'react-native';
 import {IWallet} from 'stores/wallet';
 
@@ -27,6 +28,7 @@ export const COIN_LIST: IWallet[] = [
     price: 0,
     active: true,
     image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png',
+    version: CONFIG.NEW_ASSET_DESCRIPTOR_VERSION,
   },
   {
     symbol: 'ETH',
@@ -44,6 +46,7 @@ export const COIN_LIST: IWallet[] = [
     price: 0,
     active: true,
     image: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png',
+    version: CONFIG.NEW_ASSET_DESCRIPTOR_VERSION,
   },
   // {
   //   symbol: 'BNB',

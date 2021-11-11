@@ -276,6 +276,7 @@ class CryptoService {
       active: true,
       image: data.image?.large || null,
       walletAddress: null,
+      version: CONFIG.NEW_ASSET_DESCRIPTOR_VERSION
     };
     let chainAddress = WalletStore.getWalletAddressByChain(wallet.chain);
     let cryptoWallet = WalletFactory.getWallet(
