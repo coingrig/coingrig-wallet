@@ -3,6 +3,7 @@ import {StorageClearAll} from 'services/storage';
 import {clearPersistedStore} from 'mobx-persist-store';
 import RNRestart from 'react-native-restart';
 import i18next from 'i18next';
+import BigNumber from 'bignumber.js';
 
 export const clearAllAppData = async () => {
   await clearPersistedStore('MarketStore');
@@ -14,6 +15,13 @@ export const clearAllAppData = async () => {
 };
 
 export const formatPrice = nr => {
+  if (nr === 0 || isNaN(nr)) {
+    return '$0';
+  }
+  const bgn = new BigNumber(nr);
+  if (bgn.isLessThan(new BigNumber(1e-2))) {
+    return '\u2248 $0.01'; // ≈ unicode
+  }
   let newNr = i18next.format(nr, '$0,0[.][00]');
   if (newNr === '$NaN' || newNr === '$0') {
     newNr = '$' + nr;

@@ -212,7 +212,7 @@ class CryptoService {
     }
   };
 
-  getSupportedChainbyID = id => {
+  getSupportedChainNamebyID = id => {
     switch (id) {
       case 'ETH':
         return 'Ethereum';
@@ -222,6 +222,21 @@ class CryptoService {
         return 'Polygon';
       case 'BTC':
         return 'Bitcoin';
+      default:
+        return '';
+    }
+  };
+
+  getChainNativeAsset = chain => {
+    switch (chain) {
+      case 'ETH':
+        return 'ETH';
+      case 'BSC':
+        return 'BNB';
+      case 'POLYGON':
+        return 'MATIC';
+      case 'BTC':
+        return 'BTC';
       default:
         return '';
     }
@@ -262,8 +277,10 @@ class CryptoService {
       image: data.image?.large || null,
       walletAddress: null,
     };
-
-    let cryptoWallet = WalletFactory.getWallet(wallet);
+    let chainAddress = WalletStore.getWalletAddressByChain(wallet.chain);
+    let cryptoWallet = WalletFactory.getWallet(
+      Object.assign({}, wallet, {walletAddress: chainAddress}),
+    );
     let decimals = await cryptoWallet.getDecimals();
     // Adjust the wallet settings with decimals to prevent
     // requesting again the decimals when getting the balance
@@ -279,6 +296,19 @@ class CryptoService {
       );
     }
     WalletStore.addWallet(wallet);
+  };
+
+  updateWalletBalance = async (coin, chain) => {
+    Logs.info(coin, chain);
+    const wallet = WalletStore.getWalletByCoinId(coin, chain);
+    let chainAddress = WalletStore.getWalletAddressByChain(wallet!.chain);
+    let cryptoWallet = WalletFactory.getWallet(
+      Object.assign({}, wallet, {walletAddress: chainAddress}),
+    );
+    Logs.info(cryptoWallet);
+    let balance = await cryptoWallet.getBalance();
+    Logs.info(balance.confirmedBalance);
+    WalletStore.setBalance(coin, chain, balance.confirmedBalance);
   };
 }
 

@@ -72,9 +72,11 @@ const WalletScreen = observer(({route}) => {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      // alert('todo: should get ONLY the balance of this token/coin');
       setTimeout(() => {
-        CryptoService.getAccountBalance();
+        CryptoService.updateWalletBalance(
+          route.params.symbol,
+          route.params.chain,
+        );
       }, 2000);
     });
 
@@ -250,7 +252,7 @@ const WalletScreen = observer(({route}) => {
             </View>
             <View style={styles.pills}>
               <Text style={{fontSize: 12, color: Colors.lighter}}>
-                {CryptoService.getSupportedChainbyID(
+                {CryptoService.getSupportedChainNamebyID(
                   WalletStore.getWalletByCoinId(
                     route.params.symbol,
                     route.params.chain,

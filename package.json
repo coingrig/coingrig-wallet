@@ -1,6 +1,6 @@
 {
   "name": "coingrig",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "android": "npx react-native run-android",
@@ -11,6 +11,17 @@
     "dep:license": "npx license-extractor --mode merge --source node_modules/ --target DepLicense.txt --overwrite",
     "clean": "rm -rf node_modules/ && yarn && cd ios && pod update && cd .. && cd android && ./gradlew clean",
     "postinstall": "rn-nodeify --install http,https,path,crypto,fs,stream,os --hack"
+  },
+  "keywords": [
+    "crypto",
+    "bitcoin",
+    "wallet",
+    "typescript"
+  ],
+  "homepage": "https://coingrig.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coingrig/mobile-wallet.git"
   },
   "dependencies": {
     "@coingrig/core": "../core/",

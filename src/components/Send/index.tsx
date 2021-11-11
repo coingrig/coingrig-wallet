@@ -113,9 +113,10 @@ export function SendContainer(props) {
         return;
       }
       Logs.info(_fees.regular.getFeeValue(), props.chain);
+      const chainNativeAsset = CryptoService.getChainNativeAsset(props.chain);
       let fFiat =
         _fees.regular.getFeeValue() *
-        WalletStore.getWalletByCoinId(props.chain, props.chain)?.price!;
+        WalletStore.getWalletByCoinId(chainNativeAsset, props.chain)?.price!;
       setFeeFiat(fFiat);
       setFees(_fees);
       //@ts-ignore
@@ -141,6 +142,7 @@ export function SendContainer(props) {
       ? 0
       : WalletStore.getWalletByCoinId(props.coin, props.chain)?.price! *
         formattedValue;
+    Logs.info(fiatValue);
     setToFiat(formatPrice(fiatValue));
   };
 
@@ -285,7 +287,7 @@ export function SendContainer(props) {
             marginBottom: 10,
           }}>
           <Text style={{fontSize: 11, color: Colors.lighter}}>
-            {CryptoService.getSupportedChainbyID(props.chain) +
+            {CryptoService.getSupportedChainNamebyID(props.chain) +
               ' ' +
               t('wallet.network')}
           </Text>

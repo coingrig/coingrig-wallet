@@ -51,7 +51,7 @@ const CoinDetailScreen = observer(({route}) => {
     let mappedPlatforms: any = [];
     for (const [key, value] of Object.entries(data.platforms)) {
       // Sanity check, the data comes with a "":"" pair
-      if (key === '') {
+      if (key === '' || value === '') {
         continue;
       }
       // Is this chain supported?
@@ -311,7 +311,8 @@ const CoinDetailScreen = observer(({route}) => {
               <View>
                 <SmallButton
                   text={
-                    CryptoService.getSupportedChainbyID(item.chain) + ' network'
+                    CryptoService.getSupportedChainNamebyID(item.chain) +
+                    ' network'
                   }
                   onPress={() => {
                     saveWallet(item.chain, item.contract);

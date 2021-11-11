@@ -29,7 +29,8 @@ const WalletListItem = (props: {coin: IWallet; onPress?: any}) => {
             </Text>
             <View>
               <Text style={styles.coinSymbol} numberOfLines={1}>
-                {CryptoService.getSupportedChainbyID(props.coin.chain)} network
+                {CryptoService.getSupportedChainNamebyID(props.coin.chain)}{' '}
+                network
               </Text>
             </View>
           </View>
