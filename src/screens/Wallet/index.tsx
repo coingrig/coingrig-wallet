@@ -18,7 +18,7 @@ import {useTranslation} from 'react-i18next';
 import Svg, {Path} from 'react-native-svg';
 import {WalletStore} from 'stores/wallet';
 import {formatPrice} from 'utils';
-// import FastImage from 'react-native-fast-image';
+import FastImage from 'react-native-fast-image';
 import {styles} from './styles';
 import {CryptoService} from 'services/crypto';
 import {Colors} from 'utils/colors';
