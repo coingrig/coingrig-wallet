@@ -51,6 +51,15 @@ const SearchScreen = ({route}) => {
     setData(newData);
   };
 
+  const getData = () => {
+    if (route.params.onlySupported) {
+      return data.filter(item => {
+        return item.supported === true;
+      });
+    }
+    return data;
+  };
+
   const renderItem = ({item}) => {
     if (route.params.onlySupported && !item.supported) {
       return null;
@@ -124,12 +133,12 @@ const SearchScreen = ({route}) => {
     if (showScreen) {
       return (
         <BigList
-          data={data}
+          data={getData()}
           renderItem={renderItem}
           itemHeight={60}
           insetBottom={30}
           insetTop={10}
-          batchSizeThreshold={1.5}
+          // batchSizeThreshold={1.5}
           showsVerticalScrollIndicator={false}
         />
       );
