@@ -42,11 +42,14 @@ const Brick = observer((props: any) => {
           <Text
             adjustsFontSizeToFit
             numberOfLines={2}
-            style={[styles.coinName, {color: Colors.background}]}>
-            {'All wallets'}
+            style={[
+              styles.coinName,
+              {color: Colors.background, marginBottom: 5},
+            ]}>
+            {t('bricks.all_wallets')}
           </Text>
           <Text adjustsFontSizeToFit numberOfLines={2} style={styles.endBrick}>
-            {'Check your entire portfolio'}
+            {t('bricks.check_portfolio')}
           </Text>
           <Text
             adjustsFontSizeToFit

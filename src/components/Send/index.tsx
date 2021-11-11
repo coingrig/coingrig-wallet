@@ -265,7 +265,7 @@ export function SendContainer(props) {
                   color: Colors.lighter,
                 },
               ]}>
-              {t('Available')}: {props.coinDescriptor?.balance ?? 0}{' '}
+              {t('tx.available')}: {props.coinDescriptor?.balance ?? 0}{' '}
               {props.coinDescriptor?.symbol ?? ''}
             </Text>
           </View>
@@ -283,7 +283,9 @@ export function SendContainer(props) {
             marginBottom: 10,
           }}>
           <Text style={{fontSize: 11, color: Colors.lighter}}>
-            {CryptoService.getSupportedChainbyID(props.chain) + ' Network'}
+            {CryptoService.getSupportedChainbyID(props.chain) +
+              ' ' +
+              t('wallet.network')}
           </Text>
         </View>
         <BigButton

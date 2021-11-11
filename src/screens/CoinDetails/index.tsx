@@ -295,7 +295,7 @@ const CoinDetailScreen = observer(({route}) => {
             </Text>
           </View>
         </View>
-        <Text style={styles.coingecko}>Market data provided by CoinGecko</Text>
+        <Text style={styles.coingecko}>{t('market.provider')}</Text>
       </View>
       <ActionSheet
         //@ts-ignore
@@ -316,7 +316,7 @@ const CoinDetailScreen = observer(({route}) => {
               fontFamily: 'RobotoSlab-Bold',
               color: Colors.foreground,
             }}>
-            {t('Choose network')}
+            {t('coindetails.choose_network')}
           </Text>
           <FlatList
             data={platforms}
@@ -337,15 +337,6 @@ const CoinDetailScreen = observer(({route}) => {
                     borderWidth: 0,
                   }}
                 />
-                <Text
-                  style={{
-                    fontSize: 20,
-                    textAlign: 'center',
-                    marginTop: 15,
-                    fontFamily: 'RobotoSlab-Bold',
-                    color: Colors.foreground,
-                  }}
-                />
               </View>
             )}
           />
@@ -356,10 +347,9 @@ const CoinDetailScreen = observer(({route}) => {
               width: '80%',
               alignSelf: 'center',
               fontSize: 12,
+              marginTop: 30,
             }}>
-            {t(
-              'Some assets are available on multiple chains/networks. Assets can not be directly used across chains.',
-            )}
+            {t('coindetails.chain_note')}
           </Text>
         </View>
       </ActionSheet>

@@ -17,10 +17,6 @@ export function CoinsAvatar(props: any) {
       />
     );
   } else {
-    return (
-      <Text style={{fontSize: 30, fontWeight: 'bold', color: Colors.black}}>
-        <Icon name="wallet" size={20} />
-      </Text>
-    );
+    return <Icon name="wallet" size={20} color={Colors.black} />;
   }
 }

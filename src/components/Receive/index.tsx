@@ -55,7 +55,9 @@ export function ReceiveContainer(props) {
             alignSelf: 'center',
           }}>
           <Text style={{fontSize: 11, color: Colors.lighter}}>
-            {CryptoService.getSupportedChainbyID(props.chain) + ' Network'}
+            {CryptoService.getSupportedChainbyID(props.chain) +
+              ' ' +
+              t('wallet.network')}
           </Text>
         </View>
       </View>

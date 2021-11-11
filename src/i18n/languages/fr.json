@@ -17,6 +17,9 @@
         "init.new_wallet": "Nouveau portefeuille",
         "init.import_wallet": "Importer un portefeuille",
 
+        "bricks.all_wallets": "All wallets",
+        "bricks.check_portfolio": "Check your portfolio",
+
         "setup.your_recovery_phrase": "otre phrase de récupération",
         "setup.copy_these_words": "Copiez ces mots dans le bon ordre et enregistrez-les dans un endroit sûr",
         "setup.copy": "COPIER",
@@ -49,6 +52,7 @@
         "wallet.buysell": "Buy",
         "wallet.delete_wallet": "Delete wallet",
         "wallet.alert_delete_wallet": "Are you sure you want to delete this wallet?",
+        "wallet.network": "Network",
 
         "coindetails.change": "Changement 24h",
         "coindetails.price": "Prix",
@@ -63,12 +67,15 @@
         "coindetails.circulating_supply": "En circulation",
         "coindetails.max_supply": "Approvisionnement maximum",
         "coindetails.total_supply": "Approvisionnement total",
-
+        "coindetails.choose_network": "Choose network",
+        "coindetails.chain_note": "Some assets are available on multiple chains/networks. Assets can not be directly used across chains.",
+        
         "market.market": "Marché",
         "market.search_placeholder": "Search thousands of coins",
         "market.top": "Top",
         "market.gainers": "Gagnants",
         "market.losers": "Perdants",
+        "market.provider": "Market data provided by CoinGecko",
 
         "settings.backup_phrase": "Sauvegardez votre phrase de récupération",
         "settings.settings": "Paramètres",
@@ -103,6 +110,7 @@
         "tx.amount_in_usd": "Montant en USD",
         "tx.miner_fee": "Frais de mineur",
         "tx.total_usd": "TOTAL USD",
+        "tx.available": "Available",
         "tx.confirm": "CONFIRMER"
     }
 }

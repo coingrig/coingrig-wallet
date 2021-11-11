@@ -17,6 +17,9 @@
       "init.new_wallet": "New wallet",
       "init.import_wallet": "Import wallet",
 
+      "bricks.all_wallets": "All wallets",
+      "bricks.check_portfolio": "Check your portfolio",
+
       "setup.your_recovery_phrase": "Your recovery phrase",
       "setup.copy_these_words": "Copy these words in the right order and save them somewhere safe",
       "setup.copy": "COPY",
@@ -49,6 +52,7 @@
       "wallet.buysell": "Cumpara",
       "wallet.delete_wallet": "Delete wallet",
       "wallet.alert_delete_wallet": "Are you sure you want to delete this wallet?",
+      "wallet.network": "Network",
       
       "coindetails.change": "Change 24h",
       "coindetails.price": "Price",
@@ -63,12 +67,15 @@
       "coindetails.circulating_supply": "Circulating Supply",
       "coindetails.max_supply": "Max Supply",
       "coindetails.total_supply": "Total Supply",
+      "coindetails.choose_network": "Choose network",
+      "coindetails.chain_note": "Some assets are available on multiple chains/networks. Assets can not be directly used across chains.",
 
       "market.market": "Market",
       "market.search_placeholder": "Search thousands of coins",
       "market.top": "Top",
       "market.gainers": "Gainers",
       "market.losers": "Losers",
+      "market.provider": "Market data provided by CoinGecko",
 
       "settings.backup_phrase": "Backup your recovery phrase",
       "settings.settings": "Settings",
@@ -103,6 +110,7 @@
       "tx.amount_in_usd": "Amount in USD",
       "tx.miner_fee": "Miner fee",
       "tx.total_usd": "TOTAL USD",
+      "tx.available": "Available",
       "tx.confirm": "CONFIRM"
   }
 }
