@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.foreground,
-    marginTop: '10%',
+    marginTop: 30,
     marginHorizontal: '20%',
   },
   roundBtn: {

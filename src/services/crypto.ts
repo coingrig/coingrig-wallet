@@ -156,7 +156,7 @@ class CryptoService {
         this.CHAIN_ID_MAP[item.chain]
       }/address/${
         item.walletAddress
-      }/balances_v2/?&key=ckey_ff9e0a7cfbf94e189b759ef53f`;
+      }/balances_v2/?key=ckey_ff9e0a7cfbf94e189b759ef53f`;
 
       var config = {
         method: 'get',

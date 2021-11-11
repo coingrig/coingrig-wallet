@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     marginTop: 15,
+    marginBottom: 5,
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.foreground,
   },
@@ -31,6 +32,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 12,
     marginTop: 30,
+    marginBottom: 10,
   },
   title: {
     fontSize: 25,
