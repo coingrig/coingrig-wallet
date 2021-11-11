@@ -129,6 +129,7 @@ const SearchScreen = ({route}) => {
           itemHeight={60}
           insetBottom={30}
           insetTop={10}
+          batchSizeThreshold={1.5}
           showsVerticalScrollIndicator={false}
         />
       );
