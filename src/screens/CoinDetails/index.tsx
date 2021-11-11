@@ -72,7 +72,6 @@ const CoinDetailScreen = observer(({route}) => {
         contract: value,
       });
     }
-    console.log('-----', mappedPlatforms);
     setPlatforms(mappedPlatforms);
 
     if (!data) {

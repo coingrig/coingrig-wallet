@@ -228,40 +228,40 @@ class CryptoService {
   };
 
   prepareNewWallet = async (data, chain, contract) => {
-    let wallet: IWallet = {
-      symbol: 'CGTEST',
-      name: 'CGTEST',
-      cid: null,
-      chain: chain,
-      type: 'token',
-      decimals: null,
-      contract: '0xaf3acd9361fd975427761adfe1ca234c88137a06',
-      walletAddress: null,
-      privKey: null,
-      balance: 0,
-      unconfirmedBalance: 0,
-      value: 0,
-      price: 0,
-      active: true,
-      image: data.image?.large || null,
-    };
     // let wallet: IWallet = {
-    //   symbol: data.symbol.toUpperCase(),
-    //   name: data.name,
-    //   cid: data.id || data.symbol.toUpperCase(),
+    //   symbol: 'CGTEST',
+    //   name: 'CGTEST',
+    //   cid: null,
     //   chain: chain,
     //   type: 'token',
     //   decimals: null,
-    //   contract: contract || null,
+    //   contract: '0xaf3acd9361fd975427761adfe1ca234c88137a06',
+    //   walletAddress: null,
     //   privKey: null,
     //   balance: 0,
     //   unconfirmedBalance: 0,
     //   value: 0,
-    //   price: data.market_data?.current_price?.usd ?? null,
+    //   price: 0,
     //   active: true,
     //   image: data.image?.large || null,
-    //   walletAddress: null,
     // };
+    let wallet: IWallet = {
+      symbol: data.symbol.toUpperCase(),
+      name: data.name,
+      cid: data.id || data.symbol.toUpperCase(),
+      chain: chain,
+      type: 'token',
+      decimals: null,
+      contract: contract || null,
+      privKey: null,
+      balance: 0,
+      unconfirmedBalance: 0,
+      value: 0,
+      price: data.market_data?.current_price?.usd ?? null,
+      active: true,
+      image: data.image?.large || null,
+      walletAddress: null,
+    };
 
     let cryptoWallet = WalletFactory.getWallet(wallet);
     let decimals = await cryptoWallet.getDecimals();
