@@ -15,7 +15,7 @@ const Brick = observer((props: any) => {
   const color = Colors.brick;
   const navigation = useNavigation();
   const {t} = useTranslation();
-  const wallet = WalletStore.getWalletByCoinId(props.coin);
+  const wallet = WalletStore.getWalletByCoinId(props.coin, props.chain);
   React.useEffect(() => {
     setName(capitalize(wallet?.name));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,10 +70,12 @@ const Brick = observer((props: any) => {
           ? navigation.navigate('WalletScreen', {
               coin: name.toLowerCase(),
               symbol: props.coin,
+              chain: props.chain,
             })
           : navigation.navigate('PortfolioScreen', {
               coin: name.toLowerCase(),
               symbol: props.coin,
+              chain: props.chain,
             })
       }>
       <View style={styles.container}>

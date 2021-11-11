@@ -88,9 +88,10 @@ class CryptoService {
         if (contract && token !== undefined) {
           WalletStore.setBalance(
             wallet.symbol,
+            wallet.chain,
             Number(new BigNumber(token.balance).div(10 ** token.decimals)),
           );
-          WalletStore.setPrice(wallet.symbol, token.rate);
+          WalletStore.setPrice(wallet.symbol, wallet.chain, token.rate);
           // Move to next wallet item
           continue;
         }
@@ -101,12 +102,16 @@ class CryptoService {
         if (newPrice !== null) {
           // The price can be actually 0
           newPrice = parseFloat(newPrice);
-          WalletStore.setPrice(wallet.symbol, newPrice);
+          WalletStore.setPrice(wallet.symbol, wallet.chain, newPrice);
         }
         const balance = await cryptoWallet.getBalance();
         const unconfirmedBalance = balance.getUnconfirmedBalance();
-        WalletStore.setBalance(wallet.symbol, balance.getValue());
-        WalletStore.setUnconfirmedBalance(wallet.symbol, unconfirmedBalance);
+        WalletStore.setBalance(wallet.symbol, wallet.chain, balance.getValue());
+        WalletStore.setUnconfirmedBalance(
+          wallet.symbol,
+          wallet.chain,
+          unconfirmedBalance,
+        );
       }
       return true;
     } catch (error) {

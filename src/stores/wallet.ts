@@ -53,7 +53,15 @@ class WalletStoreModule {
   });
 
   deleteWallet = action((index: number) => {
-    this.wallets.splice(index, 1);
+    this.wallets = this.wallets.splice(index, 1).slice();
+  });
+
+  deleteWalletByCoinId = action((symbol: string, chain: string) => {
+    let index = this._getWalletPosition(symbol, chain);
+    if (index !== -1) {
+      this.wallets = this.wallets.splice(index, 1).slice();
+    }
+    return index !== -1;
   });
 
   addWalletAddress = action((wallet: IWalletAddresses) => {
@@ -70,15 +78,15 @@ class WalletStoreModule {
     return null;
   };
 
-  getWalletByCoinId = (symbol: String) => {
+  getWalletByCoinId = (symbol: String, chain: String) => {
     return this.wallets.find((o: IWallet) => {
-      return o.symbol === symbol;
+      return o.symbol === symbol && o.chain === chain;
     });
   };
 
-  getWalletByCoinName = (name: String) => {
+  getWalletByCoinName = (name: String, chain: String) => {
     return this.wallets.find((o: IWallet) => {
-      return o.name === name;
+      return o.name === name && o.chain === chain;
     });
   };
 
@@ -100,22 +108,22 @@ class WalletStoreModule {
     });
   };
 
-  _getWalletPosition = (symbol: string) => {
+  _getWalletPosition = (symbol: string, chain: String) => {
     return this.wallets.findIndex(o => {
-      return o.symbol === symbol;
+      return o.symbol === symbol && o.chain === chain;
     });
   };
 
-  setName = action((symbol: string, name: string) => {
-    let pos = this._getWalletPosition(symbol);
+  setName = action((symbol: string, chain: String, name: string) => {
+    let pos = this._getWalletPosition(symbol, chain);
     if (pos !== -1) {
       this.wallets[pos].name = name;
     }
     this.wallets = this.wallets.splice(0);
   });
 
-  setBalance = action((symbol: string, balance: number) => {
-    let pos = this._getWalletPosition(symbol);
+  setBalance = action((symbol: string, chain: String, balance: number) => {
+    let pos = this._getWalletPosition(symbol, chain);
     if (pos !== -1) {
       this.wallets[pos].balance = balance;
       this.wallets[pos].value =
@@ -124,16 +132,18 @@ class WalletStoreModule {
     this.wallets = this.wallets.splice(0);
   });
 
-  setUnconfirmedBalance = action((symbol: string, balance: number) => {
-    let pos = this._getWalletPosition(symbol);
-    if (pos !== -1) {
-      this.wallets[pos].unconfirmedBalance = balance;
-    }
-    this.wallets = this.wallets.splice(0);
-  });
+  setUnconfirmedBalance = action(
+    (symbol: string, chain: String, balance: number) => {
+      let pos = this._getWalletPosition(symbol, chain);
+      if (pos !== -1) {
+        this.wallets[pos].unconfirmedBalance = balance;
+      }
+      this.wallets = this.wallets.splice(0);
+    },
+  );
 
-  setPrice = action((symbol: string, price: number) => {
-    let pos = this._getWalletPosition(symbol);
+  setPrice = action((symbol: string, chain: String, price: number) => {
+    let pos = this._getWalletPosition(symbol, chain);
     if (pos !== -1) {
       this.wallets[pos].price = price;
       this.wallets[pos].value =

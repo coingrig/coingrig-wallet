@@ -60,7 +60,9 @@ export function SendContainer(props) {
   }, []);
 
   const setupWallet = async () => {
-    setMax(WalletStore.getWalletByCoinId(props.coin)?.balance ?? 0);
+    setMax(
+      WalletStore.getWalletByCoinId(props.coin, props.chain)?.balance ?? 0,
+    );
     let chainKeys = await CryptoService.getChainPrivateKeys();
     let descriptor = Object.assign({}, props.coinDescriptor, {
       privKey: chainKeys[props.coinDescriptor.chain],
@@ -111,7 +113,7 @@ export function SendContainer(props) {
       }
       let fFiat =
         _fees.regular.getFeeValue() *
-        WalletStore.getWalletByCoinId(props.coin)?.price!;
+        WalletStore.getWalletByCoinId(props.coin, props.chain)?.price!;
       setFeeFiat(fFiat);
       setFees(_fees);
       //@ts-ignore
@@ -135,7 +137,8 @@ export function SendContainer(props) {
     const formattedValue = formatNoComma(v);
     const fiatValue = !formattedValue
       ? 0
-      : WalletStore.getWalletByCoinId(props.coin)?.price! * formattedValue;
+      : WalletStore.getWalletByCoinId(props.coin, props.chain)?.price! *
+        formattedValue;
     setToFiat(formatPrice(fiatValue));
   };
 
@@ -270,7 +273,9 @@ export function SendContainer(props) {
             <Text style={{marginBottom: 5}}>
               {t('tx.amount_in_usd')}:{' '}
               {formatPrice(
-                value! * WalletStore.getWalletByCoinId(props.coin)?.price!,
+                value! *
+                  WalletStore.getWalletByCoinId(props.coin, props.chain)
+                    ?.price!,
               )}
             </Text>
             <Text>
@@ -279,7 +284,9 @@ export function SendContainer(props) {
             <Text style={styles.totalusd}>
               {t('tx.total_usd')}:{' '}
               {formatPrice(
-                value! * WalletStore.getWalletByCoinId(props.coin)?.price! +
+                value! *
+                  WalletStore.getWalletByCoinId(props.coin, props.chain)
+                    ?.price! +
                   feeFiat,
               )}
             </Text>

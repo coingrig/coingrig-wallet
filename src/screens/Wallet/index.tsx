@@ -17,7 +17,7 @@ import {useTranslation} from 'react-i18next';
 import Svg, {Path} from 'react-native-svg';
 import {WalletStore} from 'stores/wallet';
 import {formatPrice} from 'utils';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
 import {styles} from './styles';
 import {CryptoService} from 'services/crypto';
 import {Colors} from 'utils/colors';
@@ -34,12 +34,15 @@ const WalletScreen = observer(({route}) => {
       headerTitle: route.params.symbol,
       headerRight: () => (
         <View style={{flexDirection: 'row'}}>
-          {WalletStore.getWalletByCoinId(route.params.symbol)?.price ===
-          0 ? null : (
+          {WalletStore.getWalletByCoinId(
+            route.params.symbol,
+            route.params.chain,
+          )?.price === 0 ? null : (
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('CoinDetailScreen', {
                   coin: route.params.coin,
+                  chain: route.params.chain,
                   title: route.params.symbol,
                 });
               }}
@@ -47,8 +50,10 @@ const WalletScreen = observer(({route}) => {
               <Icon name="stats-chart" size={20} color={Colors.foreground} />
             </TouchableOpacity>
           )}
-          {WalletStore.getWalletByCoinId(route.params.symbol)?.type ===
-          'token' ? null : (
+          {WalletStore.getWalletByCoinId(
+            route.params.symbol,
+            route.params.chain,
+          )?.type === 'token' ? null : (
             <TouchableOpacity
               onPress={() => showTransactions()}
               style={styles.moreBtn}>
@@ -132,7 +137,10 @@ const WalletScreen = observer(({route}) => {
       {
         text: t('settings.yes'),
         onPress: async () => {
-          const w = WalletStore.getWalletByCoinId(route.params.symbol);
+          const w = WalletStore.getWalletByCoinId(
+            route.params.symbol,
+            route.params.chain,
+          );
           console.log();
           const wIndex = WalletStore.wallets.indexOf(w!);
           if (wIndex) {
@@ -144,12 +152,18 @@ const WalletScreen = observer(({route}) => {
     ]);
   };
   const showTransactions = () => {
-    const w = WalletStore.getWalletByCoinId(route.params.symbol);
+    const w = WalletStore.getWalletByCoinId(
+      route.params.symbol,
+      route.params.chain,
+    );
     openLink(CryptoService.getBlockExplorer(w?.chain!));
   };
 
   const buySellAction = () => {
-    const w = WalletStore.getWalletByCoinId(route.params.symbol);
+    const w = WalletStore.getWalletByCoinId(
+      route.params.symbol,
+      route.params.chain,
+    );
     const address = WalletStore.getWalletAddressByChain(w?.chain!);
     const link =
       endpoints.ramper +
@@ -165,6 +179,7 @@ const WalletScreen = observer(({route}) => {
   const renderUnconfirmedTx = () => {
     const unconfTx = WalletStore.getWalletByCoinId(
       route.params.symbol,
+      route.params.chain,
     )?.unconfirmedBalance;
     if (SettingsStore.confirmationEnabled && unconfTx !== 0) {
       return (
@@ -186,7 +201,10 @@ const WalletScreen = observer(({route}) => {
   };
 
   const buyOrTx = () => {
-    if (WalletStore.getWalletByCoinId(route.params.symbol)?.type === 'token') {
+    if (
+      WalletStore.getWalletByCoinId(route.params.symbol, route.params.chain)
+        ?.type === 'token'
+    ) {
       return (
         <>
           <TouchableOpacity
@@ -212,7 +230,10 @@ const WalletScreen = observer(({route}) => {
   };
 
   const screen = () => {
-    const wallet = WalletStore.getWalletByCoinId(route.params.symbol);
+    const wallet = WalletStore.getWalletByCoinId(
+      route.params.symbol,
+      route.params.chain,
+    );
     return (
       <View style={{flexGrow: 1}}>
         <ScrollView
@@ -234,16 +255,28 @@ const WalletScreen = observer(({route}) => {
               margin: 10,
             }}>
             <Text style={{fontSize: 12, color: Colors.foreground}}>
-              {WalletStore.getWalletByCoinId(route.params.symbol)?.chain} Chain
+              {
+                WalletStore.getWalletByCoinId(
+                  route.params.symbol,
+                  route.params.chain,
+                )?.chain
+              }{' '}
+              Chain
             </Text>
           </View>
           <Text adjustsFontSizeToFit numberOfLines={1} style={styles.bigText}>
             {formatPrice(
-              WalletStore.getWalletByCoinId(route.params.symbol)?.value ?? 0,
+              WalletStore.getWalletByCoinId(
+                route.params.symbol,
+                route.params.chain,
+              )?.value ?? 0,
             ) || 0}
           </Text>
           <Text style={styles.coins}>
-            {WalletStore.getWalletByCoinId(route.params.symbol)?.balance || 0}{' '}
+            {WalletStore.getWalletByCoinId(
+              route.params.symbol,
+              route.params.chain,
+            )?.balance || 0}{' '}
             {route.params.symbol}
           </Text>
           <View style={styles.btnCointainers}>
@@ -252,6 +285,7 @@ const WalletScreen = observer(({route}) => {
                 onPress={() =>
                   navigation.navigate('SendReceiveScreen', {
                     coin: route.params.symbol,
+                    chain: route.params.chain,
                     name: wallet?.name,
                     receive: false,
                   })
@@ -267,6 +301,7 @@ const WalletScreen = observer(({route}) => {
                 onPress={() =>
                   navigation.navigate('SendReceiveScreen', {
                     coin: route.params.symbol,
+                    chain: route.params.chain,
                     name: wallet?.name,
                     receive: true,
                   })
@@ -296,8 +331,8 @@ const WalletScreen = observer(({route}) => {
             fill={Colors.darker}
           />
         </Svg>
-        {WalletStore.getWalletByCoinId(route.params.symbol)?.type !==
-        'token' ? null : (
+        {WalletStore.getWalletByCoinId(route.params.symbol, route.params.chain)
+          ?.type !== 'token' ? null : (
           <View style={{right: 20, bottom: 40, position: 'absolute'}}>
             <TouchableOpacity
               onPress={() => deleteWallet()}

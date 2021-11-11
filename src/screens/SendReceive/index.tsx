@@ -21,7 +21,10 @@ const SendReceiveScreen = ({route}) => {
     navigation.setOptions({
       headerTitle: capitalize(route.params.name),
     });
-    const wallet = WalletStore.getWalletByCoinId(route.params.coin);
+    const wallet = WalletStore.getWalletByCoinId(
+      route.params.coin,
+      route.params.chain,
+    );
     setAddress(WalletStore.getWalletAddressByChain(wallet?.chain ?? '') ?? '');
     setCoinDescriptor(wallet ?? {});
   }, []);
@@ -40,6 +43,7 @@ const SendReceiveScreen = ({route}) => {
       return tEnded ? (
         <SendContainer
           coin={route.params.coin}
+          chain={route.params.chain}
           address={address}
           coinDescriptor={coinDescriptor}
         />

@@ -126,7 +126,7 @@ const DashboardScreen = observer(() => {
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={{paddingHorizontal: 15}}>
               {WalletStore.wallets.slice(0, 2).map((v, i) => {
-                return <Brick coin={v.symbol} key={i} />;
+                return <Brick coin={v.symbol} chain={v.chain} key={i} />;
               })}
               <Brick coin={'_END_'} key={'_END_'} />
             </ScrollView>
