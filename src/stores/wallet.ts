@@ -1,5 +1,5 @@
 import {makeAutoObservable, action} from 'mobx';
-import {makePersistable} from 'mobx-persist-store';
+import {makePersistable, isHydrated, hydrateStore} from 'mobx-persist-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {STORED_MNEMONIC} from '../utils/constants';
 import {CryptoService} from '../services/crypto';
@@ -28,6 +28,7 @@ export interface IWallet {
   value: number;
   price: number;
   active: true;
+  version: number;
 }
 
 class WalletStoreModule {
@@ -42,6 +43,14 @@ class WalletStoreModule {
       properties: ['wallets', 'walletAddresses'],
       storage: AsyncStorage,
     });
+  }
+
+  get isHydrated() {
+    return isHydrated(this);
+  }
+
+  async hydrateStore() {
+    await hydrateStore(this);
   }
 
   setWallets = action((wallets: IWallet[]) => {
