@@ -235,24 +235,47 @@ const WalletScreen = observer(({route}) => {
               colors={[Colors.lighter]}
             />
           }>
-          <View
-            style={{
-              backgroundColor: Colors.darker,
-              borderRadius: 5,
-              alignSelf: 'flex-end',
-              padding: 5,
-              margin: 10,
-            }}>
-            <Text style={{fontSize: 12, color: Colors.lighter}}>
-              {CryptoService.getSupportedChainbyID(
-                WalletStore.getWalletByCoinId(
-                  route.params.symbol,
-                  route.params.chain,
-                )?.chain,
-              )}{' '}
-              Network
-            </Text>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <View
+              style={{
+                backgroundColor: Colors.darker,
+                borderRadius: 5,
+                alignSelf: 'flex-end',
+                padding: 5,
+                margin: 10,
+              }}>
+              <Text style={{fontSize: 12, color: Colors.lighter}}>
+                {t('coindetails.price') +
+                  ': ' +
+                  formatPrice(
+                    WalletStore.getWalletByCoinId(
+                      route.params.symbol,
+                      route.params.chain,
+                    )?.price,
+                  )}
+              </Text>
+            </View>
+            <View
+              style={{
+                backgroundColor: Colors.darker,
+                borderRadius: 5,
+                alignSelf: 'flex-end',
+                padding: 5,
+                margin: 10,
+              }}>
+              <Text style={{fontSize: 12, color: Colors.lighter}}>
+                {CryptoService.getSupportedChainbyID(
+                  WalletStore.getWalletByCoinId(
+                    route.params.symbol,
+                    route.params.chain,
+                  )?.chain,
+                ) +
+                  ' ' +
+                  t('wallet.network')}
+              </Text>
+            </View>
           </View>
+
           <Text adjustsFontSizeToFit numberOfLines={1} style={styles.bigText}>
             {formatPrice(
               WalletStore.getWalletByCoinId(
