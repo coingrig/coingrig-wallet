@@ -12,6 +12,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import {useTranslation} from 'react-i18next';
 import Svg, {Path} from 'react-native-svg';
@@ -167,12 +168,10 @@ const WalletScreen = observer(({route}) => {
     const address = WalletStore.getWalletAddressByChain(w?.chain!);
     const link =
       endpoints.ramper +
-      '&onlyCryptos=' +
-      route.params.symbol +
-      '&wallets=' +
-      route.params.symbol +
-      ':' +
-      address;
+      '&userAddress=' +
+      address +
+      '&swapAsset=' +
+      route.params.symbol.toUpperCase();
     openLink(link);
   };
 
@@ -221,7 +220,7 @@ const WalletScreen = observer(({route}) => {
           <TouchableOpacity
             onPress={() => buySellAction()}
             style={styles.roundBtn}>
-            <Icon name="swap-horizontal" size={20} color={Colors.background} />
+            <Icon2 name="dollar-sign" size={20} color={Colors.background} />
           </TouchableOpacity>
           <Text style={styles.roundb}>{t('wallet.buysell')}</Text>
         </>
@@ -314,14 +313,14 @@ const WalletScreen = observer(({route}) => {
           </View>
           {renderUnconfirmedTx()}
         </ScrollView>
-        {/* <FastImage
+        <FastImage
           style={styles.logoimg}
           source={{
             uri: wallet?.image,
             priority: FastImage.priority.normal,
             cache: FastImage.cacheControl.immutable,
           }}
-        /> */}
+        />
         <Svg
           viewBox="0 0 400 150"
           preserveAspectRatio="none"

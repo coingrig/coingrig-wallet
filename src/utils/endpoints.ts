@@ -14,6 +14,7 @@ if (CONFIG.TESTNET) {
 
 endpoints.app = 'https://api.coingrig.com/app/';
 endpoints.news = 'https://api.coingrig.com/news/';
-endpoints.ramper = 'https://widget.onramper.com?apiKey=' + CONFIG.ONRAMPER_KEY;
+endpoints.ramper =
+  'https://buy.ramp.network/?hostAppName=Coingrig&variant=mobile';
 
 export default endpoints;

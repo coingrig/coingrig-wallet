@@ -39,15 +39,15 @@
         "dashboard.coming_soon": "Coming soon",
         "dashboard.manage_tokens": "Manage tokens",
         "dashboard.manage_nfts": "Manage NFTs",
-        "wallet.delete_wallet": "Delete wallet",
-        "wallet.alert_delete_wallet": "Are you sure you want to delete this wallet?",
         
         "wallet.wallet": "Portefeuille",
         "wallet.send": "Envoyer",
         "wallet.transactions": "Transactions",
         "wallet.receive": "Recevoir",
         "wallet.unconfirmed_tx": "Unconfirmed transaction(s) value:",
-        "wallet.buysell": "Buy / Sell",
+        "wallet.buysell": "Buy",
+        "wallet.delete_wallet": "Delete wallet",
+        "wallet.alert_delete_wallet": "Are you sure you want to delete this wallet?",
 
         "coindetails.change": "Changement 24h",
         "coindetails.price": "Prix",
