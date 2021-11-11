@@ -236,14 +236,7 @@ const WalletScreen = observer(({route}) => {
             />
           }>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <View
-              style={{
-                backgroundColor: Colors.darker,
-                borderRadius: 5,
-                alignSelf: 'flex-end',
-                padding: 5,
-                margin: 10,
-              }}>
+            <View style={styles.pills}>
               <Text style={{fontSize: 12, color: Colors.lighter}}>
                 {t('coindetails.price') +
                   ': ' +
@@ -255,14 +248,7 @@ const WalletScreen = observer(({route}) => {
                   )}
               </Text>
             </View>
-            <View
-              style={{
-                backgroundColor: Colors.darker,
-                borderRadius: 5,
-                alignSelf: 'flex-end',
-                padding: 5,
-                margin: 10,
-              }}>
+            <View style={styles.pills}>
               <Text style={{fontSize: 12, color: Colors.lighter}}>
                 {CryptoService.getSupportedChainbyID(
                   WalletStore.getWalletByCoinId(

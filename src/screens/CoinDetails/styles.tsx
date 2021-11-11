@@ -12,6 +12,26 @@ export const styles = StyleSheet.create({
   },
   itemtext: {color: Colors.foreground},
   textr: {color: Colors.foreground},
+  addtoPortfolio: {
+    backgroundColor: Colors.foreground,
+    marginTop: 30,
+    borderWidth: 0,
+  },
+  choose_network: {
+    fontSize: 20,
+    textAlign: 'center',
+    marginTop: 15,
+    fontFamily: 'RobotoSlab-Bold',
+    color: Colors.foreground,
+  },
+  chain_note: {
+    textAlign: 'center',
+    color: Colors.lighter,
+    width: '80%',
+    alignSelf: 'center',
+    fontSize: 12,
+    marginTop: 30,
+  },
   title: {
     fontSize: 25,
     fontFamily: 'RobotoSlab-Bold',

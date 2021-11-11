@@ -14,6 +14,12 @@ export const styles = StyleSheet.create({
     zIndex: -2,
     borderRadius: 20,
   },
+  pills: {
+    backgroundColor: Colors.darker,
+    borderRadius: 5,
+    padding: 5,
+    margin: 10,
+  },
   bigText: {
     fontSize: 50,
     textAlign: 'center',

@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {createRef, useCallback, useEffect, useState} from 'react';
 import {View, ScrollView, Text, RefreshControl, FlatList} from 'react-native';
@@ -17,7 +16,6 @@ import {showMessage} from 'react-native-flash-message';
 import {CryptoService} from 'services/crypto';
 import {SmallButton} from 'components/smallButton';
 import ActionSheet from 'react-native-actions-sheet';
-import {TouchableWithoutFeedback} from 'react-native';
 import {WalletStore} from 'stores/wallet';
 
 const actionSheetRef = createRef();
@@ -126,11 +124,7 @@ const CoinDetailScreen = observer(({route}) => {
           text={t('Add to portfolio')}
           onPress={() => addWallet()}
           color={Colors.darker}
-          style={{
-            backgroundColor: Colors.foreground,
-            marginTop: 30,
-            borderWidth: 0,
-          }}
+          style={styles.addtoPortfolio}
         />
       );
     }
@@ -308,14 +302,7 @@ const CoinDetailScreen = observer(({route}) => {
           backgroundColor: Colors.background,
         }}>
         <View style={{backgroundColor: Colors.background}}>
-          <Text
-            style={{
-              fontSize: 20,
-              textAlign: 'center',
-              marginTop: 15,
-              fontFamily: 'RobotoSlab-Bold',
-              color: Colors.foreground,
-            }}>
+          <Text style={styles.choose_network}>
             {t('coindetails.choose_network')}
           </Text>
           <FlatList
@@ -331,6 +318,7 @@ const CoinDetailScreen = observer(({route}) => {
                     saveWallet(item.chain, item.contract);
                   }}
                   color={Colors.darker}
+                  // eslint-disable-next-line react-native/no-inline-styles
                   style={{
                     backgroundColor: Colors.foreground,
                     marginTop: 30,
@@ -340,17 +328,7 @@ const CoinDetailScreen = observer(({route}) => {
               </View>
             )}
           />
-          <Text
-            style={{
-              textAlign: 'center',
-              color: Colors.lighter,
-              width: '80%',
-              alignSelf: 'center',
-              fontSize: 12,
-              marginTop: 30,
-            }}>
-            {t('coindetails.chain_note')}
-          </Text>
+          <Text style={styles.chain_note}>{t('coindetails.chain_note')}</Text>
         </View>
       </ActionSheet>
     </ScrollView>
