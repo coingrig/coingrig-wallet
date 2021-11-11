@@ -2,11 +2,12 @@ var axios = require('axios');
 import {COINS_MIN, STORED_CHAIN_KEYS} from 'utils/constants';
 import {MarketStore} from 'stores/market';
 import {IWallet, IWalletAddresses, WalletStore} from 'stores/wallet';
+import BigNumber from 'bignumber.js';
+import {Logs} from 'services/logs';
 import {WalletFactory} from '@coingrig/core';
 import {StorageSetItem, StorageGetItem} from './storage';
 import endpoints from 'utils/endpoints';
 import CONFIG from 'config';
-import BigNumber from 'bignumber.js';
 
 class CryptoService {
   lastFetchedBalance = 0;
@@ -66,17 +67,17 @@ class CryptoService {
           return false;
         }
       }
-      console.log('Refreshing general balance');
+      Logs.info('Refreshing general balance');
       const coninIds = WalletStore.getCoinCIDList() || [];
-      const tokenBalances = await this.getBulkTokenBalance(
-        WalletStore.walletAddresses,
-      );
+      // const tokenBalances = await this.getBulkTokenBalance(
+      //   WalletStore.walletAddresses,
+      // );
       //@ts-ignore
       let prices = await MarketStore.getCoinsByList(coninIds);
       let chainKeys = await this.getChainPrivateKeys();
       for (let i = 0; i < WalletStore.wallets.length; i++) {
         let chain = WalletStore.wallets[i].chain;
-        let contract = WalletStore.wallets[i].contract?.toLowerCase() ?? null;
+        // let contract = WalletStore.wallets[i].contract?.toLowerCase() ?? null;
         let wallet = Object.assign({}, WalletStore.wallets[i], {
           privKey: chainKeys[chain],
           walletAddress: WalletStore.getWalletAddressByChain(chain),
@@ -84,20 +85,28 @@ class CryptoService {
         //
         let cryptoWallet = WalletFactory.getWallet(wallet);
         // Check if it's a token
-        let token = tokenBalances.find(o => o.contract === contract);
-        if (contract && token !== undefined) {
-          WalletStore.setBalance(
-            wallet.symbol,
-            wallet.chain,
-            Number(new BigNumber(token.balance).div(10 ** token.decimals)),
-          );
-          WalletStore.setPrice(wallet.symbol, wallet.chain, token.rate);
-          // Move to next wallet item
-          continue;
-        }
+        // let token = tokenBalances.find(o => o.contract === contract);
+        // if (contract && token !== undefined) {
+        //   Logs.info('Balance from provider', wallet.symbol);
+        //   WalletStore.setBalance(
+        //     wallet.symbol,
+        //     wallet.chain,
+        //     Number(new BigNumber(token.balance).div(10 ** token.decimals)),
+        //   );
+        //   WalletStore.setPrice(wallet.symbol, wallet.chain, token.rate);
+        //   // Move to next wallet item
+        //   continue;
+        // }
+        Logs.info('Getting balance from @core', wallet.symbol);
         // Not a token, then check regular coin balance
         // Don't update the price if none is available from the provider
-        let newPrice = prices[wallet.cid!.toLowerCase()]?.usd ?? null;
+        let cidExists = wallet.cid ?? null;
+        let newPrice: any = '';
+        if (!cidExists) {
+          newPrice = 0;
+        } else {
+          newPrice = prices[wallet.cid!.toLowerCase()]?.usd ?? null;
+        }
 
         if (newPrice !== null) {
           // The price can be actually 0
@@ -115,7 +124,7 @@ class CryptoService {
       }
       return true;
     } catch (error) {
-      console.log(error);
+      Logs.error(error);
       return false;
     }
   };
@@ -132,6 +141,7 @@ class CryptoService {
         return response.data;
       })
       .catch(function (error) {
+        Logs.error(error);
         return error;
       });
   };
@@ -156,8 +166,8 @@ class CryptoService {
         this.CHAIN_ID_MAP[item.chain]
       }/address/${
         item.walletAddress
-      }/balances_v2/?key=ckey_ff9e0a7cfbf94e189b759ef53f`;
-
+      }/balances_v2/?&key=ckey_ff9e0a7cfbf94e189b759ef53f`;
+      Logs.info(url);
       var config = {
         method: 'get',
         url: url,
@@ -183,9 +193,9 @@ class CryptoService {
         });
       }
     } catch (error) {
-      console.log(error);
+      Logs.error(error);
     }
-    console.log('Refreshed bulk tokens');
+    Logs.info('Refreshed bulk tokens');
     return tokens;
   };
 
@@ -218,40 +228,40 @@ class CryptoService {
   };
 
   prepareNewWallet = async (data, chain, contract) => {
-    // let testw: IWallet = {
-    //   symbol: 'CGTEST',
-    //   name: 'CGTEST',
-    //   cid: null,
-    //   chain: chain,
-    //   type: 'token',
-    //   decimals: 18,
-    //   contract: '0xaf3acd9361fd975427761adfe1ca234c88137a06',
-    //   walletAddress: null,
-    //   privKey: null,
-    //   balance: 0,
-    //   unconfirmedBalance: 0,
-    //   value: 0,
-    //   price: 0,
-    //   active: true,
-    //   image: data.image?.large || null,
-    // };
     let wallet: IWallet = {
-      symbol: data.symbol.toUpperCase(),
-      name: data.name,
-      cid: data.id || data.symbol.toUpperCase(),
+      symbol: 'CGTEST',
+      name: 'CGTEST',
+      cid: null,
       chain: chain,
       type: 'token',
       decimals: null,
-      contract: contract || null,
+      contract: '0xaf3acd9361fd975427761adfe1ca234c88137a06',
+      walletAddress: null,
       privKey: null,
       balance: 0,
       unconfirmedBalance: 0,
       value: 0,
-      price: data.market_data?.current_price?.usd ?? null,
+      price: 0,
       active: true,
       image: data.image?.large || null,
-      walletAddress: null,
     };
+    // let wallet: IWallet = {
+    //   symbol: data.symbol.toUpperCase(),
+    //   name: data.name,
+    //   cid: data.id || data.symbol.toUpperCase(),
+    //   chain: chain,
+    //   type: 'token',
+    //   decimals: null,
+    //   contract: contract || null,
+    //   privKey: null,
+    //   balance: 0,
+    //   unconfirmedBalance: 0,
+    //   value: 0,
+    //   price: data.market_data?.current_price?.usd ?? null,
+    //   active: true,
+    //   image: data.image?.large || null,
+    //   walletAddress: null,
+    // };
 
     let cryptoWallet = WalletFactory.getWallet(wallet);
     let decimals = await cryptoWallet.getDecimals();

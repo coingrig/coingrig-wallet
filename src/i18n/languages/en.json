@@ -108,7 +108,7 @@
         "tx.share_address": "Share address",
         "tx.confirm_tx": "Confirm transaction",
         "tx.amount_in_usd": "Amount in USD",
-        "tx.miner_fee": "Miner fee",
+        "tx.network_fee": "Network fee",
         "tx.total_usd": "TOTAL USD",
         "tx.available": "Available",
         "tx.confirm": "CONFIRM"

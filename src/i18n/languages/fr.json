@@ -108,7 +108,7 @@
         "tx.share_address": "Partager l'adresse",
         "tx.confirm_tx": "Confirmer la transaction",
         "tx.amount_in_usd": "Montant en USD",
-        "tx.miner_fee": "Frais de mineur",
+        "tx.network_fee": "Network fee",
         "tx.total_usd": "TOTAL USD",
         "tx.available": "Available",
         "tx.confirm": "CONFIRMER"

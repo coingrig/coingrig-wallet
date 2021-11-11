@@ -54,7 +54,7 @@ const isTestnet = () => {
   }
 };
 
-const SmallLogo = (inverse = false) => {
+const TabLogo = (inverse = false) => {
   return (
     <View
       style={{
@@ -68,6 +68,27 @@ const SmallLogo = (inverse = false) => {
           height: 280 / 13,
           width: 279 / 13,
           tintColor: inverse ? Colors.foreground : Colors.background,
+          marginLeft: 3,
+        }}
+      />
+    </View>
+  );
+};
+
+const SmallLogo = () => {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+      <Image
+        source={require('./assets/logo_small.png')}
+        style={{
+          height: 280 / 13,
+          width: 279 / 13,
+          tintColor: Colors.foreground,
           marginLeft: 3,
         }}
       />
@@ -99,7 +120,7 @@ function BottomTabs() {
         },
         tabBarIcon: ({focused}) => {
           if (route.name === 'Dashboard') {
-            return focused ? SmallLogo() : SmallLogo(true);
+            return focused ? TabLogo(false) : TabLogo(true);
           } else if (route.name === 'PortfolioScreen') {
             return focused ? (
               <Icon name="wallet" size={24} color={Colors.inverse} />

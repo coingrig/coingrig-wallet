@@ -9,6 +9,7 @@ export const ASSET_TYPE_COIN = 'coin';
 export const ASSET_TYPE_TOKEN = 'token';
 export const ASSET_TYPE_NFT = 'nft';
 
+// symbol === chain
 export const COIN_LIST: IWallet[] = [
   {
     symbol: 'BTC',

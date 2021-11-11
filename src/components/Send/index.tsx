@@ -28,6 +28,7 @@ import {LoadingModal} from 'services/loading';
 import {WalletFactory} from '@coingrig/core';
 import {CryptoService} from 'services/crypto';
 import {styles} from './styles';
+import {Logs} from 'services/logs';
 
 const actionSheetRef = createRef();
 const actionCamera = createRef();
@@ -111,9 +112,10 @@ export function SendContainer(props) {
         LoadingModal.instance.current?.hide();
         return;
       }
+      Logs.info(_fees.regular.getFeeValue(), props.chain);
       let fFiat =
         _fees.regular.getFeeValue() *
-        WalletStore.getWalletByCoinId(props.coin, props.chain)?.price!;
+        WalletStore.getWalletByCoinId(props.chain, props.chain)?.price!;
       setFeeFiat(fFiat);
       setFees(_fees);
       //@ts-ignore
@@ -313,7 +315,7 @@ export function SendContainer(props) {
               )}
             </Text>
             <Text>
-              {t('tx.miner_fee')}: {formatPrice(feeFiat)}
+              {t('tx.network_fee')}: {formatPrice(feeFiat)}
             </Text>
             <Text style={styles.totalusd}>
               {t('tx.total_usd')}:{' '}

@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
   },
   totalusd: {
     fontWeight: 'bold',
-    marginTop: 15,
+    marginTop: 20,
     fontSize: 16,
     color: Colors.black,
   },
