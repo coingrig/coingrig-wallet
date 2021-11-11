@@ -272,6 +272,20 @@ export function SendContainer(props) {
         </View>
       </View>
       <View style={styles.preparetx}>
+        <View
+          style={{
+            backgroundColor: Colors.darker,
+            borderRadius: 5,
+            paddingHorizontal: 10,
+            paddingVertical: 5,
+            justifyContent: 'center',
+            alignSelf: 'center',
+            marginBottom: 10,
+          }}>
+          <Text style={{fontSize: 11, color: Colors.lighter}}>
+            {CryptoService.getSupportedChainbyID(props.chain) + ' Network'}
+          </Text>
+        </View>
         <BigButton
           text={t('tx.next')}
           backgroundColor={Colors.foreground}

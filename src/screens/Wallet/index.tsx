@@ -95,13 +95,6 @@ const WalletScreen = observer(({route}) => {
     }
     setRefreshing(false);
   }, []);
-  // const getData = async () => {
-  //   const data = find(MarketStore.coins, o => {
-  //     return o.symbol === route.params.symbol.toLowerCase();
-  //   });
-  //   console.log(data);
-  //   setCoinData(data);
-  // };
 
   const openLink = async url => {
     try {
@@ -166,12 +159,9 @@ const WalletScreen = observer(({route}) => {
       route.params.chain,
     );
     const address = WalletStore.getWalletAddressByChain(w?.chain!);
+    let coin = route.params.symbol.toUpperCase();
     const link =
-      endpoints.ramper +
-      '&userAddress=' +
-      address +
-      '&swapAsset=' +
-      route.params.symbol.toUpperCase();
+      endpoints.ramper + '&userAddress=' + address + '&swapAsset=' + coin;
     openLink(link);
   };
 
@@ -247,20 +237,20 @@ const WalletScreen = observer(({route}) => {
           }>
           <View
             style={{
-              backgroundColor: Colors.brick,
+              backgroundColor: Colors.darker,
               borderRadius: 5,
               alignSelf: 'flex-end',
               padding: 5,
               margin: 10,
             }}>
-            <Text style={{fontSize: 12, color: Colors.foreground}}>
-              {
+            <Text style={{fontSize: 12, color: Colors.lighter}}>
+              {CryptoService.getSupportedChainbyID(
                 WalletStore.getWalletByCoinId(
                   route.params.symbol,
                   route.params.chain,
-                )?.chain
-              }{' '}
-              Chain
+                )?.chain,
+              )}{' '}
+              Network
             </Text>
           </View>
           <Text adjustsFontSizeToFit numberOfLines={1} style={styles.bigText}>

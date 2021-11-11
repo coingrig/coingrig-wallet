@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-between',
     borderRadius: 10,
-    marginHorizontal: 10,
     marginBottom: 15,
     paddingBottom: 10,
   },
@@ -110,13 +109,13 @@ export const styles = StyleSheet.create({
   input: {
     flex: 1,
     minHeight: 50,
-    borderWidth: 0.5,
+    borderWidth: 1,
     padding: 10,
     borderRadius: 5,
     fontSize: 14,
     marginVertical: 10,
     marginBottom: 0,
-    borderColor: Colors.inputBackground,
+    borderColor: Colors.brick,
     marginHorizontal: 15,
     backgroundColor: Colors.inputBackground,
     flexDirection: 'row',

@@ -3,7 +3,6 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {
   Text,
   View,
-  TextInput,
   FlatList,
   TouchableOpacity,
   RefreshControl,
@@ -25,7 +24,6 @@ const MarketScreen = observer(() => {
   const FILTER_LOSERS = 'losers';
   const navigation = useNavigation();
   // const {t} = useTranslation();
-  const [searchText, setSearch] = useState('');
   const [searchFilter, setSearchFilter] = useState(FILTER_ALL);
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
@@ -88,16 +86,6 @@ const MarketScreen = observer(() => {
           return b.price_change_percentage_24h - a.price_change_percentage_24h;
         }
         return a.price_change_percentage_24h - b.price_change_percentage_24h;
-      });
-    }
-    if (searchText) {
-      let searchValue = searchText.trim().toLowerCase();
-      return list.filter((o: MarketCapCoinType) => {
-        return (
-          o.name.toLowerCase().indexOf(searchValue) !== -1 ||
-          o.symbol.toLowerCase().indexOf(searchValue) !== -1 ||
-          o.id.toLowerCase().indexOf(searchValue) !== -1
-        );
       });
     }
     return list;

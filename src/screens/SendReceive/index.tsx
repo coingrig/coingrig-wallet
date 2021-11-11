@@ -38,7 +38,11 @@ const SendReceiveScreen = ({route}) => {
   };
   const renderContainer = () => {
     if (isReceive) {
-      return tEnded ? <ReceiveContainer address={address} /> : loading();
+      return tEnded ? (
+        <ReceiveContainer address={address} chain={route.params.chain} />
+      ) : (
+        loading()
+      );
     } else {
       return tEnded ? (
         <SendContainer
