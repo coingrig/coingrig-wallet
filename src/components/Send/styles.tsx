@@ -95,6 +95,18 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     marginBottom: 50,
   },
+  available: {
+    fontWeight: '500',
+    flex: 1,
+    minHeight: 50,
+    padding: 10,
+    fontSize: 16,
+    marginVertical: 10,
+    marginBottom: 0,
+    marginHorizontal: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
   input: {
     flex: 1,
     minHeight: 50,

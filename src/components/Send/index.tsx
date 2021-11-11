@@ -209,6 +209,12 @@ export function SendContainer(props) {
     <View style={[styles.maincontainer, {flex: keyboardEnabled ? 0 : 1}]}>
       <View style={styles.container}>
         <View style={{marginBottom: 5}}>
+          <View style={styles.available}>
+            <Text>
+              {t('Available')}: {props.coinDescriptor?.balance ?? 0}{' '}
+              {props.coinDescriptor?.symbol ?? ''}
+            </Text>
+          </View>
           <View style={styles.input}>
             <TextInput
               style={{flex: 1, color: Colors.foreground}}
