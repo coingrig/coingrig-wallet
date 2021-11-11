@@ -53,13 +53,15 @@ class WalletStoreModule {
   });
 
   deleteWallet = action((index: number) => {
-    this.wallets = this.wallets.splice(index, 1).slice(0);
+    this.wallets.splice(index, 1);
+    this.wallets = this.wallets.slice(0);
   });
 
   deleteWalletByCoinId = action((symbol: string, chain: string) => {
     let index = this._getWalletPosition(symbol, chain);
     if (index !== -1) {
-      this.wallets = this.wallets.splice(index, 1).slice(0);
+      this.wallets.splice(index, 1);
+      this.wallets = this.wallets.slice(0);
     }
     return index !== -1;
   });

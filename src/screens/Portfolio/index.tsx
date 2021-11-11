@@ -127,7 +127,7 @@ const PortfolioScreen = observer(() => {
             colors={[Colors.lighter]}
           />
         }
-        data={WalletStore.wallets.slice(0)}
+        data={WalletStore.wallets}
         renderItem={renderItem}
         keyExtractor={(item: any) => item.cid}
         maxToRenderPerBatch={5}
