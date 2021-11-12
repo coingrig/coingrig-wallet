@@ -39,7 +39,7 @@ const WalletListItem = (props: {coin: IWallet; onPress?: any}) => {
               {formatCoins(props.coin.balance) + ' ' + props.coin.symbol}
             </Text>
             <Text style={styles.value} numberOfLines={1}>
-              {formatPrice(props.coin.value)}
+              {formatPrice(props.coin.value, true)}
             </Text>
           </View>
         </View>

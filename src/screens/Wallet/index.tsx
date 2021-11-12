@@ -270,6 +270,7 @@ const WalletScreen = observer(({route}) => {
                 route.params.symbol,
                 route.params.chain,
               )?.value ?? 0,
+              true,
             ) || 0}
           </Text>
           <Text style={styles.coins}>
