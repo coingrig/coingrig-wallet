@@ -44,6 +44,7 @@ const Brick = observer((props: any) => {
             numberOfLines={2}
             style={[
               styles.coinName,
+              // eslint-disable-next-line react-native/no-inline-styles
               {color: Colors.background, marginBottom: 5},
             ]}>
             {t('bricks.all_wallets')}

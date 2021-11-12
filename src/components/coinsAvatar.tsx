@@ -1,5 +1,4 @@
 import React from 'react';
-import {Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import FastImage from 'react-native-fast-image';
 import {Colors} from 'utils/colors';

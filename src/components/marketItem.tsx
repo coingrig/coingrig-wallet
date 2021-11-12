@@ -16,6 +16,7 @@ const MarketItem = (props: {
   return (
     <TouchableOpacity
       onPress={props.onPress ? props.onPress : null}
+      // eslint-disable-next-line react-native/no-inline-styles
       style={{height: 80, marginVertical: 4}}>
       <View style={styles.container}>
         <View style={styles.card}>
@@ -42,6 +43,7 @@ const MarketItem = (props: {
             <Text
               style={[
                 styles.change,
+                // eslint-disable-next-line react-native/no-inline-styles
                 {color: props.change > 0 ? '#5cb85c' : '#d9534f'},
               ]}>
               {props.change.toFixed(2)} %

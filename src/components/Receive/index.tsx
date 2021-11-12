@@ -21,6 +21,7 @@ export function ReceiveContainer(props) {
         setImageUri(response);
       })
       .catch(err => console.log('Cannot create QR code', err));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const shareAddress = async () => {

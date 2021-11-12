@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {CoinsAvatar} from 'components/coinsAvatar';
-import {capitalizeFirstLetter, formatCoins, formatPrice} from '../utils';
+import {formatCoins, formatPrice} from '../utils';
 import {Colors} from 'utils/colors';
 import {IWallet} from 'stores/wallet';
 import {CryptoService} from 'services/crypto';

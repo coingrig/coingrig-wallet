@@ -27,6 +27,7 @@ const SendReceiveScreen = ({route}) => {
     );
     setAddress(WalletStore.getWalletAddressByChain(wallet?.chain ?? '') ?? '');
     setCoinDescriptor(wallet ?? {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loading = () => {

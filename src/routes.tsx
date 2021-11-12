@@ -144,7 +144,7 @@ function BottomTabs() {
           // unmountOnBlur: true,
           headerShown: true,
           headerTitleAlign: 'left',
-          headerTitle: props => <SmallLogo />,
+          headerTitle: () => <SmallLogo />,
           headerStyle: {
             shadowColor: 'transparent', // ios
             elevation: 0, // android
@@ -165,7 +165,7 @@ function BottomTabs() {
         options={{
           headerShown: true,
           headerTitleAlign: 'left',
-          headerTitle: props => <SmallLogo />,
+          headerTitle: () => <SmallLogo />,
           headerStyle: {
             shadowColor: 'transparent', // ios
             elevation: 0, // android
@@ -186,7 +186,7 @@ function BottomTabs() {
         component={MarketScreen}
         options={{
           headerShown: true,
-          headerTitle: props => <SmallLogo />,
+          headerTitle: () => <SmallLogo />,
           headerTitleAlign: 'left',
           headerStyle: {
             shadowColor: 'transparent', // ios

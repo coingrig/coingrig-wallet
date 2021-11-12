@@ -12,24 +12,16 @@ import {useTranslation} from 'react-i18next';
 import Icon from 'react-native-vector-icons/Ionicons';
 import WalletListItem from 'components/walletlistitem';
 import {Colors} from 'utils/colors';
-// import {MarketStore} from 'stores/market';
 import {observer} from 'mobx-react-lite';
-import {COINS_MAX} from '../../utils/constants';
 import {styles} from './styles';
 import {showMessage} from 'react-native-flash-message';
 import {IWallet, WalletStore} from 'stores/wallet';
 import {CryptoService} from 'services/crypto';
 
 const PortfolioScreen = observer(() => {
-  const FILTER_ALL = 'all';
-  const FILTER_GAINERS = 'gainers';
-  const FILTER_LOSERS = 'losers';
   const navigation = useNavigation();
-  // const {t} = useTranslation();
-  const [searchFilter, setSearchFilter] = useState(FILTER_ALL);
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
-  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     navigation.setOptions({
@@ -45,14 +37,6 @@ const PortfolioScreen = observer(() => {
     });
     fetchCoins();
   }, []);
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      setReload(true);
-    });
-
-    return unsubscribe;
-  }, [navigation]);
 
   const fetchCoins = async () => {
     const fetchedCoins = await CryptoService.getAccountBalance();
@@ -82,22 +66,11 @@ const PortfolioScreen = observer(() => {
     );
   };
 
-  let getCoinsData = (): any[] => {
-    let list = WalletStore.wallets ?? [];
-    return list;
-  };
-
-  let getCoinFilterStyle = type => {
-    if (searchFilter === type) {
-      return styles.appButtonContainerSelected;
-    }
-    return styles.appButtonContainer;
-  };
-
   const listHeader = () => {
     return (
       <View>
         <Text
+          // eslint-disable-next-line react-native/no-inline-styles
           style={{
             fontSize: 16,
             fontFamily: 'RobotoSlab-Bold',
