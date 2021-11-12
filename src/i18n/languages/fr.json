@@ -12,9 +12,13 @@
         "message.error.incorrect_pin": "Votre code n'est pas valide!",
         "message.error.unable_to_create_wallets": "Unable to create wallets!",
         "message.error.unable_to_import_wallets": "Unable to import wallets!",
+        "message.wallet.token.added": "A new asset was added to your portfolio",
 
         "init.new_wallet": "Nouveau portefeuille",
         "init.import_wallet": "Importer un portefeuille",
+
+        "bricks.all_wallets": "All wallets",
+        "bricks.check_portfolio": "Check your portfolio",
 
         "setup.your_recovery_phrase": "otre phrase de récupération",
         "setup.copy_these_words": "Copiez ces mots dans le bon ordre et enregistrez-les dans un endroit sûr",
@@ -37,15 +41,18 @@
         "dashboard.top_3_coins": "Top 3 des cryptos",
         "dashboard.more_wallets_soon": "Plus de portefeuilles à venir",
         "dashboard.coming_soon": "Coming soon",
-        "dashboard.manage_tokens": "Manage tokens",
-        "dashboard.manage_nfts": "Manage NFTs",
+        "dashboard.info1": "More chains",
+        "dashboard.info2": "Manage NFTs",
         
         "wallet.wallet": "Portefeuille",
         "wallet.send": "Envoyer",
         "wallet.transactions": "Transactions",
         "wallet.receive": "Recevoir",
         "wallet.unconfirmed_tx": "Unconfirmed transaction(s) value:",
-        "wallet.buysell": "Buy / Sell",
+        "wallet.buysell": "Buy",
+        "wallet.delete_wallet": "Delete wallet",
+        "wallet.alert_delete_wallet": "Are you sure you want to delete this wallet?",
+        "wallet.network": "Network",
 
         "coindetails.change": "Changement 24h",
         "coindetails.price": "Prix",
@@ -60,12 +67,15 @@
         "coindetails.circulating_supply": "En circulation",
         "coindetails.max_supply": "Approvisionnement maximum",
         "coindetails.total_supply": "Approvisionnement total",
-
+        "coindetails.choose_network": "Choose network",
+        "coindetails.chain_note": "Some assets are available on multiple chains/networks. Assets can not be directly used across chains.",
+        
         "market.market": "Marché",
-        "market.search_placeholder": "Rechercher les meilleures {{coins}} cryptos par capitalisation",
-        "market.all": "Tous",
+        "market.search_placeholder": "Search thousands of coins",
+        "market.top": "Top",
         "market.gainers": "Gagnants",
         "market.losers": "Perdants",
+        "market.provider": "Market data provided by CoinGecko",
 
         "settings.backup_phrase": "Sauvegardez votre phrase de récupération",
         "settings.settings": "Paramètres",
@@ -98,8 +108,9 @@
         "tx.share_address": "Partager l'adresse",
         "tx.confirm_tx": "Confirmer la transaction",
         "tx.amount_in_usd": "Montant en USD",
-        "tx.miner_fee": "Frais de mineur",
+        "tx.network_fee": "Network fee",
         "tx.total_usd": "TOTAL USD",
+        "tx.available": "Available",
         "tx.confirm": "CONFIRMER"
     }
 }

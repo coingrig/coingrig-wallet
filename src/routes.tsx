@@ -10,6 +10,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SplashScreen from 'screens/Splash';
 import DashboardScreen from 'screens/Dashboard';
+import SearchScreen from 'screens/Search';
 import GenerateWalletScreen from 'screens/WalletSetup/generateWallet';
 import ValidateWalletScreen from 'screens/WalletSetup/validateWallet';
 import StartScreen from 'screens/Start';
@@ -21,6 +22,7 @@ import SettingScreen from 'screens/Settings';
 import SendReceiveScreen from 'screens/SendReceive';
 import WalletScreen from 'screens/Wallet';
 import MarketScreen from 'screens/Market';
+import PortfolioScreen from 'screens/Portfolio';
 import NewsScreen from 'screens/News';
 import CoinDetailScreen from './screens/CoinDetails';
 import OnBoardingScreen from './screens/Onboarding';
@@ -50,6 +52,27 @@ const isTestnet = () => {
       </View>
     );
   }
+};
+
+const TabLogo = (inverse = false) => {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+      <Image
+        source={require('./assets/logo_small.png')}
+        style={{
+          height: 280 / 13,
+          width: 279 / 13,
+          tintColor: inverse ? Colors.foreground : Colors.background,
+          marginLeft: 3,
+        }}
+      />
+    </View>
+  );
 };
 
 const SmallLogo = () => {
@@ -97,30 +120,26 @@ function BottomTabs() {
         },
         tabBarIcon: ({focused}) => {
           if (route.name === 'Dashboard') {
+            return focused ? TabLogo(false) : TabLogo(true);
+          } else if (route.name === 'PortfolioScreen') {
             return focused ? (
-              <Icon name="wallet" size={26} color={Colors.inverse} />
+              <Icon name="wallet" size={24} color={Colors.inverse} />
             ) : (
               <Icon name="wallet" size={24} color={Colors.foreground} />
             );
           } else if (route.name === 'MarketScreen') {
             return focused ? (
-              <Icon name="stats-chart" size={24} color={Colors.inverse} />
+              <Icon name="stats-chart" size={22} color={Colors.inverse} />
             ) : (
               <Icon name="stats-chart" size={22} color={Colors.foreground} />
-            );
-          } else if (route.name === 'SettingScreen') {
-            return focused ? (
-              <Icon name="settings-sharp" size={25} color={Colors.inverse} />
-            ) : (
-              <Icon name="settings-sharp" size={23} color={Colors.foreground} />
             );
           }
           return null;
         },
       })}>
       <Tab.Screen
-        name="MarketScreen"
-        component={MarketScreen}
+        name="PortfolioScreen"
+        component={PortfolioScreen}
         options={{
           // unmountOnBlur: true,
           headerShown: true,
@@ -163,8 +182,8 @@ function BottomTabs() {
         }}
       />
       <Tab.Screen
-        name="SettingScreen"
-        component={SettingScreen}
+        name="MarketScreen"
+        component={MarketScreen}
         options={{
           headerShown: true,
           headerTitle: () => <SmallLogo />,
@@ -266,6 +285,14 @@ export function NavigationScreens() {
         }}
       />
       <Stack.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{
+          headerShown: false,
+          animationEnabled: false,
+        }}
+      />
+      <Stack.Screen
         name="ValidateWalletScreen"
         component={ValidateWalletScreen}
         options={{
@@ -352,6 +379,31 @@ export function NavigationScreens() {
         options={{
           headerShown: true,
           headerTitle: 'News',
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+            letterSpacing: 1,
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 20,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="SettingScreen"
+        component={SettingScreen}
+        options={{
+          headerShown: true,
+          headerTitle: 'Settings',
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios

@@ -6,6 +6,7 @@ import {styles} from './styles';
 import Share from 'react-native-share';
 import {BigButton} from 'components/bigButton';
 import {Colors} from 'utils/colors';
+import {CryptoService} from 'services/crypto';
 
 export function ReceiveContainer(props) {
   const [imageUri, setImageUri] = useState<any>(null);
@@ -45,7 +46,23 @@ export function ReceiveContainer(props) {
           selectable>
           {props.address}
         </Text>
+        <View
+          style={{
+            backgroundColor: Colors.darker,
+            borderRadius: 5,
+            paddingHorizontal: 10,
+            paddingVertical: 5,
+            justifyContent: 'center',
+            alignSelf: 'center',
+          }}>
+          <Text style={{fontSize: 11, color: Colors.lighter}}>
+            {CryptoService.getSupportedChainNamebyID(props.chain) +
+              ' ' +
+              t('wallet.network')}
+          </Text>
+        </View>
       </View>
+
       <View style={styles.share}>
         <BigButton
           text={t('tx.share_address')}
