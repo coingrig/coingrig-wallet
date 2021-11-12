@@ -139,7 +139,7 @@ export function SendContainer(props) {
       : WalletStore.getWalletByCoinId(props.coin, props.chain)?.price! *
         formattedValue;
     Logs.info(fiatValue);
-    setToFiat(formatPrice(fiatValue));
+    setToFiat(formatPrice(fiatValue, true));
   };
 
   const openLink = async url => {
