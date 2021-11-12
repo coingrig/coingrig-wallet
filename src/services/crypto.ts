@@ -11,6 +11,16 @@ import CONFIG from 'config';
 
 class CryptoService {
   lastFetchedBalance = 0;
+  CHAIN_ID_MAP = {
+    ETH: 1,
+    BSC: 56,
+    POLYGON: 137,
+  };
+  CHAIN_ID_TYPE_MAP = {
+    1: 'ETH',
+    56: 'BSC',
+    137: 'POLYGON',
+  };
 
   setChainPrivateKeys = async keys => {
     return StorageSetItem(STORED_CHAIN_KEYS, JSON.stringify(keys), true);
@@ -132,8 +142,7 @@ class CryptoService {
   getCoinDetails = symbol => {
     var config = {
       method: 'get',
-      url:
-        'https://api.coingecko.com/api/v3/coins/' + symbol + '?sparkline=true',
+      url: endpoints.coingecko + '/coins/' + symbol + '?sparkline=true',
     };
 
     return axios(config)
@@ -145,16 +154,7 @@ class CryptoService {
         return error;
       });
   };
-  CHAIN_ID_MAP = {
-    ETH: 1,
-    BSC: 56,
-    POLYGON: 137,
-  };
-  CHAIN_ID_TYPE_MAP = {
-    1: 'ETH',
-    56: 'BSC',
-    137: 'POLYGON',
-  };
+
   getBulkTokenBalance = async (walletAddresses: IWalletAddresses[]) => {
     let requests: Promise<any>[] = [];
     for (let index = 0; index < walletAddresses.length; index++) {
@@ -162,11 +162,9 @@ class CryptoService {
       if (!this.CHAIN_ID_MAP[item.chain]) {
         continue;
       }
-      const url = `https://api.covalenthq.com/v1/${
+      const url = `${endpoints.covalent}/${
         this.CHAIN_ID_MAP[item.chain]
-      }/address/${
-        item.walletAddress
-      }/balances_v2/?&key=ckey_ff9e0a7cfbf94e189b759ef53f`;
+      }/address/${item.walletAddress}/balances_v2/?key=${CONFIG.COVALENT_KEY}`;
       Logs.info(url);
       var config = {
         method: 'get',
@@ -243,23 +241,6 @@ class CryptoService {
   };
 
   prepareNewWallet = async (data, chain, contract) => {
-    // let wallet: IWallet = {
-    //   symbol: 'CGTEST',
-    //   name: 'CGTEST',
-    //   cid: null,
-    //   chain: chain,
-    //   type: 'token',
-    //   decimals: null,
-    //   contract: '0xaf3acd9361fd975427761adfe1ca234c88137a06',
-    //   walletAddress: null,
-    //   privKey: null,
-    //   balance: 0,
-    //   unconfirmedBalance: 0,
-    //   value: 0,
-    //   price: 0,
-    //   active: true,
-    //   image: data.image?.large || null,
-    // };
     let wallet: IWallet = {
       symbol: data.symbol.toUpperCase(),
       name: data.name,
@@ -276,7 +257,7 @@ class CryptoService {
       active: true,
       image: data.image?.large || null,
       walletAddress: null,
-      version: CONFIG.NEW_ASSET_DESCRIPTOR_VERSION
+      version: CONFIG.NEW_ASSET_DESCRIPTOR_VERSION,
     };
     let chainAddress = WalletStore.getWalletAddressByChain(wallet.chain);
     let cryptoWallet = WalletFactory.getWallet(
