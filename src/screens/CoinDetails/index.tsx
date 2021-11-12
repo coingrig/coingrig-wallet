@@ -82,9 +82,9 @@ const CoinDetailScreen = observer(({route}) => {
       setShowScreen(false);
       return;
     }
-    let p = convertExponential(data?.market_data.current_price?.usd);
-    p = formatPrice(p);
-    setPrice(p);
+    let convertPrice = convertExponential(data?.market_data.current_price?.usd);
+    convertPrice = formatPrice(convertPrice);
+    setPrice(convertPrice);
     setCoinData(data);
     setChartData(data?.market_data.sparkline_7d?.price ?? []);
     setShowScreen(true);
@@ -197,6 +197,7 @@ const CoinDetailScreen = observer(({route}) => {
                 // fillShadowGradientOpacity: 0,
               }}
               style={styles.chart}
+              //@ts-ignore
               data={{
                 datasets: [
                   {

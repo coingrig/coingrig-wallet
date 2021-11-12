@@ -109,7 +109,7 @@ const DashboardScreen = observer(() => {
         <View style={styles.topContainer}>
           <Text style={styles.balance}>{t('dashboard.my_balance')}</Text>
           <Text style={styles.fiatValue} adjustsFontSizeToFit numberOfLines={1}>
-            {formatPrice(WalletStore.totalBalance) || 0.0}
+            {formatPrice(WalletStore.totalBalance, true) || 0.0}
           </Text>
           <View style={{marginTop: 20, width: '100%'}}>
             <View style={styles.subContainer}>

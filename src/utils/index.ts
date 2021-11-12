@@ -36,7 +36,11 @@ export const formatNumber = nr => {
 };
 
 export const formatCoins = nr => {
-  return Number(nr.toPrecision(4));
+  if (isNaN(nr)) {
+    return '-';
+  }
+  const newNr = new BigNumber(nr);
+  return Number(newNr.toFixed(4));
 };
 
 export const formatFee = nr => {
@@ -50,27 +54,8 @@ export const formatNoComma = (nr: string) => {
 };
 
 export const convertExponential = (n: string | number) => {
-  var sign = +n < 0 ? '-' : '',
-    toStr = n.toString();
-  if (!/e/i.test(toStr)) {
-    return n;
-  }
-  var [lead, decimal, pow] = n
-    .toString()
-    .replace(/^-/, '')
-    .replace(/^([0-9]+)(e.*)/, '$1.$2')
-    .split(/e|\./);
-  return +pow < 0
-    ? sign +
-        '0.' +
-        '0'.repeat(Math.max(Math.abs(pow) - 1 || 0, 0)) +
-        lead +
-        decimal
-    : sign +
-        lead +
-        (+pow >= decimal.length
-          ? decimal + '0'.repeat(Math.max(+pow - decimal.length || 0, 0))
-          : decimal.slice(0, +pow) + '.' + decimal.slice(+pow));
+  let newNr = new BigNumber(n);
+  return newNr.toFixed(9);
 };
 
 export const capitalizeFirstLetter = string => {

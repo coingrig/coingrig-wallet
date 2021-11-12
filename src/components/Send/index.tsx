@@ -138,7 +138,6 @@ export function SendContainer(props) {
       ? 0
       : WalletStore.getWalletByCoinId(props.coin, props.chain)?.price! *
         formattedValue;
-    Logs.info(fiatValue);
     setToFiat(formatPrice(fiatValue, true));
   };
 
@@ -297,6 +296,7 @@ export function SendContainer(props) {
         />
       </View>
       <ActionSheet
+        //@ts-ignore
         ref={actionSheetRef}
         gestureEnabled={true}
         headerAlwaysVisible
@@ -334,12 +334,14 @@ export function SendContainer(props) {
         />
       </ActionSheet>
       <ActionSheet
+        //@ts-ignore
         ref={actionCamera}
         gestureEnabled={true}
         headerAlwaysVisible
         containerStyle={styles.cameracontainer}>
         <QRCodeScanner
           onRead={onSuccess}
+          //@ts-ignore
           cameraContainerStyle={{margin: 20}}
           flashMode={RNCamera.Constants.FlashMode.auto}
         />

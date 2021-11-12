@@ -289,8 +289,13 @@ class CryptoService {
     );
     Logs.info(cryptoWallet);
     let balance = await cryptoWallet.getBalance();
-    Logs.info(balance.confirmedBalance);
-    WalletStore.setBalance(coin, chain, balance.confirmedBalance);
+    WalletStore.setBalance(coin, chain, balance.getValue());
+    WalletStore.setUnconfirmedBalance(
+      coin,
+      chain,
+      balance.getUnconfirmedBalance(),
+    );
+    return true;
   };
 }
 

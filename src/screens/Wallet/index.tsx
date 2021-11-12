@@ -88,7 +88,10 @@ const WalletScreen = observer(({route}) => {
     await fetchBalance();
   }, []);
   const fetchBalance = useCallback(async () => {
-    let success = await CryptoService.getAccountBalance();
+    const success = await CryptoService.updateWalletBalance(
+      route.params.symbol,
+      route.params.chain,
+    );
     if (!success) {
       showMessage({
         message: t('message.error.remote_servers_not_available'),
@@ -168,11 +171,11 @@ const WalletScreen = observer(({route}) => {
   };
 
   const renderUnconfirmedTx = () => {
-    const unconfTx = WalletStore.getWalletByCoinId(
+    const unconfTxValue = WalletStore.getWalletByCoinId(
       route.params.symbol,
       route.params.chain,
     )?.unconfirmedBalance;
-    if (SettingsStore.confirmationEnabled && unconfTx !== 0) {
+    if (SettingsStore.confirmationEnabled && unconfTxValue !== 0) {
       return (
         <View style={styles.smallCard}>
           <Text style={styles.unconfTxt}>{t('wallet.unconfirmed_tx')}</Text>
@@ -181,10 +184,10 @@ const WalletScreen = observer(({route}) => {
               styles.unconfValue,
               // eslint-disable-next-line react-native/no-inline-styles
               {
-                color: unconfTx! > 0 ? '#5cb85c' : '#d9534f',
+                color: unconfTxValue! > 0 ? '#5cb85c' : '#d9534f',
               },
             ]}>
-            {unconfTx || 0} {route.params.symbol}
+            {unconfTxValue || 0} {route.params.symbol}
           </Text>
         </View>
       );
@@ -318,7 +321,7 @@ const WalletScreen = observer(({route}) => {
         <FastImage
           style={styles.logoimg}
           source={{
-            uri: wallet?.image,
+            uri: wallet?.image!,
             priority: FastImage.priority.normal,
             cache: FastImage.cacheControl.immutable,
           }}
