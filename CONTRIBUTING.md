@@ -6,16 +6,16 @@
 
 You can contribute to Coingrig Mobile Wallet in various ways, including:  
 
--  [Reporting bugs or issues](https://github.com/coingrig/mobile-wallet/issues/new) on GitHub. Please make sure to include fill in all the details in the issue template to make sure the issue can be addressed as quickly as possible.
+-  [Reporting bugs or issues](https://github.com/coingrig/coingrig-wallet/issues/new) on GitHub. Please make sure to include fill in all the details in the issue template to make sure the issue can be addressed as quickly as possible.
 
 -  Submitting improvements to the documentation
 Updates, enhancements, new guides, spelling fixes...
 
-- Helping other people on the [discussions](https://github.com/coingrig/mobile-wallet/discussions).
+- Helping other people on the [discussions](https://github.com/coingrig/coingrig-wallet/discussions).
 
-- Looking at existing [issues](https://github.com/coingrig/mobile-wallet/issues) and adding more information, particularly helping to reproduce the issues.
+- Looking at existing [issues](https://github.com/coingrig/coingrig-wallet/issues) and adding more information, particularly helping to reproduce the issues.
 
--  [Submitting a pull request](https://github.com/coingrig/mobile-wallet/pulls) with a bug fix or an improvement.
+-  [Submitting a pull request](https://github.com/coingrig/coingrig-wallet/pulls) with a bug fix or an improvement.
 
   
 
@@ -23,7 +23,7 @@ Updates, enhancements, new guides, spelling fixes...
 
   
 
-The [Coingrig Mobile Wallet GitHub repository](https://github.com/coingrig/mobile-wallet) contains the packages that make up Coingrig Mobile Wallet.
+The [Coingrig Mobile Wallet GitHub repository](https://github.com/coingrig/coingrig-wallet) contains the packages that make up Coingrig Mobile Wallet.
 
   
 ### Branches
@@ -44,7 +44,7 @@ Keeping the `develop` releasable means that changes merged to it need to be:
 
 To submit a pull request:  
 
-1. Fork the [repository](https://github.com/coingrig/mobile-wallet) and create a feature branch. (Existing contributors can create feature branches without forking. Prefix the branch name with `@your-github-username/`.)
+1. Fork the [repository](https://github.com/coingrig/coingrig-wallet) and create a feature branch. (Existing contributors can create feature branches without forking. Prefix the branch name with `@your-github-username/`.)
 
 2. Write the description of your pull request. Make sure to include a test plan and test your changes.
 

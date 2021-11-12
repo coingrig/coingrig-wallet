@@ -1,6 +1,6 @@
 {
   "name": "coingrig",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "android": "npx react-native run-android",
@@ -21,10 +21,10 @@
   "homepage": "https://coingrig.com",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/coingrig/mobile-wallet.git"
+    "url": "git+https://github.com/coingrig/coingrig-wallet.git"
   },
   "dependencies": {
-    "@coingrig/core": "../core/",
+    "@coingrig/core": "^1.1.0",
     "@haskkor/react-native-pincode": "1.22.6",
     "@rainbow-me/animated-charts": "1.0.0-alpha.5",
     "@react-native-async-storage/async-storage": "1.15.7",
