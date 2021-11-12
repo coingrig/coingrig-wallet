@@ -24,7 +24,7 @@
     "url": "git+https://github.com/coingrig/coingrig-wallet.git"
   },
   "dependencies": {
-    "@coingrig/core": "^1.1.0",
+    "@coingrig/core": "1.1.0",
     "@haskkor/react-native-pincode": "1.22.6",
     "@rainbow-me/animated-charts": "1.0.0-alpha.5",
     "@react-native-async-storage/async-storage": "1.15.7",
