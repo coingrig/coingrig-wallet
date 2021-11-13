@@ -3,6 +3,7 @@ import {StorageClearAll} from 'services/storage';
 import {clearPersistedStore} from 'mobx-persist-store';
 import RNRestart from 'react-native-restart';
 import i18next from 'i18next';
+import BigNumber from 'bignumber.js';
 
 export const clearAllAppData = async () => {
   await clearPersistedStore('MarketStore');
@@ -13,9 +14,18 @@ export const clearAllAppData = async () => {
   RNRestart.Restart();
 };
 
-export const formatPrice = nr => {
+export const formatPrice = (nr, limitDigits = false) => {
+  if (nr === 0 || isNaN(nr)) {
+    return '$0';
+  }
+  if (limitDigits) {
+    const bgn = new BigNumber(nr);
+    if (bgn.isLessThan(new BigNumber(1e-2))) {
+      return '\u2248 $0.00'; // ≈ unicode
+    }
+  }
   let newNr = i18next.format(nr, '$0,0[.][00]');
-  if (newNr === '$0') {
+  if (newNr === '$NaN' || newNr === '$0') {
     newNr = '$' + nr;
   }
   return newNr;
@@ -26,7 +36,11 @@ export const formatNumber = nr => {
 };
 
 export const formatCoins = nr => {
-  return Number(nr.toPrecision(4));
+  if (isNaN(nr)) {
+    return '-';
+  }
+  const newNr = new BigNumber(nr);
+  return Number(newNr.toFixed(4));
 };
 
 export const formatFee = nr => {
@@ -37,4 +51,14 @@ export const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 export const formatNoComma = (nr: string) => {
   return parseFloat(nr.replace(/,/g, '.'));
+};
+
+export const convertExponential = (n: string | number) => {
+  let newNr = new BigNumber(n);
+  return newNr.toFixed(9);
+};
+
+export const capitalizeFirstLetter = string => {
+  const newString = string.toLowerCase();
+  return newString.charAt(0).toUpperCase() + newString.slice(1);
 };

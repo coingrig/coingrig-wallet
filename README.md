@@ -22,8 +22,8 @@ sudo gem install cocoapods
 -   Clone this repo and install our dependencies:
 
 ```bash
-git clone https://github.com/coingrig/mobile-wallet
-cd mobile-wallet
+git clone https://github.com/coingrig/coingrig-wallet
+cd coingrig-wallet
 yarn # this will install all dependecies
 cd ios && pod install && cd .. # install pods for iOS
 ```

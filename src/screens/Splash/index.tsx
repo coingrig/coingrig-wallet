@@ -9,8 +9,10 @@ import {
 } from '@haskkor/react-native-pincode';
 import {Colors} from 'utils/colors';
 import {StorageGetItem} from 'services/storage';
+import {MigrationService} from 'services/migrations';
 import {ConfigStore} from 'stores/config';
 import CONFIG from 'config';
+import {Logs} from 'services/logs';
 
 const SplashScreen: FC = () => {
   const navigation = useNavigation();
@@ -18,9 +20,19 @@ const SplashScreen: FC = () => {
   ConfigStore.initializeConfig();
 
   useEffect(() => {
+    check();
+  }, []);
+
+  const check = async () => {
+    if (await MigrationService.migrationRequired()) {
+      await MigrationService.handleMigrations();
+      Logs.info('Migration completed');
+    } else {
+      Logs.info('Nothing to migrate');
+    }
     checkPin();
     SS.hide();
-  }, []);
+  };
 
   const checkPin = async () => {
     let hasPin = await hasUserSetPinCode();

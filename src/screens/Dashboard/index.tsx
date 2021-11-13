@@ -1,12 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useCallback, useEffect, useState} from 'react';
-import {RefreshControl, ScrollView, Text, View} from 'react-native';
+import {
+  RefreshControl,
+  ScrollView,
+  Text,
+  View,
+  TouchableOpacity,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+
 import {WalletStore} from 'stores/wallet';
 import {CryptoService} from 'services/crypto';
 import {useTranslation} from 'react-i18next';
 import Brick from 'components/brick';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon2 from 'react-native-vector-icons/Ionicons';
 import {ListPrices} from 'components/widgets/listPrices';
 import {formatPrice} from '../../utils';
 import {observer} from 'mobx-react-lite';
@@ -20,9 +29,19 @@ import {CONFIG_MODULES, CONFIG_PROPERTIES, ConfigStore} from 'stores/config';
 const DashboardScreen = observer(() => {
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
+  const navigation = useNavigation();
   const [showMarketing, setShowMarketing] = useState(false);
 
   useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('SettingScreen')}
+          style={styles.moreBtn}>
+          <Icon2 name="settings-sharp" size={23} color={Colors.foreground} />
+        </TouchableOpacity>
+      ),
+    });
     fetchBalance();
     setShowMarketing(
       ConfigStore.getModuleProperty(
@@ -69,12 +88,12 @@ const DashboardScreen = observer(() => {
         <View style={styles.infoCard}>
           <View style={styles.infoContainer}>
             <Icon name="coins" size={19} color={Colors.lighter} />
-            <Text style={styles.infoText}>{t('dashboard.manage_tokens')}</Text>
+            <Text style={styles.infoText}>{t('dashboard.info1')}</Text>
           </View>
           <View style={styles.vLine} />
           <View style={styles.infoContainer}>
             <Icon name="vector-square" size={19} color={Colors.lighter} />
-            <Text style={styles.infoText}>{t('dashboard.manage_nfts')}</Text>
+            <Text style={styles.infoText}>{t('dashboard.info2')}</Text>
           </View>
         </View>
       </View>
@@ -90,7 +109,7 @@ const DashboardScreen = observer(() => {
         <View style={styles.topContainer}>
           <Text style={styles.balance}>{t('dashboard.my_balance')}</Text>
           <Text style={styles.fiatValue} adjustsFontSizeToFit numberOfLines={1}>
-            {formatPrice(WalletStore.totalBalance) || 0.0}
+            {formatPrice(WalletStore.totalBalance, true) || 0.0}
           </Text>
           <View style={{marginTop: 20, width: '100%'}}>
             <View style={styles.subContainer}>
@@ -106,8 +125,8 @@ const DashboardScreen = observer(() => {
               horizontal
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={{paddingHorizontal: 15}}>
-              {WalletStore.wallets.map((v, i) => {
-                return <Brick coin={v.symbol} key={i} />;
+              {WalletStore.wallets.slice(0, 2).map((v, i) => {
+                return <Brick coin={v.symbol} chain={v.chain} key={i} />;
               })}
               <Brick coin={'_END_'} key={'_END_'} />
             </ScrollView>

@@ -21,6 +21,7 @@ let theme = {
   inputForeground: '#353333',
   switchBackground2: '#F9F7F1',
   switchForeground2: '#353333',
+  stats: '#fff',
 };
 if (colorScheme === 'dark') {
   theme = {
@@ -43,6 +44,7 @@ if (colorScheme === 'dark') {
     inputForeground: '#f2eded',
     switchBackground2: '#F9F7F1',
     switchForeground2: '#353333',
+    stats: '#2e2c2c',
   };
 }
 

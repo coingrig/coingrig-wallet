@@ -1,5 +1,5 @@
 import {makeAutoObservable, action} from 'mobx';
-import {makePersistable} from 'mobx-persist-store';
+import {makePersistable, isHydrated, hydrateStore} from 'mobx-persist-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {STORED_MNEMONIC} from '../utils/constants';
 import {CryptoService} from '../services/crypto';
@@ -13,18 +13,22 @@ export interface IWalletAddresses {
 }
 
 export interface IWallet {
-  symbol: string; // BTC, BNB, DOGE
-  name: string; // bitcoin, binancecoin, dogecoin
+  symbol: string;
+  name: string;
+  cid: string | null;
   chain: string;
+  privKey: string | null;
+  walletAddress: string | null;
   type: string;
-  contract: null;
-  decimals: number;
-  //
+  contract: string | null;
+  decimals: number | null;
+  image: string | null;
   balance: number;
   unconfirmedBalance: number;
   value: number;
   price: number;
   active: true;
+  version: number;
 }
 
 class WalletStoreModule {
@@ -41,12 +45,34 @@ class WalletStoreModule {
     });
   }
 
+  get isHydrated() {
+    return isHydrated(this);
+  }
+
+  async hydrateStore() {
+    await hydrateStore(this);
+  }
+
   setWallets = action((wallets: IWallet[]) => {
     this.wallets = wallets;
   });
 
   addWallet = action((wallet: IWallet) => {
-    this.wallets.push(wallet);
+    this.wallets = this.wallets.concat([wallet]);
+  });
+
+  deleteWallet = action((index: number) => {
+    this.wallets.splice(index, 1);
+    this.wallets = this.wallets.slice(0);
+  });
+
+  deleteWalletByCoinId = action((symbol: string, chain: string) => {
+    let index = this._getWalletPosition(symbol, chain);
+    if (index !== -1) {
+      this.wallets.splice(index, 1);
+      this.wallets = this.wallets.slice(0);
+    }
+    return index !== -1;
   });
 
   addWalletAddress = action((wallet: IWalletAddresses) => {
@@ -63,15 +89,15 @@ class WalletStoreModule {
     return null;
   };
 
-  getWalletByCoinId = (symbol: String) => {
+  getWalletByCoinId = (symbol: String, chain: String) => {
     return this.wallets.find((o: IWallet) => {
-      return o.symbol === symbol;
+      return o.symbol === symbol && o.chain === chain;
     });
   };
 
-  getWalletByCoinName = (name: String) => {
+  getWalletByCoinName = (name: String, chain: String) => {
     return this.wallets.find((o: IWallet) => {
-      return o.name === name;
+      return o.name === name && o.chain === chain;
     });
   };
 
@@ -87,42 +113,54 @@ class WalletStoreModule {
     });
   };
 
-  _getWalletPosition = (symbol: string) => {
-    return this.wallets.findIndex(o => {
-      return o.symbol === symbol;
+  getCoinCIDList = () => {
+    return this.wallets.map(o => {
+      return o.cid;
     });
   };
 
-  setName = action((symbol: string, name: string) => {
-    let pos = this._getWalletPosition(symbol);
+  _getWalletPosition = (symbol: string, chain: String) => {
+    return this.wallets.findIndex(o => {
+      return o.symbol === symbol && o.chain === chain;
+    });
+  };
+
+  setName = action((symbol: string, chain: String, name: string) => {
+    let pos = this._getWalletPosition(symbol, chain);
     if (pos !== -1) {
       this.wallets[pos].name = name;
     }
+    this.wallets = this.wallets.splice(0);
   });
 
-  setBalance = action((symbol: string, balance: number) => {
-    let pos = this._getWalletPosition(symbol);
+  setBalance = action((symbol: string, chain: String, balance: number) => {
+    let pos = this._getWalletPosition(symbol, chain);
     if (pos !== -1) {
       this.wallets[pos].balance = balance;
       this.wallets[pos].value =
         this.wallets[pos].balance * this.wallets[pos].price;
     }
+    this.wallets = this.wallets.splice(0);
   });
 
-  setUnconfirmedBalance = action((symbol: string, balance: number) => {
-    let pos = this._getWalletPosition(symbol);
-    if (pos !== -1) {
-      this.wallets[pos].unconfirmedBalance = balance;
-    }
-  });
+  setUnconfirmedBalance = action(
+    (symbol: string, chain: String, balance: number) => {
+      let pos = this._getWalletPosition(symbol, chain);
+      if (pos !== -1) {
+        this.wallets[pos].unconfirmedBalance = balance;
+      }
+      this.wallets = this.wallets.splice(0);
+    },
+  );
 
-  setPrice = action((symbol: string, price: number) => {
-    let pos = this._getWalletPosition(symbol);
+  setPrice = action((symbol: string, chain: String, price: number) => {
+    let pos = this._getWalletPosition(symbol, chain);
     if (pos !== -1) {
       this.wallets[pos].price = price;
       this.wallets[pos].value =
         this.wallets[pos].balance * this.wallets[pos].price;
     }
+    this.wallets = this.wallets.splice(0);
   });
 
   get totalBalance() {

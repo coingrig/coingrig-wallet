@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {View, Text, Button, Pressable} from 'react-native';
+import {View, Text, Pressable} from 'react-native';
 import PagerView from 'react-native-pager-view';
 import {useTranslation} from 'react-i18next';
 import {useNavigation, CommonActions} from '@react-navigation/native';
