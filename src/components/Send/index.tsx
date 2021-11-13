@@ -28,6 +28,7 @@ import {LoadingModal} from 'services/loading';
 import {WalletFactory} from '@coingrig/core';
 import {CryptoService} from 'services/crypto';
 import {styles} from './styles';
+import {Logs} from 'services/logs';
 
 const actionSheetRef = createRef();
 const actionCamera = createRef();
@@ -40,7 +41,6 @@ export function SendContainer(props) {
   const [wallet, setWallet] = useState<any>();
   const [fees, setFees] = useState<any>();
   const [feeFiat, setFeeFiat] = useState<any>(0);
-  const [max, setMax] = useState<any>(0);
   const [toFiat, setToFiat] = useState<string>('$0');
   const [keyboardEnabled, setKeyboardEnabled] = useState(false);
 
@@ -60,7 +60,6 @@ export function SendContainer(props) {
   }, []);
 
   const setupWallet = async () => {
-    setMax(WalletStore.getWalletByCoinId(props.coin)?.balance ?? 0);
     let chainKeys = await CryptoService.getChainPrivateKeys();
     let descriptor = Object.assign({}, props.coinDescriptor, {
       privKey: chainKeys[props.coinDescriptor.chain],
@@ -109,9 +108,11 @@ export function SendContainer(props) {
         LoadingModal.instance.current?.hide();
         return;
       }
+      Logs.info(_fees.regular.getFeeValue(), props.chain);
+      const chainNativeAsset = CryptoService.getChainNativeAsset(props.chain);
       let fFiat =
         _fees.regular.getFeeValue() *
-        WalletStore.getWalletByCoinId(props.coin)?.price!;
+        WalletStore.getWalletByCoinId(chainNativeAsset, props.chain)?.price!;
       setFeeFiat(fFiat);
       setFees(_fees);
       //@ts-ignore
@@ -135,8 +136,9 @@ export function SendContainer(props) {
     const formattedValue = formatNoComma(v);
     const fiatValue = !formattedValue
       ? 0
-      : WalletStore.getWalletByCoinId(props.coin)?.price! * formattedValue;
-    setToFiat(formatPrice(fiatValue));
+      : WalletStore.getWalletByCoinId(props.coin, props.chain)?.price! *
+        formattedValue;
+    setToFiat(formatPrice(fiatValue, true));
   };
 
   const openLink = async url => {
@@ -247,10 +249,44 @@ export function SendContainer(props) {
               <Text style={{color: Colors.foreground}}>{props.coin}</Text>
             </View>
           </View>
-          <Text style={styles.toFiat}>{toFiat}</Text>
+          <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
+            <Text style={styles.toFiat}>{toFiat}</Text>
+            <Text
+              style={[
+                styles.toFiat,
+                {
+                  fontSize: 12,
+                  fontWeight: 'normal',
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                  alignSelf: 'center',
+                  marginRight: 15,
+                  color: Colors.lighter,
+                },
+              ]}>
+              {t('tx.available')}: {props.coinDescriptor?.balance ?? 0}{' '}
+              {props.coinDescriptor?.symbol ?? ''}
+            </Text>
+          </View>
         </View>
       </View>
       <View style={styles.preparetx}>
+        <View
+          style={{
+            backgroundColor: Colors.darker,
+            borderRadius: 5,
+            paddingHorizontal: 10,
+            paddingVertical: 5,
+            justifyContent: 'center',
+            alignSelf: 'center',
+            marginBottom: 10,
+          }}>
+          <Text style={{fontSize: 11, color: Colors.lighter}}>
+            {CryptoService.getSupportedChainNamebyID(props.chain) +
+              ' ' +
+              t('wallet.network')}
+          </Text>
+        </View>
         <BigButton
           text={t('tx.next')}
           backgroundColor={Colors.foreground}
@@ -260,6 +296,7 @@ export function SendContainer(props) {
         />
       </View>
       <ActionSheet
+        //@ts-ignore
         ref={actionSheetRef}
         gestureEnabled={true}
         headerAlwaysVisible
@@ -270,16 +307,20 @@ export function SendContainer(props) {
             <Text style={{marginBottom: 5}}>
               {t('tx.amount_in_usd')}:{' '}
               {formatPrice(
-                value! * WalletStore.getWalletByCoinId(props.coin)?.price!,
+                value! *
+                  WalletStore.getWalletByCoinId(props.coin, props.chain)
+                    ?.price!,
               )}
             </Text>
             <Text>
-              {t('tx.miner_fee')}: {formatPrice(feeFiat)}
+              {t('tx.network_fee')}: {formatPrice(feeFiat)}
             </Text>
             <Text style={styles.totalusd}>
               {t('tx.total_usd')}:{' '}
               {formatPrice(
-                value! * WalletStore.getWalletByCoinId(props.coin)?.price! +
+                value! *
+                  WalletStore.getWalletByCoinId(props.coin, props.chain)
+                    ?.price! +
                   feeFiat,
               )}
             </Text>
@@ -293,12 +334,14 @@ export function SendContainer(props) {
         />
       </ActionSheet>
       <ActionSheet
+        //@ts-ignore
         ref={actionCamera}
         gestureEnabled={true}
         headerAlwaysVisible
         containerStyle={styles.cameracontainer}>
         <QRCodeScanner
           onRead={onSuccess}
+          //@ts-ignore
           cameraContainerStyle={{margin: 20}}
           flashMode={RNCamera.Constants.FlashMode.auto}
         />
