@@ -171,7 +171,7 @@ const CoinDetailScreen = observer(({route}) => {
                 ]}
                 adjustsFontSizeToFit
                 numberOfLines={2}>
-                {coinData?.market_data.price_change_percentage_24h.toFixed(2)}%
+                {coinData?.market_data.price_change_percentage_24h?.toFixed(2)}%
               </Text>
             </View>
           </View>
@@ -212,32 +212,34 @@ const CoinDetailScreen = observer(({route}) => {
         {addToPortfolio()}
         <View style={styles.viewStats}>
           <Text style={styles.subTitle} numberOfLines={1}>
-            {coinData?.name + ' ' + t('coindetails.stats')}
+            {coinData?.name ?? '-' + ' ' + t('coindetails.stats')}
           </Text>
-          <FastImage
-            style={styles.logoimg}
-            source={{
-              uri: coinData?.image.large,
-              priority: FastImage.priority.normal,
-              cache: FastImage.cacheControl.immutable,
-            }}
-          />
+          {coinData?.image ? (
+            <FastImage
+              style={styles.logoimg}
+              source={{
+                uri: coinData?.image.large,
+                priority: FastImage.priority.normal,
+                cache: FastImage.cacheControl.immutable,
+              }}
+            />
+          ) : null}
         </View>
         <View style={styles.viewStatsDetail}>
           <View style={styles.item}>
             <Text style={styles.itemtext}>#{t('coindetails.rank')}</Text>
-            <Text style={styles.textr}>{coinData?.market_cap_rank}</Text>
+            <Text style={styles.textr}>{coinData?.market_cap_rank ?? '-'}</Text>
           </View>
           <View style={styles.item}>
             <Text style={styles.itemtext}>{t('coindetails.marketcap')}:</Text>
             <Text style={styles.textr}>
-              {formatPrice(coinData?.market_data.market_cap.usd)}
+              {formatPrice(coinData?.market_data.market_cap.usd ?? '-')}
             </Text>
           </View>
           <View style={styles.item}>
             <Text style={styles.itemtext}>{t('coindetails.volume')}:</Text>
             <Text style={styles.textr}>
-              {formatPrice(coinData?.market_data.total_volume.usd)}
+              {formatPrice(coinData?.market_data.total_volume.usd ?? '-')}
             </Text>
           </View>
           <View style={styles.item}>
@@ -245,19 +247,19 @@ const CoinDetailScreen = observer(({route}) => {
               {t('coindetails.all_time_high')}:
             </Text>
             <Text style={styles.textr}>
-              {formatPrice(coinData?.market_data.ath.usd)}
+              {formatPrice(coinData?.market_data.ath.usd ?? '-')}
             </Text>
           </View>
           <View style={styles.item}>
             <Text style={styles.itemtext}>{t('coindetails.high_24')}:</Text>
             <Text style={styles.textr}>
-              {formatPrice(coinData?.market_data.high_24h.usd)}
+              {formatPrice(coinData?.market_data.high_24h.usd ?? 0)}
             </Text>
           </View>
           <View style={styles.item}>
             <Text style={styles.itemtext}>{t('coindetails.low_24h')}:</Text>
             <Text style={styles.textr}>
-              {formatPrice(coinData?.market_data.low_24h.usd)}
+              {formatPrice(coinData?.market_data.low_24h.usd ?? 0)}
             </Text>
           </View>
           <View style={styles.item}>
@@ -266,7 +268,7 @@ const CoinDetailScreen = observer(({route}) => {
             </Text>
             <Text style={styles.textr}>
               {coinData?.market_data.circulating_supply != null
-                ? formatNumber(coinData?.circulating_supply)
+                ? formatNumber(coinData?.circulating_supply ?? 0)
                 : '-'}
             </Text>
           </View>
@@ -274,7 +276,7 @@ const CoinDetailScreen = observer(({route}) => {
             <Text style={styles.itemtext}>{t('coindetails.max_supply')}:</Text>
             <Text style={styles.textr}>
               {coinData?.market_data.max_supply != null
-                ? formatNumber(coinData?.market_data.max_supply)
+                ? formatNumber(coinData?.market_data.max_supply ?? 0)
                 : '-'}
             </Text>
           </View>
@@ -284,7 +286,7 @@ const CoinDetailScreen = observer(({route}) => {
             </Text>
             <Text style={styles.textr}>
               {coinData?.total_supply != null
-                ? formatNumber(coinData?.market_data.total_supply)
+                ? formatNumber(coinData?.market_data.total_supply ?? 0)
                 : '-'}
             </Text>
           </View>

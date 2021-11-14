@@ -25,7 +25,9 @@ const SearchScreen = ({route}) => {
 
   useEffect(() => {
     if (transitionEnded) {
-      setShowScreen(true);
+      setTimeout(() => {
+        setShowScreen(true);
+      }, 200);
     }
   }, [transitionEnded]);
 

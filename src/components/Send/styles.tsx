@@ -10,14 +10,8 @@ export const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-between',
     borderRadius: 10,
-    marginBottom: 15,
+    marginBottom: 25,
     paddingBottom: 10,
-  },
-  centerText: {
-    flex: 1,
-    fontSize: 18,
-    padding: 32,
-    color: '#777',
   },
   toFiat: {
     marginLeft: 20,
@@ -27,9 +21,15 @@ export const styles = StyleSheet.create({
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.foreground,
   },
-  textBold: {
-    fontWeight: '500',
-    color: '#000',
+  available: {
+    fontSize: 12,
+    fontWeight: 'normal',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignSelf: 'center',
+    marginRight: 15,
+    color: Colors.lighter,
+    marginTop: 10,
   },
   cameracontainer: {
     height: SIZE.height / 1.7,
@@ -61,52 +61,8 @@ export const styles = StyleSheet.create({
     marginTop: 20,
   },
   preparetx: {flex: 1, justifyContent: 'flex-end', marginBottom: 30},
-  buttonText: {
-    fontSize: 21,
-    color: 'white',
-    marginVertical: 10,
-    textAlign: 'center',
-  },
-  buttonTouchable: {
-    padding: 16,
-  },
-  coinName: {
-    fontSize: 20,
-    fontFamily: 'RobotoSlab-Regular',
-    textAlign: 'center',
-    color: '#756156',
-  },
-  subtitle: {
-    fontSize: 17,
-    fontFamily: 'RobotoSlab-Bold',
-    marginLeft: 20,
-    color: '#756156',
-    marginTop: 10,
-    marginBottom: 5,
-  },
-  topContainer: {
-    flex: 2,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  bottomContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 50,
-  },
-  available: {
-    fontWeight: '500',
-    flex: 1,
-    minHeight: 50,
-    padding: 10,
-    fontSize: 16,
-    marginVertical: 10,
-    marginBottom: 0,
-    marginHorizontal: 15,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  input: {
+  input: {flex: 1, color: Colors.foreground},
+  inputView: {
     flex: 1,
     minHeight: 50,
     borderWidth: 1,
@@ -140,19 +96,5 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     marginHorizontal: 20,
     backgroundColor: Colors.background,
-  },
-  yourBTC: {
-    fontSize: 15,
-    fontFamily: 'RobotoSlab-Regular',
-    marginBottom: 10,
-    width: 200,
-    marginTop: 10,
-  },
-  paragraph: {
-    textAlign: 'center',
-    marginVertical: 20,
-    marginHorizontal: 40,
-    fontSize: 14,
-    color: 'brown',
   },
 });

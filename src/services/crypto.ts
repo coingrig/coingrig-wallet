@@ -165,7 +165,6 @@ class CryptoService {
       const url = `${endpoints.covalent}/${
         this.CHAIN_ID_MAP[item.chain]
       }/address/${item.walletAddress}/balances_v2/?key=${CONFIG.COVALENT_KEY}`;
-      Logs.info(url);
       var config = {
         method: 'get',
         url: url,
@@ -281,13 +280,12 @@ class CryptoService {
   };
 
   updateWalletBalance = async (coin, chain) => {
-    Logs.info(coin, chain);
+    Logs.info('Get ' + coin + ' balance');
     const wallet = WalletStore.getWalletByCoinId(coin, chain);
     let chainAddress = WalletStore.getWalletAddressByChain(wallet!.chain);
     let cryptoWallet = WalletFactory.getWallet(
       Object.assign({}, wallet, {walletAddress: chainAddress}),
     );
-    Logs.info(cryptoWallet);
     let balance = await cryptoWallet.getBalance();
     WalletStore.setBalance(coin, chain, balance.getValue());
     WalletStore.setUnconfirmedBalance(

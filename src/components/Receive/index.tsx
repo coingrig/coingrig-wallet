@@ -8,7 +8,7 @@ import {BigButton} from 'components/bigButton';
 import {Colors} from 'utils/colors';
 import {CryptoService} from 'services/crypto';
 
-export function ReceiveContainer(props) {
+export const ReceiveContainer = props => {
   const [imageUri, setImageUri] = useState<any>(null);
   const {t} = useTranslation();
 
@@ -21,8 +21,7 @@ export function ReceiveContainer(props) {
         setImageUri(response);
       })
       .catch(err => console.log('Cannot create QR code', err));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [props.address]);
 
   const shareAddress = async () => {
     await Share.open({
@@ -46,16 +45,8 @@ export function ReceiveContainer(props) {
           selectable>
           {props.address}
         </Text>
-        <View
-          style={{
-            backgroundColor: Colors.darker,
-            borderRadius: 5,
-            paddingHorizontal: 10,
-            paddingVertical: 5,
-            justifyContent: 'center',
-            alignSelf: 'center',
-          }}>
-          <Text style={{fontSize: 11, color: Colors.lighter}}>
+        <View style={styles.network}>
+          <Text style={styles.networkTxt}>
             {CryptoService.getSupportedChainNamebyID(props.chain) +
               ' ' +
               t('wallet.network')}
@@ -73,4 +64,4 @@ export function ReceiveContainer(props) {
       </View>
     </View>
   );
-}
+};

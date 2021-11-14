@@ -1,3 +1,3 @@
-export const LoadingModal = {
+export const LoadingModal: any = {
   instance: null,
 };

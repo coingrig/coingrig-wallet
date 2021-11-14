@@ -1,5 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, createRef, useEffect} from 'react';
 import {
   Text,
@@ -30,14 +28,20 @@ import {CryptoService} from 'services/crypto';
 import {styles} from './styles';
 import {Logs} from 'services/logs';
 
-const actionSheetRef = createRef();
-const actionCamera = createRef();
+const actionSheetRef: React.RefObject<any> = createRef();
+const actionCamera: React.RefObject<any> = createRef();
 
-export function SendContainer(props) {
+/**
+ * SendContainer component it is part of the SendReceive Screen
+ * and it's used for sending a transaction
+ * @param props CoinDescriptor, coin, chain, address
+ * @returns
+ */
+export function SendContainer(props: any) {
   const {t} = useTranslation();
   const navigation = useNavigation();
   const [destination, setDestination] = useState<string>('');
-  const [value, setValue] = useState();
+  const [value, setValue] = useState('');
   const [wallet, setWallet] = useState<any>();
   const [fees, setFees] = useState<any>();
   const [feeFiat, setFeeFiat] = useState<any>(0);
@@ -57,8 +61,12 @@ export function SendContainer(props) {
       showSubscription.remove();
       hideSubscription.remove();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  /**
+   * Prepare/Setup wallet for transaction
+   */
   const setupWallet = async () => {
     let chainKeys = await CryptoService.getChainPrivateKeys();
     let descriptor = Object.assign({}, props.coinDescriptor, {
@@ -71,30 +79,32 @@ export function SendContainer(props) {
     setWallet(_wallet);
   };
 
+  /**
+   * Get address from clipboard and paste it to the destination input
+   */
   const fetchCopiedText = async () => {
     const text = await Clipboard.getString();
     setDestination(text);
   };
 
   const onSuccess = e => {
-    // alert(e.data);
     setDestination(e.data);
-    //@ts-ignore
     actionCamera.current?.setModalVisible(false);
   };
 
+  /**
+   * Preapare transacation and calculate fees
+   */
   const prepareTx = async () => {
     Keyboard.dismiss();
     if (!value || !destination) {
       Alert.alert('Error', 'Please fill up the form');
       return;
     }
-    //@ts-ignore
     const amountToSend = formatNoComma(value.toString());
-    //@ts-ignore
     setValue(amountToSend.toString());
     await sleep(500);
-    //@ts-ignore
+
     LoadingModal.instance.current?.show();
     await sleep(200);
     try {
@@ -104,25 +114,20 @@ export function SendContainer(props) {
           message: t('message.error.amount_to_send_too_large'),
           type: 'danger',
         });
-        //@ts-ignore
         LoadingModal.instance.current?.hide();
         return;
       }
-      Logs.info(_fees.regular.getFeeValue(), props.chain);
       const chainNativeAsset = CryptoService.getChainNativeAsset(props.chain);
       let fFiat =
         _fees.regular.getFeeValue() *
         WalletStore.getWalletByCoinId(chainNativeAsset, props.chain)?.price!;
       setFeeFiat(fFiat);
       setFees(_fees);
-      //@ts-ignore
       LoadingModal.instance.current?.hide();
       await sleep(300);
-      //@ts-ignore
       actionSheetRef.current?.setModalVisible();
     } catch (error) {
       console.log(error);
-      //@ts-ignore
       LoadingModal.instance.current?.hide();
       showMessage({
         message: t('message.error.remote_servers_not_available'),
@@ -131,6 +136,10 @@ export function SendContainer(props) {
     }
   };
 
+  /**
+   * Get and format the input amount
+   * @param v Input amount
+   */
   const setAmount = v => {
     setValue(v);
     const formattedValue = formatNoComma(v);
@@ -145,7 +154,6 @@ export function SendContainer(props) {
     try {
       if (await InAppBrowser.isAvailable()) {
         await InAppBrowser.open(url, {
-          // iOS Properties
           dismissButtonStyle: 'cancel',
           readerMode: false,
           animated: true,
@@ -153,7 +161,6 @@ export function SendContainer(props) {
           modalTransitionStyle: 'coverVertical',
           modalEnabled: true,
           enableBarCollapsing: false,
-          // Android Properties
           showTitle: true,
           enableUrlBarHiding: true,
           enableDefaultShare: true,
@@ -163,20 +170,20 @@ export function SendContainer(props) {
         Linking.openURL(url);
       }
     } catch (error) {
-      console.log(error);
+      Logs.error(error);
     }
   };
 
+  /**
+   * Execute/Send the transaction
+   */
   const executeTX = async () => {
-    //@ts-ignore
     actionSheetRef.current?.setModalVisible(false);
     await sleep(200);
-    //@ts-ignore
     LoadingModal.instance.current?.show();
     await sleep(200);
     try {
       let tx = await wallet.postTxSend(fees.regular);
-      //@ts-ignore
       LoadingModal.instance.current?.hide();
       if (tx) {
         showMessage({
@@ -195,8 +202,7 @@ export function SendContainer(props) {
       }
       navigation.goBack();
     } catch (error) {
-      console.log(error);
-      // Alert.alert('Transaction error', 'Transaction cannot be executed !');
+      Logs.error(error);
       showMessage({
         message: t('message.error.transaction_can_not_be_executed'),
         type: 'danger',
@@ -205,12 +211,13 @@ export function SendContainer(props) {
   };
 
   return (
+    // eslint-disable-next-line react-native/no-inline-styles
     <View style={[styles.maincontainer, {flex: keyboardEnabled ? 0 : 1}]}>
       <View style={styles.container}>
-        <View style={{marginBottom: 5}}>
-          <View style={styles.input}>
+        <View>
+          <View style={styles.inputView}>
             <TextInput
-              style={{flex: 1, color: Colors.foreground}}
+              style={styles.input}
               onChangeText={v => setDestination(v)}
               value={destination}
               placeholder={t('tx.destination_address')}
@@ -227,16 +234,15 @@ export function SendContainer(props) {
               <Icon name="content-paste" size={20} color={Colors.foreground} />
             </TouchableOpacity>
             <TouchableOpacity
-              //@ts-ignore
               onPress={() => actionCamera.current?.setModalVisible()}
               style={styles.moreBtn2}>
               <Icon name="qr-code" size={21} color={Colors.foreground} />
             </TouchableOpacity>
           </View>
 
-          <View style={styles.input}>
+          <View style={styles.inputView}>
             <TextInput
-              style={{flex: 1, color: Colors.foreground}}
+              style={styles.input}
               onChangeText={v => setAmount(v)}
               value={value}
               placeholder={props.coin + ' ' + t('tx.amount')}
@@ -251,19 +257,7 @@ export function SendContainer(props) {
           </View>
           <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
             <Text style={styles.toFiat}>{toFiat}</Text>
-            <Text
-              style={[
-                styles.toFiat,
-                {
-                  fontSize: 12,
-                  fontWeight: 'normal',
-                  justifyContent: 'center',
-                  alignContent: 'center',
-                  alignSelf: 'center',
-                  marginRight: 15,
-                  color: Colors.lighter,
-                },
-              ]}>
+            <Text style={styles.available}>
               {t('tx.available')}: {props.coinDescriptor?.balance ?? 0}{' '}
               {props.coinDescriptor?.symbol ?? ''}
             </Text>

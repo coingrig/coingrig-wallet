@@ -70,18 +70,18 @@ const WalletScreen = observer(({route}) => {
     });
   }, []);
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      setTimeout(() => {
-        CryptoService.updateWalletBalance(
-          route.params.symbol,
-          route.params.chain,
-        );
-      }, 2000);
-    });
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener('focus', () => {
+  //     setTimeout(() => {
+  //       CryptoService.updateWalletBalance(
+  //         route.params.symbol,
+  //         route.params.chain,
+  //       );
+  //     }, 2000);
+  //   });
 
-    return unsubscribe;
-  }, [navigation]);
+  //   return unsubscribe;
+  // }, [navigation]);
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
