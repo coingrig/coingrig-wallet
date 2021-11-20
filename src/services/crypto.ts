@@ -48,6 +48,18 @@ class CryptoService {
           'address/' +
           WalletStore.getWalletAddressByChain(chain)
         );
+      case 'BSC':
+        return (
+          endpoints.bsc +
+          'address/' +
+          WalletStore.getWalletAddressByChain(chain)
+        );
+      case 'POLYGON':
+        return (
+          endpoints.polygon +
+          'address/' +
+          WalletStore.getWalletAddressByChain(chain)
+        );
       default:
         break;
     }
@@ -59,6 +71,10 @@ class CryptoService {
         return endpoints.btc + 'tx/' + tx;
       case 'ETH':
         return endpoints.eth + 'tx/' + tx;
+      case 'BSC':
+        return endpoints.bsc + 'tx/' + tx;
+      case 'POLYGON':
+        return endpoints.polygon + 'tx/' + tx;
       default:
         break;
     }
@@ -200,10 +216,10 @@ class CryptoService {
     switch (name) {
       case 'ethereum':
         return 'ETH';
-      // case 'binance-smart-chain':
-      //   return 'BSC';
-      // case 'polygon-pos':
-      //   return 'POLYGON';
+      case 'binance-smart-chain':
+        return 'BSC';
+      case 'polygon-pos':
+        return 'POLYGON';
       default:
         return '';
     }
@@ -214,8 +230,10 @@ class CryptoService {
       case 'ETH':
         return 'Ethereum';
       case 'binance-smart-chain':
+      case 'BSC':
         return 'Binance smart chain';
       case 'polygon-pos':
+      case 'POLYGON':
         return 'Polygon';
       case 'BTC':
         return 'Bitcoin';
@@ -252,7 +270,7 @@ class CryptoService {
       balance: 0,
       unconfirmedBalance: 0,
       value: 0,
-      price: data.market_data?.current_price?.usd ?? null,
+      price: data.market_data?.current_price?.usd ?? 0,
       active: true,
       image: data.image?.large || null,
       walletAddress: null,

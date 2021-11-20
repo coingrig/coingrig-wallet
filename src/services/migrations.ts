@@ -1,11 +1,12 @@
 import {WalletStore} from 'stores/wallet';
-import {Migration as M01} from './migrations/01_1.0.1';
-import {StorageDeleteItem, StorageGetItem, StorageSetItem} from './storage';
+import {Migration as M01} from './migrations/01_1.1.0';
+import {Migration as M02} from './migrations/02_1.2.0';
+import {StorageGetItem, StorageSetItem} from './storage';
 import CONFIG from '../config';
 
-const MIGRATION_KEY = '@MIGRATION_KEY';
+const MIGRATION_KEY = CONFIG.MIGRATION_KEY;
 
-const MIGRATIONS_SET = [M01];
+const MIGRATIONS_SET = [M01, M02];
 
 class MigrationService {
   currentMigrationVersion: any;
@@ -14,7 +15,10 @@ class MigrationService {
   constructor() {}
 
   migrationRequired = async () => {
-    await StorageDeleteItem(MIGRATION_KEY, false);
+    let isInit = await StorageGetItem('@init', false);
+    if (!isInit) {
+      return false;
+    }
     this.installedMigration = await StorageGetItem(MIGRATION_KEY, false);
     this.currentMigrationVersion = CONFIG.BUILD_NUMBER ?? 0;
     // If current build number is larger than last stored build number

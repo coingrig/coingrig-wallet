@@ -165,6 +165,9 @@ const WalletScreen = observer(({route}) => {
     );
     const address = WalletStore.getWalletAddressByChain(w?.chain!);
     let coin = route.params.symbol.toUpperCase();
+    if (coin === 'BNB') {
+      coin = 'BSC_BNB';
+    }
     const link =
       endpoints.ramper + '&userAddress=' + address + '&swapAsset=' + coin;
     openLink(link);
