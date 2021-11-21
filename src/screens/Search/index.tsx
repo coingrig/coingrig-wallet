@@ -14,7 +14,8 @@ import {Colors} from 'utils/colors';
 import FastImage from 'react-native-fast-image';
 import {TransitionEnd} from 'utils/hooks';
 import {Loader} from 'components/loader';
-const coins = require('../../assets/fulltokens.json');
+import {Logs} from 'services/logs';
+const coins = require('../../assets/fulltokens.json').slice(0, 8000);
 
 const SearchScreen = ({route}) => {
   const navigation = useNavigation();

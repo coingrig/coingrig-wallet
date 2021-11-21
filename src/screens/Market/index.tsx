@@ -23,7 +23,6 @@ const MarketScreen = observer(() => {
   const FILTER_GAINERS = 'gainers';
   const FILTER_LOSERS = 'losers';
   const navigation = useNavigation();
-  // const {t} = useTranslation();
   const [searchFilter, setSearchFilter] = useState(FILTER_ALL);
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
@@ -34,6 +33,9 @@ const MarketScreen = observer(() => {
         <TouchableOpacity
           onPress={() => navigation.navigate('NewsScreen')}
           style={styles.moreBtn}>
+          <Text style={{color: Colors.foreground, marginRight: 5}}>
+            {t('News')}
+          </Text>
           <Icon name="newspaper" size={23} color={Colors.foreground} />
         </TouchableOpacity>
       ),

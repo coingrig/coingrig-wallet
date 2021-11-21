@@ -42,8 +42,10 @@ export const styles = StyleSheet.create({
   },
   moreBtn: {
     paddingHorizontal: 5,
-    justifyContent: 'space-around',
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingRight: 20,
+    flexDirection: 'row',
   },
   pillsContainer: {
     marginHorizontal: 20,

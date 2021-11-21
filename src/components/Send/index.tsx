@@ -257,10 +257,6 @@ export function SendContainer(props: any) {
           </View>
           <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
             <Text style={styles.toFiat}>{toFiat}</Text>
-            <Text style={styles.available}>
-              {t('tx.available')}: {props.coinDescriptor?.balance ?? 0}{' '}
-              {props.coinDescriptor?.symbol ?? ''}
-            </Text>
           </View>
         </View>
       </View>
@@ -269,16 +265,21 @@ export function SendContainer(props: any) {
           style={{
             backgroundColor: Colors.darker,
             borderRadius: 5,
-            paddingHorizontal: 10,
+            paddingHorizontal: 20,
             paddingVertical: 5,
             justifyContent: 'center',
             alignSelf: 'center',
             marginBottom: 10,
           }}>
-          <Text style={{fontSize: 11, color: Colors.lighter}}>
+          <Text
+            style={{fontSize: 11, color: Colors.lighter, textAlign: 'center'}}>
             {CryptoService.getSupportedChainNamebyID(props.chain) +
               ' ' +
               t('wallet.network')}
+          </Text>
+          <Text style={styles.available}>
+            {t('tx.available')}: {props.coinDescriptor?.balance ?? 0}{' '}
+            {props.coinDescriptor?.symbol ?? ''}
           </Text>
         </View>
         <BigButton

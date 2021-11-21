@@ -35,7 +35,6 @@ const PortfolioScreen = observer(() => {
         </TouchableOpacity>
       ),
     });
-    fetchCoins();
   }, []);
 
   const fetchCoins = async () => {
@@ -102,7 +101,7 @@ const PortfolioScreen = observer(() => {
         }
         data={WalletStore.wallets}
         renderItem={renderItem}
-        keyExtractor={(item: any) => item.cid}
+        keyExtractor={(item: any) => item.cid + item.chain ?? ''}
         maxToRenderPerBatch={5}
         initialNumToRender={10}
         ListHeaderComponent={listHeader()}

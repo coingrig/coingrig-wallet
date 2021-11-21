@@ -47,7 +47,6 @@ const CoinDetailScreen = observer(({route}) => {
   const getData = async () => {
     // get data from coingecko
     const data = await CryptoService.getCoinDetails(route.params.coin);
-    console.log(data.platforms);
     let mappedPlatforms: any = [];
     for (const [key, value] of Object.entries(data.platforms)) {
       // Sanity check, the data comes with a "":"" pair
@@ -313,10 +312,7 @@ const CoinDetailScreen = observer(({route}) => {
             renderItem={({item}) => (
               <View>
                 <SmallButton
-                  text={
-                    CryptoService.getSupportedChainNamebyID(item.chain) +
-                    ' network'
-                  }
+                  text={CryptoService.getSupportedChainNamebyID(item.chain)}
                   onPress={() => {
                     saveWallet(item.chain, item.contract);
                   }}
@@ -324,7 +320,7 @@ const CoinDetailScreen = observer(({route}) => {
                   // eslint-disable-next-line react-native/no-inline-styles
                   style={{
                     backgroundColor: Colors.foreground,
-                    marginTop: 30,
+                    width: '70%',
                     borderWidth: 0,
                   }}
                 />

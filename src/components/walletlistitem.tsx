@@ -13,6 +13,9 @@ const WalletListItem = (props: {coin: IWallet; onPress?: any}) => {
       style={{height: 80, marginVertical: 4}}>
       <View style={styles.container}>
         <View style={styles.card}>
+          {props.coin.type === 'coin' ? (
+            <View style={styles.verticalLine} />
+          ) : null}
           <View style={styles.logo}>
             <CoinsAvatar
               style={styles.logoimg}
@@ -76,6 +79,15 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     flex: 1.5,
     // backgroundColor: 'red',
+  },
+  verticalLine: {
+    backgroundColor: '#EDE2C1',
+    width: 2,
+    height: 50,
+    position: 'absolute',
+    left: 0,
+    top: 15,
+    borderRadius: 10,
   },
   chartContainer: {
     flexDirection: 'column',

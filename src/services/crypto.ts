@@ -95,15 +95,15 @@ class CryptoService {
       }
       Logs.info('Refreshing general balance');
       const coninIds = WalletStore.getCoinCIDList() || [];
-      // const tokenBalances = await this.getBulkTokenBalance(
-      //   WalletStore.walletAddresses,
-      // );
+      const tokenBalances = await this.getBulkTokenBalance(
+        WalletStore.walletAddresses,
+      );
       //@ts-ignore
       let prices = await MarketStore.getCoinsByList(coninIds);
       let chainKeys = await this.getChainPrivateKeys();
       for (let i = 0; i < WalletStore.wallets.length; i++) {
         let chain = WalletStore.wallets[i].chain;
-        // let contract = WalletStore.wallets[i].contract?.toLowerCase() ?? null;
+        let contract = WalletStore.wallets[i].contract?.toLowerCase() ?? null;
         let wallet = Object.assign({}, WalletStore.wallets[i], {
           privKey: chainKeys[chain],
           walletAddress: WalletStore.getWalletAddressByChain(chain),
@@ -111,43 +111,51 @@ class CryptoService {
         //
         let cryptoWallet = WalletFactory.getWallet(wallet);
         // Check if it's a token
-        // let token = tokenBalances.find(o => o.contract === contract);
-        // if (contract && token !== undefined) {
-        //   Logs.info('Balance from provider', wallet.symbol);
-        //   WalletStore.setBalance(
-        //     wallet.symbol,
-        //     wallet.chain,
-        //     Number(new BigNumber(token.balance).div(10 ** token.decimals)),
-        //   );
-        //   WalletStore.setPrice(wallet.symbol, wallet.chain, token.rate);
-        //   // Move to next wallet item
-        //   continue;
-        // }
-        Logs.info('Getting balance from @core', wallet.symbol);
-        // Not a token, then check regular coin balance
-        // Don't update the price if none is available from the provider
-        let cidExists = wallet.cid ?? null;
-        let newPrice: any = '';
-        if (!cidExists) {
-          newPrice = 0;
+        let token = tokenBalances.find(o => o.contract === contract);
+        if (contract && token !== undefined) {
+          Logs.info('Balance from provider', wallet.symbol);
+          WalletStore.setBalance(
+            wallet.symbol,
+            wallet.chain,
+            Number(new BigNumber(token.balance).div(10 ** token.decimals)),
+          );
+          WalletStore.setPrice(wallet.symbol, wallet.chain, token.rate);
+          Logs.info(wallet.symbol, wallet.chain, token.rate);
+          // Move to next wallet item
+          // continue;
         } else {
-          newPrice = prices[wallet.cid!.toLowerCase()]?.usd ?? null;
-        }
+          Logs.info('Getting balance from @core', wallet.symbol);
+          // Not a token, then check regular coin balance
+          // Don't update the price if none is available from the provider
+          let cidExists = wallet.cid ?? null;
+          let newPrice: any = '';
+          if (!cidExists) {
+            newPrice = 0;
+          } else {
+            newPrice = prices[wallet.cid!.toLowerCase()]?.usd ?? null;
+          }
 
-        if (newPrice !== null) {
-          // The price can be actually 0
-          newPrice = parseFloat(newPrice);
-          WalletStore.setPrice(wallet.symbol, wallet.chain, newPrice);
+          if (newPrice !== null) {
+            // The price can be actually 0
+            newPrice = parseFloat(newPrice);
+            WalletStore.setPrice(wallet.symbol, wallet.chain, newPrice);
+          }
+          const balance = await cryptoWallet.getBalance();
+          // console.log(wallet.symbol, balance, newPrice);
+          const unconfirmedBalance = balance.getUnconfirmedBalance();
+          WalletStore.setBalance(
+            wallet.symbol,
+            wallet.chain,
+            balance.getValue(),
+          );
+          WalletStore.setUnconfirmedBalance(
+            wallet.symbol,
+            wallet.chain,
+            unconfirmedBalance,
+          );
         }
-        const balance = await cryptoWallet.getBalance();
-        const unconfirmedBalance = balance.getUnconfirmedBalance();
-        WalletStore.setBalance(wallet.symbol, wallet.chain, balance.getValue());
-        WalletStore.setUnconfirmedBalance(
-          wallet.symbol,
-          wallet.chain,
-          unconfirmedBalance,
-        );
       }
+
       return true;
     } catch (error) {
       Logs.error(error);
@@ -181,10 +189,11 @@ class CryptoService {
       const url = `${endpoints.covalent}/${
         this.CHAIN_ID_MAP[item.chain]
       }/address/${item.walletAddress}/balances_v2/?key=${CONFIG.COVALENT_KEY}`;
+      // Logs.info(url);
       var config = {
         method: 'get',
         url: url,
-        timeout: 5000,
+        timeout: 2000,
       };
 
       requests.push(axios(config));

@@ -3,7 +3,6 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {observer} from 'mobx-react-lite';
 import {CoinsAvatar} from 'components/coinsAvatar';
-import {capitalize} from 'lodash';
 import Svg, {Path} from 'react-native-svg';
 import {useNavigation} from '@react-navigation/native';
 import {WalletStore} from 'stores/wallet';
@@ -17,7 +16,7 @@ const Brick = observer((props: any) => {
   const {t} = useTranslation();
   const wallet = WalletStore.getWalletByCoinId(props.coin, props.chain);
   React.useEffect(() => {
-    setName(capitalize(wallet?.name));
+    setName(wallet?.name!);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -71,11 +70,7 @@ const Brick = observer((props: any) => {
               symbol: props.coin,
               chain: props.chain,
             })
-          : navigation.navigate('PortfolioScreen', {
-              coin: name.toLowerCase(),
-              symbol: props.coin,
-              chain: props.chain,
-            })
+          : navigation.navigate('PortfolioScreen')
       }>
       <View style={styles.container}>
         <View style={styles.tcontainer}>

@@ -27,9 +27,10 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     alignSelf: 'center',
-    marginRight: 15,
+    // marginRight: 15,
     color: Colors.lighter,
     marginTop: 10,
+    textAlign: 'center',
   },
   cameracontainer: {
     height: SIZE.height / 1.7,

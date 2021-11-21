@@ -170,6 +170,7 @@ const WalletScreen = observer(({route}) => {
     }
     const link =
       endpoints.ramper + '&userAddress=' + address + '&swapAsset=' + coin;
+    // console.log(link);
     openLink(link);
   };
 
