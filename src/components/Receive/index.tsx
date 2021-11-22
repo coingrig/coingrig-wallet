@@ -6,8 +6,9 @@ import {styles} from './styles';
 import Share from 'react-native-share';
 import {BigButton} from 'components/bigButton';
 import {Colors} from 'utils/colors';
+import {CryptoService} from 'services/crypto';
 
-export function ReceiveContainer(props) {
+export const ReceiveContainer = props => {
   const [imageUri, setImageUri] = useState<any>(null);
   const {t} = useTranslation();
 
@@ -20,7 +21,7 @@ export function ReceiveContainer(props) {
         setImageUri(response);
       })
       .catch(err => console.log('Cannot create QR code', err));
-  }, []);
+  }, [props.address]);
 
   const shareAddress = async () => {
     await Share.open({
@@ -44,7 +45,15 @@ export function ReceiveContainer(props) {
           selectable>
           {props.address}
         </Text>
+        <View style={styles.network}>
+          <Text style={styles.networkTxt}>
+            {t('wallet.network') +
+              ': ' +
+              CryptoService.getSupportedChainNamebyID(props.chain)}
+          </Text>
+        </View>
       </View>
+
       <View style={styles.share}>
         <BigButton
           text={t('tx.share_address')}
@@ -55,4 +64,4 @@ export function ReceiveContainer(props) {
       </View>
     </View>
   );
-}
+};

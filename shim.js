@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 if (typeof __dirname === 'undefined') {
   global.__dirname = '/';
 }

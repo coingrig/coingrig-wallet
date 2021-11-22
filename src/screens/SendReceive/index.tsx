@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, ScrollView, ActivityIndicator} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {capitalize} from 'lodash';
 import {Switch} from 'components/switch';
 import {ReceiveContainer} from 'components/Receive';
 import {SendContainer} from 'components/Send';
@@ -19,11 +18,15 @@ const SendReceiveScreen = ({route}) => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: capitalize(route.params.name),
+      headerTitle: route.params.coin,
     });
-    const wallet = WalletStore.getWalletByCoinId(route.params.coin);
+    const wallet = WalletStore.getWalletByCoinId(
+      route.params.coin,
+      route.params.chain,
+    );
     setAddress(WalletStore.getWalletAddressByChain(wallet?.chain ?? '') ?? '');
     setCoinDescriptor(wallet ?? {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loading = () => {
@@ -35,11 +38,16 @@ const SendReceiveScreen = ({route}) => {
   };
   const renderContainer = () => {
     if (isReceive) {
-      return tEnded ? <ReceiveContainer address={address} /> : loading();
+      return tEnded ? (
+        <ReceiveContainer address={address} chain={route.params.chain} />
+      ) : (
+        loading()
+      );
     } else {
       return tEnded ? (
         <SendContainer
           coin={route.params.coin}
+          chain={route.params.chain}
           address={address}
           coinDescriptor={coinDescriptor}
         />

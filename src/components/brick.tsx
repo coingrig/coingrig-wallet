@@ -3,7 +3,6 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {observer} from 'mobx-react-lite';
 import {CoinsAvatar} from 'components/coinsAvatar';
-import {capitalize} from 'lodash';
 import Svg, {Path} from 'react-native-svg';
 import {useNavigation} from '@react-navigation/native';
 import {WalletStore} from 'stores/wallet';
@@ -15,15 +14,14 @@ const Brick = observer((props: any) => {
   const color = Colors.brick;
   const navigation = useNavigation();
   const {t} = useTranslation();
+  const wallet = WalletStore.getWalletByCoinId(props.coin, props.chain);
   React.useEffect(() => {
-    let wallet = WalletStore.getWalletByCoinId(props.coin);
-    setName(capitalize(wallet?.name));
+    setName(wallet?.name!);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderBody = () => {
     if (props.coin !== '_END_') {
-      let wallet = WalletStore.getWalletByCoinId(props.coin);
       return (
         <>
           <Text adjustsFontSizeToFit numberOfLines={2} style={styles.coinName}>
@@ -42,18 +40,16 @@ const Brick = observer((props: any) => {
         <>
           <Text
             adjustsFontSizeToFit
-            numberOfLines={3}
+            numberOfLines={1}
             style={[
               styles.coinName,
               // eslint-disable-next-line react-native/no-inline-styles
-              {
-                color: Colors.background,
-                marginBottom: 40,
-                fontWeight: 'normal',
-                fontSize: 15,
-              },
+              {color: Colors.background, marginBottom: 10},
             ]}>
-            {t('dashboard.more_wallets_soon')}
+            {t('bricks.all_wallets')}
+          </Text>
+          <Text adjustsFontSizeToFit numberOfLines={2} style={styles.endBrick}>
+            {t('bricks.check_portfolio')}
           </Text>
         </>
       );
@@ -63,17 +59,27 @@ const Brick = observer((props: any) => {
     <TouchableOpacity
       style={[
         styles.brick,
-        {backgroundColor: props.coin === '_END_' ? Colors.brickEnd : color},
+        {
+          backgroundColor: props.coin === '_END_' ? Colors.brickEnd : color,
+        },
       ]}
       onPress={() =>
         props.coin !== '_END_'
-          ? navigation.navigate('WalletScreen', {coin: props.coin})
-          : null
+          ? navigation.navigate('WalletScreen', {
+              coin: name.toLowerCase(),
+              symbol: props.coin,
+              chain: props.chain,
+            })
+          : navigation.navigate('PortfolioScreen')
       }>
       <View style={styles.container}>
         <View style={styles.tcontainer}>
           <View style={styles.logo}>
-            <CoinsAvatar style={styles.logoimg} coin={props.coin} />
+            <CoinsAvatar
+              style={styles.logoimg}
+              coin={props.coin}
+              source={wallet?.image}
+            />
           </View>
         </View>
         <View style={styles.bcontainer}>{renderBody()}</View>
@@ -108,6 +114,12 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginBottom: 5,
     color: Colors.chart,
+    fontFamily: 'RobotoSlab-Regular',
+  },
+  endBrick: {
+    fontSize: 12,
+    marginBottom: 15,
+    color: Colors.background,
     fontFamily: 'RobotoSlab-Regular',
   },
   svg: {

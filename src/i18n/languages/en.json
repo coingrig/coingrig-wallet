@@ -12,9 +12,13 @@
         "message.error.incorrect_pin": "Your pin is not valid!",
         "message.error.unable_to_create_wallets": "Unable to create wallets!",
         "message.error.unable_to_import_wallets": "Unable to import wallets!",
+        "message.wallet.token.added": "A new asset was added to your portfolio",
 
         "init.new_wallet": "New wallet",
         "init.import_wallet": "Import wallet",
+
+        "bricks.all_wallets": "All wallets",
+        "bricks.check_portfolio": "Check your portfolio",
 
         "setup.your_recovery_phrase": "Your recovery phrase",
         "setup.copy_these_words": "Copy these words in the right order and save them somewhere safe",
@@ -37,15 +41,18 @@
         "dashboard.top_3_coins": "Top 3 coins",
         "dashboard.more_wallets_soon": "More wallets coming soon",
         "dashboard.coming_soon": "Coming soon",
-        "dashboard.manage_tokens": "Manage tokens",
-        "dashboard.manage_nfts": "Manage NFTs",
+        "dashboard.info1": "Swap tokens",
+        "dashboard.info2": "Manage NFTs",
         
         "wallet.wallet": "Wallet",
         "wallet.send": "Send",
         "wallet.transactions": "Transactions",
         "wallet.receive": "Receive",
         "wallet.unconfirmed_tx": "Unconfirmed transaction(s) value:",
-        "wallet.buysell": "Buy / Sell",
+        "wallet.buysell": "Buy",
+        "wallet.delete_wallet": "Delete wallet",
+        "wallet.alert_delete_wallet": "Are you sure you want to delete this wallet?",
+        "wallet.network": "Network",
 
         "coindetails.change": "Change 24h",
         "coindetails.price": "Price",
@@ -60,12 +67,15 @@
         "coindetails.circulating_supply": "Circulating Supply",
         "coindetails.max_supply": "Max Supply",
         "coindetails.total_supply": "Total Supply",
+        "coindetails.choose_network": "Choose network",
+        "coindetails.chain_note": "Some assets are available on multiple chains/networks. Assets can not be directly used across chains.",
 
         "market.market": "Market",
-        "market.search_placeholder": "Search top {{coins}} coins by marketcap",
-        "market.all": "All",
+        "market.search_placeholder": "Search in thousands of coins",
+        "market.top": "Top",
         "market.gainers": "Gainers",
         "market.losers": "Losers",
+        "market.provider": "Market data provided by CoinGecko",
 
         "settings.backup_phrase": "Backup your recovery phrase",
         "settings.settings": "Settings",
@@ -98,8 +108,9 @@
         "tx.share_address": "Share address",
         "tx.confirm_tx": "Confirm transaction",
         "tx.amount_in_usd": "Amount in USD",
-        "tx.miner_fee": "Miner fee",
+        "tx.network_fee": "Network fee",
         "tx.total_usd": "TOTAL USD",
+        "tx.available": "Available",
         "tx.confirm": "CONFIRM"
     }
 }

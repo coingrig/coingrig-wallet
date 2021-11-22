@@ -9,15 +9,15 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     marginBottom: 0,
-    // shadowColor: '#000',
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 1,
-    // },
-    // shadowOpacity: 0.18,
-    // shadowRadius: 1.0,
-
-    // elevation: 1,
+  },
+  networkTxt: {fontSize: 11, color: Colors.lighter},
+  network: {
+    backgroundColor: Colors.darker,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    justifyContent: 'center',
+    alignSelf: 'center',
   },
   qrcontainer: {flex: 1, justifyContent: 'center', marginTop: 50},
   qr: {
@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
   },
-  share: {flex: 1, justifyContent: 'flex-end', marginBottom: 30},
+  share: {flex: 1, justifyContent: 'flex-end', marginBottom: 40},
   address: {
     fontSize: 15,
     fontFamily: 'RobotoSlab-Regular',

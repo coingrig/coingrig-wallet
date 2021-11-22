@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {FC, useEffect} from 'react';
 import {Image, View, StyleSheet} from 'react-native';
@@ -9,8 +10,10 @@ import {
 } from '@haskkor/react-native-pincode';
 import {Colors} from 'utils/colors';
 import {StorageGetItem} from 'services/storage';
+import {MigrationService} from 'services/migrations';
 import {ConfigStore} from 'stores/config';
 import CONFIG from 'config';
+import {Logs} from 'services/logs';
 
 const SplashScreen: FC = () => {
   const navigation = useNavigation();
@@ -18,13 +21,23 @@ const SplashScreen: FC = () => {
   ConfigStore.initializeConfig();
 
   useEffect(() => {
+    check();
+  }, []);
+
+  const check = async () => {
+    if (await MigrationService.migrationRequired()) {
+      await MigrationService.handleMigrations();
+      Logs.info('Migration completed');
+    } else {
+      Logs.info('Nothing to migrate');
+    }
     checkPin();
     SS.hide();
-  }, []);
+  };
 
   const checkPin = async () => {
     let hasPin = await hasUserSetPinCode();
-    let isInit = await StorageGetItem('@init', false);
+    let isInit = await StorageGetItem(CONFIG.INIT_KEY, false);
     CONFIG.navigation = navigation;
     if (hasPin && isInit) {
       navigation.dispatch(

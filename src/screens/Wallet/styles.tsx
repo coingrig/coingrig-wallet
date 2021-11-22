@@ -14,12 +14,18 @@ export const styles = StyleSheet.create({
     zIndex: -2,
     borderRadius: 20,
   },
+  pills: {
+    backgroundColor: Colors.darker,
+    borderRadius: 5,
+    padding: 5,
+    margin: 10,
+  },
   bigText: {
     fontSize: 50,
     textAlign: 'center',
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.foreground,
-    marginTop: '20%',
+    marginTop: '10%',
     marginHorizontal: '20%',
   },
   roundBtn: {
@@ -31,6 +37,17 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.foreground,
     alignItems: 'center',
     borderRadius: 50,
+  },
+  deleteBtn: {
+    width: 50,
+    height: 50,
+    alignContent: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    backgroundColor: '#d9534f',
+    alignItems: 'center',
+    borderRadius: 50,
+    zIndex: 10,
   },
   item: {
     backgroundColor: 'white',

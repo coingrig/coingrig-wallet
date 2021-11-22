@@ -3,7 +3,6 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {
   Text,
   View,
-  TextInput,
   FlatList,
   TouchableOpacity,
   RefreshControl,
@@ -24,8 +23,6 @@ const MarketScreen = observer(() => {
   const FILTER_GAINERS = 'gainers';
   const FILTER_LOSERS = 'losers';
   const navigation = useNavigation();
-  // const {t} = useTranslation();
-  const [searchText, setSearch] = useState('');
   const [searchFilter, setSearchFilter] = useState(FILTER_ALL);
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
@@ -36,6 +33,9 @@ const MarketScreen = observer(() => {
         <TouchableOpacity
           onPress={() => navigation.navigate('NewsScreen')}
           style={styles.moreBtn}>
+          <Text style={{color: Colors.foreground, marginRight: 5}}>
+            {t('News')}
+          </Text>
           <Icon name="newspaper" size={23} color={Colors.foreground} />
         </TouchableOpacity>
       ),
@@ -65,7 +65,10 @@ const MarketScreen = observer(() => {
         change={item.price_change_percentage_24h}
         onPress={() =>
           //@ts-ignore
-          navigation.navigate('CoinDetailScreen', {coin: item.symbol})
+          navigation.navigate('CoinDetailScreen', {
+            coin: item.id,
+            title: item.symbol,
+          })
         }
       />
     );
@@ -85,16 +88,6 @@ const MarketScreen = observer(() => {
           return b.price_change_percentage_24h - a.price_change_percentage_24h;
         }
         return a.price_change_percentage_24h - b.price_change_percentage_24h;
-      });
-    }
-    if (searchText) {
-      let searchValue = searchText.trim().toLowerCase();
-      return list.filter((o: MarketCapCoinType) => {
-        return (
-          o.name.toLowerCase().indexOf(searchValue) !== -1 ||
-          o.symbol.toLowerCase().indexOf(searchValue) !== -1 ||
-          o.id.toLowerCase().indexOf(searchValue) !== -1
-        );
       });
     }
     return list;
@@ -126,13 +119,15 @@ const MarketScreen = observer(() => {
   const listHeader = () => {
     return (
       <View>
-        <TextInput
-          style={styles.textInputStyle}
-          placeholder={t('market.search_placeholder', {coins: COINS_MAX})}
-          placeholderTextColor={Colors.lighter}
-          onChangeText={text => setSearch(text)}
-          defaultValue={searchText}
-        />
+        <TouchableOpacity
+          onPressIn={() =>
+            navigation.navigate('SearchScreen', {onlySupported: false})
+          }
+          style={styles.searchbar}>
+          <Text style={styles.textInputStyle}>
+            {t('market.search_placeholder')}
+          </Text>
+        </TouchableOpacity>
         <View style={styles.pillsContainer}>
           <TouchableOpacity
             style={getCoinFilterStyle(FILTER_ALL)}
@@ -140,7 +135,7 @@ const MarketScreen = observer(() => {
               setSearchFilter(FILTER_ALL);
             }}>
             <Text style={styles.appButtonText}>
-              {t('market.all')} {COINS_MAX}
+              {t('market.top')} {COINS_MAX}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity

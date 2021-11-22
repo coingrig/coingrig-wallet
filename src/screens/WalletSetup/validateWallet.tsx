@@ -23,6 +23,7 @@ export default function ValidateWalletScreen({route}) {
 
   React.useEffect(() => {
     createWallet();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
   const fetchCopiedText = async () => {
@@ -39,6 +40,7 @@ export default function ValidateWalletScreen({route}) {
   };
   const createWallet = async () => {
     if (loading) {
+      //@ts-ignore
       LoadingModal.instance.current?.show();
       await sleep(500);
       const newWallet = await WalletStore.createWallets(
