@@ -60,7 +60,9 @@ const CoinDetailScreen = observer(({route}) => {
       }
       // Is the wallet already registered?
       let existingWallets = WalletStore.wallets.filter(
-        o => o.chain === platformChain && o.contract === value,
+        o =>
+          o.chain === platformChain &&
+          (o.contract === value || o.symbol === data.symbol.toUpperCase()),
       );
       if (existingWallets.length > 0) {
         continue;
