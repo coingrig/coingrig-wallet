@@ -7,6 +7,7 @@ import {IWallet} from 'stores/wallet';
 import {CryptoService} from 'services/crypto';
 
 const WalletListItem = (props: {coin: IWallet; onPress?: any}) => {
+  const chain = CryptoService.getSupportedChainNamebyID(props.coin.chain);
   return (
     <TouchableOpacity
       onPress={props.onPress ? props.onPress : null}
@@ -32,8 +33,8 @@ const WalletListItem = (props: {coin: IWallet; onPress?: any}) => {
             </Text>
             <View>
               <Text style={styles.coinSymbol} numberOfLines={1}>
-                {CryptoService.getSupportedChainNamebyID(props.coin.chain)}{' '}
-                network
+                {chain + ' '}
+                {chain.length < 15 ? 'Network' : null}
               </Text>
             </View>
           </View>

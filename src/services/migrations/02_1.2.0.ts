@@ -4,7 +4,7 @@ import {WalletStore} from '../../stores/wallet';
 
 const BSC_DESCRIPTOR: IWalletConfig = {
   symbol: 'BNB',
-  name: 'BNB',
+  name: 'Binance Coin',
   chain: 'BSC',
   type: 'coin',
   decimals: 18,

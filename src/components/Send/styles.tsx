@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     // marginRight: 15,
     color: Colors.lighter,
-    marginTop: 10,
+    marginTop: 5,
     textAlign: 'center',
   },
   cameracontainer: {
@@ -61,7 +61,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 20,
   },
-  preparetx: {flex: 1, justifyContent: 'flex-end', marginBottom: 30},
+  preparetx: {flex: 1, justifyContent: 'flex-end', marginBottom: 40},
   input: {flex: 1, color: Colors.foreground},
   inputView: {
     flex: 1,

@@ -50,7 +50,7 @@ export const COIN_LIST: IWallet[] = [
   },
   {
     symbol: 'BNB',
-    name: 'BNB',
+    name: 'Binance Coin',
     cid: 'binancecoin',
     chain: 'BSC',
     type: ASSET_TYPE_COIN,

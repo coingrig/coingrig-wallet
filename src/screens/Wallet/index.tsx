@@ -30,6 +30,10 @@ const WalletScreen = observer(({route}) => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
+  const chain = CryptoService.getSupportedChainNamebyID(
+    WalletStore.getWalletByCoinId(route.params.symbol, route.params.chain)
+      ?.chain,
+  );
   useEffect(() => {
     navigation.setOptions({
       headerTitle: route.params.symbol,
@@ -259,14 +263,8 @@ const WalletScreen = observer(({route}) => {
             </View>
             <View style={styles.pills}>
               <Text style={{fontSize: 12, color: Colors.lighter}}>
-                {CryptoService.getSupportedChainNamebyID(
-                  WalletStore.getWalletByCoinId(
-                    route.params.symbol,
-                    route.params.chain,
-                  )?.chain,
-                ) +
-                  ' ' +
-                  t('wallet.network')}
+                {chain + ' '}
+                {chain.length < 15 ? t('wallet.network') : null}
               </Text>
             </View>
           </View>

@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
   },
-  share: {flex: 1, justifyContent: 'flex-end', marginBottom: 30},
+  share: {flex: 1, justifyContent: 'flex-end', marginBottom: 40},
   address: {
     fontSize: 15,
     fontFamily: 'RobotoSlab-Regular',

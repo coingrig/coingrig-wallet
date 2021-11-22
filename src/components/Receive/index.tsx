@@ -47,9 +47,9 @@ export const ReceiveContainer = props => {
         </Text>
         <View style={styles.network}>
           <Text style={styles.networkTxt}>
-            {CryptoService.getSupportedChainNamebyID(props.chain) +
-              ' ' +
-              t('wallet.network')}
+            {t('wallet.network') +
+              ': ' +
+              CryptoService.getSupportedChainNamebyID(props.chain)}
           </Text>
         </View>
       </View>

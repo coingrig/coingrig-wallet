@@ -273,9 +273,9 @@ export function SendContainer(props: any) {
           }}>
           <Text
             style={{fontSize: 11, color: Colors.lighter, textAlign: 'center'}}>
-            {CryptoService.getSupportedChainNamebyID(props.chain) +
-              ' ' +
-              t('wallet.network')}
+            {t('wallet.network') +
+              ': ' +
+              CryptoService.getSupportedChainNamebyID(props.chain)}
           </Text>
           <Text style={styles.available}>
             {t('tx.available')}: {props.coinDescriptor?.balance ?? 0}{' '}

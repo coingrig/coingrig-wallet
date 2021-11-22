@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
 import {
   View,
@@ -177,7 +176,7 @@ const SearchScreen = ({route}) => {
           autoCorrect={false}
           placeholderTextColor={'gray'}
           onChangeText={text => searchCoin(text)}
-          placeholder={'Coin Search'}
+          placeholder={'Search Asset'}
         />
 
         <TouchableOpacity
