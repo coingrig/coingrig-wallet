@@ -7,12 +7,16 @@ import {IWallet} from 'stores/wallet';
 import {CryptoService} from 'services/crypto';
 
 const WalletListItem = (props: {coin: IWallet; onPress?: any}) => {
+  const chain = CryptoService.getSupportedChainNamebyID(props.coin.chain);
   return (
     <TouchableOpacity
       onPress={props.onPress ? props.onPress : null}
       style={{height: 80, marginVertical: 4}}>
       <View style={styles.container}>
         <View style={styles.card}>
+          {props.coin.type === 'coin' ? (
+            <View style={styles.verticalLine} />
+          ) : null}
           <View style={styles.logo}>
             <CoinsAvatar
               style={styles.logoimg}
@@ -29,8 +33,8 @@ const WalletListItem = (props: {coin: IWallet; onPress?: any}) => {
             </Text>
             <View>
               <Text style={styles.coinSymbol} numberOfLines={1}>
-                {CryptoService.getSupportedChainNamebyID(props.coin.chain)}{' '}
-                network
+                {chain + ' '}
+                {chain.length < 15 ? 'Network' : null}
               </Text>
             </View>
           </View>
@@ -76,6 +80,15 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     flex: 1.5,
     // backgroundColor: 'red',
+  },
+  verticalLine: {
+    backgroundColor: '#EDE2C1',
+    width: 2,
+    height: 50,
+    position: 'absolute',
+    left: 0,
+    top: 15,
+    borderRadius: 10,
   },
   chartContainer: {
     flexDirection: 'column',

@@ -3,6 +3,7 @@ import {makePersistable} from 'mobx-persist-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import endpoints from 'utils/endpoints';
 import {StorageGetItem} from 'services/storage';
+import CONFIG from 'config';
 
 export const CONFIG_MODULES = {
   APP: 'app',
@@ -57,7 +58,7 @@ class configStore {
   }
 
   initializeConfig = action(async () => {
-    let isInit = await StorageGetItem('@init', false);
+    let isInit = await StorageGetItem(CONFIG.INIT_KEY, false);
     if (!isInit) {
       this.setConfig(DEFAULT_CONFIG);
       this.checkForUpdatedConfig();

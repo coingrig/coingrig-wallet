@@ -170,31 +170,57 @@ class WalletStoreModule {
   }
 
   createWallets = async (mnemonic: string, coinList: any[] = []) => {
-    let keys = CryptoService.getChainPrivateKeys();
+    let keys = await CryptoService.getChainPrivateKeys();
     try {
       for (const coinDescriptor of coinList) {
         let coin = coinDescriptor.symbol;
         let privKey = keys[coinDescriptor.chain];
         if (!privKey) {
-          privKey = await WalletGenerator.generatePrivateKeyFromMnemonic(
-            coin,
-            mnemonic,
-            CONFIG.DEFAULT_DERIVATION_KEY,
-          );
-          keys[coinDescriptor.chain] = privKey;
+          // If the chain being setup is an ETH based chain
+          // then use the ETH key
+          if (
+            (coinDescriptor.chain === 'BSC' ||
+              coinDescriptor.chain === 'POLYGON') &&
+            keys.ETH
+          ) {
+            keys[coinDescriptor.chain] = keys.ETH;
+          } else {
+            // Create the new wallet chain address
+            privKey = await WalletGenerator.generatePrivateKeyFromMnemonic(
+              coin,
+              mnemonic,
+              CONFIG.DEFAULT_DERIVATION_KEY,
+            );
+            keys[coinDescriptor.chain] = privKey;
+          }
         }
         let address = this.getWalletAddressByChain(coinDescriptor.chain);
         if (!address) {
-          let xpub = await WalletGenerator.generateWalletXpub(coin, mnemonic);
-          address = await WalletGenerator.generateAddressFromXPub(
-            coin,
-            xpub,
-            CONFIG.DEFAULT_DERIVATION_KEY,
-          );
-          this.addWalletAddress({
-            chain: coinDescriptor.chain,
-            walletAddress: address!,
-          });
+          // If the chain being setup is an ETH based chain
+          // then use the ETH address
+          let ethAddress = this.getWalletAddressByChain('ETH')!;
+          if (
+            (coinDescriptor.chain === 'BSC' ||
+              coinDescriptor.chain === 'POLYGON') &&
+            ethAddress
+          ) {
+            this.addWalletAddress({
+              chain: coinDescriptor.chain,
+              walletAddress: ethAddress,
+            });
+          } else {
+            // Create the new wallet chain address
+            let xpub = await WalletGenerator.generateWalletXpub(coin, mnemonic);
+            address = await WalletGenerator.generateAddressFromXPub(
+              coin,
+              xpub,
+              CONFIG.DEFAULT_DERIVATION_KEY,
+            );
+            this.addWalletAddress({
+              chain: coinDescriptor.chain,
+              walletAddress: address!,
+            });
+          }
         }
         let _config = Object.assign({}, coinDescriptor);
         let wallet = WalletFactory.getWallet(_config);
@@ -209,7 +235,15 @@ class WalletStoreModule {
       CryptoService.setChainPrivateKeys(keys);
       CONFIG.mnemonic = mnemonic;
       await StorageSetItem(STORED_MNEMONIC, mnemonic, true);
-      StorageSetItem('@init', 'init', false);
+      StorageSetItem(CONFIG.INIT_KEY, 'init', false);
+
+      // Store migration key to current app version
+      StorageSetItem(
+        CONFIG.MIGRATION_KEY,
+        CONFIG.BUILD_NUMBER.toString(),
+        false,
+      );
+
       return true;
     } catch (error) {
       console.log(error);
