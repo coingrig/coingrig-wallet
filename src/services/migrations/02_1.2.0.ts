@@ -1,5 +1,4 @@
 import {IWalletConfig} from '@coingrig/core';
-import CONFIG from 'config';
 import {WalletStore} from '../../stores/wallet';
 
 const BSC_DESCRIPTOR: IWalletConfig = {
@@ -78,7 +77,7 @@ export class Migration {
         name: BSC_DESCRIPTOR.name,
         cid: 'binancecoin',
         chain: BSC_DESCRIPTOR.chain,
-        type: CONFIG.ASSET_TYPE_COIN,
+        type: 'coin',
         decimals: BSC_DESCRIPTOR.decimals,
         contract: null,
         privKey: null,
@@ -105,7 +104,7 @@ export class Migration {
         name: POLYGON_DESCRIPTOR.name,
         cid: 'matic-network',
         chain: POLYGON_DESCRIPTOR.chain,
-        type: CONFIG.ASSET_TYPE_COIN,
+        type: 'coin',
         decimals: POLYGON_DESCRIPTOR.decimals,
         contract: null,
         privKey: null,
