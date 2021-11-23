@@ -30,6 +30,10 @@ const WalletScreen = observer(({route}) => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
+  const chain = CryptoService.getSupportedChainNamebyID(
+    WalletStore.getWalletByCoinId(route.params.symbol, route.params.chain)
+      ?.chain,
+  );
   useEffect(() => {
     navigation.setOptions({
       headerTitle: route.params.symbol,
@@ -70,18 +74,18 @@ const WalletScreen = observer(({route}) => {
     });
   }, []);
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      setTimeout(() => {
-        CryptoService.updateWalletBalance(
-          route.params.symbol,
-          route.params.chain,
-        );
-      }, 2000);
-    });
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener('focus', () => {
+  //     setTimeout(() => {
+  //       CryptoService.updateWalletBalance(
+  //         route.params.symbol,
+  //         route.params.chain,
+  //       );
+  //     }, 2000);
+  //   });
 
-    return unsubscribe;
-  }, [navigation]);
+  //   return unsubscribe;
+  // }, [navigation]);
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
@@ -165,8 +169,12 @@ const WalletScreen = observer(({route}) => {
     );
     const address = WalletStore.getWalletAddressByChain(w?.chain!);
     let coin = route.params.symbol.toUpperCase();
+    if (coin === 'BNB') {
+      coin = 'BSC_BNB';
+    }
     const link =
       endpoints.ramper + '&userAddress=' + address + '&swapAsset=' + coin;
+    // console.log(link);
     openLink(link);
   };
 
@@ -255,14 +263,8 @@ const WalletScreen = observer(({route}) => {
             </View>
             <View style={styles.pills}>
               <Text style={{fontSize: 12, color: Colors.lighter}}>
-                {CryptoService.getSupportedChainNamebyID(
-                  WalletStore.getWalletByCoinId(
-                    route.params.symbol,
-                    route.params.chain,
-                  )?.chain,
-                ) +
-                  ' ' +
-                  t('wallet.network')}
+                {chain + ' '}
+                {chain.length < 15 ? t('wallet.network') : null}
               </Text>
             </View>
           </View>

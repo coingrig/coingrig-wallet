@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {FC, useEffect} from 'react';
 import {Image, View, StyleSheet} from 'react-native';
@@ -36,7 +37,7 @@ const SplashScreen: FC = () => {
 
   const checkPin = async () => {
     let hasPin = await hasUserSetPinCode();
-    let isInit = await StorageGetItem('@init', false);
+    let isInit = await StorageGetItem(CONFIG.INIT_KEY, false);
     CONFIG.navigation = navigation;
     if (hasPin && isInit) {
       navigation.dispatch(

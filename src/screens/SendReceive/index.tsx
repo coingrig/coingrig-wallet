@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, ScrollView, ActivityIndicator} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {capitalize} from 'lodash';
 import {Switch} from 'components/switch';
 import {ReceiveContainer} from 'components/Receive';
 import {SendContainer} from 'components/Send';
@@ -19,7 +18,7 @@ const SendReceiveScreen = ({route}) => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: capitalize(route.params.name),
+      headerTitle: route.params.coin,
     });
     const wallet = WalletStore.getWalletByCoinId(
       route.params.coin,

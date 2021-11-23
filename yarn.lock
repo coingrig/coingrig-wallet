@@ -781,10 +781,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@coingrig/core@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@coingrig/core/-/core-1.1.0.tgz#e6a080339663e6389fa08f5c9ec62de5846aec50"
-  integrity sha512-JSvNWre3Snphg3bHQjAd0bZ1lDx5Zk3d0JWGfP4Lzvxle7zQNh0+aWc0iXn852M9fpXBO8W2MH63Zh0++vuEyw==
+"@coingrig/core@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@coingrig/core/-/core-1.2.0.tgz#6227cb7b44aa6153cb294aa5cff596fc0d29ba5d"
+  integrity sha512-72WMqj/cz/MglrTD2lU4ylyWaFJt85Hz8GXTowolT8LJpQw+HRKq0+3THYIZ3CUAgWO9QtC+/0AFRazpbu3HcQ==
   dependencies:
     axios "0.21.1"
     bignumber.js "9.0.1"

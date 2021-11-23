@@ -3,12 +3,16 @@ import CONFIG from '../config';
 let endpoints: any = {
   btc: 'https://www.blockchain.com/btc/',
   eth: 'https://etherscan.io/',
+  bsc: 'https://bscscan.com/',
+  polygon: 'https://polygonscan.com/',
 };
 
 if (CONFIG.TESTNET) {
   endpoints = {
     btc: 'https://www.blockchain.com/btc-testnet/',
     eth: 'https://ropsten.etherscan.io/',
+    bsc: 'https://testnet.bscscan.com/',
+    polygon: 'https://mumbai.polygonscan.com/',
   };
 }
 

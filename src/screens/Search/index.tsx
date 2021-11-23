@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
 import {
   View,
@@ -14,7 +13,7 @@ import {Colors} from 'utils/colors';
 import FastImage from 'react-native-fast-image';
 import {TransitionEnd} from 'utils/hooks';
 import {Loader} from 'components/loader';
-const coins = require('../../assets/fulltokens.json');
+const coins = require('../../assets/tokens.json');
 
 const SearchScreen = ({route}) => {
   const navigation = useNavigation();
@@ -25,7 +24,9 @@ const SearchScreen = ({route}) => {
 
   useEffect(() => {
     if (transitionEnded) {
-      setShowScreen(true);
+      setTimeout(() => {
+        setShowScreen(true);
+      }, 200);
     }
   }, [transitionEnded]);
 
@@ -175,7 +176,7 @@ const SearchScreen = ({route}) => {
           autoCorrect={false}
           placeholderTextColor={'gray'}
           onChangeText={text => searchCoin(text)}
-          placeholder={'Coin Search'}
+          placeholder={'Search Asset'}
         />
 
         <TouchableOpacity
