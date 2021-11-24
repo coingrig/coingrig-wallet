@@ -26,6 +26,8 @@ import PortfolioScreen from 'screens/Portfolio';
 import NewsScreen from 'screens/News';
 import CoinDetailScreen from './screens/CoinDetails';
 import OnBoardingScreen from './screens/Onboarding';
+import WalletconnectScreen from './screens/Walletconnect';
+
 import {Colors} from 'utils/colors';
 import CONFIG from 'config';
 
@@ -379,6 +381,31 @@ export function NavigationScreens() {
         options={{
           headerShown: true,
           headerTitle: 'News',
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+            letterSpacing: 1,
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 20,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="WalletconnectScreen"
+        component={WalletconnectScreen}
+        options={{
+          headerShown: true,
+          headerTitle: 'Walletconnect',
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios

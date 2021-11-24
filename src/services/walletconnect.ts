@@ -1,4 +1,5 @@
 import RNWalletConnect from '@walletconnect/client';
+import {WalletconnectStore} from '../stores/walletconnect';
 
 const CLIENT_OPTIONS = {
   clientMeta: {
@@ -10,6 +11,18 @@ const CLIENT_OPTIONS = {
   },
 };
 
+export const WALLETCONNECT_STATUS = {
+  CONNECTED: 'connected',
+  CONNECTING: 'connecting',
+  SESSION_REQUEST: 'session_request',
+  SEND_TRANSACTION: 'send_transaction',
+  SIGN_TRANSACTION: 'sign_transaction',
+  SIGN_MESSAGE: 'sign_message',
+  SIGN_TYPED_DATA: 'sign_typed_data',
+  SIGN_PERSONAL_MESSAGE: 'sign_personal_message',
+  DISCONNECTED: 'disconnected',
+};
+
 // let uri = '-- FROM QR CODE --';
 // const data: any = {uri};
 // data.redirect = '';
@@ -18,8 +31,64 @@ const CLIENT_OPTIONS = {
 
 class WalletConnectService {
   walletConnector: any;
-  constructor(options) {
-    this.walletConnector = new RNWalletConnect({...options, ...CLIENT_OPTIONS});
+  constructor() {}
+
+  rejectSession = async () => {
+    if (this.walletConnector) {
+      await this.walletConnector.rejectSession();
+    }
+  };
+
+  acceptSession = async (chainId, address) => {
+    if (this.walletConnector) {
+      const approveData = {
+        chainId: chainId,
+        accounts: [address],
+      };
+      WalletconnectStore.setStatus(WALLETCONNECT_STATUS.CONNECTED);
+      await this.walletConnector.approveSession(approveData);
+    }
+  };
+
+  closeSession = async () => {
+    if (this.walletConnector) {
+      this.walletConnector.killSession();
+    }
+  };
+
+  approveRequest = async data => {
+    this.walletConnector.approveRequest(data);
+    WalletconnectStore.setStatus(WALLETCONNECT_STATUS.CONNECTED);
+    WalletconnectStore.setTransactionData(null);
+  };
+
+  rejectRequest = async data => {
+    this.walletConnector.rejectRequest(data);
+    WalletconnectStore.setStatus(WALLETCONNECT_STATUS.CONNECTED);
+    WalletconnectStore.setTransactionData(null);
+  };
+
+  onDisconnect() {
+    WalletconnectStore.setPeerMeta(null);
+    WalletconnectStore.setChainId(null);
+    WalletconnectStore.setStatus(WALLETCONNECT_STATUS.DISCONNECTED);
+  }
+
+  init(options) {
+    if (this.walletConnector) {
+      // Disconnect previous connection
+      this.walletConnector.killSession();
+    }
+    WalletconnectStore.setStatus(WALLETCONNECT_STATUS.CONNECTING);
+    try {
+      this.walletConnector = new RNWalletConnect({
+        ...options,
+        ...CLIENT_OPTIONS,
+      });
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
     this.walletConnector.on('session_request', async (error, payload) => {
       if (error) {
         throw error;
@@ -31,15 +100,11 @@ class WalletConnectService {
           autosign: false,
         };
         console.log('WC:', sessionData);
-        setTimeout(async () => {
-          // Ask user
-          const approveData = {
-            chainId: 56,
-            accounts: ['0x1301bae64b42bf67697a3d9be51262c962c0b9a7'],
-          };
-          await this.walletConnector.approveSession(approveData);
-        }, 5000);
+        WalletconnectStore.setPeerMeta(sessionData.peerMeta);
+        WalletconnectStore.setChainId(sessionData.chainId);
+        WalletconnectStore.setStatus(WALLETCONNECT_STATUS.SESSION_REQUEST);
       } catch (e) {
+        console.log(e);
         this.walletConnector.rejectSession();
       }
     });
@@ -50,13 +115,20 @@ class WalletConnectService {
       console.log(payload);
 
       if (payload.method) {
+        WalletconnectStore.setTransactionData(payload);
         if (payload.method === 'eth_sendTransaction') {
           console.log('-----eth_sendTransaction----');
+          WalletconnectStore.setStatus(WALLETCONNECT_STATUS.SEND_TRANSACTION);
         } else if (payload.method === 'eth_sign') {
+          WalletconnectStore.setStatus(WALLETCONNECT_STATUS.SIGN_TRANSACTION);
           console.log('-----ETH SIGN----');
         } else if (payload.method === 'personal_sign') {
+          WalletconnectStore.setStatus(
+            WALLETCONNECT_STATUS.SIGN_PERSONAL_MESSAGE,
+          );
           console.log('-----personal_sign----');
         } else if (payload.method && payload.method === 'eth_signTypedData') {
+          WalletconnectStore.setStatus(WALLETCONNECT_STATUS.SIGN_TYPED_DATA);
           console.log('-----eth_signTypedData----');
         }
       }
@@ -67,6 +139,7 @@ class WalletConnectService {
       }
       this.walletConnector = null;
       console.log('-----DISCONNECT------');
+      this.onDisconnect();
     });
 
     this.walletConnector.on('session_update', (error, payload) => {
@@ -75,7 +148,9 @@ class WalletConnectService {
         throw error;
       }
     });
+    return true;
   }
 }
 
-export default WalletConnectService;
+let service = new WalletConnectService();
+export {service as WalletConnectService};

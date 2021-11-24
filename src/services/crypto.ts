@@ -109,6 +109,7 @@ class CryptoService {
           walletAddress: WalletStore.getWalletAddressByChain(chain),
         });
         //
+        console.log(chain, WalletStore.getWalletAddressByChain(chain));
         let cryptoWallet = WalletFactory.getWallet(wallet);
         // Check if it's a token
         let token = tokenBalances.find(o => o.contract === contract);
@@ -141,7 +142,7 @@ class CryptoService {
             WalletStore.setPrice(wallet.symbol, wallet.chain, newPrice);
           }
           const balance = await cryptoWallet.getBalance();
-          // console.log(wallet.symbol, balance, newPrice);
+          console.log(wallet.symbol, balance, newPrice);
           const unconfirmedBalance = balance.getUnconfirmedBalance();
           WalletStore.setBalance(
             wallet.symbol,
