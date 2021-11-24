@@ -14,6 +14,7 @@ import SearchScreen from 'screens/Search';
 import GenerateWalletScreen from 'screens/WalletSetup/generateWallet';
 import ValidateWalletScreen from 'screens/WalletSetup/validateWallet';
 import StartScreen from 'screens/Start';
+import SwapScreen from 'screens/Swap';
 import EnterPinScreen from 'screens/Pin/enterPin';
 import ReEnterPinScreen from 'screens/Pin/reEnterPin';
 import SetPinScreen from 'screens/Pin/setPin';
@@ -379,6 +380,31 @@ export function NavigationScreens() {
         options={{
           headerShown: true,
           headerTitle: 'News',
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+            letterSpacing: 1,
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 20,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="SwapScreen"
+        component={SwapScreen}
+        options={{
+          headerShown: true,
+          headerTitle: 'Swap',
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
