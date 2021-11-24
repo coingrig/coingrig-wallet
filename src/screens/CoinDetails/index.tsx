@@ -133,6 +133,7 @@ const CoinDetailScreen = observer(({route}) => {
   const screen = () => (
     <ScrollView
       contentContainerStyle={{flexGrow: 1}}
+      showsVerticalScrollIndicator={false}
       refreshControl={
         <RefreshControl
           refreshing={refreshing}
@@ -311,6 +312,7 @@ const CoinDetailScreen = observer(({route}) => {
           <FlatList
             data={platforms}
             keyExtractor={(item, index) => index.toString()}
+            showsVerticalScrollIndicator={false}
             renderItem={({item}) => (
               <View>
                 <SmallButton

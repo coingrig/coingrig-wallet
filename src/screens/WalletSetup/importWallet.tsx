@@ -61,7 +61,9 @@ export default function ImportWalletScreen({}) {
     }
   };
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+      contentContainerStyle={styles.container}
+      showsVerticalScrollIndicator={false}>
       <SafeAreaView style={{flex: 1}}>
         <View style={styles.topContainer}>
           <Text style={styles.subtitle}>{t('setup.import_phrase')}</Text>

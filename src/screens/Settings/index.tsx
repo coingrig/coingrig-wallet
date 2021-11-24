@@ -87,7 +87,9 @@ const SettingScreen = observer(() => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollview}>
+      <ScrollView
+        contentContainerStyle={styles.scrollview}
+        showsVerticalScrollIndicator={false}>
         <View>
           <Text style={styles.subtitle}>{t('settings.wallet')}</Text>
           <TouchableOpacity

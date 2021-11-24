@@ -104,6 +104,7 @@ const PortfolioScreen = observer(() => {
         keyExtractor={(item: any) => item.cid + item.chain ?? ''}
         maxToRenderPerBatch={5}
         initialNumToRender={10}
+        showsVerticalScrollIndicator={false}
         ListHeaderComponent={listHeader()}
       />
     );

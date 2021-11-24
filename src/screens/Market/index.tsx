@@ -179,6 +179,7 @@ const MarketScreen = observer(() => {
         maxToRenderPerBatch={5}
         initialNumToRender={10}
         ListHeaderComponent={listHeader()}
+        showsVerticalScrollIndicator={false}
       />
     );
   };

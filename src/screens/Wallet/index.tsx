@@ -240,6 +240,7 @@ const WalletScreen = observer(({route}) => {
       <View style={{flexGrow: 1}}>
         <ScrollView
           contentContainerStyle={styles.container}
+          showsVerticalScrollIndicator={false}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
