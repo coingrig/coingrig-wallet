@@ -86,6 +86,7 @@ class WalletConnectService {
         ...CLIENT_OPTIONS,
       });
     } catch (e) {
+      WalletconnectStore.setStatus(WALLETCONNECT_STATUS.DISCONNECTED);
       console.log(e);
       return false;
     }

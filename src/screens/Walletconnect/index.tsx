@@ -155,6 +155,7 @@ const WalletconnectScreen = observer(() => {
     if (WalletconnectStore.status !== WALLETCONNECT_STATUS.SESSION_REQUEST) {
       return null;
     }
+    // if chain not supported display warning and CLOSE button
     return (
       <View>
         <TouchableOpacity onPress={() => WalletConnectService.rejectSession()}>
