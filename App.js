@@ -3,6 +3,7 @@ import {Platform, StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 // eslint-disable-next-line no-unused-vars
 import AppsStateService from './src/services/appStates';
+import {MenuProvider} from 'react-native-popup-menu';
 import {NavigationScreens} from './src/routes';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {LoadingSheet} from './src/components/loadingSheet';
@@ -24,7 +25,10 @@ function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer theme={CoingrigTheme}>
-        <NavigationScreens />
+        <MenuProvider>
+          <NavigationScreens />
+        </MenuProvider>
+
         <FlashMessage position="top" />
         <LoadingSheet />
       </NavigationContainer>
