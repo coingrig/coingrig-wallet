@@ -12,8 +12,10 @@ import {useNavigation} from '@react-navigation/native';
 import {Colors} from 'utils/colors';
 import FastImage from 'react-native-fast-image';
 import {TransitionEnd} from 'utils/hooks';
+import {useTranslation} from 'react-i18next';
 import {Loader} from 'components/loader';
-const coins = require('../../assets/tokens.json');
+import {SmallButton} from 'components/smallButton';
+const coins = require('../../assets/tokens.json').slice(0, 20);
 
 const SearchScreen = ({route}) => {
   const navigation = useNavigation();
@@ -21,6 +23,8 @@ const SearchScreen = ({route}) => {
   const [showScreen, setShowScreen] = useState(false);
   const [searchText, setSearchText] = useState('');
   const transitionEnded = TransitionEnd(navigation);
+
+  const {t} = useTranslation();
 
   useEffect(() => {
     if (transitionEnded) {
@@ -59,6 +63,32 @@ const SearchScreen = ({route}) => {
       });
     }
     return data;
+  };
+
+  const renderFooter = () => {
+    if (!route.params.onlySupported) {
+      return null;
+    } else {
+      return (
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 50,
+          }}>
+          <SmallButton
+            text={t('search.add_asset')}
+            onPress={() => null}
+            color={Colors.foreground}
+            style={{
+              backgroundColor: Colors.darker,
+              borderWidth: 1,
+              borderColor: Colors.lighter,
+            }}
+          />
+        </View>
+      );
+    }
   };
 
   const renderItem = ({item}) => {
@@ -141,6 +171,8 @@ const SearchScreen = ({route}) => {
           insetTop={10}
           // batchSizeThreshold={1.5}
           showsVerticalScrollIndicator={false}
+          footerHeight={150}
+          ListFooterComponent={renderFooter}
         />
       );
     } else {
