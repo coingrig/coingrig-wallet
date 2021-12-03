@@ -404,6 +404,15 @@ export function NavigationScreens() {
         name="WalletconnectScreen"
         component={WalletconnectScreen}
         options={{
+          presentation: 'modal',
+          headerBackImage: () => (
+            <Icon
+              name="close"
+              size={30}
+              color={Colors.foreground}
+              style={{padding: 10}}
+            />
+          ),
           headerShown: true,
           headerTitle: 'WalletConnect',
           headerStyle: {

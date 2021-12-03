@@ -54,8 +54,15 @@ const WalletconnectScreen = observer(() => {
         <SmallButton
           text={t('walletconnect.scan_qr_code')}
           onPress={() => actionCamera.current?.setModalVisible()}
-          color={Colors.darker}
-          style={styles.smallBtn}
+          color={Colors.foreground}
+          style={[
+            styles.smallBtn,
+            {
+              backgroundColor: Colors.darker,
+              borderWidth: 1,
+              borderColor: Colors.lighter,
+            },
+          ]}
         />
       </View>
     );
