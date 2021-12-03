@@ -101,6 +101,7 @@ class WalletConnectService {
           autosign: false,
         };
         console.log('WC:', sessionData);
+        console.log('peer', sessionData.peerMeta);
         WalletconnectStore.setPeerMeta(sessionData.peerMeta);
         WalletconnectStore.setChainId(sessionData.chainId);
         WalletconnectStore.setStatus(WALLETCONNECT_STATUS.SESSION_REQUEST);

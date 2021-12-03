@@ -95,7 +95,7 @@ const SettingScreen = observer(() => {
           <TouchableOpacity
             style={styles.item}
             onPress={() => navigation.navigate('WalletconnectScreen')}>
-            <Icon name="key" size={23} color={Colors.foreground} />
+            <Icon name="qr-code" size={23} color="#1a6edb" />
             <Text style={styles.textItem}>{t('settings.walletconnect')}</Text>
             <Icon name="arrow-forward" size={20} color="gray" />
           </TouchableOpacity>

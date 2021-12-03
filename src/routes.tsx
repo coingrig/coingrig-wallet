@@ -405,7 +405,7 @@ export function NavigationScreens() {
         component={WalletconnectScreen}
         options={{
           headerShown: true,
-          headerTitle: 'Walletconnect',
+          headerTitle: 'WalletConnect',
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios

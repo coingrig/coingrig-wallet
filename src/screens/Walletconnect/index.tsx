@@ -1,16 +1,14 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, createRef} from 'react';
-import {Text, View, ScrollView, TouchableOpacity} from 'react-native';
-
+import {Text, View, ScrollView, Image, ActivityIndicator} from 'react-native';
 import ActionSheet from 'react-native-actions-sheet';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
-
 import {useTranslation} from 'react-i18next';
 import {styles} from './styles';
 import {Colors} from 'utils/colors';
 import {observer} from 'mobx-react-lite';
-
+import {showMessage} from 'react-native-flash-message';
 import {
   WalletConnectService,
   WALLETCONNECT_STATUS,
@@ -20,6 +18,9 @@ import {CryptoService} from 'services/crypto';
 import {WalletStore} from 'stores/wallet';
 import {WalletFactory} from '@coingrig/core';
 import {Fees} from '@coingrig/core';
+import {SmallButton} from 'components/smallButton';
+import FastImage from 'react-native-fast-image';
+import {Logs} from 'services/logs';
 
 const actionCamera: React.RefObject<any> = createRef();
 
@@ -31,7 +32,7 @@ const WalletconnectScreen = observer(() => {
   }, []);
 
   const onSuccess = e => {
-    console.log(e.data);
+    Logs.info(e.data);
     let uri = e.data;
     const data: any = {uri};
     data.redirect = '';
@@ -42,109 +43,154 @@ const WalletconnectScreen = observer(() => {
     actionCamera.current?.setModalVisible(false);
   };
 
+  const disconnectedRender = () => {
+    return (
+      <View style={styles.content}>
+        <Image
+          source={require('../../assets/wc.png')}
+          resizeMode="contain"
+          style={styles.wclogo}
+        />
+        <SmallButton
+          text={t('walletconnect.scan_qr_code')}
+          onPress={() => actionCamera.current?.setModalVisible()}
+          color={Colors.darker}
+          style={styles.smallBtn}
+        />
+      </View>
+    );
+  };
+
+  const connectingRender = () => {
+    return (
+      <View style={styles.content}>
+        <Image
+          source={require('../../assets/wc.png')}
+          resizeMode="contain"
+          style={styles.wclogo}
+        />
+        <ActivityIndicator
+          size="small"
+          color={Colors.foreground}
+          style={{marginBottom: 20}}
+        />
+      </View>
+    );
+  };
+
   const renderPeerMeta = () => {
     if (WalletconnectStore.status === WALLETCONNECT_STATUS.CONNECTING) {
-      return (
-        <View>
-          <Text style={styles.subtitle}>
-            {t('walletconnect.connecting_in_progress')}
-          </Text>
-
-          <TouchableOpacity onPress={() => WalletConnectService.closeSession()}>
-            <Text style={styles.subtitle}>{t('walletconnect.disconnect')}</Text>
-          </TouchableOpacity>
-        </View>
-      );
+      return connectingRender();
     }
     if (WalletconnectStore.status === WALLETCONNECT_STATUS.DISCONNECTED) {
-      return (
-        <TouchableOpacity
-          onPress={() => actionCamera.current?.setModalVisible()}>
-          <Text style={styles.subtitle}>{t('walletconnect.scan')}</Text>
-          <Icon name="qr-code" size={21} color={Colors.foreground} />
-        </TouchableOpacity>
-      );
+      return disconnectedRender();
     }
     if (!WalletconnectStore.peerMeta) {
       return null;
     }
     return (
-      <View>
+      <View style={styles.content}>
+        <FastImage
+          source={{
+            uri: WalletconnectStore.peerMeta.icons[0],
+            priority: FastImage.priority.normal,
+            cache: FastImage.cacheControl.immutable,
+          }}
+          resizeMode="contain"
+          style={styles.peerIcon}
+        />
+        {WalletconnectStore.status !== WALLETCONNECT_STATUS.SESSION_REQUEST ? (
+          <View style={styles.connected}>
+            <Text style={styles.connectedTxt}>
+              {t('walletconnect.connected')}
+              {' - Network: '}
+              {CryptoService.CHAIN_ID_TYPE_MAP[WalletconnectStore.chainId]}
+            </Text>
+          </View>
+        ) : null}
         <Text style={styles.subtitle}>{WalletconnectStore.peerMeta.name}</Text>
+        {renderActionRequest()}
+        {renderAuthRequest()}
       </View>
     );
+  };
+
+  const acceptRequest = async () => {
+    try {
+      // Get the coresponding wallet for the chain
+      let chainType =
+        CryptoService.CHAIN_ID_TYPE_MAP[WalletconnectStore.chainId];
+      // Get the coin descriptor for the chain native asset
+      let cryptoWalletDescriptor = WalletStore.getWalletByCoinId(
+        CryptoService.getChainNativeAsset(chainType),
+        chainType,
+      );
+      // Get the chain private key for signature
+      let chainKeys = await CryptoService.getChainPrivateKeys();
+      let chainAddress = WalletStore.getWalletAddressByChain(chainType);
+      // Build the crypto wallet to send the transaction with
+      let cryptoWallet = WalletFactory.getWallet(
+        Object.assign({}, cryptoWalletDescriptor, {
+          walletAddress: chainAddress,
+          privKey: chainKeys.ETH,
+        }),
+      );
+      if (!cryptoWallet) {
+        WalletConnectService.rejectRequest({
+          id: WalletconnectStore.transactionData.id!,
+          error: '',
+        });
+      }
+      // Build and send the transaction proposal
+      let params = WalletconnectStore.transactionData.params[0]!;
+      Logs.info(params);
+      let hash = await cryptoWallet!.postTxSend(
+        new Fees.BnbFee({
+          signatureId: undefined,
+          fromPrivateKey: chainKeys.ETH,
+          fee: {
+            // Just for display purposes
+            gasLimit: params.gas,
+            gasPrice: params.gasPrice,
+          },
+          proposal: params,
+        }),
+      );
+      WalletConnectService.approveRequest({
+        id: WalletconnectStore.transactionData.id!,
+        result: hash,
+      });
+    } catch (e: any) {
+      Logs.error(e);
+      WalletConnectService.rejectRequest({
+        id: WalletconnectStore.transactionData.id!,
+        error: e?.message,
+      });
+    }
   };
 
   const renderActionRequest = () => {
     if (WalletconnectStore.status === WALLETCONNECT_STATUS.SEND_TRANSACTION) {
       return (
-        <View>
-          <TouchableOpacity
+        <View style={{marginTop: 40}}>
+          <SmallButton
+            text={t('walletconnect.approve')}
+            onPress={async () => acceptRequest()}
+            color={Colors.darker}
+            style={styles.smallBtn}
+          />
+          <View style={{height: 10}} />
+          <SmallButton
+            text={t('walletconnect.reject')}
             onPress={() =>
               WalletConnectService.rejectRequest({
                 id: WalletconnectStore.transactionData.id!,
                 error: '',
               })
-            }>
-            <Text style={styles.subtitle}>{t('walletconnect.reject')}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={async () => {
-              try {
-                // Get the coresponding wallet for the chain
-                let chainType =
-                  CryptoService.CHAIN_ID_TYPE_MAP[WalletconnectStore.chainId];
-                // Get the coin descriptor for the chain native asset
-                let cryptoWalletDescriptor = WalletStore.getWalletByCoinId(
-                  CryptoService.getChainNativeAsset(chainType),
-                  chainType,
-                );
-                // Get the chain private key for signature
-                let chainKeys = await CryptoService.getChainPrivateKeys();
-                let chainAddress =
-                  WalletStore.getWalletAddressByChain(chainType);
-                // Build the crypto wallet to send the transaction with
-                let cryptoWallet = WalletFactory.getWallet(
-                  Object.assign({}, cryptoWalletDescriptor, {
-                    walletAddress: chainAddress,
-                    privKey: chainKeys.ETH,
-                  }),
-                );
-                if (!cryptoWallet) {
-                  WalletConnectService.rejectRequest({
-                    id: WalletconnectStore.transactionData.id!,
-                    error: '',
-                  });
-                }
-                // Build and send the transaction proposal
-                let params = WalletconnectStore.transactionData.params[0]!;
-                console.log(params);
-                let hash = await cryptoWallet!.postTxSend(
-                  new Fees.BnbFee({
-                    signatureId: undefined,
-                    fromPrivateKey: chainKeys.ETH,
-                    fee: {
-                      // Just for display purposes
-                      gasLimit: params.gas,
-                      gasPrice: params.gasPrice,
-                    },
-                    proposal: params,
-                  }),
-                );
-                WalletConnectService.approveRequest({
-                  id: WalletconnectStore.transactionData.id!,
-                  result: hash,
-                });
-              } catch (e: any) {
-                console.log(e);
-                WalletConnectService.rejectRequest({
-                  id: WalletconnectStore.transactionData.id!,
-                  error: e?.message,
-                });
-              }
-            }}>
-            <Text style={styles.subtitle}>{t('walletconnect.accept')}</Text>
-          </TouchableOpacity>
+            }
+            color={Colors.foreground}
+            style={[styles.smallBtn, {backgroundColor: Colors.darker}]}
+          />
         </View>
       );
     }
@@ -156,23 +202,35 @@ const WalletconnectScreen = observer(() => {
       return null;
     }
     // if chain not supported display warning and CLOSE button
+    let chainType = CryptoService.CHAIN_ID_TYPE_MAP[WalletconnectStore.chainId];
+    if (!chainType) {
+      WalletConnectService.rejectSession();
+      showMessage({
+        message: t('walletconnect.wrong_chain'),
+        type: 'warning',
+      });
+      return;
+    }
     return (
-      <View>
-        <TouchableOpacity onPress={() => WalletConnectService.rejectSession()}>
-          <Text style={styles.subtitle}>{t('walletconnect.reject')}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+      <View style={{marginTop: 20}}>
+        <SmallButton
+          text={t('walletconnect.accept')}
           onPress={() => {
             // Get the coresponding wallet for the chain
-            let chainType =
-              CryptoService.CHAIN_ID_TYPE_MAP[WalletconnectStore.chainId];
             WalletConnectService.acceptSession(
               WalletconnectStore.chainId,
               WalletStore.getWalletAddressByChain(chainType),
             );
-          }}>
-          <Text style={styles.subtitle}>{t('walletconnect.accept')}</Text>
-        </TouchableOpacity>
+          }}
+          color={Colors.darker}
+          style={styles.smallBtn}
+        />
+        <SmallButton
+          text={t('walletconnect.reject')}
+          onPress={() => WalletConnectService.rejectSession()}
+          color={Colors.foreground}
+          style={[styles.smallBtn, {backgroundColor: Colors.darker}]}
+        />
       </View>
     );
   };
@@ -182,10 +240,13 @@ const WalletconnectScreen = observer(() => {
       return null;
     }
     return (
-      <View>
-        <TouchableOpacity onPress={() => WalletConnectService.closeSession()}>
-          <Text style={styles.subtitle}>{t('walletconnect.disconnect')}</Text>
-        </TouchableOpacity>
+      <View style={styles.disconnect}>
+        <SmallButton
+          text={t('walletconnect.disconnect')}
+          onPress={() => WalletConnectService.closeSession()}
+          color={Colors.foreground}
+          style={[styles.smallBtn, {backgroundColor: Colors.darker}]}
+        />
       </View>
     );
   };
@@ -193,12 +254,8 @@ const WalletconnectScreen = observer(() => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollview}>
-        <View>
-          {renderPeerMeta()}
-          {renderAuthRequest()}
-          {renderActionRequest()}
-          {renderDisconnect()}
-        </View>
+        {renderPeerMeta()}
+        {renderDisconnect()}
       </ScrollView>
       <ActionSheet
         //@ts-ignore

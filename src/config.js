@@ -1,6 +1,6 @@
 const CONFIG = {};
 
-process.env.TESTNET = true;
+process.env.TESTNET = false;
 
 CONFIG.APP_VERSION = '1.2.0 (27)';
 CONFIG.BUILD_NUMBER = 27;

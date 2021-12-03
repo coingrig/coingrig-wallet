@@ -80,6 +80,7 @@
         "settings.backup_phrase": "Backup your recovery phrase",
         "settings.settings": "Settings",
         "settings.wallet": "Wallet",
+        "settings.walletconnect": "WalletConnect",
         "settings.about": "About",
         "settings.privacy_and_policy": "Privacy and Policy",
         "settings.terms_of_services": "Terms of Service",
@@ -111,6 +112,14 @@
         "tx.network_fee": "Network fee",
         "tx.total_usd": "TOTAL USD",
         "tx.available": "Available",
-        "tx.confirm": "CONFIRM"
+        "tx.confirm": "CONFIRM",
+
+        "walletconnect.connected": "Connected",
+        "walletconnect.accept": "Accept",
+        "walletconnect.reject": "Reject",
+        "walletconnect.wrong_chain": "Wrong blockchain",
+        "walletconnect.scan_qr_code": "Scan QR Code",
+        "walletconnect.disconnect": "Disconnect",
+        "walletconnect.approve": "Approve transaction"
     }
 }
