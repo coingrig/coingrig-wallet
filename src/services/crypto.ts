@@ -330,7 +330,7 @@ class CryptoService {
       name: null,
       cid: null,
       chain: chain,
-      type: 'token',
+      type: 'custom-token',
       decimals: null,
       contract: contract,
       privKey: null,

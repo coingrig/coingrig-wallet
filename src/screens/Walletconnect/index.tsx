@@ -17,7 +17,6 @@ import {WalletconnectStore} from '../../stores/walletconnect';
 import {CryptoService} from 'services/crypto';
 import {WalletStore} from 'stores/wallet';
 import {WalletFactory} from '@coingrig/core';
-import {Fees} from '@coingrig/core';
 import {SmallButton} from 'components/smallButton';
 import FastImage from 'react-native-fast-image';
 import {Logs} from 'services/logs';

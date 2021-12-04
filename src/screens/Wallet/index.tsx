@@ -35,14 +35,15 @@ const WalletScreen = observer(({route}) => {
       ?.chain,
   );
   useEffect(() => {
+    const w = WalletStore.getWalletByCoinId(
+      route.params.symbol,
+      route.params.chain,
+    );
     navigation.setOptions({
       headerTitle: route.params.symbol,
       headerRight: () => (
         <View style={{flexDirection: 'row'}}>
-          {WalletStore.getWalletByCoinId(
-            route.params.symbol,
-            route.params.chain,
-          )?.price === 0 ? null : (
+          {w?.price === 0 || w?.type === 'custom-token' ? null : (
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('CoinDetailScreen', {
@@ -55,10 +56,7 @@ const WalletScreen = observer(({route}) => {
               <Icon name="stats-chart" size={20} color={Colors.foreground} />
             </TouchableOpacity>
           )}
-          {WalletStore.getWalletByCoinId(
-            route.params.symbol,
-            route.params.chain,
-          )?.type === 'token' ? null : (
+          {w?.type === 'token' || w?.type === 'custom-token' ? null : (
             <TouchableOpacity
               onPress={() => showTransactions()}
               style={styles.moreBtn}>
@@ -203,10 +201,11 @@ const WalletScreen = observer(({route}) => {
   };
 
   const buyOrTx = () => {
-    if (
-      WalletStore.getWalletByCoinId(route.params.symbol, route.params.chain)
-        ?.type === 'token'
-    ) {
+    const w = WalletStore.getWalletByCoinId(
+      route.params.symbol,
+      route.params.chain,
+    );
+    if (w?.type === 'token' || w?.type === 'custom-token') {
       return (
         <>
           <TouchableOpacity
