@@ -122,7 +122,7 @@ const WalletconnectScreen = observer(() => {
     );
   };
 
-  const acceptRequest = async () => {
+  const acceptRequest = async (method: any) => {
     try {
       // Get the coresponding wallet for the chain
       let chainType =
@@ -145,27 +145,40 @@ const WalletconnectScreen = observer(() => {
       if (!cryptoWallet) {
         WalletConnectService.rejectRequest({
           id: WalletconnectStore.transactionData.id!,
-          error: '',
+          error: 'This chain is not supported',
         });
       }
+      let signingManager = cryptoWallet.getSigningManager();
+      if (!signingManager) {
+        WalletConnectService.rejectRequest({
+          id: WalletconnectStore.transactionData.id!,
+          error: 'This chain can not be signed',
+        });
+        return;
+      }
       // Build and send the transaction proposal
-      let params = WalletconnectStore.transactionData.params[0]!;
-      Logs.info(params);
-      let hash = await cryptoWallet!.postTxSend(
-        new Fees.BnbFee({
-          signatureId: undefined,
-          fromPrivateKey: chainKeys.ETH,
-          fee: {
-            // Just for display purposes
-            gasLimit: params.gas,
-            gasPrice: params.gasPrice,
-          },
-          proposal: params,
-        }),
-      );
+      let result: any = '';
+
+      if (method === WALLETCONNECT_STATUS.SIGN_TRANSACTION) {
+        let params = WalletconnectStore.transactionData.params[0]!;
+        let tx = await signingManager.signTransaction(params);
+        result = tx;
+      }
+
+      if (method === WALLETCONNECT_STATUS.SEND_TRANSACTION) {
+        let params = WalletconnectStore.transactionData.params[0]!;
+        let tx = await signingManager.signTransaction(params);
+        result = await cryptoWallet.postRawTxSend(tx);
+      }
+
+      if (method === WALLETCONNECT_STATUS.SIGN_TYPED_DATA) {
+        let params = WalletconnectStore.transactionData.params[1]!;
+        result = await signingManager.signTypedData(params);
+      }
+
       WalletConnectService.approveRequest({
         id: WalletconnectStore.transactionData.id!,
-        result: hash,
+        result: result,
       });
     } catch (e: any) {
       Logs.error(e);
@@ -177,12 +190,16 @@ const WalletconnectScreen = observer(() => {
   };
 
   const renderActionRequest = () => {
-    if (WalletconnectStore.status === WALLETCONNECT_STATUS.SEND_TRANSACTION) {
+    if (
+      WalletconnectStore.status === WALLETCONNECT_STATUS.SEND_TRANSACTION ||
+      WalletconnectStore.status === WALLETCONNECT_STATUS.SIGN_TRANSACTION ||
+      WalletconnectStore.status === WALLETCONNECT_STATUS.SIGN_TYPED_DATA
+    ) {
       return (
         <View style={{marginTop: 40}}>
           <SmallButton
             text={t('walletconnect.approve')}
-            onPress={async () => acceptRequest()}
+            onPress={async () => acceptRequest(WalletconnectStore.status)}
             color={Colors.darker}
             style={styles.smallBtn}
           />
