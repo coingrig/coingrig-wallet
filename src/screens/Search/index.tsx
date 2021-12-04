@@ -82,8 +82,7 @@ const SearchScreen = ({route}) => {
             color={Colors.foreground}
             style={{
               backgroundColor: Colors.darker,
-              borderWidth: 1,
-              borderColor: Colors.lighter,
+              borderWidth: 0,
             }}
           />
         </View>
