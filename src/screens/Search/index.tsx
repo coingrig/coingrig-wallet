@@ -15,7 +15,7 @@ import {TransitionEnd} from 'utils/hooks';
 import {useTranslation} from 'react-i18next';
 import {Loader} from 'components/loader';
 import {SmallButton} from 'components/smallButton';
-const coins = require('../../assets/tokens.json').slice(0, 20);
+const coins = require('../../assets/tokens.json');
 
 const SearchScreen = ({route}) => {
   const navigation = useNavigation();

@@ -20,6 +20,7 @@ import {
   MenuOptions,
   MenuOption,
   MenuTrigger,
+  renderers,
 } from 'react-native-popup-menu';
 import {BigButton} from 'components/bigButton';
 import {CryptoService} from 'services/crypto';
@@ -33,6 +34,7 @@ export default function CustomTokenScreen() {
   const [token, setToken] = React.useState<any>(null);
   const [inProgress, setInProgress] = React.useState<boolean>(false);
   const [previewWallet, setPreviewWallet] = React.useState<any>(null);
+  const {SlideInMenu} = renderers;
 
   const fetchCopiedText = async () => {
     setInProgress(true);
@@ -113,7 +115,7 @@ export default function CustomTokenScreen() {
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.selectNetwork}>Select Network:</Text>
           <View style={styles.pill}>
-            <Menu style={styles.chain}>
+            <Menu style={styles.chain} renderer={SlideInMenu}>
               <MenuTrigger text={selectedChain} customStyles={triggerStyles} />
               <MenuOptions customStyles={optionsStyles}>
                 <MenuOption
@@ -182,6 +184,7 @@ export default function CustomTokenScreen() {
 }
 
 const triggerStyles = {
+  TriggerTouchableComponent: TouchableOpacity,
   triggerText: {
     color: Colors.foreground,
     textAlign: 'center',
@@ -197,6 +200,7 @@ const optionsStyles = {
   optionsContainer: {
     backgroundColor: Colors.darker,
     padding: 5,
+    paddingBottom: 50,
   },
   optionText: {
     color: Colors.foreground,
