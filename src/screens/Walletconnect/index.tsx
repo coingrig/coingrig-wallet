@@ -171,8 +171,8 @@ const WalletconnectScreen = observer(() => {
       }
 
       if (method === WALLETCONNECT_STATUS.SIGN_TYPED_DATA) {
-        let params = WalletconnectStore.transactionData.params[1]!;
-        result = await signingManager.signTypedData(params);
+        let params = JSON.parse(WalletconnectStore.transactionData.params[1]!);
+        result = await signingManager.signTypedData({data: params});
       }
 
       WalletConnectService.approveRequest({
