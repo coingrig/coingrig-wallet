@@ -1,6 +1,6 @@
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
-var numeral = require('numeral');
+const numeral = require('numeral');
 import english from './languages/en.json';
 import french from './languages/fr.json';
 // import romanian from './languages/ro.json';
