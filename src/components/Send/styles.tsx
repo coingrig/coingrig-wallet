@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-between',
     borderRadius: 10,
-    marginBottom: 25,
+    marginBottom: 5,
     paddingBottom: 10,
   },
   toFiat: {
@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     // marginRight: 15,
     color: Colors.lighter,
-    marginTop: 5,
+    marginTop: 3,
     textAlign: 'center',
   },
   cameracontainer: {
