@@ -78,7 +78,7 @@ const PortfolioScreen = observer(() => {
             marginLeft: 20,
             marginTop: 20,
           }}>
-          All wallets
+          {t('portfolio.my_assets')}
         </Text>
       </View>
     );
