@@ -73,6 +73,7 @@
         "coindetails.chain_note": "Some assets are available on multiple chains/networks. Assets can not be directly used across chains.",
 
         "market.market": "Market",
+        "market.assets": "Assets",
         "market.search_placeholder": "Search in thousands of assets",
         "market.top": "Top",
         "market.gainers": "Gainers",
