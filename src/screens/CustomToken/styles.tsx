@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
     marginBottom: 0,
     borderColor: Colors.brick,
     marginHorizontal: 15,
-    backgroundColor: Colors.inputBackground,
+    backgroundColor: Colors.card,
     flexDirection: 'row',
     justifyContent: 'space-around',
   },

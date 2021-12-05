@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   Alert,
 } from 'react-native';
+import {showMessage} from 'react-native-flash-message';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
 import {styles} from './styles';
@@ -87,6 +88,10 @@ export default function CustomTokenScreen() {
       );
       if (existingWallets.length === 0) {
         WalletStore.addWallet(previewWallet);
+        showMessage({
+          message: t('message.wallet.token.added'),
+          type: 'success',
+        });
         navigation.goBack();
       } else {
         Alert.alert('Info', 'This asset already exists in your portfolio');

@@ -263,13 +263,10 @@ export function SendContainer(props: any) {
       <View style={styles.preparetx}>
         <View
           style={{
-            backgroundColor: Colors.darker,
-            borderRadius: 5,
-            paddingHorizontal: 20,
             paddingVertical: 5,
             justifyContent: 'center',
             alignSelf: 'center',
-            marginBottom: 10,
+            marginBottom: 5,
           }}>
           <Text
             style={{fontSize: 11, color: Colors.lighter, textAlign: 'center'}}>

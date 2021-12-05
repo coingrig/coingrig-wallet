@@ -24,7 +24,7 @@ const StartScreen = () => {
           />
         </Animatable.View>
         <Text style={[styles.logo, {color: Colors.foreground}]}>coingrig</Text>
-        <Text style={[styles.subtitle, {color: Colors.foreground}]}>
+        <Text style={[styles.subtitle, {color: Colors.lighter}]}>
           {t('brand.message')}
         </Text>
       </View>

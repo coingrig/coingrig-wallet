@@ -336,8 +336,7 @@ const WalletScreen = observer(({route}) => {
             fill={Colors.darker}
           />
         </Svg>
-        {WalletStore.getWalletByCoinId(route.params.symbol, route.params.chain)
-          ?.type !== 'token' ? null : (
+        {wallet?.type === 'token' || wallet?.type === 'custom-token' ? (
           <View style={{right: 20, bottom: 40, position: 'absolute'}}>
             <TouchableOpacity
               onPress={() => deleteWallet()}
@@ -345,7 +344,7 @@ const WalletScreen = observer(({route}) => {
               <Icon name="trash" size={20} color="white" />
             </TouchableOpacity>
           </View>
-        )}
+        ) : null}
       </View>
     );
   };

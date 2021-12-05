@@ -79,7 +79,7 @@ const SearchScreen = ({route}) => {
           <SmallButton
             text={t('search.add_asset')}
             onPress={() => navigation.navigate('CustomTokenScreen')}
-            color={Colors.foreground}
+            color={Colors.lighter}
             style={{
               backgroundColor: Colors.darker,
               borderWidth: 0,

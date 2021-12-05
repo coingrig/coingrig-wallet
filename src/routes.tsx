@@ -155,7 +155,7 @@ function BottomTabs() {
           headerTintColor: Colors.foreground,
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
             fontSize: 19,
             justifyContent: 'center',
@@ -177,7 +177,7 @@ function BottomTabs() {
           headerTintColor: Colors.foreground,
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
             fontSize: 19,
             justifyContent: 'center',
@@ -198,7 +198,7 @@ function BottomTabs() {
           headerTintColor: Colors.foreground,
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
             fontSize: 19,
             justifyContent: 'center',
@@ -280,7 +280,7 @@ export function NavigationScreens() {
           },
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
             fontSize: 19,
             justifyContent: 'center',
@@ -312,7 +312,7 @@ export function NavigationScreens() {
           },
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
             fontSize: 19,
             justifyContent: 'center',
@@ -336,7 +336,7 @@ export function NavigationScreens() {
           },
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
             fontSize: 19,
             justifyContent: 'center',
@@ -369,7 +369,7 @@ export function NavigationScreens() {
           },
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
             fontSize: 19,
             justifyContent: 'center',
@@ -394,7 +394,7 @@ export function NavigationScreens() {
           },
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
             fontSize: 19,
             justifyContent: 'center',
@@ -428,7 +428,7 @@ export function NavigationScreens() {
           },
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
             fontSize: 19,
             justifyContent: 'center',
@@ -462,7 +462,7 @@ export function NavigationScreens() {
           },
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
             fontSize: 19,
             justifyContent: 'center',
@@ -487,7 +487,7 @@ export function NavigationScreens() {
           },
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
             fontSize: 19,
             justifyContent: 'center',
@@ -512,7 +512,7 @@ export function NavigationScreens() {
           },
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
             fontSize: 19,
             justifyContent: 'center',
@@ -547,7 +547,7 @@ export function NavigationScreens() {
           },
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
             fontSize: 19,
             justifyContent: 'center',
