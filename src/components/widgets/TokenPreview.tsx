@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {CoinsAvatar} from 'components/coinsAvatar';
-import {formatCoins, formatPrice} from '../../utils';
+import {formatCoins} from '../../utils';
 import {Colors} from 'utils/colors';
 import {CryptoService} from 'services/crypto';
 
@@ -36,9 +36,6 @@ const TokenPreview = props => {
             <Text style={styles.balance} numberOfLines={1}>
               {formatCoins(props.coin.balance) + ' ' + props.coin.symbol}
             </Text>
-            {/* <Text style={styles.value} numberOfLines={1}>
-              {formatPrice(props.coin.value, true)}
-            </Text> */}
           </View>
         </View>
       </View>
