@@ -92,6 +92,7 @@ export default function CustomTokenScreen() {
           message: t('message.wallet.token.added'),
           type: 'success',
         });
+        CryptoService.getAccountBalance();
         navigation.goBack();
       } else {
         Alert.alert('Info', 'This asset already exists in your portfolio');
@@ -117,10 +118,10 @@ export default function CustomTokenScreen() {
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{flexGrow: 1}}>
       <View>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', marginVertical: 5}}>
           <Text style={styles.selectNetwork}>Select Network:</Text>
           <View style={styles.pill}>
-            <Menu style={styles.chain} renderer={SlideInMenu}>
+            <Menu>
               <MenuTrigger text={selectedChain} customStyles={triggerStyles} />
               <MenuOptions customStyles={optionsStyles}>
                 <MenuOption
@@ -161,6 +162,11 @@ export default function CustomTokenScreen() {
             <Icon name="content-paste" size={20} color={Colors.foreground} />
           </TouchableOpacity>
         </View>
+        <Text style={styles.warning}>
+          Anyone can create a token with any name, including creating fake
+          versions of existing tokens and tokens that claim to represent
+          projects that do not have a token.
+        </Text>
         {inProgress ? (
           <ActivityIndicator
             size="small"
@@ -170,7 +176,7 @@ export default function CustomTokenScreen() {
         ) : null}
         {previewWallet !== null ? (
           <View>
-            <Text style={styles.previewText}>Preview</Text>
+            <Text style={styles.previewText}>{t('Preview')}</Text>
             <TokenPreview coin={previewWallet} />
           </View>
         ) : null}
@@ -203,9 +209,9 @@ const triggerStyles = {
 };
 const optionsStyles = {
   optionsContainer: {
-    backgroundColor: Colors.darker,
+    backgroundColor: Colors.card,
     padding: 5,
-    paddingBottom: 50,
+    // paddingBottom: 50,
   },
   optionText: {
     color: Colors.foreground,
@@ -214,9 +220,27 @@ const optionsStyles = {
 };
 
 const optionStyles = {
+  optionWrapper: {
+    borderBottomWidth: 1,
+    borderColor: Colors.background,
+  },
   optionText: {
     color: Colors.foreground,
     padding: 10,
+    fontSize: 15,
+    fontFamily: 'RobotoSlab-Regular',
+  },
+};
+
+const disabledOptionStyles = {
+  optionWrapper: {
+    borderBottomWidth: 1,
+    borderColor: Colors.background,
+  },
+  optionText: {
+    color: 'gray',
+    padding: 10,
+    fontStyle: 'italic',
     fontSize: 15,
   },
 };

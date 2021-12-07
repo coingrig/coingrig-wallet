@@ -36,9 +36,9 @@ const TokenPreview = props => {
             <Text style={styles.balance} numberOfLines={1}>
               {formatCoins(props.coin.balance) + ' ' + props.coin.symbol}
             </Text>
-            <Text style={styles.value} numberOfLines={1}>
+            {/* <Text style={styles.value} numberOfLines={1}>
               {formatPrice(props.coin.value, true)}
-            </Text>
+            </Text> */}
           </View>
         </View>
       </View>
