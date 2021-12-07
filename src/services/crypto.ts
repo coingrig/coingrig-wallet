@@ -298,8 +298,7 @@ class CryptoService {
     wallet.decimals = decimals;
     wallet.balance = balance.confirmedBalance;
     wallet.unconfirmedBalance = balance.unconfirmedBalance;
-    wallet.value = balance.value;
-    if (wallet.value === 0 && wallet.balance > 0) {
+    if (wallet.balance > 0) {
       wallet.value = Number(
         new BigNumber(wallet.balance).multipliedBy(wallet.price),
       );
@@ -360,8 +359,7 @@ class CryptoService {
     wallet.cid = contract;
     wallet.balance = balance.confirmedBalance;
     wallet.unconfirmedBalance = balance.unconfirmedBalance;
-    wallet.value = balance.value;
-    if (wallet.value === 0 && wallet.balance > 0) {
+    if (wallet.balance > 0) {
       wallet.value = Number(
         new BigNumber(wallet.balance).multipliedBy(wallet.price),
       );
