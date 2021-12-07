@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.foreground,
     marginTop: 30,
     borderWidth: 0,
+    zIndex: -1,
   },
   choose_network: {
     fontSize: 20,

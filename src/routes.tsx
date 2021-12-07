@@ -27,6 +27,9 @@ import PortfolioScreen from 'screens/Portfolio';
 import NewsScreen from 'screens/News';
 import CoinDetailScreen from './screens/CoinDetails';
 import OnBoardingScreen from './screens/Onboarding';
+import WalletconnectScreen from './screens/Walletconnect';
+import CustomTokenScreen from './screens/CustomToken';
+
 import {Colors} from 'utils/colors';
 import CONFIG from 'config';
 
@@ -153,9 +156,9 @@ function BottomTabs() {
           headerTintColor: Colors.foreground,
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
-            fontSize: 20,
+            fontSize: 19,
             justifyContent: 'center',
           },
         }}
@@ -175,9 +178,9 @@ function BottomTabs() {
           headerTintColor: Colors.foreground,
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
-            fontSize: 20,
+            fontSize: 19,
             justifyContent: 'center',
           },
         }}
@@ -196,9 +199,9 @@ function BottomTabs() {
           headerTintColor: Colors.foreground,
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
-            fontSize: 20,
+            fontSize: 19,
             justifyContent: 'center',
           },
         }}
@@ -278,9 +281,9 @@ export function NavigationScreens() {
           },
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
-            fontSize: 20,
+            fontSize: 19,
             justifyContent: 'center',
           },
         }}
@@ -310,9 +313,9 @@ export function NavigationScreens() {
           },
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
-            fontSize: 20,
+            fontSize: 19,
             justifyContent: 'center',
           },
         }}
@@ -334,9 +337,9 @@ export function NavigationScreens() {
           },
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
-            fontSize: 20,
+            fontSize: 19,
             justifyContent: 'center',
           },
         }}
@@ -367,9 +370,9 @@ export function NavigationScreens() {
           },
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
-            fontSize: 20,
+            fontSize: 19,
             justifyContent: 'center',
           },
         }}
@@ -392,9 +395,77 @@ export function NavigationScreens() {
           },
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
-            fontSize: 20,
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="WalletconnectScreen"
+        component={WalletconnectScreen}
+        options={{
+          presentation: 'modal',
+          headerBackImage: () => (
+            <Icon
+              name="close"
+              size={30}
+              color={Colors.foreground}
+              style={{padding: 10}}
+            />
+          ),
+          headerShown: true,
+          headerTitle: 'WalletConnect',
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="CustomTokenScreen"
+        component={CustomTokenScreen}
+        options={{
+          presentation: 'modal',
+          headerBackImage: () => (
+            <Icon
+              name="close"
+              size={30}
+              color={Colors.foreground}
+              style={{padding: 10}}
+            />
+          ),
+          headerShown: true,
+          headerTitle: 'Add Custom Token',
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
             justifyContent: 'center',
           },
         }}
@@ -442,9 +513,9 @@ export function NavigationScreens() {
           },
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
-            fontSize: 20,
+            fontSize: 19,
             justifyContent: 'center',
           },
         }}
@@ -467,9 +538,9 @@ export function NavigationScreens() {
           },
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
-            fontSize: 20,
+            fontSize: 19,
             justifyContent: 'center',
           },
         }}
@@ -502,9 +573,9 @@ export function NavigationScreens() {
           },
           headerTitleStyle: {
             fontWeight: '400',
-            letterSpacing: 1,
+
             fontFamily: 'RobotoSlab-Regular',
-            fontSize: 20,
+            fontSize: 19,
             justifyContent: 'center',
           },
         }}

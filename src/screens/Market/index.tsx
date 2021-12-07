@@ -153,7 +153,7 @@ const MarketScreen = observer(() => {
             <Text style={styles.appButtonText}>{t('market.losers')}</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.subtitle}>Coins list</Text>
+        <Text style={styles.subtitle}>{t('market.assets')}</Text>
       </View>
     );
   };
