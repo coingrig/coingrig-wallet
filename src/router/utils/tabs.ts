@@ -1,5 +1,5 @@
 import {Colors} from 'utils/colors';
-import {SmallLogo} from './index';
+import {SmallLogo} from './components/SmallLogo';
 import DashboardScreen from 'screens/Dashboard';
 import MarketScreen from 'screens/Market';
 import PortfolioScreen from 'screens/Portfolio';

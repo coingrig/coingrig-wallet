@@ -1,76 +1,10 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import CONFIG from 'config';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {Image, Platform, View, Text} from 'react-native';
+import {Platform} from 'react-native';
 import {Colors} from 'utils/colors';
 import {tabs} from './tabs';
-
-export const isTestnet = () => {
-  if (!CONFIG.TESTNET) {
-    return;
-  }
-  return (
-    <View
-      style={{
-        backgroundColor: '#d9534f',
-        padding: 5,
-        borderRadius: 5,
-        marginLeft: 15,
-      }}>
-      <Text
-        style={{
-          color: 'white',
-          fontSize: 10,
-        }}>
-        TESTNET
-      </Text>
-    </View>
-  );
-};
-
-export const TabLogo = (inverse = false) => {
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <Image
-        source={require('../../assets/logo_small.png')}
-        style={{
-          height: 280 / 13,
-          width: 279 / 13,
-          tintColor: inverse ? Colors.foreground : Colors.background,
-          marginLeft: 3,
-        }}
-      />
-    </View>
-  );
-};
-
-export const SmallLogo = () => {
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <Image
-        source={require('../../assets/logo_small.png')}
-        style={{
-          height: 280 / 13,
-          width: 279 / 13,
-          tintColor: Colors.foreground,
-          marginLeft: 3,
-        }}
-      />
-      {isTestnet()}
-    </View>
-  );
-};
+import {TabLogo} from './components/TabLogo/';
 
 const Tab = createBottomTabNavigator();
 
