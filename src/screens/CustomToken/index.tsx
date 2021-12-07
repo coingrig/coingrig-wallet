@@ -229,16 +229,3 @@ const optionStyles = {
     fontFamily: 'RobotoSlab-Regular',
   },
 };
-
-const disabledOptionStyles = {
-  optionWrapper: {
-    borderBottomWidth: 1,
-    borderColor: Colors.background,
-  },
-  optionText: {
-    color: 'gray',
-    padding: 10,
-    fontStyle: 'italic',
-    fontSize: 15,
-  },
-};
