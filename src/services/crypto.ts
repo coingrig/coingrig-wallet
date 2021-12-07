@@ -190,7 +190,7 @@ class CryptoService {
       const url = `${endpoints.covalent}/${
         this.CHAIN_ID_MAP[item.chain]
       }/address/${item.walletAddress}/balances_v2/?key=${CONFIG.COVALENT_KEY}`;
-      // Logs.info(url);
+      Logs.info(url);
       var config = {
         method: 'get',
         url: url,

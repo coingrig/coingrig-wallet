@@ -110,7 +110,7 @@ const WalletconnectScreen = observer(() => {
           <View
             style={{
               padding: 50,
-              backgroundColor: 'white',
+              backgroundColor: Colors.background,
               borderRadius: 200,
             }}>
             <Image
