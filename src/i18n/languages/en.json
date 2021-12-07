@@ -122,10 +122,10 @@
         "walletconnect.connected": "Connected",
         "walletconnect.accept": "Accept",
         "walletconnect.reject": "Reject",
-        "walletconnect.wrong_chain": "Wrong blockchain",
+        "walletconnect.wrong_chain": "Asset not found on selected blockchain",
         "walletconnect.scan_qr_code": "Scan QR Code",
         "walletconnect.disconnect": "Disconnect",
         "walletconnect.approve": "Approve",
-        "walletconnect.trying_to_connect": "Do you accept the connection ?"
+        "walletconnect.trying_to_connect": "Do you accept the connection?"
     }
 }
