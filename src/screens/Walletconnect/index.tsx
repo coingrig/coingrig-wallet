@@ -144,6 +144,18 @@ const WalletconnectScreen = observer(() => {
           }}>
           {WalletconnectStore.peerMeta.description}
         </Text>
+        <Text
+          numberOfLines={3}
+          style={{
+            textAlign: 'center',
+            fontSize: 11,
+            color: Colors.lighter,
+            marginHorizontal: 20,
+            marginTop: 10,
+            fontWeight: 'bold',
+          }}>
+          {WalletconnectStore.peerMeta.url}
+        </Text>
       </View>
     );
     // TODO
@@ -361,7 +373,7 @@ const WalletconnectScreen = observer(() => {
       <Animatable.View
         style={{marginBottom: 30, width: '100%'}}
         animation="bounceIn">
-        <Text style={[styles.subtitle, {textAlign: 'center'}]}>
+        <Text style={styles.subtitle}>
           {t('walletconnect.trying_to_connect')}
         </Text>
         <BigButton

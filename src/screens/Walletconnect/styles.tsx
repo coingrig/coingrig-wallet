@@ -69,7 +69,9 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.lighter,
-    marginVertical: 20,
+    marginTop: 20,
+    marginBottom: 10,
     marginHorizontal: 20,
+    textAlign: 'center',
   },
 });
