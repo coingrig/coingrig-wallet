@@ -21,7 +21,6 @@ import {
   MenuOptions,
   MenuOption,
   MenuTrigger,
-  renderers,
 } from 'react-native-popup-menu';
 import {BigButton} from 'components/bigButton';
 import {CryptoService} from 'services/crypto';
@@ -35,7 +34,6 @@ export default function CustomTokenScreen() {
   const [token, setToken] = React.useState<any>(null);
   const [inProgress, setInProgress] = React.useState<boolean>(false);
   const [previewWallet, setPreviewWallet] = React.useState<any>(null);
-  const {SlideInMenu} = renderers;
 
   const fetchCopiedText = async () => {
     setInProgress(true);
