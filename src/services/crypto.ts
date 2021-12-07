@@ -241,7 +241,7 @@ class CryptoService {
         return 'Ethereum';
       case 'binance-smart-chain':
       case 'BSC':
-        return 'Binance smart chain';
+        return 'Binance Smart Chain';
       case 'polygon-pos':
       case 'POLYGON':
         return 'Polygon';
