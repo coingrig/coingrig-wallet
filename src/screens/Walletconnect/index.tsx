@@ -3,6 +3,7 @@ import React, {useEffect, createRef} from 'react';
 import {Text, View, ScrollView, Image, ActivityIndicator} from 'react-native';
 import ActionSheet from 'react-native-actions-sheet';
 import QRCodeScanner from 'react-native-qrcode-scanner';
+import * as Animatable from 'react-native-animatable';
 import {RNCamera} from 'react-native-camera';
 import {useTranslation} from 'react-i18next';
 import {styles} from './styles';
@@ -20,6 +21,7 @@ import {WalletFactory} from '@coingrig/core';
 import {SmallButton} from 'components/smallButton';
 import FastImage from 'react-native-fast-image';
 import {Logs} from 'services/logs';
+import {BigButton} from 'components/bigButton';
 
 const actionCamera: React.RefObject<any> = createRef();
 
@@ -44,44 +46,155 @@ const WalletconnectScreen = observer(() => {
 
   const disconnectedRender = () => {
     return (
-      <View style={styles.content}>
-        <Image
-          source={require('../../assets/wc.png')}
-          resizeMode="contain"
-          style={styles.wclogo}
-        />
-        <SmallButton
-          text={t('walletconnect.scan_qr_code')}
-          onPress={() => actionCamera.current?.setModalVisible()}
-          color={Colors.foreground}
-          style={[
-            styles.smallBtn,
-            {
-              backgroundColor: Colors.darker,
-              borderWidth: 1,
-              borderColor: Colors.lighter,
-            },
-          ]}
-        />
+      <View style={styles.scanContainer}>
+        <Animatable.View
+          animation="zoomIn"
+          delay={100}
+          style={{
+            padding: 100,
+            backgroundColor: Colors.darker,
+            borderRadius: 300,
+            justifyContent: 'center',
+            marginTop: '10%',
+          }}>
+          <View
+            style={{
+              padding: 50,
+              backgroundColor: Colors.background,
+              borderRadius: 200,
+            }}>
+            <Image
+              source={require('../../assets/wc.png')}
+              resizeMode="contain"
+              style={styles.wclogo}
+            />
+          </View>
+        </Animatable.View>
+        <View style={{marginBottom: 30}}>
+          <Text
+            style={{
+              fontSize: 12,
+              marginHorizontal: 40,
+              textAlign: 'center',
+              marginBottom: 20,
+              color: Colors.lighter,
+            }}>
+            Check the URL carefully, please make sure you're visiting the
+            intended website!
+          </Text>
+          <BigButton
+            text={t('walletconnect.scan_qr_code')}
+            backgroundColor={Colors.foreground}
+            color={Colors.background}
+            onPress={() => actionCamera.current?.setModalVisible()}
+          />
+        </View>
       </View>
     );
   };
 
   const connectingRender = () => {
     return (
-      <View style={styles.content}>
-        <Image
-          source={require('../../assets/wc.png')}
-          resizeMode="contain"
-          style={styles.wclogo}
-        />
-        <ActivityIndicator
-          size="small"
-          color={Colors.foreground}
-          style={{marginBottom: 20}}
-        />
+      <View style={styles.scanContainer}>
+        <Animatable.View
+          animation="pulse"
+          easing="ease-out"
+          iterationCount="infinite"
+          style={{
+            padding: 100,
+            backgroundColor: Colors.darker,
+            borderRadius: 300,
+            justifyContent: 'center',
+            marginTop: '10%',
+          }}>
+          <View
+            style={{
+              padding: 50,
+              backgroundColor: 'white',
+              borderRadius: 200,
+            }}>
+            <Image
+              source={require('../../assets/wc.png')}
+              resizeMode="contain"
+              style={styles.wclogo}
+            />
+          </View>
+        </Animatable.View>
+        <View style={{marginBottom: 30}}>
+          <ActivityIndicator
+            size="large"
+            color={Colors.foreground}
+            style={{marginBottom: 30}}
+          />
+        </View>
       </View>
     );
+  };
+
+  const showTxDetails = () => {
+    return (
+      <View style={{marginHorizontal: 15}}>
+        <Text
+          numberOfLines={3}
+          style={{
+            textAlign: 'center',
+            fontSize: 12,
+            color: Colors.lighter,
+            marginHorizontal: 20,
+          }}>
+          {WalletconnectStore.peerMeta.description}
+        </Text>
+      </View>
+    );
+    // TODO
+    // if (
+    //   WalletconnectStore.status === WALLETCONNECT_STATUS.SEND_TRANSACTION ||
+    //   WalletconnectStore.status === WALLETCONNECT_STATUS.SIGN_TRANSACTION ||
+    //   WalletconnectStore.status === WALLETCONNECT_STATUS.SIGN_TYPED_DATA
+    // ) {
+    //   let params = null;
+    //   try {
+    //     switch (WalletconnectStore.status) {
+    //       case WALLETCONNECT_STATUS.SEND_TRANSACTION:
+    //         params = WalletconnectStore.transactionData.params[0]!;
+    //         break;
+    //       case WALLETCONNECT_STATUS.SIGN_TRANSACTION:
+    //         params = WalletconnectStore.transactionData.params[0]!;
+    //         break;
+    //       case WALLETCONNECT_STATUS.SIGN_TYPED_DATA:
+    //         params = JSON.parse(WalletconnectStore.transactionData.params[1]!);
+    //         break;
+    //     }
+    //     if (params) {
+    //       console.log('------params------');
+    //       console.log(typeof params);
+    //       console.log(params);
+    //       return (
+    //         <View>
+    //           <Text>Tx details</Text>
+    //         </View>
+    //       );
+    //     } else {
+    //       return null;
+    //     }
+    //   } catch (error) {
+    //     Logs.error(error);
+    //     return null;
+    //   }
+    // } else {
+    //   return (
+    //     <View style={{marginHorizontal: 15}}>
+    //       <Text
+    //         style={{
+    //           textAlign: 'center',
+    //           fontSize: 12,
+    //           color: Colors.lighter,
+    //         }}>
+    //         {WalletconnectStore.peerMeta.description}
+    //       </Text>
+    //     </View>
+    //   );
+    // }
   };
 
   const renderPeerMeta = () => {
@@ -96,25 +209,31 @@ const WalletconnectScreen = observer(() => {
     }
     return (
       <View style={styles.content}>
-        <FastImage
-          source={{
-            uri: WalletconnectStore.peerMeta.icons[0],
-            priority: FastImage.priority.normal,
-            cache: FastImage.cacheControl.immutable,
-          }}
-          resizeMode="contain"
-          style={styles.peerIcon}
-        />
-        {WalletconnectStore.status !== WALLETCONNECT_STATUS.SESSION_REQUEST ? (
-          <View style={styles.connected}>
-            <Text style={styles.connectedTxt}>
-              {t('walletconnect.connected')}
-              {' - Network: '}
-              {CryptoService.CHAIN_ID_TYPE_MAP[WalletconnectStore.chainId]}
-            </Text>
-          </View>
-        ) : null}
-        <Text style={styles.subtitle}>{WalletconnectStore.peerMeta.name}</Text>
+        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+          <FastImage
+            source={{
+              uri: WalletconnectStore.peerMeta.icons[0],
+              priority: FastImage.priority.normal,
+              cache: FastImage.cacheControl.immutable,
+            }}
+            resizeMode="contain"
+            style={styles.peerIcon}
+          />
+          {WalletconnectStore.status !==
+          WALLETCONNECT_STATUS.SESSION_REQUEST ? (
+            <View style={styles.connected}>
+              <Text style={styles.connectedTxt}>
+                {t('walletconnect.connected')}
+                {' - Network: '}
+                {CryptoService.CHAIN_ID_TYPE_MAP[WalletconnectStore.chainId]}
+              </Text>
+            </View>
+          ) : null}
+          <Text style={styles.subtitle} numberOfLines={2}>
+            {WalletconnectStore.peerMeta.name}
+          </Text>
+          {showTxDetails()}
+        </View>
         {renderActionRequest()}
         {renderAuthRequest()}
       </View>
@@ -172,7 +291,7 @@ const WalletconnectScreen = observer(() => {
 
       if (method === WALLETCONNECT_STATUS.SIGN_TYPED_DATA) {
         let params = JSON.parse(WalletconnectStore.transactionData.params[1]!);
-        result = await signingManager.signTypedData({data: params});
+        result = await signingManager.signTypedData(params);
       }
 
       WalletConnectService.approveRequest({
@@ -195,14 +314,15 @@ const WalletconnectScreen = observer(() => {
       WalletconnectStore.status === WALLETCONNECT_STATUS.SIGN_TYPED_DATA
     ) {
       return (
-        <View style={{marginTop: 40}}>
-          <SmallButton
+        <Animatable.View
+          style={{marginBottom: 30, width: '100%'}}
+          animation="bounceIn">
+          <BigButton
             text={t('walletconnect.approve')}
+            backgroundColor={Colors.foreground}
+            color={Colors.background}
             onPress={async () => acceptRequest(WalletconnectStore.status)}
-            color={Colors.darker}
-            style={styles.smallBtn}
           />
-          <View style={{height: 10}} />
           <SmallButton
             text={t('walletconnect.reject')}
             onPress={() =>
@@ -212,9 +332,12 @@ const WalletconnectScreen = observer(() => {
               })
             }
             color={Colors.foreground}
-            style={[styles.smallBtn, {backgroundColor: Colors.darker}]}
+            style={[
+              styles.smallBtn,
+              {backgroundColor: Colors.darker, width: 280},
+            ]}
           />
-        </View>
+        </Animatable.View>
       );
     }
     return null;
@@ -235,8 +358,13 @@ const WalletconnectScreen = observer(() => {
       return;
     }
     return (
-      <View style={{marginTop: 20}}>
-        <SmallButton
+      <Animatable.View
+        style={{marginBottom: 30, width: '100%'}}
+        animation="bounceIn">
+        <Text style={[styles.subtitle, {textAlign: 'center'}]}>
+          {t('walletconnect.trying_to_connect')}
+        </Text>
+        <BigButton
           text={t('walletconnect.accept')}
           onPress={() => {
             // Get the coresponding wallet for the chain
@@ -245,16 +373,19 @@ const WalletconnectScreen = observer(() => {
               WalletStore.getWalletAddressByChain(chainType),
             );
           }}
-          color={Colors.darker}
-          style={styles.smallBtn}
+          backgroundColor={Colors.foreground}
+          color={Colors.background}
         />
         <SmallButton
           text={t('walletconnect.reject')}
           onPress={() => WalletConnectService.rejectSession()}
           color={Colors.foreground}
-          style={[styles.smallBtn, {backgroundColor: Colors.darker}]}
+          style={[
+            styles.smallBtn,
+            {backgroundColor: Colors.darker, width: 280},
+          ]}
         />
-      </View>
+      </Animatable.View>
     );
   };
 
@@ -264,11 +395,11 @@ const WalletconnectScreen = observer(() => {
     }
     return (
       <View style={styles.disconnect}>
-        <SmallButton
+        <BigButton
           text={t('walletconnect.disconnect')}
+          backgroundColor={Colors.foreground}
+          color={Colors.background}
           onPress={() => WalletConnectService.closeSession()}
-          color={Colors.foreground}
-          style={[styles.smallBtn, {backgroundColor: Colors.darker}]}
         />
       </View>
     );

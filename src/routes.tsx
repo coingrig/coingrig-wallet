@@ -412,7 +412,7 @@ export function NavigationScreens() {
               name="close"
               size={30}
               color={Colors.foreground}
-              style={{padding: 10}}
+              style={{paddingLeft: 10}}
             />
           ),
           headerShown: true,
@@ -446,7 +446,7 @@ export function NavigationScreens() {
               name="close"
               size={30}
               color={Colors.foreground}
-              style={{padding: 10}}
+              style={{paddingLeft: 10}}
             />
           ),
           headerShown: true,
@@ -558,7 +558,7 @@ export function NavigationScreens() {
               name="close"
               size={30}
               color={Colors.foreground}
-              style={{padding: 10}}
+              style={{paddingLeft: 10}}
             />
           ),
           headerBackTitleVisible: false,

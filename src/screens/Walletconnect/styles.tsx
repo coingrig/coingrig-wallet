@@ -8,28 +8,33 @@ export const styles = StyleSheet.create({
   },
   scrollview: {
     flexGrow: 1,
-    marginHorizontal: 15,
+    // marginHorizontal: 15,
     paddingTop: 0,
   },
   content: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  scanContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   wclogo: {
     width: 120,
-    marginTop: -200,
+    height: 120,
   },
   disconnect: {
     position: 'absolute',
-    bottom: 20,
+    bottom: 30,
     width: '100%',
   },
   peerIcon: {
     width: 80,
     height: 80,
     tintColor: Colors.foreground,
-    marginTop: -150,
+    marginTop: 100,
   },
   connectedTxt: {
     textAlign: 'center',
@@ -60,25 +65,11 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.lighter,
   },
-  unconfirmed: {
-    marginBottom: 20,
-    fontSize: 12,
-    marginHorizontal: 10,
-    marginTop: 5,
-    color: Colors.foreground,
-  },
-  textItem: {marginLeft: 10, color: Colors.foreground, flex: 3},
-  title: {
-    fontSize: 35,
-    fontFamily: 'RobotoSlab-Bold',
-    color: Colors.foreground,
-    marginTop: 0,
-    marginLeft: 20,
-  },
   subtitle: {
     fontSize: 15,
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.lighter,
     marginVertical: 20,
+    marginHorizontal: 20,
   },
 });

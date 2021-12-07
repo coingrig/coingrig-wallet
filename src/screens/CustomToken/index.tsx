@@ -147,7 +147,7 @@ export default function CustomTokenScreen() {
             style={styles.input}
             value={token}
             editable={false}
-            placeholder={t('Paste Smart Contract Address')}
+            placeholder={t('Smart Contract Address')}
             numberOfLines={1}
             returnKeyType="done"
             placeholderTextColor="gray"
@@ -193,7 +193,7 @@ const triggerStyles = {
   triggerText: {
     color: Colors.foreground,
     textAlign: 'center',
-    fontSize: 15,
+    fontSize: 14,
   },
   triggerOuterWrapper: {},
   triggerWrapper: {

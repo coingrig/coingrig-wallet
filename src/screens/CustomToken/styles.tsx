@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
   input: {flex: 1, color: Colors.foreground, fontSize: 15},
   inputView: {
     flex: 1,
-    minHeight: 50,
+    minHeight: 0,
     borderWidth: 1,
     padding: 10,
     borderRadius: 5,

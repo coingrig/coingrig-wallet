@@ -125,6 +125,7 @@
         "walletconnect.wrong_chain": "Wrong blockchain",
         "walletconnect.scan_qr_code": "Scan QR Code",
         "walletconnect.disconnect": "Disconnect",
-        "walletconnect.approve": "Approve action"
+        "walletconnect.approve": "Approve",
+        "walletconnect.trying_to_connect": "Do you accept the connection ?"
     }
 }
