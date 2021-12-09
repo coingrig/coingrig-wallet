@@ -17,7 +17,7 @@ import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import {useTranslation} from 'react-i18next';
 import Svg, {Path} from 'react-native-svg';
 import {WalletStore} from 'stores/wallet';
-import {formatPrice} from 'utils';
+import {formatCoins, formatPrice} from 'utils';
 import FastImage from 'react-native-fast-image';
 import {styles} from './styles';
 import {CryptoService} from 'services/crypto';
@@ -279,10 +279,12 @@ const WalletScreen = observer(({route}) => {
             ) || 0}
           </Text>
           <Text style={styles.coins}>
-            {WalletStore.getWalletByCoinId(
-              route.params.symbol,
-              route.params.chain,
-            )?.balance || 0}{' '}
+            {formatCoins(
+              WalletStore.getWalletByCoinId(
+                route.params.symbol,
+                route.params.chain,
+              )?.balance,
+            ) || 0}{' '}
             {route.params.symbol}
           </Text>
           <View style={styles.btnCointainers}>
