@@ -17,6 +17,7 @@ import {styles} from './styles';
 import {showMessage} from 'react-native-flash-message';
 import {IWallet, WalletStore} from 'stores/wallet';
 import {CryptoService} from 'services/crypto';
+import {formatPrice} from 'utils';
 
 const PortfolioScreen = observer(() => {
   const navigation = useNavigation();
@@ -67,7 +68,7 @@ const PortfolioScreen = observer(() => {
 
   const listHeader = () => {
     return (
-      <View>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <Text
           // eslint-disable-next-line react-native/no-inline-styles
           style={{
@@ -78,7 +79,19 @@ const PortfolioScreen = observer(() => {
             marginLeft: 20,
             marginTop: 20,
           }}>
-          All wallets
+          {t('portfolio.my_assets')}
+        </Text>
+        <Text
+          style={{
+            fontSize: 16,
+            fontFamily: 'RobotoSlab-Bold',
+            color: Colors.lighter,
+            marginBottom: 10,
+            marginRight: 20,
+            marginTop: 20,
+          }}>
+          {' '}
+          {formatPrice(WalletStore.totalBalance, true) || 0.0}
         </Text>
       </View>
     );
@@ -104,6 +117,7 @@ const PortfolioScreen = observer(() => {
         keyExtractor={(item: any) => item.cid + item.chain ?? ''}
         maxToRenderPerBatch={5}
         initialNumToRender={10}
+        showsVerticalScrollIndicator={false}
         ListHeaderComponent={listHeader()}
       />
     );

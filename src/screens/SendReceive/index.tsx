@@ -61,6 +61,7 @@ const SendReceiveScreen = ({route}) => {
     <ScrollView
       contentContainerStyle={{flexGrow: 1}}
       scrollEnabled={false}
+      showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled">
       <Switch switcher={v => setIsReceive(v)} receive={isReceive} />
       {renderContainer()}

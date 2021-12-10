@@ -50,7 +50,7 @@ export const formatFee = nr => {
 export const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 export const formatNoComma = (nr: string) => {
-  return parseFloat(nr.replace(/,/g, '.'));
+  return nr.replace(/,/g, '.');
 };
 
 export const convertExponential = (n: string | number) => {

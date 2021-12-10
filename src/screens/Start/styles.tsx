@@ -32,5 +32,6 @@ export const styles = StyleSheet.create({
   },
   subtitle: {
     fontFamily: 'RobotoSlab-Regular',
+    fontSize: 13,
   },
 });

@@ -15,6 +15,7 @@ import {showMessage} from 'react-native-flash-message';
 import {SettingsStore} from 'stores/settings';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useTranslation} from 'react-i18next';
+import {useNavigation} from '@react-navigation/native';
 import {Colors} from 'utils/colors';
 import {clearAllAppData} from 'utils';
 import {SmallButton} from 'components/smallButton';
@@ -26,6 +27,7 @@ const actionSheetRef = createRef();
 
 const SettingScreen = observer(() => {
   const {t} = useTranslation();
+  const navigation = useNavigation();
 
   useEffect(() => {}, []);
 
@@ -87,9 +89,18 @@ const SettingScreen = observer(() => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollview}>
+      <ScrollView
+        contentContainerStyle={styles.scrollview}
+        showsVerticalScrollIndicator={false}>
         <View>
           <Text style={styles.subtitle}>{t('settings.wallet')}</Text>
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => navigation.navigate('WalletconnectScreen')}>
+            <Icon name="qr-code" size={23} color="#1a6edb" />
+            <Text style={styles.textItem}>{t('settings.walletconnect')}</Text>
+            <Icon name="arrow-forward" size={20} color="gray" />
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.item}
             onPress={() => {

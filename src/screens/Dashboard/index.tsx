@@ -149,6 +149,7 @@ const DashboardScreen = observer(() => {
   return (
     <ScrollView
       contentContainerStyle={{flexGrow: 1}}
+      showsVerticalScrollIndicator={false}
       refreshControl={
         <RefreshControl
           refreshing={refreshing}

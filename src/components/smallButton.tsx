@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   smallBtnText: {
     fontSize: 17,
     color: '#353333',
-    fontFamily: 'RobotoSlab-Bold',
+    fontFamily: 'RobotoSlab-Medium',
     textAlign: 'center',
   },
 });

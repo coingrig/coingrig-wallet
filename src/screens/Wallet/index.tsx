@@ -17,7 +17,7 @@ import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import {useTranslation} from 'react-i18next';
 import Svg, {Path} from 'react-native-svg';
 import {WalletStore} from 'stores/wallet';
-import {formatPrice} from 'utils';
+import {formatCoins, formatPrice} from 'utils';
 import FastImage from 'react-native-fast-image';
 import {styles} from './styles';
 import {CryptoService} from 'services/crypto';
@@ -35,14 +35,15 @@ const WalletScreen = observer(({route}) => {
       ?.chain,
   );
   useEffect(() => {
+    const w = WalletStore.getWalletByCoinId(
+      route.params.symbol,
+      route.params.chain,
+    );
     navigation.setOptions({
       headerTitle: route.params.symbol,
       headerRight: () => (
         <View style={{flexDirection: 'row'}}>
-          {WalletStore.getWalletByCoinId(
-            route.params.symbol,
-            route.params.chain,
-          )?.price === 0 ? null : (
+          {w?.price === 0 || w?.type === 'custom-token' ? null : (
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('CoinDetailScreen', {
@@ -55,10 +56,7 @@ const WalletScreen = observer(({route}) => {
               <Icon name="stats-chart" size={20} color={Colors.foreground} />
             </TouchableOpacity>
           )}
-          {WalletStore.getWalletByCoinId(
-            route.params.symbol,
-            route.params.chain,
-          )?.type === 'token' ? null : (
+          {w?.type === 'token' || w?.type === 'custom-token' ? null : (
             <TouchableOpacity
               onPress={() => showTransactions()}
               style={styles.moreBtn}>
@@ -203,10 +201,11 @@ const WalletScreen = observer(({route}) => {
   };
 
   const buyOrTx = () => {
-    if (
-      WalletStore.getWalletByCoinId(route.params.symbol, route.params.chain)
-        ?.type === 'token'
-    ) {
+    const w = WalletStore.getWalletByCoinId(
+      route.params.symbol,
+      route.params.chain,
+    );
+    if (w?.type === 'token' || w?.type === 'custom-token') {
       return (
         <>
           <TouchableOpacity
@@ -240,6 +239,7 @@ const WalletScreen = observer(({route}) => {
       <View style={{flexGrow: 1}}>
         <ScrollView
           contentContainerStyle={styles.container}
+          showsVerticalScrollIndicator={false}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -279,10 +279,12 @@ const WalletScreen = observer(({route}) => {
             ) || 0}
           </Text>
           <Text style={styles.coins}>
-            {WalletStore.getWalletByCoinId(
-              route.params.symbol,
-              route.params.chain,
-            )?.balance || 0}{' '}
+            {formatCoins(
+              WalletStore.getWalletByCoinId(
+                route.params.symbol,
+                route.params.chain,
+              )?.balance,
+            ) || 0}{' '}
             {route.params.symbol}
           </Text>
           <View style={styles.btnCointainers}>
@@ -337,8 +339,7 @@ const WalletScreen = observer(({route}) => {
             fill={Colors.darker}
           />
         </Svg>
-        {WalletStore.getWalletByCoinId(route.params.symbol, route.params.chain)
-          ?.type !== 'token' ? null : (
+        {wallet?.type === 'token' || wallet?.type === 'custom-token' ? (
           <View style={{right: 20, bottom: 40, position: 'absolute'}}>
             <TouchableOpacity
               onPress={() => deleteWallet()}
@@ -346,7 +347,7 @@ const WalletScreen = observer(({route}) => {
               <Icon name="trash" size={20} color="white" />
             </TouchableOpacity>
           </View>
-        )}
+        ) : null}
       </View>
     );
   };

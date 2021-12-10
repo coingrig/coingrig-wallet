@@ -28,7 +28,7 @@ const Brick = observer((props: any) => {
             {name}
           </Text>
           <Text adjustsFontSizeToFit numberOfLines={1} style={styles.dollar}>
-            {formatPrice(wallet?.value) || 0}
+            {formatPrice(wallet?.value, true) || 0}
           </Text>
           <Text adjustsFontSizeToFit numberOfLines={1} style={styles.coinValue}>
             {formatCoins(wallet?.balance) || 0} {props.coin}
