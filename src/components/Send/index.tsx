@@ -45,7 +45,7 @@ export function SendContainer(props: any) {
   const [wallet, setWallet] = useState<any>();
   const [fees, setFees] = useState<any>();
   const [feeFiat, setFeeFiat] = useState<any>(0);
-  const [toFiat, setToFiat] = useState<string>('$0');
+  const [toFiat, setToFiat] = useState<any>(0);
   const [keyboardEnabled, setKeyboardEnabled] = useState(false);
 
   useEffect(() => {
@@ -102,7 +102,7 @@ export function SendContainer(props: any) {
       return;
     }
     const amountToSend = formatNoComma(value.toString());
-    setValue(amountToSend.toString());
+    // setValue(amountToSend.toString());
     await sleep(500);
 
     LoadingModal.instance.current?.show();
@@ -146,8 +146,9 @@ export function SendContainer(props: any) {
     const fiatValue = !formattedValue
       ? 0
       : WalletStore.getWalletByCoinId(props.coin, props.chain)?.price! *
+        //@ts-ignore
         formattedValue;
-    setToFiat(formatPrice(fiatValue, true));
+    setToFiat(fiatValue);
   };
 
   const openLink = async url => {
@@ -256,20 +257,19 @@ export function SendContainer(props: any) {
             </View>
           </View>
           <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
-            <Text style={styles.toFiat}>{toFiat}</Text>
+            <Text style={styles.toFiat}>
+              {formatPrice(toFiat, true) || '$0'}
+            </Text>
           </View>
         </View>
       </View>
       <View style={styles.preparetx}>
         <View
           style={{
-            backgroundColor: Colors.darker,
-            borderRadius: 5,
-            paddingHorizontal: 20,
             paddingVertical: 5,
             justifyContent: 'center',
             alignSelf: 'center',
-            marginBottom: 10,
+            marginBottom: 5,
           }}>
           <Text
             style={{fontSize: 11, color: Colors.lighter, textAlign: 'center'}}>
@@ -300,24 +300,13 @@ export function SendContainer(props: any) {
           <Text style={styles.confirmtx}>{t('tx.confirm_tx')}</Text>
           <View style={styles.amountusd}>
             <Text style={{marginBottom: 5}}>
-              {t('tx.amount_in_usd')}:{' '}
-              {formatPrice(
-                value! *
-                  WalletStore.getWalletByCoinId(props.coin, props.chain)
-                    ?.price!,
-              )}
+              {t('tx.amount_in_usd')}: {formatPrice(toFiat, true) || '$0'}
             </Text>
             <Text>
-              {t('tx.network_fee')}: {formatPrice(feeFiat)}
+              {t('tx.network_fee')}: {formatPrice(feeFiat, true)}
             </Text>
             <Text style={styles.totalusd}>
-              {t('tx.total_usd')}:{' '}
-              {formatPrice(
-                value! *
-                  WalletStore.getWalletByCoinId(props.coin, props.chain)
-                    ?.price! +
-                  feeFiat,
-              )}
+              {t('tx.total_usd')}: {formatPrice(toFiat + feeFiat)}
             </Text>
           </View>
         </View>

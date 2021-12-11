@@ -130,7 +130,7 @@ export const styles = StyleSheet.create({
     paddingTop: 10,
   },
   coins: {
-    color: Colors.foreground,
+    color: Colors.lighter,
     fontSize: 18,
     textAlign: 'center',
     marginTop: 5,

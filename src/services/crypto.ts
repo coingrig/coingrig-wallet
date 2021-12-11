@@ -109,6 +109,7 @@ class CryptoService {
           walletAddress: WalletStore.getWalletAddressByChain(chain),
         });
         //
+        console.log(chain, WalletStore.getWalletAddressByChain(chain));
         let cryptoWallet = WalletFactory.getWallet(wallet);
         // Check if it's a token
         let token = tokenBalances.find(o => o.contract === contract);
@@ -141,7 +142,7 @@ class CryptoService {
             WalletStore.setPrice(wallet.symbol, wallet.chain, newPrice);
           }
           const balance = await cryptoWallet.getBalance();
-          // console.log(wallet.symbol, balance, newPrice);
+          console.log(wallet.symbol, balance, newPrice);
           const unconfirmedBalance = balance.getUnconfirmedBalance();
           WalletStore.setBalance(
             wallet.symbol,
@@ -189,7 +190,7 @@ class CryptoService {
       const url = `${endpoints.covalent}/${
         this.CHAIN_ID_MAP[item.chain]
       }/address/${item.walletAddress}/balances_v2/?key=${CONFIG.COVALENT_KEY}`;
-      // Logs.info(url);
+      Logs.info(url);
       var config = {
         method: 'get',
         url: url,
@@ -240,7 +241,7 @@ class CryptoService {
         return 'Ethereum';
       case 'binance-smart-chain':
       case 'BSC':
-        return 'Binance smart chain';
+        return 'Binance Smart Chain';
       case 'polygon-pos':
       case 'POLYGON':
         return 'Polygon';
@@ -297,8 +298,7 @@ class CryptoService {
     wallet.decimals = decimals;
     wallet.balance = balance.confirmedBalance;
     wallet.unconfirmedBalance = balance.unconfirmedBalance;
-    wallet.value = balance.value;
-    if (wallet.value === 0 && wallet.balance > 0) {
+    if (wallet.balance > 0) {
       wallet.value = Number(
         new BigNumber(wallet.balance).multipliedBy(wallet.price),
       );
@@ -321,6 +321,50 @@ class CryptoService {
       balance.getUnconfirmedBalance(),
     );
     return true;
+  };
+
+  prepareCustomToken = async (chain, contract, image) => {
+    let wallet: any = {
+      symbol: null,
+      name: null,
+      cid: null,
+      chain: chain,
+      type: 'custom-token',
+      decimals: null,
+      contract: contract,
+      privKey: null,
+      balance: 0,
+      unconfirmedBalance: 0,
+      value: 0,
+      price: 0,
+      active: true,
+      image: image,
+      walletAddress: null,
+      version: CONFIG.NEW_ASSET_DESCRIPTOR_VERSION,
+    };
+    let chainAddress = WalletStore.getWalletAddressByChain(wallet.chain);
+    let cryptoWallet = WalletFactory.getWallet(
+      Object.assign({}, wallet, {walletAddress: chainAddress}),
+    );
+    let decimals = await cryptoWallet.getDecimals();
+    // Adjust the wallet settings with decimals to prevent
+    // requesting again the decimals when getting the balance
+    cryptoWallet.config.decimals = decimals;
+    let balance = await cryptoWallet.getBalance();
+    let symbol = await cryptoWallet.getCurrencySymbol();
+    let name = await cryptoWallet.getCurrencyName();
+    wallet.symbol = symbol;
+    wallet.name = name;
+    wallet.decimals = decimals;
+    wallet.cid = contract;
+    wallet.balance = balance.confirmedBalance;
+    wallet.unconfirmedBalance = balance.unconfirmedBalance;
+    if (wallet.balance > 0) {
+      wallet.value = Number(
+        new BigNumber(wallet.balance).multipliedBy(wallet.price),
+      );
+    }
+    return wallet;
   };
 }
 

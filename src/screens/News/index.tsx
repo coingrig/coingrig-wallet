@@ -81,6 +81,7 @@ export default function NewsScreen() {
           keyExtractor={item => item.id}
           maxToRenderPerBatch={5}
           initialNumToRender={10}
+          showsVerticalScrollIndicator={false}
           style={{paddingTop: 10}}
         />
       );

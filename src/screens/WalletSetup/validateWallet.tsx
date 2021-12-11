@@ -65,7 +65,9 @@ export default function ValidateWalletScreen({route}) {
     }
   };
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+      contentContainerStyle={styles.container}
+      showsVerticalScrollIndicator={false}>
       <SafeAreaView style={{flex: 1}}>
         <View style={styles.topContainer}>
           <Text style={styles.subtitle}>
