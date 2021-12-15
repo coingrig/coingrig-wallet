@@ -207,7 +207,7 @@ const SearchScreen = ({route}) => {
           autoCorrect={false}
           placeholderTextColor={'gray'}
           onChangeText={text => searchCoin(text)}
-          placeholder={'Search Asset'}
+          placeholder={t('search.search_assets')}
         />
 
         <TouchableOpacity

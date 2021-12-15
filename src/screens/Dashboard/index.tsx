@@ -88,12 +88,16 @@ const DashboardScreen = observer(() => {
         <View style={styles.infoCard}>
           <View style={styles.infoContainer}>
             <Icon name="coins" size={19} color={Colors.lighter} />
-            <Text style={styles.infoText}>{t('dashboard.info1')}</Text>
+            <Text style={styles.infoText} numberOfLines={2}>
+              {t('dashboard.info1')}
+            </Text>
           </View>
           <View style={styles.vLine} />
           <View style={styles.infoContainer}>
             <Icon name="vector-square" size={19} color={Colors.lighter} />
-            <Text style={styles.infoText}>{t('dashboard.info2')}</Text>
+            <Text style={styles.infoText} numberOfLines={2}>
+              {t('dashboard.info2')}
+            </Text>
           </View>
         </View>
       </View>

@@ -2,6 +2,11 @@
     "translation" :{
         "brand.message": "The Next-Gen Crypto Wallet",
 
+
+        "title.news": "News",
+        "title.add_custom_token": "Add Custom Token",
+        "title.settings": "Settings",
+
         "message.transaction_done": "Transaction done!",
 
         "message.success.mnemonic_copied": "The words have been copied!",
@@ -21,6 +26,7 @@
         "bricks.check_portfolio": "Check your portfolio",
 
         "portfolio.my_assets": "My assets",
+        "portfolio.portfolio": "Portfolio",
 
         "setup.your_recovery_phrase": "Your recovery phrase",
         "setup.copy_these_words": "Copy these words in the right order and save them somewhere safe",
@@ -71,6 +77,7 @@
         "coindetails.total_supply": "Total Supply",
         "coindetails.choose_network": "Choose network",
         "coindetails.chain_note": "Some assets are available on multiple chains/networks. Assets can not be directly used across chains.",
+        "coindetails.add_to_portfolio": "Add to portfolio",
 
         "market.market": "Market",
         "market.assets": "Assets",
@@ -98,6 +105,12 @@
         "settings.yes": "Yes",
         "settings.unconfirmed": "Display unconfirmed transactions",
         "settings.unconfirmed_txt": "Your total balance will always include unconfirmed transactions value independently of this setting.",
+        "settings.change_language": "Change language",
+
+        "language.choose_language": "Choose language",
+        "language.english": "English",
+        "language.french": "French",
+        "language.romanian": "Romanian",
 
         "onboarding.text1": "Private, Non-custodial \n - Your keys, your coins -",
         "onboarding.text2": "Open Source \n - Security, Quality and Freedom -",
@@ -118,6 +131,7 @@
         "tx.confirm": "CONFIRM",
 
         "search.add_asset": "Add Custom Token",
+        "search.search_assets": "Search asset",
 
         "walletconnect.connected": "Connected",
         "walletconnect.accept": "Accept",

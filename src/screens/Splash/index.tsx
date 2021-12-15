@@ -8,6 +8,7 @@ import {
   deleteUserPinCode,
   hasUserSetPinCode,
 } from '@haskkor/react-native-pincode';
+import {useTranslation} from 'react-i18next';
 import {Colors} from 'utils/colors';
 import {StorageGetItem} from 'services/storage';
 import {MigrationService} from 'services/migrations';
@@ -17,6 +18,7 @@ import {Logs} from 'services/logs';
 
 const SplashScreen: FC = () => {
   const navigation = useNavigation();
+  const {t, i18n} = useTranslation();
 
   ConfigStore.initializeConfig();
 
@@ -30,6 +32,11 @@ const SplashScreen: FC = () => {
       Logs.info('Migration completed');
     } else {
       Logs.info('Nothing to migrate');
+    }
+    const lng = await StorageGetItem('@lng', false);
+    if (lng) {
+      //@ts-ignore
+      i18n.changeLanguage(lng);
     }
     checkPin();
     SS.hide();

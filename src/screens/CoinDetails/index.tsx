@@ -121,7 +121,7 @@ const CoinDetailScreen = observer(({route}) => {
     if (route.params.isSupported && platforms.length > 0) {
       return (
         <SmallButton
-          text={t('Add to portfolio')}
+          text={t('coindetails.add_to_portfolio')}
           onPress={() => addWallet()}
           color={Colors.darker}
           style={styles.addtoPortfolio}
