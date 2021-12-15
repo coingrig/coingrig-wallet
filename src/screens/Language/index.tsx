@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Text, View, ScrollView, TouchableOpacity} from 'react-native';
+import {Text, View, ScrollView, TouchableOpacity, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
@@ -29,19 +29,31 @@ export default function LanguageScreen() {
           <TouchableOpacity
             style={styles.item}
             onPress={() => setLanguage('en')}>
-            <Icon name="language" size={23} color={Colors.foreground} />
+            <Image
+              style={{height: 25, width: 25}}
+              resizeMode="contain"
+              source={require('../../assets/countries/usa.png')}
+            />
             <Text style={styles.textItem}>{t('language.english')}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.item}
             onPress={() => setLanguage('fr')}>
-            <Icon name="language" size={23} color={Colors.foreground} />
+            <Image
+              style={{height: 25, width: 25}}
+              resizeMode="contain"
+              source={require('../../assets/countries/france.png')}
+            />
             <Text style={styles.textItem}>{t('language.french')}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.item}
             onPress={() => setLanguage('ro')}>
-            <Icon name="language" size={23} color={Colors.foreground} />
+            <Image
+              style={{height: 25, width: 25}}
+              resizeMode="contain"
+              source={require('../../assets/countries/romania.png')}
+            />
             <Text style={styles.textItem}>{t('language.romanian')}</Text>
           </TouchableOpacity>
         </View>

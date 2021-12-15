@@ -1,9 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {FC, useEffect} from 'react';
-import {Image, View, StyleSheet} from 'react-native';
+import {Image, View, StyleSheet, Platform, NativeModules} from 'react-native';
 import {useNavigation, CommonActions} from '@react-navigation/native';
 import SS from 'react-native-splash-screen';
+import * as RNLocalize from 'react-native-localize';
 import {
   deleteUserPinCode,
   hasUserSetPinCode,
@@ -37,6 +38,12 @@ const SplashScreen: FC = () => {
     if (lng) {
       //@ts-ignore
       i18n.changeLanguage(lng);
+    } else {
+      const local = RNLocalize.getLocales();
+      Logs.info('Phone local: ', local);
+      if (local.length > 0 && local[0].languageCode) {
+        i18n.changeLanguage(local[0].languageCode);
+      }
     }
     checkPin();
     SS.hide();
