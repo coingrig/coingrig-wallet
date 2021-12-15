@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   bgprice: {
-    padding: 5,
+    padding: 2,
     backgroundColor: Colors.background,
     justifyContent: 'center',
     alignItems: 'center',
