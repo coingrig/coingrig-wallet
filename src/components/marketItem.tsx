@@ -46,7 +46,7 @@ const MarketItem = (props: {
                 // eslint-disable-next-line react-native/no-inline-styles
                 {color: props.change > 0 ? '#5cb85c' : '#d9534f'},
               ]}>
-              {props.change.toFixed(2)} %
+              {props.change.toFixed(2)}%
             </Text>
           </View>
         </View>
