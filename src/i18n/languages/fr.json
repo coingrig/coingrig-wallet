@@ -18,6 +18,8 @@
         "message.error.unable_to_create_wallets": "Unable to create wallets!",
         "message.error.unable_to_import_wallets": "Unable to import wallets!",
         "message.wallet.token.added": "A new asset was added to your portfolio",
+        "message.wallet.token.already_exists": "This asset already exists in your portfolio",
+        "custom_token.disclaimer": "Anyone can create a token with any name, including creating fake versions of existing tokens and tokens that claim to represent projects that do not have a token.",
 
         "init.new_wallet": "New wallet",
         "init.import_wallet": "Import wallet",
@@ -133,6 +135,10 @@
         "search.add_asset": "Add Custom Token",
         "search.search_assets": "Search asset",
 
+        "custom_token.network_error": "Cannot get contract data. Please check the contract address and the network.",
+        "custom_token.select_network": "Select Network:",
+        "custom_token.contract_address": "Smart Contract Address",
+
         "pincode.buttonDeleteText": "Delete",
         "pincode.subtitleChoose": "Keep your information secure",
         "pincode.subtitleError": "Please try again",
@@ -149,7 +155,6 @@
         "pincode.titleValidationFailed": "PIN code unsafe",
         "pincode.touchIDSentence": "To unlock your application",
         "pincode.touchIDTitle": "Authentication Required",
-        "pincode.close": "Close",
 
         "walletconnect.connected": "Connected",
         "walletconnect.accept": "Accept",

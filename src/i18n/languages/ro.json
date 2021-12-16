@@ -17,7 +17,8 @@
       "message.error.incorrect_pin": "Pin invalid",
       "message.error.unable_to_create_wallets": "Nu am putut genera portofelul",
       "message.error.unable_to_import_wallets": "Nu am putut importa portofelul",
-      "message.wallet.token.added": "Un nou activ a fost adăugat in portofoliu",
+      "message.wallet.token.added": "Un nou activ a fost adăugat în portofoliu",
+      "message.wallet.token.already_exists": "Acest activ există deja in în portofoliu",
 
       "init.new_wallet": "Portofel nou",
       "init.import_wallet": "Importă portofel",
@@ -130,8 +131,16 @@
       "tx.available": "Disponibil",
       "tx.confirm": "CONFIRM",
 
-      "search.add_asset": "Adaugă token custom",
+      "search.add_asset": "Adaugă token",
       "search.search_assets": "Caută în active",
+      
+      "custom_token.network_error": "Cannot get contract data. Please check the contract address and the network.",
+      "custom_token.select_network": "Selectați rețeaua:",
+      "custom_token.contract_address": "Smart Contract Address",
+      "custom_token.disclaimer": "Anyone can create a token with any name, including creating fake versions of existing tokens and tokens that claim to represent projects that do not have a token.",
+      "custom_token.preview": "Previzualizare.",
+      "custom_token.add_asset": "Adaugă token",
+
 
       "pincode.buttonDeleteText": "Șterge",
       "pincode.subtitleChoose": "Păstrează informația in siguranță",
@@ -149,7 +158,6 @@
       "pincode.titleValidationFailed": "Codul pin nu este sigur",
       "pincode.touchIDSentence": "Pentru a debloca aplicația",
       "pincode.touchIDTitle": "Autentificare necesară",
-      "pincode.close": "Închide",
 
       "walletconnect.connected": "Conectat",
       "walletconnect.accept": "Accept",
