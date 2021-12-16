@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
-import PINCode from '@haskkor/react-native-pincode';
 import {useNavigation, CommonActions} from '@react-navigation/native';
 import {StorageGetItem} from 'services/storage';
 import {STORED_MNEMONIC} from 'utils/constants';
 import {clearAllAppData} from 'utils';
 import CONFIG from '../../config';
-import {Colors} from 'utils/colors';
 import {CryptoService} from 'services/crypto';
+import {Pincode} from '../../components/pincode';
+
 const ReEnterPinScreen = () => {
   const navigation = useNavigation();
   let unlock = false;
@@ -42,25 +42,13 @@ const ReEnterPinScreen = () => {
   };
 
   return (
-    <PINCode
-      onFail={() => console.log('Fail to auth')}
-      finishProcess={() => success()}
+    <Pincode
+      onFail={() => {
+        console.log('Fail to auth');
+      }}
+      onSuccess={() => success()}
       status={'enter'}
-      colorCircleButtons={Colors.darker}
-      stylePinCodeDeleteButtonText={{color: Colors.foreground}}
-      colorPassword={Colors.foreground}
-      colorPasswordEmpty={Colors.foreground}
-      numbersButtonOverlayColor={Colors.lighter}
-      stylePinCodeColorSubtitle={Colors.foreground}
-      stylePinCodeColorTitle={Colors.foreground}
-      stylePinCodeDeleteButtonColorShowUnderlay={Colors.foreground}
-      stylePinCodeDeleteButtonColorHideUnderlay={Colors.foreground}
-      stylePinCodeButtonNumber={Colors.foreground}
-      stylePinCodeTextButtonCircle={{fontWeight: '300'}}
-      stylePinCodeTextSubtitle={{fontWeight: '300'}}
-      stylePinCodeTextTitle={{fontWeight: '300'}}
-      onClickButtonLockedPage={() => alert('Quit')}
-      styleLockScreenButton={{transform: [{scale: 0}]}}
+      onClickButtonLockedPage={() => console.log('Quit')}
     />
   );
 };

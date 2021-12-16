@@ -221,7 +221,7 @@ const SearchScreen = ({route}) => {
           }}
           onPress={() => navigation.goBack()}>
           <Text style={{color: Colors.foreground, fontWeight: 'bold'}}>
-            Close
+            {t('search.close')}
           </Text>
         </TouchableOpacity>
       </View>

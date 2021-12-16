@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {FC, useEffect} from 'react';
-import {Image, View, StyleSheet, Platform, NativeModules} from 'react-native';
+import {Image, View, StyleSheet} from 'react-native';
 import {useNavigation, CommonActions} from '@react-navigation/native';
 import SS from 'react-native-splash-screen';
 import * as RNLocalize from 'react-native-localize';
@@ -19,7 +19,7 @@ import {Logs} from 'services/logs';
 
 const SplashScreen: FC = () => {
   const navigation = useNavigation();
-  const {t, i18n} = useTranslation();
+  const {i18n} = useTranslation();
 
   ConfigStore.initializeConfig();
 

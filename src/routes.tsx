@@ -214,7 +214,8 @@ function BottomTabs() {
 // const BT = React.memo(BottomTabs);
 // export const NavigationScreens = React.memo(NS);
 
-function NavigationStack({t, i18n}) {
+function NavigationStack({t}) {
+  // i18n
   return (
     <Stack.Navigator>
       <Stack.Screen
