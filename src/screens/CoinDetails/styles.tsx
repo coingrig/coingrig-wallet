@@ -148,4 +148,9 @@ export const styles = StyleSheet.create({
     marginBottom: 5,
     color: Colors.foreground,
   },
+  moreBtn: {
+    paddingHorizontal: 5,
+    justifyContent: 'space-around',
+    paddingRight: 20,
+  },
 });

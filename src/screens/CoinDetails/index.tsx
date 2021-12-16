@@ -1,7 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {createRef, useCallback, useEffect, useState} from 'react';
-import {View, ScrollView, Text, RefreshControl, FlatList} from 'react-native';
+import {
+  View,
+  ScrollView,
+  Text,
+  RefreshControl,
+  FlatList,
+  Linking,
+  TouchableOpacity,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Feather';
 import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
 import FastImage from 'react-native-fast-image';
@@ -17,6 +26,8 @@ import {CryptoService} from 'services/crypto';
 import {SmallButton} from 'components/smallButton';
 import ActionSheet from 'react-native-actions-sheet';
 import {WalletStore} from 'stores/wallet';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
+import {Logs} from 'services/logs';
 
 const actionSheetRef = createRef();
 
@@ -35,6 +46,13 @@ const CoinDetailScreen = observer(({route}) => {
     navigation.setOptions({
       headerTitle:
         route.params.title?.toUpperCase() ?? route.params.coin.toUpperCase(),
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => openLink(route.params.coin)}
+          style={styles.moreBtn}>
+          <Icon name="external-link" size={23} color={Colors.foreground} />
+        </TouchableOpacity>
+      ),
     });
   }, []);
 
@@ -43,6 +61,31 @@ const CoinDetailScreen = observer(({route}) => {
       getData();
     }
   }, [transitionEnded]);
+
+  const openLink = async coin => {
+    const url = 'https://www.coingecko.com/en/coins/' + coin;
+    try {
+      if (await InAppBrowser.isAvailable()) {
+        await InAppBrowser.open(url, {
+          dismissButtonStyle: 'cancel',
+          readerMode: false,
+          animated: true,
+          modalPresentationStyle: 'automatic',
+          modalTransitionStyle: 'coverVertical',
+          modalEnabled: true,
+          enableBarCollapsing: false,
+          showTitle: true,
+          enableUrlBarHiding: true,
+          enableDefaultShare: true,
+          forceCloseOnRedirection: false,
+        });
+      } else {
+        Linking.openURL(url);
+      }
+    } catch (error) {
+      Logs.error(error);
+    }
+  };
 
   const getData = async () => {
     // get data from coingecko

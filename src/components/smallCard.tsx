@@ -82,7 +82,7 @@ const SmallCard = observer(
                   styles.price,
                   {color: props.change > 0 ? '#5cb85c' : '#d9534f'},
                 ]}>
-                {props.change.toFixed(2)} %
+                {props.change.toFixed(2)}%
               </Text>
             </View>
           </View>
