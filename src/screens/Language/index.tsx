@@ -1,10 +1,8 @@
 import React, {useEffect} from 'react';
 import {Text, View, ScrollView, TouchableOpacity, Image} from 'react-native';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 import {styles} from './styles';
-// import {Colors} from 'utils/colors';
 import {StorageSetItem} from 'services/storage';
 
 export default function LanguageScreen() {

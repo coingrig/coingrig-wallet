@@ -45,7 +45,7 @@ const SearchScreen = ({route}) => {
     }
     setSearchText(text);
     const newData = coinsList.filter(item => {
-      const itemData = `${item.name.toUpperCase()}   
+      const itemData = `${item.name.toUpperCase()}
       ${item.symbol.toUpperCase()}`;
 
       const textData = text.toUpperCase();
@@ -212,7 +212,7 @@ const SearchScreen = ({route}) => {
 
         <TouchableOpacity
           style={{
-            flex: 1,
+            flex: 1.2,
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: Colors.brick,
@@ -221,7 +221,7 @@ const SearchScreen = ({route}) => {
           }}
           onPress={() => navigation.goBack()}>
           <Text style={{color: Colors.foreground, fontWeight: 'bold'}}>
-            {t('search.close')}
+            {t('settings.cancel')}
           </Text>
         </TouchableOpacity>
       </View>
