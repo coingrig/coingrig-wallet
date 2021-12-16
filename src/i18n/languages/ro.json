@@ -2,7 +2,6 @@
   "translation" :{
       "brand.message": "The Next-Gen Crypto Wallet",
 
-
       "title.news": "Știri",
       "title.add_custom_token": "Adaugă token custom",
       "title.settings": "Setări",
@@ -17,8 +16,12 @@
       "message.error.incorrect_pin": "Pin invalid",
       "message.error.unable_to_create_wallets": "Nu am putut genera portofelul",
       "message.error.unable_to_import_wallets": "Nu am putut importa portofelul",
+      
       "message.wallet.token.added": "Un nou activ a fost adăugat în portofoliu",
       "message.wallet.token.already_exists": "Acest activ există deja in în portofoliu",
+      
+      "message.error.wallet_connect.chain_not_supported": "Acest blockchain nu este suportat",
+      "message.error.wallet_connect.chain_not_signable": "Acest blockchain nu poate fi semnat",
 
       "init.new_wallet": "Portofel nou",
       "init.import_wallet": "Importă portofel",
@@ -136,11 +139,10 @@
       
       "custom_token.network_error": "Cannot get contract data. Please check the contract address and the network.",
       "custom_token.select_network": "Selectați rețeaua:",
-      "custom_token.contract_address": "Smart Contract Address",
-      "custom_token.disclaimer": "Anyone can create a token with any name, including creating fake versions of existing tokens and tokens that claim to represent projects that do not have a token.",
+      "custom_token.contract_address": "Adresa Smart Contract",
+      "custom_token.disclaimer": "Oricine poate crea un token cu orice nume, inclusiv versiuni false ale token-urilor existente și token-uri care pretind că reprezintă proiecte care nu au un token.",
       "custom_token.preview": "Previzualizare.",
       "custom_token.add_asset": "Adaugă token",
-
 
       "pincode.buttonDeleteText": "Șterge",
       "pincode.subtitleChoose": "Păstrează informația in siguranță",
@@ -163,9 +165,10 @@
       "walletconnect.accept": "Accept",
       "walletconnect.reject": "Refuză",
       "walletconnect.wrong_chain": "Activul nu a fost gasit in blockchainul selectat",
-      "walletconnect.scan_qr_code": "Scaneaza QR",
+      "walletconnect.scan_qr_code": "Scanează QR",
       "walletconnect.disconnect": "Deconectare",
       "walletconnect.approve": "Aprobă",
-      "walletconnect.trying_to_connect": "Accepți conexiunea?"
+      "walletconnect.trying_to_connect": "Accepți conexiunea?",
+      "walletconnect.disclaimer": "Verificați cu atenție adresa URL, asigurați-vă că vizitați site-ul web dorit!"
   }
 }

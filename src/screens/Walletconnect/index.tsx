@@ -33,7 +33,6 @@ const WalletconnectScreen = observer(() => {
   }, []);
 
   const onSuccess = e => {
-    Logs.info(e.data);
     let uri = e.data;
     const data: any = {uri};
     data.redirect = '';
@@ -79,8 +78,7 @@ const WalletconnectScreen = observer(() => {
               marginBottom: 20,
               color: Colors.lighter,
             }}>
-            Check the URL carefully, please make sure you're visiting the
-            intended website!
+            {t('walletconnect.disclaimer')}
           </Text>
           <BigButton
             text={t('walletconnect.scan_qr_code')}
@@ -275,14 +273,14 @@ const WalletconnectScreen = observer(() => {
       if (!cryptoWallet) {
         WalletConnectService.rejectRequest({
           id: WalletconnectStore.transactionData.id!,
-          error: 'This chain is not supported',
+          error: t('message.error.wallet_connect.chain_not_supported'),
         });
       }
       let signingManager = cryptoWallet.getSigningManager();
       if (!signingManager) {
         WalletConnectService.rejectRequest({
           id: WalletconnectStore.transactionData.id!,
-          error: 'This chain can not be signed',
+          error: t('message.error.wallet_connect.chain_not_signable'),
         });
         return;
       }

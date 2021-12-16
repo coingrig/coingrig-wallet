@@ -2,7 +2,6 @@
   "translation" :{
       "brand.message": "The Next-Gen Crypto Wallet",
 
-
       "title.news": "News",
       "title.add_custom_token": "Add Custom Token",
       "title.settings": "Settings",
@@ -17,9 +16,13 @@
       "message.error.incorrect_pin": "Your pin is not valid!",
       "message.error.unable_to_create_wallets": "Unable to create wallets!",
       "message.error.unable_to_import_wallets": "Unable to import wallets!",
+      
       "message.wallet.token.added": "A new asset was added to your portfolio",
       "message.wallet.token.already_exists": "This asset already exists in your portfolio",
       
+      "message.error.wallet_connect.chain_not_supported": "This chain is not supported",
+      "message.error.wallet_connect.chain_not_signable": "This chain can not be signed",
+
       "init.new_wallet": "New wallet",
       "init.import_wallet": "Import wallet",
 
@@ -138,6 +141,8 @@
       "custom_token.select_network": "Select Network:",
       "custom_token.contract_address": "Smart Contract Address",
       "custom_token.disclaimer": "Anyone can create a token with any name, including creating fake versions of existing tokens and tokens that claim to represent projects that do not have a token.",
+      "custom_token.preview": "Previzualizare.",
+      "custom_token.add_asset": "Adaugă token",
 
       "pincode.buttonDeleteText": "Delete",
       "pincode.subtitleChoose": "Keep your information secure",
@@ -163,6 +168,7 @@
       "walletconnect.scan_qr_code": "Scan QR Code",
       "walletconnect.disconnect": "Disconnect",
       "walletconnect.approve": "Approve",
-      "walletconnect.trying_to_connect": "Do you accept the connection?"
+      "walletconnect.trying_to_connect": "Do you accept the connection?",
+      "walletconnect.disclaimer": "Check the URL carefully, please make sure you're visiting the intended website!"
   }
 }
