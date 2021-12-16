@@ -50,7 +50,7 @@ const CoinDetailScreen = observer(({route}) => {
         <TouchableOpacity
           onPress={() => openLink(route.params.coin)}
           style={styles.moreBtn}>
-          <Icon name="external-link" size={23} color={Colors.foreground} />
+          <Icon name="external-link" size={21} color={Colors.foreground} />
         </TouchableOpacity>
       ),
     });
