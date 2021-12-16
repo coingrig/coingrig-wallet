@@ -149,7 +149,7 @@
       "pincode.subtitleError": "Please try again",
       "pincode.textButtonLockedPage": "Quit",
       "pincode.textCancelButtonTouchID": "Cancel",
-      "pincode.textDescriptionLockedPage": "To protect your information, access has been locked for {timeLocked} minutes.",
+      "pincode.textDescriptionLockedPage": "To protect your information, access has been locked for 5 minutes.",
       "pincode.textSubDescriptionLockedPage": "Come back later and try again.",
       "pincode.textTitleLockedPage": "Maximum attempts reached.",
       "pincode.titleAttemptFailed": "Incorrect PIN Code",

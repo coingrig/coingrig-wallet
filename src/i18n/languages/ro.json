@@ -149,7 +149,7 @@
       "pincode.subtitleError": "Încearcă din nou",
       "pincode.textButtonLockedPage": "Ieșire",
       "pincode.textCancelButtonTouchID": "Anulează",
-      "pincode.textDescriptionLockedPage": "Pentru protecție, accesul a fost blocat pentru {timeLocked} minute.",
+      "pincode.textDescriptionLockedPage": "Pentru protecție, accesul a fost blocat pentru 5 minute.",
       "pincode.textSubDescriptionLockedPage": "Reîncercați mai târziu.",
       "pincode.textTitleLockedPage": "Maximul de încercări a fost atins.",
       "pincode.titleAttemptFailed": "Cod PIN incorect",
