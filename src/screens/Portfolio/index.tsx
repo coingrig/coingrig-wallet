@@ -104,7 +104,9 @@ const PortfolioScreen = observer(() => {
 
   const onViewableItemsChanged = ({viewableItems}) => {
     if (viewableItems[0].index !== 0) {
-      setShowHeader(true);
+      if (!showHeader) {
+        setShowHeader(true);
+      }
     } else {
       setShowHeader(false);
     }
