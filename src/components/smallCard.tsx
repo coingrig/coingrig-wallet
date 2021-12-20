@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginBottom: 5,
     fontFamily: 'RobotoSlab-Regular',
-    color: Colors.foreground,
+    color: Colors.lighter,
   },
   chart: {
     paddingRight: 0,

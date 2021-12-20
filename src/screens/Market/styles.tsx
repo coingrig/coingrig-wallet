@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.lighter,
-    marginVertical: 20,
+    marginVertical: 15,
     marginLeft: 20,
   },
   moreBtn: {

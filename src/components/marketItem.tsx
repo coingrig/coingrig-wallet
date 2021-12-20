@@ -68,10 +68,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   coinSymbol: {
-    fontSize: 14,
+    fontSize: 13,
     marginBottom: 5,
     fontFamily: 'RobotoSlab-Regular',
-    color: Colors.foreground,
+    color: Colors.lighter,
   },
   chart: {
     paddingRight: 0,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   coinName: {
-    fontSize: 16,
+    fontSize: 15,
     marginBottom: 0,
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.foreground,

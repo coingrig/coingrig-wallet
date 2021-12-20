@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     marginHorizontal: 10,
     marginTop: 5,
-    color: Colors.foreground,
+    color: Colors.lighter,
   },
   textItem: {marginLeft: 10, color: Colors.foreground, flex: 3},
   title: {
