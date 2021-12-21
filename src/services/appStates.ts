@@ -4,7 +4,9 @@ import CONFIG from '../config';
 
 class AppsStatesService {
   appStateSubscription: void;
+  coldStart: boolean;
   constructor() {
+    this.coldStart = true;
     let inBackground = false;
     let lastDate = Date.now();
     this.appStateSubscription = AppState.addEventListener(
