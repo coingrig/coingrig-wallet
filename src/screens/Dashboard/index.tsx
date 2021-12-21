@@ -12,6 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import {WalletStore} from 'stores/wallet';
 import {CryptoService} from 'services/crypto';
+import DeepLinkService from 'services/deeplink';
 import {useTranslation} from 'react-i18next';
 import Brick from 'components/brick';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -25,6 +26,7 @@ import {styles} from './styles';
 import {Colors} from 'utils/colors';
 import {showMessage} from 'react-native-flash-message';
 import {CONFIG_MODULES, CONFIG_PROPERTIES, ConfigStore} from 'stores/config';
+import AppsStateService from 'services/appStates';
 
 const DashboardScreen = observer(() => {
   const {t} = useTranslation();
@@ -33,6 +35,10 @@ const DashboardScreen = observer(() => {
   const [showMarketing, setShowMarketing] = useState(false);
 
   useEffect(() => {
+    AppsStateService.coldStart = false;
+    if (DeepLinkService.data) {
+      DeepLinkService.handleDeepLink(DeepLinkService.data);
+    }
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity

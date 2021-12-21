@@ -16,7 +16,8 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     color: Colors.lighter,
     marginHorizontal: 15,
-    marginTop: 15,
+    marginTop: 10,
+    marginBottom: 10,
   },
   previewText: {
     fontSize: 18,

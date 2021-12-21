@@ -141,7 +141,7 @@
       "custom_token.select_network": "Selectați rețeaua:",
       "custom_token.contract_address": "Adresa Smart Contract",
       "custom_token.disclaimer": "Oricine poate crea un token cu orice nume, inclusiv versiuni false ale token-urilor existente și token-uri care pretind că reprezintă proiecte care nu au un token.",
-      "custom_token.preview": "Previzualizare.",
+      "custom_token.preview": "Previzualizare",
       "custom_token.add_asset": "Adaugă token",
 
       "pincode.buttonDeleteText": "Șterge",
