@@ -34,7 +34,7 @@ const MarketScreen = observer(() => {
           onPress={() => navigation.navigate('NewsScreen')}
           style={styles.moreBtn}>
           <Text style={{color: Colors.foreground, marginRight: 5}}>
-            {t('News')}
+            {t('title.news')}
           </Text>
           <Icon name="newspaper" size={23} color={Colors.foreground} />
         </TouchableOpacity>

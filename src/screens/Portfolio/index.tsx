@@ -126,7 +126,7 @@ const PortfolioScreen = observer(() => {
     <View style={styles.container}>
       <View>
         <View style={{flexDirection: 'row'}}>
-          <Text style={styles.title}>{t('Portfolio')} </Text>
+          <Text style={styles.title}>{t('portfolio.portfolio')} </Text>
         </View>
       </View>
       {renderList()}

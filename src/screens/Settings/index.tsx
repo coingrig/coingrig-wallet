@@ -113,6 +113,13 @@ const SettingScreen = observer(() => {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.item}
+            onPress={() => navigation.navigate('LanguageScreen')}>
+            <Icon name="language" size={23} color={Colors.foreground} />
+            <Text style={styles.textItem}>{t('settings.change_language')}</Text>
+            <Icon name="arrow-forward" size={20} color="gray" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.item}
             onPress={() =>
               SettingsStore.setConfirmation(!SettingsStore.confirmationEnabled)
             }>

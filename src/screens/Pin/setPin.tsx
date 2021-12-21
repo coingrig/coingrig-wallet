@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
-import PINCode from '@haskkor/react-native-pincode';
 import {useNavigation, CommonActions} from '@react-navigation/native';
-import {Colors} from 'utils/colors';
+import {Pincode} from '../../components/pincode';
 
 const SetPinScreen = ({route}) => {
   const navigation = useNavigation();
@@ -21,25 +20,7 @@ const SetPinScreen = ({route}) => {
     );
   };
 
-  return (
-    <PINCode
-      finishProcess={() => success()}
-      status={'choose'}
-      stylePinCodeDeleteButtonText={{color: Colors.foreground}}
-      colorCircleButtons={Colors.darker}
-      colorPassword={Colors.foreground}
-      colorPasswordEmpty={Colors.foreground}
-      numbersButtonOverlayColor={Colors.lighter}
-      stylePinCodeColorSubtitle={Colors.foreground}
-      stylePinCodeColorTitle={Colors.foreground}
-      stylePinCodeDeleteButtonColorShowUnderlay={Colors.foreground}
-      stylePinCodeDeleteButtonColorHideUnderlay={Colors.foreground}
-      stylePinCodeButtonNumber={Colors.foreground}
-      stylePinCodeTextButtonCircle={{fontWeight: '300'}}
-      stylePinCodeTextSubtitle={{fontWeight: '300'}}
-      stylePinCodeTextTitle={{fontWeight: '300'}}
-    />
-  );
+  return <Pincode onSuccess={() => success()} status={'choose'} />;
 };
 
 export default SetPinScreen;

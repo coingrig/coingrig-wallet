@@ -64,6 +64,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     alignSelf: 'center',
+    maxWidth: '40%',
   },
   balance: {
     fontSize: 20,

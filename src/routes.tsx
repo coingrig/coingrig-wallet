@@ -8,6 +8,7 @@ import {
 } from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {withTranslation} from 'react-i18next';
 import SplashScreen from 'screens/Splash';
 import DashboardScreen from 'screens/Dashboard';
 import SearchScreen from 'screens/Search';
@@ -20,6 +21,7 @@ import ReEnterPinScreen from 'screens/Pin/reEnterPin';
 import SetPinScreen from 'screens/Pin/setPin';
 import ImportWalletScreen from 'screens/WalletSetup/importWallet';
 import SettingScreen from 'screens/Settings';
+import LanguageScreen from 'screens/Language';
 import SendReceiveScreen from 'screens/SendReceive';
 import WalletScreen from 'screens/Wallet';
 import MarketScreen from 'screens/Market';
@@ -211,7 +213,9 @@ function BottomTabs() {
 }
 // const BT = React.memo(BottomTabs);
 // export const NavigationScreens = React.memo(NS);
-export function NavigationScreens() {
+
+function NavigationStack({t}) {
+  // i18n
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -382,7 +386,7 @@ export function NavigationScreens() {
         component={NewsScreen}
         options={{
           headerShown: true,
-          headerTitle: 'News',
+          headerTitle: t('title.news'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
@@ -437,6 +441,40 @@ export function NavigationScreens() {
         }}
       />
       <Stack.Screen
+        name="LanguageScreen"
+        component={LanguageScreen}
+        options={{
+          presentation: 'modal',
+          headerBackImage: () => (
+            <Icon
+              name="close"
+              size={30}
+              color={Colors.foreground}
+              style={{paddingLeft: 10}}
+            />
+          ),
+          headerShown: true,
+          headerTitle: t('settings.change_language'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
         name="CustomTokenScreen"
         component={CustomTokenScreen}
         options={{
@@ -450,7 +488,7 @@ export function NavigationScreens() {
             />
           ),
           headerShown: true,
-          headerTitle: 'Add Custom Token',
+          headerTitle: t('title.add_custom_token'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
@@ -475,7 +513,7 @@ export function NavigationScreens() {
         component={SwapScreen}
         options={{
           headerShown: true,
-          headerTitle: 'Swap',
+          headerTitle: t('title.swap'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
@@ -500,7 +538,7 @@ export function NavigationScreens() {
         component={SettingScreen}
         options={{
           headerShown: true,
-          headerTitle: 'Settings',
+          headerTitle: t('title.settings'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
@@ -550,7 +588,6 @@ export function NavigationScreens() {
         component={SendReceiveScreen}
         options={{
           presentation: 'modal',
-          cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
           headerShown: true,
           title: '',
           headerBackImage: () => (
@@ -583,3 +620,4 @@ export function NavigationScreens() {
     </Stack.Navigator>
   );
 }
+export const NavigationScreens = withTranslation()(NavigationStack);

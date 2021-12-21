@@ -82,7 +82,7 @@ const SmallCard = observer(
                   styles.price,
                   {color: props.change > 0 ? '#5cb85c' : '#d9534f'},
                 ]}>
-                {props.change.toFixed(2)} %
+                {props.change.toFixed(2)}%
               </Text>
             </View>
           </View>
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginBottom: 5,
     fontFamily: 'RobotoSlab-Regular',
-    color: Colors.foreground,
+    color: Colors.lighter,
   },
   chart: {
     paddingRight: 0,
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   bgprice: {
-    padding: 5,
+    padding: 2,
     backgroundColor: Colors.background,
     justifyContent: 'center',
     alignItems: 'center',
