@@ -7,7 +7,7 @@ import {Logs} from './logs';
 class DeepLinkService {
   data: any;
   constructor() {
-    // this.getUrl();
+    this.getUrl();
     Linking.addEventListener('url', this.urlListener);
   }
   getUrl = async () => {
@@ -23,6 +23,7 @@ class DeepLinkService {
       return;
     }
     this.data = this.parseUrl(newUrl);
+    Logs.info(this.data);
     if (CONFIG.navigation.navigate && !appStates.coldStart) {
       Logs.info(CONFIG.navigation);
       this.handleDeepLink(this.data);
@@ -52,7 +53,7 @@ class DeepLinkService {
   }
 
   parseUrl = (urlToParse: any) => {
-    urlToParse = urlToParse.url || null;
+    urlToParse = urlToParse.url || urlToParse;
     if (!urlToParse) {
       return null;
     }

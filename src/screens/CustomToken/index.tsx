@@ -38,6 +38,7 @@ export default function CustomTokenScreen({route}) {
   useEffect(() => {
     if (route.params) {
       Logs.info(route.params);
+      // coingrig://add/polygon/0x0c51f415cf478f8d08c246a6c6ee180c5dc3a012
       autoTokenData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
