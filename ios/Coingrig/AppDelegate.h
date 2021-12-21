@@ -5,4 +5,6 @@
 
 @property (nonatomic, strong) UIWindow *window;
 
+@property (nonatomic, strong) UIImageView *appSwitcherView;
+
 @end
