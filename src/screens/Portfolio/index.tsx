@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   Text,
   View,
@@ -23,6 +23,7 @@ const PortfolioScreen = observer(() => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
+  const [showHeader, setShowHeader] = useState(false);
 
   useEffect(() => {
     navigation.setOptions({
@@ -101,6 +102,23 @@ const PortfolioScreen = observer(() => {
     fetchCoins();
   }, []);
 
+  const onViewableItemsChanged = ({viewableItems}) => {
+    if (viewableItems[0].index !== 0) {
+      if (!showHeader) {
+        setShowHeader(true);
+      }
+    } else {
+      setShowHeader(false);
+    }
+  };
+  const viewabilityConfig = {
+    itemVisiblePercentThreshold: 90,
+    // waitForInteraction: true,
+  };
+  const viewabilityConfigCallbackPairs = useRef([
+    {viewabilityConfig, onViewableItemsChanged},
+  ]);
+
   const renderList = () => {
     return (
       <FlatList
@@ -112,6 +130,8 @@ const PortfolioScreen = observer(() => {
             colors={[Colors.lighter]}
           />
         }
+        //@ts-ignore
+        viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
         data={WalletStore.wallets}
         renderItem={renderItem}
         keyExtractor={(item: any) => item.cid + item.chain ?? ''}
@@ -124,7 +144,24 @@ const PortfolioScreen = observer(() => {
   };
   return (
     <View style={styles.container}>
-      <View>
+      <View
+        style={
+          showHeader
+            ? {
+                backgroundColor: Colors.background,
+                zIndex: 10,
+                shadowColor: '#000',
+                shadowOffset: {
+                  width: 0,
+                  height: 1,
+                },
+                shadowOpacity: 0.2,
+                shadowRadius: 1.41,
+
+                elevation: 2,
+              }
+            : null
+        }>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.title}>{t('portfolio.portfolio')} </Text>
         </View>

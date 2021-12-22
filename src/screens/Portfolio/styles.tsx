@@ -4,6 +4,7 @@ import {Colors} from 'utils/colors';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    overflow: 'hidden',
   },
   change: {
     fontSize: 18,
