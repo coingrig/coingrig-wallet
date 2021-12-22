@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_7" orientation="portrait" appearance="light"/>
+    <device id="retina6_7" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,6 +17,7 @@
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playstore" translatesAutoresizingMaskIntoConstraints="NO" id="trg-zS-fD3">
                     <rect key="frame" x="149" y="398" width="130" height="130"/>
+                    <color key="tintColor" systemColor="labelColor"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="trg-zS-fD3" secondAttribute="height" multiplier="1:1" id="JgV-nA-E5E"/>
                         <constraint firstAttribute="height" constant="130" id="pNv-iM-20Q"/>
@@ -25,7 +27,7 @@
                 </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="Tjt-W6-zFj"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="trg-zS-fD3" firstAttribute="centerX" secondItem="c8P-AC-5fg" secondAttribute="centerX" id="2yi-QX-TXi"/>
                 <constraint firstItem="trg-zS-fD3" firstAttribute="centerY" secondItem="c8P-AC-5fg" secondAttribute="centerY" id="KMA-0V-UeI"/>
@@ -35,5 +37,11 @@
     </objects>
     <resources>
         <image name="playstore" width="512" height="512"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
