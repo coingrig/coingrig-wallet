@@ -43,62 +43,28 @@ static void InitializeFlipper(UIApplication *application) {
   } else {
       rootView.backgroundColor = [UIColor whiteColor];
   }
-
+  
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  [RNSplashScreen show];  // here
+  [RNSplashScreen show];
   return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-  UIImage* blurred = [self blurredImageWithImage: [self createScreenShotOfCurrentContext]];
-  _appSwitcherView = [[UIImageView alloc] initWithFrame: [[self window] bounds]]; //just example change the frame as per your need
-  _appSwitcherView.image = blurred;
-  [[self window ] addSubview: [self appSwitcherView]];
-  
+  _appSwitcherView = [[[NSBundle mainBundle] loadNibNamed:@"lock" owner:self options:nil] objectAtIndex:0];
+  CGRect frame = [self window].frame;
+  frame.origin = CGPointMake(0, 0);
+  _appSwitcherView.frame = frame;    
+ [[self window ] addSubview: [self appSwitcherView]];
+
 }
+
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
   [_appSwitcherView removeFromSuperview];
-}
-
-- (UIImage*)createScreenShotOfCurrentContext {
-  CGRect rect = [self.window bounds];
-  UIGraphicsBeginImageContextWithOptions(rect.size,YES,0.0f);
-  CGContextRef context = UIGraphicsGetCurrentContext();
-  [self.window.layer renderInContext:context];
-  UIImage *capturedImage = UIGraphicsGetImageFromCurrentImageContext();
-  UIGraphicsEndImageContext();
-  return  capturedImage;
-}
-
-
-- (UIImage *)blurredImageWithImage:(UIImage *)sourceImage{
-
-    //  Create our blurred image
-    CIContext *context = [CIContext contextWithOptions:nil];
-    CIImage *inputImage = [CIImage imageWithCGImage:sourceImage.CGImage];
-
-    //  Setting up Gaussian Blur
-    CIFilter *filter = [CIFilter filterWithName:@"CIGaussianBlur"];
-    [filter setValue:inputImage forKey:kCIInputImageKey];
-    [filter setValue:[NSNumber numberWithFloat:23.0f] forKey:@"inputRadius"];
-    CIImage *result = [filter valueForKey:kCIOutputImageKey];
-
-    /*  CIGaussianBlur has a tendency to shrink the image a little, this ensures it matches
-     *  up exactly to the bounds of our original image */
-    CGImageRef cgImage = [context createCGImage:result fromRect:[inputImage extent]];
-
-    UIImage *retVal = [UIImage imageWithCGImage:cgImage];
-
-    if (cgImage) {
-        CGImageRelease(cgImage);
-    }
-
-    return retVal;
 }
 
 
