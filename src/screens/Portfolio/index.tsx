@@ -111,9 +111,10 @@ const PortfolioScreen = observer(() => {
       setShowHeader(false);
     }
   };
+
   const viewabilityConfig = {
     itemVisiblePercentThreshold: 90,
-    // waitForInteraction: true,
+    waitForInteraction: true,
   };
   const viewabilityConfigCallbackPairs = useRef([
     {viewabilityConfig, onViewableItemsChanged},
@@ -144,25 +145,8 @@ const PortfolioScreen = observer(() => {
   };
   return (
     <View style={styles.container}>
-      <View
-        style={
-          showHeader
-            ? {
-                backgroundColor: Colors.background,
-                zIndex: 10,
-                shadowColor: '#000',
-                shadowOffset: {
-                  width: 0,
-                  height: 1,
-                },
-                shadowOpacity: 0.2,
-                shadowRadius: 1.41,
-
-                elevation: 2,
-              }
-            : null
-        }>
-        <View style={{flexDirection: 'row'}}>
+      <View style={showHeader ? styles.headerShadow : null}>
+        <View>
           <Text style={styles.title}>{t('portfolio.portfolio')} </Text>
         </View>
       </View>
