@@ -313,7 +313,7 @@ const CoinDetailScreen = observer(({route}) => {
             </Text>
             <Text style={styles.textr}>
               {coinData?.market_data.circulating_supply != null
-                ? formatNumber(coinData?.circulating_supply ?? 0)
+                ? formatNumber(coinData?.market_data.circulating_supply ?? 0)
                 : '-'}
             </Text>
           </View>
@@ -330,7 +330,7 @@ const CoinDetailScreen = observer(({route}) => {
               {t('coindetails.total_supply')}:
             </Text>
             <Text style={styles.textr}>
-              {coinData?.total_supply != null
+              {coinData?.market_data.total_supply != null
                 ? formatNumber(coinData?.market_data.total_supply ?? 0)
                 : '-'}
             </Text>

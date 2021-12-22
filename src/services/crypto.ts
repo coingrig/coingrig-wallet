@@ -169,7 +169,7 @@ class CryptoService {
       method: 'get',
       url: endpoints.coingecko + '/coins/' + symbol + '?sparkline=true',
     };
-
+    Logs.info('Get asset data: ', config);
     return axios(config)
       .then(function (response) {
         return response.data;
