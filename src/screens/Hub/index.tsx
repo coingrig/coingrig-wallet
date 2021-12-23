@@ -25,7 +25,7 @@ const HubScreen = () => {
         style={{
           flex: 1,
           flexDirection: 'column',
-          margin: 5,
+          margin: 11,
           height: 160,
           backgroundColor: Colors.card,
           borderRadius: 10,
@@ -77,7 +77,7 @@ const HubScreen = () => {
         renderItem={renderItem}
         numColumns={2}
         keyExtractor={(item, index) => index}
-        style={{padding: 15}}
+        style={{padding: 10}}
       />
     </View>
   );
