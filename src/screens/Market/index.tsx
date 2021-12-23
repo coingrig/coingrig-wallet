@@ -187,7 +187,6 @@ const MarketScreen = observer(() => {
     <View style={styles.container}>
       <View>
         <View style={{flexDirection: 'row'}}>
-          <Text style={styles.title}>{t('market.market')} </Text>
           <Text
             style={[
               styles.change,

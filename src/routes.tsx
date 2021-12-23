@@ -15,6 +15,7 @@ import SearchScreen from 'screens/Search';
 import GenerateWalletScreen from 'screens/WalletSetup/generateWallet';
 import ValidateWalletScreen from 'screens/WalletSetup/validateWallet';
 import StartScreen from 'screens/Start';
+import HubScreen from 'screens/Hub';
 import SwapScreen from 'screens/Swap';
 import EnterPinScreen from 'screens/Pin/enterPin';
 import ReEnterPinScreen from 'screens/Pin/reEnterPin';
@@ -133,11 +134,11 @@ function BottomTabs() {
             ) : (
               <Icon name="wallet" size={24} color={Colors.foreground} />
             );
-          } else if (route.name === 'MarketScreen') {
+          } else if (route.name === 'HubScreen') {
             return focused ? (
-              <Icon name="stats-chart" size={22} color={Colors.inverse} />
+              <Icon name="apps" size={24} color={Colors.inverse} />
             ) : (
-              <Icon name="stats-chart" size={22} color={Colors.foreground} />
+              <Icon name="apps" size={24} color={Colors.foreground} />
             );
           }
           return null;
@@ -188,8 +189,8 @@ function BottomTabs() {
         }}
       />
       <Tab.Screen
-        name="MarketScreen"
-        component={MarketScreen}
+        name="HubScreen"
+        component={HubScreen}
         options={{
           headerShown: true,
           headerTitle: () => <SmallLogo />,
@@ -564,6 +565,31 @@ function NavigationStack({t}) {
         options={{
           headerShown: true,
           headerTitle: '',
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="MarketScreen"
+        component={MarketScreen}
+        options={{
+          headerShown: true,
+          headerTitle: t('market.market'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
