@@ -1,5 +1,11 @@
 const apps = [
   {
+    title: 'Market',
+    screen: 'MarketScreen',
+    backgroundImage: require('../../assets/hub/market.png'),
+    description: 'Market data',
+  },
+  {
     title: 'News',
     screen: 'NewsScreen',
     backgroundImage: require('../../assets/hub/news.png'),

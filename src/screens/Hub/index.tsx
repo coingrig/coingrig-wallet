@@ -40,7 +40,7 @@ const HubScreen = () => {
           style={{flex: 1, borderRadius: 10, justifyContent: 'flex-end'}}>
           <Text
             style={{
-              fontSize: 17,
+              fontSize: 16,
               paddingHorizontal: 10,
               fontWeight: 'bold',
               color: Colors.foreground,
@@ -51,9 +51,9 @@ const HubScreen = () => {
           </Text>
           <Text
             style={{
-              fontSize: 13,
+              fontSize: 12,
               paddingHorizontal: 10,
-              paddingTop: 3,
+              paddingTop: 2,
               color: Colors.lighter,
               paddingBottom: 5,
               backgroundColor: Colors.darker,
