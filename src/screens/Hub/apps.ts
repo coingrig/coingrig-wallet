@@ -5,6 +5,7 @@ const apps = [
     screen: 'MarketScreen',
     backgroundImage: require('../../assets/hub/market.png'),
     enable: true,
+    module: true,
   },
   {
     title: 'title.news',
@@ -12,6 +13,7 @@ const apps = [
     screen: 'NewsScreen',
     backgroundImage: require('../../assets/hub/news.png'),
     enable: true,
+    module: true,
   },
   {
     title: 'settings.walletconnect',
@@ -19,6 +21,7 @@ const apps = [
     screen: 'WalletconnectScreen',
     backgroundImage: require('../../assets/hub/wc.png'),
     enable: true,
+    module: true,
   },
   {
     title: 'Swap',
@@ -26,6 +29,7 @@ const apps = [
     backgroundImage: require('../../assets/hub/swap.png'),
     description: 'dashboard.coming_soon',
     enable: false,
+    module: true,
   },
   {
     title: 'Portfolio tracker',
@@ -33,6 +37,7 @@ const apps = [
     backgroundImage: require('../../assets/hub/track.png'),
     description: 'dashboard.coming_soon',
     enable: false,
+    module: true,
   },
   {
     title: 'Create token',
@@ -40,6 +45,7 @@ const apps = [
     backgroundImage: require('../../assets/hub/token.png'),
     description: 'dashboard.coming_soon',
     enable: false,
+    module: true,
   },
   {
     title: 'Create NFT',
@@ -47,6 +53,15 @@ const apps = [
     backgroundImage: require('../../assets/hub/nft.png'),
     description: 'dashboard.coming_soon',
     enable: false,
+    module: true,
+  },
+  {
+    title: 'Coingecko',
+    screen: 'https://coingecko.com',
+    backgroundImage: require('../../assets/hub/nft.png'),
+    description: 'Coingecko website',
+    enable: true,
+    module: false,
   },
 ];
 

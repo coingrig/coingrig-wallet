@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   FlatList,
   ImageBackground,
+  Linking,
   Text,
   TextInput,
   TouchableOpacity,
@@ -13,6 +14,8 @@ import Icon2 from 'react-native-vector-icons/Ionicons';
 import apps from './apps';
 import {styles} from './styles';
 import {Colors} from 'utils/colors';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
+import {Logs} from 'services/logs';
 
 const HubScreen = () => {
   const navigation = useNavigation();
@@ -51,10 +54,38 @@ const HubScreen = () => {
     {viewabilityConfig, onViewableItemsChanged},
   ]);
 
+  const onClick = async item => {
+    if (item.module) {
+      navigation.navigate(item.screen);
+    } else {
+      try {
+        if (await InAppBrowser.isAvailable()) {
+          await InAppBrowser.open(item.screen, {
+            dismissButtonStyle: 'cancel',
+            readerMode: false,
+            animated: true,
+            modalPresentationStyle: 'automatic',
+            modalTransitionStyle: 'coverVertical',
+            modalEnabled: true,
+            enableBarCollapsing: false,
+            showTitle: true,
+            enableUrlBarHiding: true,
+            enableDefaultShare: true,
+            forceCloseOnRedirection: false,
+          });
+        } else {
+          Linking.openURL(item.screen);
+        }
+      } catch (error) {
+        Logs.error(error);
+      }
+    }
+  };
+
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
-        onPress={() => (item.enable ? navigation.navigate(item.screen) : null)}
+        onPress={() => (item.enable ? onClick(item) : null)}
         style={[styles.brick, {}]}>
         <ImageBackground
           source={item.backgroundImage}
