@@ -198,7 +198,7 @@ const SearchScreen = ({route}) => {
             borderColor: Colors.brick,
             backgroundColor: Colors.card,
             paddingHorizontal: 10,
-            height: 40,
+            height: 45,
             borderTopLeftRadius: 5,
             borderBottomLeftRadius: 5,
             color: Colors.foreground,

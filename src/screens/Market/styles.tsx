@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
     height: 45,
     borderWidth: 1,
     borderColor: Colors.brick,
-    backgroundColor: Colors.card,
+    backgroundColor: Colors.border,
     borderRadius: 5,
     alignContent: 'center',
     justifyContent: 'center',

@@ -169,6 +169,8 @@
       "walletconnect.disconnect": "Deconectare",
       "walletconnect.approve": "Aprobă",
       "walletconnect.trying_to_connect": "Accepți conexiunea?",
-      "walletconnect.disclaimer": "Verificați cu atenție adresa URL, asigurați-vă că vizitați site-ul web dorit!"
+      "walletconnect.disclaimer": "Verificați cu atenție adresa URL, asigurați-vă că vizitați site-ul web dorit!",
+
+      "hub.search": "Caută în Hub"
   }
 }

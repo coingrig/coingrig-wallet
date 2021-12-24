@@ -3,6 +3,7 @@ import {
   FlatList,
   ImageBackground,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -16,6 +17,8 @@ import {Colors} from 'utils/colors';
 const HubScreen = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();
+  const [data, setData] = useState(apps);
+  const [searchText, setSearchText] = useState('');
   const [showHeader, setShowHeader] = useState(false);
 
   useEffect(() => {
@@ -52,16 +55,16 @@ const HubScreen = () => {
     return (
       <TouchableOpacity
         onPress={() => (item.enable ? navigation.navigate(item.screen) : null)}
-        style={[styles.brick, {opacity: item.enable ? 1 : 0.3}]}>
+        style={[styles.brick, {}]}>
         <ImageBackground
           source={item.backgroundImage}
           resizeMode="contain"
           imageStyle={{
-            opacity: 0.8,
+            opacity: item.enable ? 0.8 : 0.3,
             marginBottom: 20,
           }}
           style={{flex: 1, justifyContent: 'flex-end'}}>
-          <View style={styles.brickTxt}>
+          <View style={[styles.brickTxt, {opacity: item.enable ? 1 : 0.5}]}>
             <Text style={styles.brickTitle} numberOfLines={1}>
               {t(item.title)}
             </Text>
@@ -73,21 +76,67 @@ const HubScreen = () => {
       </TouchableOpacity>
     );
   };
+  const searchHub = text => {
+    let searchData = data;
+    if (text.length === 0) {
+      setData(apps);
+      return;
+    }
+    if (text.length < searchText.length) {
+      searchData = apps;
+    }
+    setSearchText(text);
+    const newData = searchData.filter(item => {
+      const itemData = `${item.title.toUpperCase()}
+      ${item.description.toUpperCase()}`;
 
+      const textData = text.toUpperCase();
+
+      return itemData.indexOf(textData) > -1;
+    });
+
+    setData(newData);
+  };
+
+  const listHeader = () => {
+    return (
+      <View style={{flex: 1, marginHorizontal: 10, marginBottom: 5}}>
+        <TextInput
+          style={{
+            fontSize: 16,
+            borderWidth: 1,
+            borderColor: Colors.brick,
+            backgroundColor: Colors.border,
+            paddingHorizontal: 10,
+            height: 45,
+            borderRadius: 5,
+            color: Colors.foreground,
+          }}
+          autoCorrect={false}
+          placeholderTextColor={'gray'}
+          onChangeText={text => searchHub(text)}
+          placeholder={t('hub.search')}
+        />
+      </View>
+    );
+  };
   return (
     <View style={styles.container}>
       <View style={showHeader ? styles.headerShadow : null}>
         <View>
-          <Text style={styles.title}>{t('Discover')} </Text>
+          <Text style={styles.title}>{t('Hub')} </Text>
         </View>
       </View>
       <FlatList
-        data={apps}
+        data={data}
+        ListHeaderComponent={listHeader()}
         renderItem={renderItem}
         viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
         numColumns={2}
+        //@ts-ignore
         keyExtractor={(item, index) => index}
         style={{padding: 10}}
+        ListFooterComponent={() => <View style={{height: 30}} />}
       />
     </View>
   );

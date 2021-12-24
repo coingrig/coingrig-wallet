@@ -136,7 +136,7 @@ const DashboardScreen = observer(() => {
               })}
               <Brick coin={'_END_'} key={'_END_'} />
             </ScrollView>
-            {Marketing()}
+            {/* {Marketing()} */}
             <View style={[styles.subContainer, {marginTop: 10}]}>
               <Icon
                 name="list-ul"

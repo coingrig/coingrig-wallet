@@ -169,6 +169,8 @@
       "walletconnect.disconnect": "Déconnecter",
       "walletconnect.approve": "Approuver",
       "walletconnect.trying_to_connect": "Acceptez-vous la connexion?",
-      "walletconnect.disclaimer": "Vérifiez attentivement l'URL, assurez-vous que vous visitez le site Web prévu!"
+      "walletconnect.disclaimer": "Vérifiez attentivement l'URL, assurez-vous que vous visitez le site Web prévu!",
+
+      "hub.search": "Rechercher Hub"
   }
 }

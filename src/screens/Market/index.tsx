@@ -168,6 +168,7 @@ const MarketScreen = observer(() => {
         initialNumToRender={10}
         ListHeaderComponent={listHeader()}
         showsVerticalScrollIndicator={false}
+        ListFooterComponent={() => <View style={{height: 30}} />}
       />
     );
   };
