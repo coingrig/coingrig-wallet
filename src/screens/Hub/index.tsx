@@ -59,8 +59,6 @@ const HubScreen = () => {
           imageStyle={{
             opacity: 0.8,
             marginBottom: 20,
-            borderRadius: 500,
-            backgroundColor: Colors.card,
           }}
           style={{flex: 1, justifyContent: 'flex-end'}}>
           <Text style={styles.brickTitle} numberOfLines={1}>
