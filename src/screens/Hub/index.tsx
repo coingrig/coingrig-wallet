@@ -61,12 +61,14 @@ const HubScreen = () => {
             marginBottom: 20,
           }}
           style={{flex: 1, justifyContent: 'flex-end'}}>
-          <Text style={styles.brickTitle} numberOfLines={1}>
-            {t(item.title)}
-          </Text>
-          <Text style={styles.brickDesc} numberOfLines={1}>
-            {t(item.description)}
-          </Text>
+          <View style={styles.brickTxt}>
+            <Text style={styles.brickTitle} numberOfLines={1}>
+              {t(item.title)}
+            </Text>
+            <Text style={styles.brickDesc} numberOfLines={1}>
+              {t(item.description)}
+            </Text>
+          </View>
         </ImageBackground>
       </TouchableOpacity>
     );
@@ -76,7 +78,7 @@ const HubScreen = () => {
     <View style={styles.container}>
       <View style={showHeader ? styles.headerShadow : null}>
         <View>
-          <Text style={styles.title}>{t('Hub')} </Text>
+          <Text style={styles.title}>{t('Discover')} </Text>
         </View>
       </View>
       <FlatList
