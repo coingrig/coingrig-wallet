@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
   },
   searchbar: {
     marginTop: 15,
-    marginHorizontal: 20,
+    marginHorizontal: 15,
     height: 45,
     borderWidth: 1,
     borderColor: Colors.brick,

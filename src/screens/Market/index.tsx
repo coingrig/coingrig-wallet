@@ -28,18 +28,6 @@ const MarketScreen = observer(() => {
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() => navigation.navigate('NewsScreen')}
-          style={styles.moreBtn}>
-          <Text style={{color: Colors.foreground, marginRight: 5}}>
-            {t('title.news')}
-          </Text>
-          <Icon name="newspaper" size={23} color={Colors.foreground} />
-        </TouchableOpacity>
-      ),
-    });
     fetchCoins();
   }, []);
 
@@ -185,18 +173,7 @@ const MarketScreen = observer(() => {
   };
   return (
     <View style={styles.container}>
-      <View>
-        <View style={{flexDirection: 'row'}}>
-          <Text
-            style={[
-              styles.change,
-              // eslint-disable-next-line react-native/no-inline-styles
-              {color: Number(getMarketAverage()) > 0 ? '#5cb85c' : '#d9534f'},
-            ]}>
-            {getMarketAverage()} %
-          </Text>
-        </View>
-      </View>
+      <View />
       {renderList()}
     </View>
   );

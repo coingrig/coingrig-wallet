@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
   coinName: {
     fontSize: 15,
-    marginBottom: 0,
+    marginBottom: 2,
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.foreground,
   },

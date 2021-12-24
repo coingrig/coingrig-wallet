@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   FlatList,
   ImageBackground,
@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
+import Icon2 from 'react-native-vector-icons/Ionicons';
 import apps from './apps';
 import {styles} from './styles';
 import {Colors} from 'utils/colors';
@@ -15,50 +16,58 @@ import {Colors} from 'utils/colors';
 const HubScreen = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();
+  const [showHeader, setShowHeader] = useState(false);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('SettingScreen')}
+          style={styles.moreBtn}>
+          <Icon2 name="settings-sharp" size={23} color={Colors.foreground} />
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
+
+  const onViewableItemsChanged = ({viewableItems}) => {
+    if (viewableItems[0].index !== 0) {
+      if (!showHeader) {
+        setShowHeader(true);
+      }
+    } else {
+      setShowHeader(false);
+    }
+  };
+
+  const viewabilityConfig = {
+    itemVisiblePercentThreshold: 90,
+    waitForInteraction: true,
+  };
+  const viewabilityConfigCallbackPairs = useRef([
+    {viewabilityConfig, onViewableItemsChanged},
+  ]);
 
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
-        onPress={() => null}
-        style={{
-          flex: 1,
-          flexDirection: 'column',
-          margin: 11,
-          height: 160,
-          backgroundColor: Colors.card,
-          borderRadius: 10,
-          overflow: 'hidden',
-          borderWidth: 1,
-          borderColor: Colors.darker,
-        }}>
+        onPress={() => (item.enable ? navigation.navigate(item.screen) : null)}
+        style={[styles.brick, {opacity: item.enable ? 1 : 0.3}]}>
         <ImageBackground
           source={item.backgroundImage}
-          resizeMode="cover"
-          imageStyle={{opacity: 0.8, justifyContent: 'flex-end'}}
-          style={{flex: 1, borderRadius: 10, justifyContent: 'flex-end'}}>
-          <Text
-            style={{
-              fontSize: 16,
-              paddingHorizontal: 10,
-              fontWeight: 'bold',
-              color: Colors.foreground,
-              backgroundColor: Colors.darker,
-              paddingTop: 5,
-            }}>
-            {item.title}
+          resizeMode="contain"
+          imageStyle={{
+            opacity: 0.8,
+            marginBottom: 20,
+            borderRadius: 500,
+            backgroundColor: Colors.card,
+          }}
+          style={{flex: 1, justifyContent: 'flex-end'}}>
+          <Text style={styles.brickTitle} numberOfLines={1}>
+            {t(item.title)}
           </Text>
-          <Text
-            style={{
-              fontSize: 12,
-              paddingHorizontal: 10,
-              paddingTop: 2,
-              color: Colors.lighter,
-              paddingBottom: 5,
-              backgroundColor: Colors.darker,
-            }}>
-            {item.description}
+          <Text style={styles.brickDesc} numberOfLines={1}>
+            {t(item.description)}
           </Text>
         </ImageBackground>
       </TouchableOpacity>
@@ -67,14 +76,15 @@ const HubScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View>
-        <View style={{flexDirection: 'row'}}>
+      <View style={showHeader ? styles.headerShadow : null}>
+        <View>
           <Text style={styles.title}>{t('Hub')} </Text>
         </View>
       </View>
       <FlatList
         data={apps}
         renderItem={renderItem}
+        viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
         numColumns={2}
         keyExtractor={(item, index) => index}
         style={{padding: 10}}

@@ -16,7 +16,6 @@ import DeepLinkService from 'services/deeplink';
 import {useTranslation} from 'react-i18next';
 import Brick from 'components/brick';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import Icon2 from 'react-native-vector-icons/Ionicons';
 import {ListPrices} from 'components/widgets/listPrices';
 import {formatPrice} from '../../utils';
 import {observer} from 'mobx-react-lite';
@@ -39,15 +38,6 @@ const DashboardScreen = observer(() => {
     if (DeepLinkService.data) {
       DeepLinkService.handleDeepLink(DeepLinkService.data);
     }
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() => navigation.navigate('SettingScreen')}
-          style={styles.moreBtn}>
-          <Icon2 name="settings-sharp" size={23} color={Colors.foreground} />
-        </TouchableOpacity>
-      ),
-    });
     fetchBalance();
     setShowMarketing(
       ConfigStore.getModuleProperty(
