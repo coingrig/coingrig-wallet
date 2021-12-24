@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import apps from './apps';
 import {styles} from './styles';
@@ -54,6 +55,40 @@ const HubScreen = () => {
     {viewabilityConfig, onViewableItemsChanged},
   ]);
 
+  const renderIco = item => {
+    if (item.module) {
+      return (
+        <View
+          style={{
+            position: 'absolute',
+            top: 3,
+            right: 3,
+            backgroundColor: Colors.background,
+            borderRadius: 20,
+            padding: 5,
+            opacity: 0.8,
+          }}>
+          <Icon1 name="open-in-app" size={19} color={Colors.lighter} />
+        </View>
+      );
+    } else {
+      return (
+        <View
+          style={{
+            position: 'absolute',
+            top: 3,
+            right: 3,
+            backgroundColor: Colors.background,
+            borderRadius: 20,
+            padding: 5,
+            opacity: 0.8,
+          }}>
+          <Icon1 name="web" size={19} color={Colors.lighter} />
+        </View>
+      );
+    }
+  };
+
   const onClick = async item => {
     if (item.module) {
       navigation.navigate(item.screen);
@@ -91,7 +126,7 @@ const HubScreen = () => {
           source={item.backgroundImage}
           resizeMode="contain"
           imageStyle={{
-            opacity: item.enable ? 0.8 : 0.3,
+            opacity: item.enable ? 0.8 : 0.15,
             marginBottom: 20,
           }}
           style={{flex: 1, justifyContent: 'flex-end'}}>
@@ -103,6 +138,7 @@ const HubScreen = () => {
               {t(item.description)}
             </Text>
           </View>
+          {renderIco(item)}
         </ImageBackground>
       </TouchableOpacity>
     );
@@ -131,18 +167,9 @@ const HubScreen = () => {
 
   const listHeader = () => {
     return (
-      <View style={{flex: 1, marginHorizontal: 10, marginBottom: 5}}>
+      <View style={{flex: 1, marginHorizontal: 10, marginBottom: 10}}>
         <TextInput
-          style={{
-            fontSize: 16,
-            borderWidth: 1,
-            borderColor: Colors.brick,
-            backgroundColor: Colors.border,
-            paddingHorizontal: 10,
-            height: 45,
-            borderRadius: 5,
-            color: Colors.foreground,
-          }}
+          style={styles.search}
           autoCorrect={false}
           placeholderTextColor={'gray'}
           onChangeText={text => searchHub(text)}
@@ -154,8 +181,9 @@ const HubScreen = () => {
   return (
     <View style={styles.container}>
       <View style={showHeader ? styles.headerShadow : null}>
-        <View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text style={styles.title}>{t('Hub')} </Text>
+          <Text style={styles.subtitle}>{t('In-app Modules')} </Text>
         </View>
       </View>
       <FlatList

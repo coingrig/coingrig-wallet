@@ -55,14 +55,14 @@ const apps = [
     enable: false,
     module: true,
   },
-  {
-    title: 'Coingecko',
-    screen: 'https://coingecko.com',
-    backgroundImage: require('../../assets/hub/nft.png'),
-    description: 'Coingecko website',
-    enable: true,
-    module: false,
-  },
+  // {
+  //   title: 'Coingecko',
+  //   screen: 'https://coingecko.com',
+  //   backgroundImage: require('../../assets/hub/nft.png'),
+  //   description: 'Coingecko website',
+  //   enable: true,
+  //   module: false,
+  // },
 ];
 
 export default apps;
