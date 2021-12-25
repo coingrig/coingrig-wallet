@@ -168,6 +168,7 @@ const SearchScreen = ({route}) => {
           itemHeight={60}
           insetBottom={30}
           insetTop={10}
+          keyboardDismissMode="on-drag"
           // batchSizeThreshold={1.5}
           showsVerticalScrollIndicator={false}
           footerHeight={150}
