@@ -67,7 +67,7 @@ const HubScreen = () => {
             backgroundColor: Colors.background,
             borderRadius: 20,
             padding: 5,
-            opacity: 0.6,
+            opacity: 0.7,
           }}>
           <Icon1 name="open-in-app" size={19} color={Colors.lighter} />
         </View>
