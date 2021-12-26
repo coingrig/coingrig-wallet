@@ -190,6 +190,7 @@ const HubScreen = () => {
         data={data}
         ListHeaderComponent={listHeader()}
         renderItem={renderItem}
+        keyboardDismissMode="on-drag"
         viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
         numColumns={2}
         //@ts-ignore
