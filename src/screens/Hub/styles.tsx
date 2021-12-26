@@ -80,7 +80,7 @@ export const styles = StyleSheet.create({
     height: 130,
     backgroundColor: Colors.card,
     borderRadius: 10,
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderColor: Colors.border,
     shadowColor: '#000',
     shadowOffset: {

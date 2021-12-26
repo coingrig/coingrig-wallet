@@ -1,6 +1,13 @@
 import {Loader} from 'components/loader';
 import * as React from 'react';
-import {View, Text, FlatList, TouchableOpacity, Linking} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Linking,
+  Image,
+} from 'react-native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 var axios = require('axios');
 import * as rssParser from 'react-native-rss-parser';
@@ -70,6 +77,21 @@ export default function NewsScreen() {
     );
   };
 
+  const listHeader = () => {
+    return (
+      <View style={{flex: 1, marginHorizontal: 0, marginBottom: 0}}>
+        <Image
+          source={require('../../assets/hub/news.png')}
+          resizeMode="contain"
+          style={{
+            height: 220,
+            width: '100%',
+          }}
+        />
+      </View>
+    );
+  };
+
   const preRender = () => {
     if (news.length === 0) {
       return Loader();
@@ -82,7 +104,8 @@ export default function NewsScreen() {
           maxToRenderPerBatch={5}
           initialNumToRender={10}
           showsVerticalScrollIndicator={false}
-          style={{paddingTop: 10}}
+          style={{paddingTop: 0}}
+          ListHeaderComponent={listHeader()}
         />
       );
     }
