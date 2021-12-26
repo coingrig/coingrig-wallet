@@ -66,7 +66,7 @@ const HubScreen = () => {
             backgroundColor: Colors.background,
             borderRadius: 20,
             padding: 5,
-            opacity: 0.8,
+            opacity: 0.6,
           }}>
           <Icon1 name="open-in-app" size={19} color={Colors.lighter} />
         </View>
@@ -134,9 +134,9 @@ const HubScreen = () => {
             <Text style={styles.brickTitle} numberOfLines={1}>
               {t(item.title)}
             </Text>
-            <Text style={styles.brickDesc} numberOfLines={1}>
+            {/* <Text style={styles.brickDesc} numberOfLines={1}>
               {t(item.description)}
-            </Text>
+            </Text> */}
           </View>
           {renderIco(item)}
         </ImageBackground>
@@ -155,7 +155,7 @@ const HubScreen = () => {
     setSearchText(text);
     const newData = searchData.filter(item => {
       const itemData = `${item.title.toUpperCase()}
-      ${item.description.toUpperCase()}`;
+      ${item.description.toUpperCase()} ${item.keywords.toUpperCase()}`;
 
       const textData = text.toUpperCase();
 
@@ -167,7 +167,7 @@ const HubScreen = () => {
 
   const listHeader = () => {
     return (
-      <View style={{flex: 1, marginHorizontal: 10, marginBottom: 10}}>
+      <View style={{flex: 1, marginHorizontal: 5, marginBottom: 10}}>
         <TextInput
           style={styles.search}
           autoCorrect={false}

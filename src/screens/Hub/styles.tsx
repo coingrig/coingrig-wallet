@@ -52,9 +52,10 @@ export const styles = StyleSheet.create({
   brickTitle: {
     fontSize: 15,
     paddingHorizontal: 10,
-    color: Colors.foreground,
+    color: Colors.lighter,
     fontFamily: 'RobotoSlab-Bold',
-    paddingTop: 5,
+    paddingVertical: 5,
+    // paddingTop: 5,
   },
   brickDesc: {
     fontSize: 11,
@@ -64,19 +65,20 @@ export const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   brickTxt: {
-    backgroundColor: Colors.border,
+    backgroundColor: Colors.background,
     borderBottomEndRadius: 10,
     borderBottomStartRadius: 10,
-    marginBottom: 0,
+    // opacity: 0,
+    // marginBottom: 2,
   },
   brick: {
     flex: 1,
     flexDirection: 'column',
-    margin: 10,
-    height: 160,
+    margin: 7,
+    height: 130,
     backgroundColor: Colors.card,
     borderRadius: 10,
-    borderWidth: 0,
+    borderWidth: 1,
     borderColor: Colors.border,
     shadowColor: '#000',
     shadowOffset: {
