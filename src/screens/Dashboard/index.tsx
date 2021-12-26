@@ -1,14 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useCallback, useEffect, useState} from 'react';
-import {
-  RefreshControl,
-  ScrollView,
-  Text,
-  View,
-  TouchableOpacity,
-} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {RefreshControl, ScrollView, Text, View} from 'react-native';
+// import {useNavigation} from '@react-navigation/native';
 
 import {WalletStore} from 'stores/wallet';
 import {CryptoService} from 'services/crypto';
@@ -24,14 +18,14 @@ import {LoadingModal} from 'services/loading';
 import {styles} from './styles';
 import {Colors} from 'utils/colors';
 import {showMessage} from 'react-native-flash-message';
-import {CONFIG_MODULES, CONFIG_PROPERTIES, ConfigStore} from 'stores/config';
+// import {CONFIG_MODULES, CONFIG_PROPERTIES, ConfigStore} from 'stores/config';
 import AppsStateService from 'services/appStates';
 
 const DashboardScreen = observer(() => {
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
-  const navigation = useNavigation();
-  const [showMarketing, setShowMarketing] = useState(false);
+  // const navigation = useNavigation();
+  // const [showMarketing, setShowMarketing] = useState(false);
 
   useEffect(() => {
     AppsStateService.coldStart = false;
@@ -39,13 +33,13 @@ const DashboardScreen = observer(() => {
       DeepLinkService.handleDeepLink(DeepLinkService.data);
     }
     fetchBalance();
-    setShowMarketing(
-      ConfigStore.getModuleProperty(
-        CONFIG_MODULES.MARKETING_HOME,
-        CONFIG_PROPERTIES.MARKETING_HOME.DISPLAY_NEWS,
-        false,
-      ),
-    );
+    // setShowMarketing(
+    //   ConfigStore.getModuleProperty(
+    //     CONFIG_MODULES.MARKETING_HOME,
+    //     CONFIG_PROPERTIES.MARKETING_HOME.DISPLAY_NEWS,
+    //     false,
+    //   ),
+    // );
   }, []);
 
   const onRefresh = useCallback(async () => {
@@ -66,45 +60,45 @@ const DashboardScreen = observer(() => {
     LoadingModal.instance.current?.hide();
   }, []);
 
-  const Marketing = () => {
-    if (!showMarketing) {
-      return null;
-    }
-    return (
-      <View>
-        <View style={styles.subContainer}>
-          <Icon
-            name="info-circle"
-            size={15}
-            color={Colors.lighter}
-            style={styles.icons}
-          />
-          <Text style={styles.subtitle}>{t('dashboard.coming_soon')}</Text>
-        </View>
-        <View style={styles.infoCard}>
-          <View style={styles.infoContainer}>
-            <Icon name="coins" size={19} color={Colors.lighter} />
-            <Text
-              style={styles.infoText}
-              numberOfLines={1}
-              adjustsFontSizeToFit>
-              {t('dashboard.info1')}
-            </Text>
-          </View>
-          <View style={styles.vLine} />
-          <View style={styles.infoContainer}>
-            <Icon name="vector-square" size={19} color={Colors.lighter} />
-            <Text
-              style={styles.infoText}
-              numberOfLines={1}
-              adjustsFontSizeToFit>
-              {t('dashboard.info2')}
-            </Text>
-          </View>
-        </View>
-      </View>
-    );
-  };
+  // const Marketing = () => {
+  //   if (!showMarketing) {
+  //     return null;
+  //   }
+  //   return (
+  //     <View>
+  //       <View style={styles.subContainer}>
+  //         <Icon
+  //           name="info-circle"
+  //           size={15}
+  //           color={Colors.lighter}
+  //           style={styles.icons}
+  //         />
+  //         <Text style={styles.subtitle}>{t('dashboard.coming_soon')}</Text>
+  //       </View>
+  //       <View style={styles.infoCard}>
+  //         <View style={styles.infoContainer}>
+  //           <Icon name="coins" size={19} color={Colors.lighter} />
+  //           <Text
+  //             style={styles.infoText}
+  //             numberOfLines={1}
+  //             adjustsFontSizeToFit>
+  //             {t('dashboard.info1')}
+  //           </Text>
+  //         </View>
+  //         <View style={styles.vLine} />
+  //         <View style={styles.infoContainer}>
+  //           <Icon name="vector-square" size={19} color={Colors.lighter} />
+  //           <Text
+  //             style={styles.infoText}
+  //             numberOfLines={1}
+  //             adjustsFontSizeToFit>
+  //             {t('dashboard.info2')}
+  //           </Text>
+  //         </View>
+  //       </View>
+  //     </View>
+  //   );
+  // };
 
   const preRender = () => {
     if (WalletStore.wallets.length === 0) {

@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
-import Icon from 'react-native-vector-icons/Ionicons';
 import MarketItem from 'components/marketItem';
 import {Colors} from 'utils/colors';
 import {MarketStore, MarketCapCoinType} from 'stores/market';
@@ -88,21 +87,21 @@ const MarketScreen = observer(() => {
     return styles.appButtonContainer;
   };
 
-  let getMarketAverage = (): string => {
-    if (!MarketStore.coins.length) {
-      return '';
-    }
-    return String(
-      (
-        MarketStore.coins.reduce(
-          (sum: number, value: MarketCapCoinType): number => {
-            return sum + value.price_change_percentage_24h;
-          },
-          0,
-        ) / MarketStore.coins.length
-      ).toFixed(2),
-    );
-  };
+  // let getMarketAverage = (): string => {
+  //   if (!MarketStore.coins.length) {
+  //     return '';
+  //   }
+  //   return String(
+  //     (
+  //       MarketStore.coins.reduce(
+  //         (sum: number, value: MarketCapCoinType): number => {
+  //           return sum + value.price_change_percentage_24h;
+  //         },
+  //         0,
+  //       ) / MarketStore.coins.length
+  //     ).toFixed(2),
+  //   );
+  // };
 
   const listHeader = () => {
     return (

@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   FlatList,
   ImageBackground,
@@ -35,6 +35,7 @@ const HubScreen = () => {
         </TouchableOpacity>
       ),
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onViewableItemsChanged = ({viewableItems}) => {

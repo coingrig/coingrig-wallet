@@ -32,7 +32,7 @@ const apps = [
     backgroundImage: require('../../assets/hub/swap.png'),
     description: 'dashboard.coming_soon',
     keywords: 'swap, schimb, exchange',
-    enable: true,
+    enable: false,
     module: true,
   },
   {
