@@ -191,6 +191,7 @@ const HubScreen = () => {
         data={data}
         ListHeaderComponent={listHeader()}
         renderItem={renderItem}
+        showsVerticalScrollIndicator={false}
         keyboardDismissMode="on-drag"
         viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
         numColumns={2}

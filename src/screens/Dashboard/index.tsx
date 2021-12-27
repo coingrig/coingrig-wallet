@@ -10,6 +10,7 @@ import DeepLinkService from 'services/deeplink';
 import {useTranslation} from 'react-i18next';
 import Brick from 'components/brick';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon2 from 'react-native-vector-icons/Entypo';
 import {ListPrices} from 'components/widgets/listPrices';
 import {formatPrice} from '../../utils';
 import {observer} from 'mobx-react-lite';
@@ -18,14 +19,14 @@ import {LoadingModal} from 'services/loading';
 import {styles} from './styles';
 import {Colors} from 'utils/colors';
 import {showMessage} from 'react-native-flash-message';
-// import {CONFIG_MODULES, CONFIG_PROPERTIES, ConfigStore} from 'stores/config';
+import {CONFIG_MODULES, CONFIG_PROPERTIES, ConfigStore} from 'stores/config';
 import AppsStateService from 'services/appStates';
 
 const DashboardScreen = observer(() => {
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
   // const navigation = useNavigation();
-  // const [showMarketing, setShowMarketing] = useState(false);
+  const [showMarketing, setShowMarketing] = useState(false);
 
   useEffect(() => {
     AppsStateService.coldStart = false;
@@ -33,13 +34,13 @@ const DashboardScreen = observer(() => {
       DeepLinkService.handleDeepLink(DeepLinkService.data);
     }
     fetchBalance();
-    // setShowMarketing(
-    //   ConfigStore.getModuleProperty(
-    //     CONFIG_MODULES.MARKETING_HOME,
-    //     CONFIG_PROPERTIES.MARKETING_HOME.DISPLAY_NEWS,
-    //     false,
-    //   ),
-    // );
+    setShowMarketing(
+      ConfigStore.getModuleProperty(
+        CONFIG_MODULES.MARKETING_HOME,
+        CONFIG_PROPERTIES.MARKETING_HOME.DISPLAY_NEWS,
+        false,
+      ),
+    );
   }, []);
 
   const onRefresh = useCallback(async () => {
@@ -60,45 +61,45 @@ const DashboardScreen = observer(() => {
     LoadingModal.instance.current?.hide();
   }, []);
 
-  // const Marketing = () => {
-  //   if (!showMarketing) {
-  //     return null;
-  //   }
-  //   return (
-  //     <View>
-  //       <View style={styles.subContainer}>
-  //         <Icon
-  //           name="info-circle"
-  //           size={15}
-  //           color={Colors.lighter}
-  //           style={styles.icons}
-  //         />
-  //         <Text style={styles.subtitle}>{t('dashboard.coming_soon')}</Text>
-  //       </View>
-  //       <View style={styles.infoCard}>
-  //         <View style={styles.infoContainer}>
-  //           <Icon name="coins" size={19} color={Colors.lighter} />
-  //           <Text
-  //             style={styles.infoText}
-  //             numberOfLines={1}
-  //             adjustsFontSizeToFit>
-  //             {t('dashboard.info1')}
-  //           </Text>
-  //         </View>
-  //         <View style={styles.vLine} />
-  //         <View style={styles.infoContainer}>
-  //           <Icon name="vector-square" size={19} color={Colors.lighter} />
-  //           <Text
-  //             style={styles.infoText}
-  //             numberOfLines={1}
-  //             adjustsFontSizeToFit>
-  //             {t('dashboard.info2')}
-  //           </Text>
-  //         </View>
-  //       </View>
-  //     </View>
-  //   );
-  // };
+  const Marketing = () => {
+    if (!showMarketing) {
+      return null;
+    }
+    return (
+      <View>
+        <View style={styles.subContainer}>
+          <Icon
+            name="info-circle"
+            size={15}
+            color={Colors.lighter}
+            style={styles.icons}
+          />
+          <Text style={styles.subtitle}>{t('dashboard.coming_soon')}</Text>
+        </View>
+        <View style={styles.infoCard}>
+          <View style={styles.infoContainer}>
+            <Icon2 name="network" size={19} color={Colors.lighter} />
+            <Text
+              style={styles.infoText}
+              numberOfLines={1}
+              adjustsFontSizeToFit>
+              {t('dashboard.info1')}
+            </Text>
+          </View>
+          <View style={styles.vLine} />
+          <View style={styles.infoContainer}>
+            <Icon2 name="network" size={19} color={Colors.lighter} />
+            <Text
+              style={styles.infoText}
+              numberOfLines={1}
+              adjustsFontSizeToFit>
+              {t('dashboard.info2')}
+            </Text>
+          </View>
+        </View>
+      </View>
+    );
+  };
 
   const preRender = () => {
     if (WalletStore.wallets.length === 0) {
@@ -130,7 +131,7 @@ const DashboardScreen = observer(() => {
               })}
               <Brick coin={'_END_'} key={'_END_'} />
             </ScrollView>
-            {/* {Marketing()} */}
+            {Marketing()}
             <View style={[styles.subContainer, {marginTop: 10}]}>
               <Icon
                 name="list-ul"
