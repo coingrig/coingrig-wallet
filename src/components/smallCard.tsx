@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.card,
     justifyContent: 'center',
     marginHorizontal: 15,
-    marginVertical: 5,
+    marginVertical: 3,
   },
 });
 
