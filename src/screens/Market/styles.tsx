@@ -37,8 +37,9 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.lighter,
-    marginVertical: 15,
+    marginTop: 10,
     marginLeft: 20,
+    alignSelf: 'center',
   },
   moreBtn: {
     paddingHorizontal: 5,
@@ -47,11 +48,17 @@ export const styles = StyleSheet.create({
     paddingRight: 20,
     flexDirection: 'row',
   },
+  subtitleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 5,
+    // backgroundColor: 'red',
+  },
   pillsContainer: {
-    marginHorizontal: 20,
     marginBottom: 5,
     marginTop: 15,
     flexDirection: 'row',
+    marginRight: 10,
   },
   appButtonContainerSelected: {
     alignSelf: 'flex-start',

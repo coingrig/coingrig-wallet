@@ -11,11 +11,13 @@ import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import MarketItem from 'components/marketItem';
 import {Colors} from 'utils/colors';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {MarketStore, MarketCapCoinType} from 'stores/market';
 import {observer} from 'mobx-react-lite';
 import {COINS_MAX} from '../../utils/constants';
 import {styles} from './styles';
 import {showMessage} from 'react-native-flash-message';
+import FastImage from 'react-native-fast-image';
 
 const MarketScreen = observer(() => {
   const FILTER_ALL = 'all';
@@ -25,8 +27,18 @@ const MarketScreen = observer(() => {
   const [searchFilter, setSearchFilter] = useState(FILTER_ALL);
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
-
   useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('SearchScreen', {onlySupported: false})
+          }
+          style={styles.moreBtn}>
+          <Icon name="search" size={23} color={Colors.foreground} />
+        </TouchableOpacity>
+      ),
+    });
     fetchCoins();
   }, []);
 
@@ -106,41 +118,42 @@ const MarketScreen = observer(() => {
   const listHeader = () => {
     return (
       <View>
-        <TouchableOpacity
-          onPressIn={() =>
-            navigation.navigate('SearchScreen', {onlySupported: false})
-          }
-          style={styles.searchbar}>
-          <Text style={styles.textInputStyle}>
-            {t('market.search_placeholder')}
-          </Text>
-        </TouchableOpacity>
-        <View style={styles.pillsContainer}>
-          <TouchableOpacity
-            style={getCoinFilterStyle(FILTER_ALL)}
-            onPress={() => {
-              setSearchFilter(FILTER_ALL);
-            }}>
-            <Text style={styles.appButtonText}>
-              {t('market.top')} {COINS_MAX}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={getCoinFilterStyle(FILTER_GAINERS)}
-            onPress={() => {
-              setSearchFilter(FILTER_GAINERS);
-            }}>
-            <Text style={styles.appButtonText}>{t('market.gainers')}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={getCoinFilterStyle(FILTER_LOSERS)}
-            onPress={() => {
-              setSearchFilter(FILTER_LOSERS);
-            }}>
-            <Text style={styles.appButtonText}>{t('market.losers')}</Text>
-          </TouchableOpacity>
+        <FastImage
+          source={require('../../assets/hub/market.png')}
+          resizeMode="contain"
+          style={{
+            height: 220,
+            width: '100%',
+          }}
+        />
+        <View style={styles.subtitleContainer}>
+          <Text style={styles.subtitle}>{t('market.assets')}</Text>
+          <View style={styles.pillsContainer}>
+            <TouchableOpacity
+              style={getCoinFilterStyle(FILTER_ALL)}
+              onPress={() => {
+                setSearchFilter(FILTER_ALL);
+              }}>
+              <Text style={styles.appButtonText}>
+                {t('market.top')} {COINS_MAX}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={getCoinFilterStyle(FILTER_GAINERS)}
+              onPress={() => {
+                setSearchFilter(FILTER_GAINERS);
+              }}>
+              <Text style={styles.appButtonText}>{t('market.gainers')}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={getCoinFilterStyle(FILTER_LOSERS)}
+              onPress={() => {
+                setSearchFilter(FILTER_LOSERS);
+              }}>
+              <Text style={styles.appButtonText}>{t('market.losers')}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <Text style={styles.subtitle}>{t('market.assets')}</Text>
       </View>
     );
   };

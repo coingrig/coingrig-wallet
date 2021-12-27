@@ -69,7 +69,7 @@ const HubScreen = () => {
             padding: 5,
             opacity: 0.7,
           }}>
-          <Icon1 name="open-in-app" size={19} color={Colors.lighter} />
+          <Icon1 name="open-in-app" size={16} color={Colors.lighter} />
         </View>
       );
     } else {
