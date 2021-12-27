@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.card,
     padding: 20,
     borderRadius: 5,
-    marginVertical: 5,
+    marginVertical: 4,
     flexDirection: 'row',
     alignItems: 'center',
   },
