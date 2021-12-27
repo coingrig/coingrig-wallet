@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
   subtitleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 5,
+    // marginVertical: 0,
     // backgroundColor: 'red',
   },
   pillsContainer: {

@@ -36,6 +36,15 @@ const apps = [
     module: true,
   },
   {
+    title: 'Index invest',
+    screen: 'IndexScreen',
+    backgroundImage: require('../../assets/hub/invest.png'),
+    description: 'dashboard.coming_soon',
+    keywords: 'index, etf, invest',
+    enable: false,
+    module: true,
+  },
+  {
     title: 'Portfolio tracker',
     screen: 'NewsScreen',
     backgroundImage: require('../../assets/hub/track.png'),
