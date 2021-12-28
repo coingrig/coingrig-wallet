@@ -32,10 +32,11 @@ const MarketScreen = observer(() => {
       headerRight: () => (
         <TouchableOpacity
           onPress={() =>
+            //@ts-ignore
             navigation.navigate('SearchScreen', {onlySupported: false})
           }
           style={styles.moreBtn}>
-          <Icon name="search" size={23} color={Colors.foreground} />
+          <Icon name="search" size={22} color={Colors.foreground} />
         </TouchableOpacity>
       ),
     });
@@ -98,22 +99,6 @@ const MarketScreen = observer(() => {
     }
     return styles.appButtonContainer;
   };
-
-  // let getMarketAverage = (): string => {
-  //   if (!MarketStore.coins.length) {
-  //     return '';
-  //   }
-  //   return String(
-  //     (
-  //       MarketStore.coins.reduce(
-  //         (sum: number, value: MarketCapCoinType): number => {
-  //           return sum + value.price_change_percentage_24h;
-  //         },
-  //         0,
-  //       ) / MarketStore.coins.length
-  //     ).toFixed(2),
-  //   );
-  // };
 
   const listHeader = () => {
     return (
@@ -180,6 +165,7 @@ const MarketScreen = observer(() => {
         initialNumToRender={10}
         ListHeaderComponent={listHeader()}
         showsVerticalScrollIndicator={false}
+        // eslint-disable-next-line react-native/no-inline-styles
         ListFooterComponent={() => <View style={{height: 30}} />}
       />
     );

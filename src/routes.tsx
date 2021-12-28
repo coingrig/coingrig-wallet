@@ -109,6 +109,7 @@ function BottomTabs() {
     <Tab.Navigator
       initialRouteName="Dashboard"
       headerMode="screen"
+      //@ts-ignore
       screenOptions={({route}) => ({
         tabBarShowLabel: false,
         tabBarActiveTintColor: '#FFFFFF',
@@ -116,14 +117,14 @@ function BottomTabs() {
         tabBarStyle: {
           borderTopWidth: 0,
           elevation: 0,
-          height: Platform.OS === 'android' ? 60 : 75,
+          height: Platform.OS === 'android' ? 55 : 75,
           marginTop: 3,
         },
         tabBarItemStyle: {
           marginHorizontal: 20,
           borderRadius: 40,
           paddingVertical: 5,
-          marginBottom: Platform.OS === 'android' && 10,
+          marginBottom: Platform.OS === 'android' && 5,
         },
         tabBarIcon: ({focused}) => {
           if (route.name === 'Dashboard') {
@@ -212,11 +213,8 @@ function BottomTabs() {
     </Tab.Navigator>
   );
 }
-// const BT = React.memo(BottomTabs);
-// export const NavigationScreens = React.memo(NS);
 
 function NavigationStack({t}) {
-  // i18n
   return (
     <Stack.Navigator>
       <Stack.Screen

@@ -171,6 +171,13 @@
       "walletconnect.trying_to_connect": "Acceptez-vous la connexion?",
       "walletconnect.disclaimer": "Vérifiez attentivement l'URL, assurez-vous que vous visitez le site Web prévu!",
 
-      "hub.search": "Rechercher Hub"
+      "hub.search": "Rechercher Hub",
+      "hub.modules": "Modules",
+      "hub.swap": "Swap",
+      "hub.indexes": "Indexes",
+      "hub.earn": "Earn interest",
+      "hub.portfolio_tracker": "Portfolio tracker",
+      "hub.create_token": "Create token",
+      "hub.create_nft": "Create NFT"
   }
 }

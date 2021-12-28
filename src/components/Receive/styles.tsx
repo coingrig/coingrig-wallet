@@ -27,6 +27,7 @@ export const styles = StyleSheet.create({
     borderWidth: 0,
     justifyContent: 'center',
     alignSelf: 'center',
+    backgroundColor: 'white',
   },
   share: {flex: 1, justifyContent: 'flex-end', marginBottom: 40},
   address: {

@@ -1,7 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useCallback, useEffect, useState} from 'react';
-import {RefreshControl, ScrollView, Text, View} from 'react-native';
+import {
+  RefreshControl,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 // import {useNavigation} from '@react-navigation/native';
 
 import {WalletStore} from 'stores/wallet';
@@ -11,6 +17,7 @@ import {useTranslation} from 'react-i18next';
 import Brick from 'components/brick';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon2 from 'react-native-vector-icons/Entypo';
+import Icon3 from 'react-native-vector-icons/Ionicons';
 import {ListPrices} from 'components/widgets/listPrices';
 import {formatPrice} from '../../utils';
 import {observer} from 'mobx-react-lite';
@@ -21,11 +28,12 @@ import {Colors} from 'utils/colors';
 import {showMessage} from 'react-native-flash-message';
 import {CONFIG_MODULES, CONFIG_PROPERTIES, ConfigStore} from 'stores/config';
 import AppsStateService from 'services/appStates';
+import {useNavigation} from '@react-navigation/native';
 
 const DashboardScreen = observer(() => {
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
   const [showMarketing, setShowMarketing] = useState(false);
 
   useEffect(() => {
@@ -33,6 +41,15 @@ const DashboardScreen = observer(() => {
     if (DeepLinkService.data) {
       DeepLinkService.handleDeepLink(DeepLinkService.data);
     }
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('SettingScreen')}
+          style={styles.moreBtn}>
+          <Icon3 name="settings-sharp" size={23} color={Colors.foreground} />
+        </TouchableOpacity>
+      ),
+    });
     fetchBalance();
     setShowMarketing(
       ConfigStore.getModuleProperty(

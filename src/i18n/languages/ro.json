@@ -171,6 +171,13 @@
       "walletconnect.trying_to_connect": "Accepți conexiunea?",
       "walletconnect.disclaimer": "Verificați cu atenție adresa URL, asigurați-vă că vizitați site-ul web dorit!",
 
-      "hub.search": "Caută în Hub"
+      "hub.search": "Caută în Hub",
+      "hub.modules": "Module",
+      "hub.swap": "Swap",
+      "hub.indexes": "Indexes",
+      "hub.earn": "Earn interest",
+      "hub.portfolio_tracker": "Portfolio tracker",
+      "hub.create_token": "Create token",
+      "hub.create_nft": "Create NFT"
   }
 }

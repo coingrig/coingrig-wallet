@@ -1,4 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useRef, useState} from 'react';
 import {
   FlatList,
   ImageBackground,
@@ -11,7 +12,6 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
-import Icon2 from 'react-native-vector-icons/Ionicons';
 import apps from './apps';
 import {styles} from './styles';
 import {Colors} from 'utils/colors';
@@ -24,19 +24,6 @@ const HubScreen = () => {
   const [data, setData] = useState(apps);
   const [searchText, setSearchText] = useState('');
   const [showHeader, setShowHeader] = useState(false);
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() => navigation.navigate('SettingScreen')}
-          style={styles.moreBtn}>
-          <Icon2 name="settings-sharp" size={23} color={Colors.foreground} />
-        </TouchableOpacity>
-      ),
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const onViewableItemsChanged = ({viewableItems}) => {
     if (viewableItems[0].index !== 0) {
@@ -135,9 +122,6 @@ const HubScreen = () => {
             <Text style={styles.brickTitle} numberOfLines={1}>
               {t(item.title)}
             </Text>
-            {/* <Text style={styles.brickDesc} numberOfLines={1}>
-              {t(item.description)}
-            </Text> */}
           </View>
           {renderIco(item)}
         </ImageBackground>
@@ -155,11 +139,8 @@ const HubScreen = () => {
     }
     setSearchText(text);
     const newData = searchData.filter(item => {
-      const itemData = `${item.title.toUpperCase()}
-      ${item.description.toUpperCase()} ${item.keywords.toUpperCase()}`;
-
+      const itemData = `${item.title.toUpperCase()} ${item.keywords.toUpperCase()}`;
       const textData = text.toUpperCase();
-
       return itemData.indexOf(textData) > -1;
     });
 
@@ -184,7 +165,9 @@ const HubScreen = () => {
       <View style={showHeader ? styles.headerShadow : null}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text style={styles.title}>{t('Hub')} </Text>
-          <Text style={styles.subtitle}>{t('In-app Modules')} </Text>
+          <Text style={styles.subtitle}>
+            {apps.length + ' ' + t('hub.modules')}
+          </Text>
         </View>
       </View>
       <FlatList
