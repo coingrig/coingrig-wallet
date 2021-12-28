@@ -68,7 +68,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.background,
     borderBottomEndRadius: 10,
     borderBottomStartRadius: 10,
-    borderTopWidth: 1,
+    borderTopWidth: 0.5,
     borderTopColor: Colors.border,
     // opacity: 0,
     // marginBottom: 2,
