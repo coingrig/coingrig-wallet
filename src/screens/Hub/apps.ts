@@ -32,7 +32,7 @@ const apps = [
     module: true,
   },
   {
-    title: 'hub.indexes',
+    title: 'hub.index',
     screen: 'IndexScreen',
     backgroundImage: require('../../assets/hub/invest.png'),
     keywords: 'index, etf, invest',
