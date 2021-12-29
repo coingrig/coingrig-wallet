@@ -25,11 +25,21 @@ import {BigButton} from 'components/bigButton';
 
 const actionCamera: React.RefObject<any> = createRef();
 
-const WalletconnectScreen = observer(() => {
+const WalletconnectScreen = observer(({route}) => {
   const {t} = useTranslation();
 
   useEffect((): any => {
+    if (route.params && route.params.uri) {
+      let uri = route.params.uri;
+      const data: any = {uri};
+      data.redirect = '';
+      data.autosign = false;
+      if (!WalletConnectService.init(data)) {
+        // Display error message
+      }
+    }
     return WalletConnectService.closeSession;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSuccess = e => {

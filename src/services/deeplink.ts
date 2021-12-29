@@ -35,10 +35,25 @@ class DeepLinkService {
       case 'add':
         this.addNewToken(data);
         break;
+      case 'wc':
+        this.startWC(data[1]);
+        break;
       default:
         break;
     }
   };
+
+  //https://link.coingrig.com/wc?uri=wc:f8a56479-b1e3-4158-9727-ee59f46a8509@1?bridge=https%3A%2F%2Fg.bridge.walletconnect.org&key=9c0eff5cd266f4039cc7300a86594d76320f4ce57f1c4b3bac3a12ada4df8409
+  startWC(WCuri: any) {
+    try {
+      CONFIG.navigation.navigate('WalletconnectScreen', {
+        uri: WCuri,
+      });
+      this.data = null;
+    } catch (error) {
+      Logs.error(error);
+    }
+  }
 
   addNewToken(data: any) {
     try {
@@ -57,8 +72,13 @@ class DeepLinkService {
     if (!urlToParse) {
       return null;
     }
-    urlToParse = urlToParse.replace('https://link.coingrig.com/', '');
-    urlToParse = urlToParse.split('/');
+    if (urlToParse.includes('wc?uri=')) {
+      const wc = urlToParse.replace('https://link.coingrig.com/wc?uri=', '');
+      urlToParse = ['wc', wc];
+    } else {
+      urlToParse = urlToParse.replace('https://link.coingrig.com/', '');
+      urlToParse = urlToParse.split('/');
+    }
     return urlToParse;
   };
 }
