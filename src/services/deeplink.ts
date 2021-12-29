@@ -72,6 +72,9 @@ class DeepLinkService {
     if (!urlToParse) {
       return null;
     }
+    if (urlToParse.startsWith('wc:')) {
+      return ['wc', urlToParse];
+    }
     if (urlToParse.includes('wc?uri=')) {
       const wc = urlToParse.replace('https://link.coingrig.com/wc?uri=', '');
       urlToParse = ['wc', wc];
