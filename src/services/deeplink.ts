@@ -57,7 +57,7 @@ class DeepLinkService {
     if (!urlToParse) {
       return null;
     }
-    urlToParse = urlToParse.replace('coingrig://', '');
+    urlToParse = urlToParse.replace('https://link.coingrig.com/', '');
     urlToParse = urlToParse.split('/');
     return urlToParse;
   };
