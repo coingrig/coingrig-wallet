@@ -24,7 +24,11 @@ class DeepLinkService {
     }
     this.data = this.parseUrl(newUrl);
     Logs.info(this.data);
-    if (CONFIG.navigation.navigate && !appStates.coldStart) {
+    if (
+      CONFIG.navigation &&
+      CONFIG.navigation.navigate &&
+      !appStates.coldStart
+    ) {
       Logs.info(CONFIG.navigation);
       this.handleDeepLink(this.data);
     }
@@ -74,6 +78,16 @@ class DeepLinkService {
     }
     if (urlToParse.startsWith('wc:')) {
       return ['wc', urlToParse];
+    }
+    if (urlToParse.startsWith('coingrig://')) {
+      urlToParse = urlToParse.replace('coingrig://', '');
+      if (urlToParse.startsWith('wc')) {
+        // coingrig://wc?uri=wc:a2b8eeac-0a82-435e-8581-8531be0c8c6d@1?bridge=https%3A%2F%2Fe.bridge.walletconnect.org&key=dd5555e980c89defa71102fa9ae0a0e1e8f51e0f88b96f13882ba85334ccba90
+        urlToParse = urlToParse.replace('wc?uri=', '');
+        return ['wc', urlToParse];
+      }
+      urlToParse = urlToParse.split('/');
+      return urlToParse;
     }
     if (urlToParse.includes('wc?uri=')) {
       const wc = urlToParse.replace('https://link.coingrig.com/wc?uri=', '');
