@@ -176,6 +176,6 @@ export const styles = StyleSheet.create({
   moreBtn: {
     paddingHorizontal: 5,
     justifyContent: 'space-around',
-    paddingRight: 20,
+    paddingRight: 15,
   },
 });

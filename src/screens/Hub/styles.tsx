@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.foreground,
     marginTop: 0,
-    marginLeft: 20,
+    marginLeft: 15,
   },
   subtitle: {
     fontSize: 14,
@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     color: Colors.lighter,
     justifyContent: 'center',
     alignSelf: 'center',
-    marginRight: 20,
+    marginRight: 15,
   },
   search: {
     fontSize: 16,

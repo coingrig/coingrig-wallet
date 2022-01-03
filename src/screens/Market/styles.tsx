@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingRight: 20,
+    paddingRight: 15,
     flexDirection: 'row',
   },
   subtitleContainer: {

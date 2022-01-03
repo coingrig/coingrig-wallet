@@ -96,7 +96,7 @@ const SmallLogo = () => {
           height: 280 / 13,
           width: 279 / 13,
           tintColor: Colors.foreground,
-          marginLeft: 3,
+          // marginLeft: 3,
         }}
       />
       {isTestnet()}

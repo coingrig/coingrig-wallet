@@ -26,6 +26,8 @@ const MarketScreen = observer(() => {
   const navigation = useNavigation();
   const [searchFilter, setSearchFilter] = useState(FILTER_ALL);
   const {t} = useTranslation();
+  // const [imgHeight, setImgHeight] = useState(200);
+  // const [imgOpac, setImgOpac] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
   useEffect(() => {
     navigation.setOptions({
@@ -107,8 +109,9 @@ const MarketScreen = observer(() => {
           source={require('../../assets/hub/market.png')}
           resizeMode="contain"
           style={{
-            height: 220,
+            height: 190,
             width: '100%',
+            marginVertical: 10,
           }}
         />
         <View style={styles.subtitleContainer}>
@@ -147,6 +150,15 @@ const MarketScreen = observer(() => {
     fetchCoins();
   }, []);
 
+  // const handleScroll = (event: any) => {
+  //   let opac = 1 - event.nativeEvent.contentOffset.y * 0.004;
+  //   if (opac > 1 || opac < 0) {
+  //     return;
+  //   }
+  //   setImgOpac(1 - event.nativeEvent.contentOffset.y * 0.004);
+  //   // setImgHeight(220 - event.nativeEvent.contentOffset.y);
+  // };
+
   const renderList = () => {
     return (
       <FlatList
@@ -164,6 +176,7 @@ const MarketScreen = observer(() => {
         maxToRenderPerBatch={5}
         initialNumToRender={10}
         ListHeaderComponent={listHeader()}
+        // onScroll={handleScroll}
         showsVerticalScrollIndicator={false}
         // eslint-disable-next-line react-native/no-inline-styles
         ListFooterComponent={() => <View style={{height: 30}} />}
