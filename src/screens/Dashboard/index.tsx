@@ -5,10 +5,10 @@ import {
   RefreshControl,
   ScrollView,
   Text,
-  View,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+// import {useNavigation} from '@react-navigation/native';
 
 import {WalletStore} from 'stores/wallet';
 import {CryptoService} from 'services/crypto';
@@ -16,7 +16,8 @@ import DeepLinkService from 'services/deeplink';
 import {useTranslation} from 'react-i18next';
 import Brick from 'components/brick';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import Icon2 from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/Entypo';
+import Icon3 from 'react-native-vector-icons/Ionicons';
 import {ListPrices} from 'components/widgets/listPrices';
 import {formatPrice} from '../../utils';
 import {observer} from 'mobx-react-lite';
@@ -27,6 +28,7 @@ import {Colors} from 'utils/colors';
 import {showMessage} from 'react-native-flash-message';
 import {CONFIG_MODULES, CONFIG_PROPERTIES, ConfigStore} from 'stores/config';
 import AppsStateService from 'services/appStates';
+import {useNavigation} from '@react-navigation/native';
 
 const DashboardScreen = observer(() => {
   const {t} = useTranslation();
@@ -44,7 +46,7 @@ const DashboardScreen = observer(() => {
         <TouchableOpacity
           onPress={() => navigation.navigate('SettingScreen')}
           style={styles.moreBtn}>
-          <Icon2 name="settings-sharp" size={23} color={Colors.foreground} />
+          <Icon3 name="settings-sharp" size={23} color={Colors.foreground} />
         </TouchableOpacity>
       ),
     });
@@ -93,7 +95,7 @@ const DashboardScreen = observer(() => {
         </View>
         <View style={styles.infoCard}>
           <View style={styles.infoContainer}>
-            <Icon name="coins" size={19} color={Colors.lighter} />
+            <Icon2 name="network" size={19} color={Colors.lighter} />
             <Text
               style={styles.infoText}
               numberOfLines={1}
@@ -103,7 +105,7 @@ const DashboardScreen = observer(() => {
           </View>
           <View style={styles.vLine} />
           <View style={styles.infoContainer}>
-            <Icon name="vector-square" size={19} color={Colors.lighter} />
+            <Icon2 name="network" size={19} color={Colors.lighter} />
             <Text
               style={styles.infoText}
               numberOfLines={1}
@@ -140,7 +142,7 @@ const DashboardScreen = observer(() => {
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{paddingHorizontal: 15}}>
+              contentContainerStyle={{paddingHorizontal: 10}}>
               {WalletStore.wallets.slice(0, 2).map((v, i) => {
                 return <Brick coin={v.symbol} chain={v.chain} key={i} />;
               })}

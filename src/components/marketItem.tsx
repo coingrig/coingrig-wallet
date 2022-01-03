@@ -17,7 +17,7 @@ const MarketItem = (props: {
     <TouchableOpacity
       onPress={props.onPress ? props.onPress : null}
       // eslint-disable-next-line react-native/no-inline-styles
-      style={{height: 80, marginVertical: 4}}>
+      style={{height: 80, marginVertical: 3}}>
       <View style={styles.container}>
         <View style={styles.card}>
           <View style={styles.logo}>
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
   coinName: {
     fontSize: 15,
-    marginBottom: 0,
+    marginBottom: 2,
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.foreground,
   },

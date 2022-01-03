@@ -15,6 +15,7 @@ import SearchScreen from 'screens/Search';
 import GenerateWalletScreen from 'screens/WalletSetup/generateWallet';
 import ValidateWalletScreen from 'screens/WalletSetup/validateWallet';
 import StartScreen from 'screens/Start';
+import HubScreen from 'screens/Hub';
 import SwapScreen from 'screens/Swap';
 import EnterPinScreen from 'screens/Pin/enterPin';
 import ReEnterPinScreen from 'screens/Pin/reEnterPin';
@@ -95,7 +96,7 @@ const SmallLogo = () => {
           height: 280 / 13,
           width: 279 / 13,
           tintColor: Colors.foreground,
-          marginLeft: 3,
+          // marginLeft: 3,
         }}
       />
       {isTestnet()}
@@ -108,6 +109,7 @@ function BottomTabs() {
     <Tab.Navigator
       initialRouteName="Dashboard"
       headerMode="screen"
+      //@ts-ignore
       screenOptions={({route}) => ({
         tabBarShowLabel: false,
         tabBarActiveTintColor: '#FFFFFF',
@@ -115,14 +117,14 @@ function BottomTabs() {
         tabBarStyle: {
           borderTopWidth: 0,
           elevation: 0,
-          height: Platform.OS === 'android' ? 60 : 75,
+          height: Platform.OS === 'android' ? 55 : 75,
           marginTop: 3,
         },
         tabBarItemStyle: {
           marginHorizontal: 20,
           borderRadius: 40,
           paddingVertical: 5,
-          marginBottom: Platform.OS === 'android' && 10,
+          marginBottom: Platform.OS === 'android' && 5,
         },
         tabBarIcon: ({focused}) => {
           if (route.name === 'Dashboard') {
@@ -133,11 +135,11 @@ function BottomTabs() {
             ) : (
               <Icon name="wallet" size={24} color={Colors.foreground} />
             );
-          } else if (route.name === 'MarketScreen') {
+          } else if (route.name === 'HubScreen') {
             return focused ? (
-              <Icon name="stats-chart" size={22} color={Colors.inverse} />
+              <Icon name="apps" size={24} color={Colors.inverse} />
             ) : (
-              <Icon name="stats-chart" size={22} color={Colors.foreground} />
+              <Icon name="apps" size={24} color={Colors.foreground} />
             );
           }
           return null;
@@ -188,8 +190,8 @@ function BottomTabs() {
         }}
       />
       <Tab.Screen
-        name="MarketScreen"
-        component={MarketScreen}
+        name="HubScreen"
+        component={HubScreen}
         options={{
           headerShown: true,
           headerTitle: () => <SmallLogo />,
@@ -211,11 +213,8 @@ function BottomTabs() {
     </Tab.Navigator>
   );
 }
-// const BT = React.memo(BottomTabs);
-// export const NavigationScreens = React.memo(NS);
 
 function NavigationStack({t}) {
-  // i18n
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -564,6 +563,31 @@ function NavigationStack({t}) {
         options={{
           headerShown: true,
           headerTitle: '',
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="MarketScreen"
+        component={MarketScreen}
+        options={{
+          headerShown: true,
+          headerTitle: t('market.market'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios

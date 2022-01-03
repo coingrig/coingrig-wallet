@@ -168,6 +168,7 @@ const SearchScreen = ({route}) => {
           itemHeight={60}
           insetBottom={30}
           insetTop={10}
+          keyboardDismissMode="on-drag"
           // batchSizeThreshold={1.5}
           showsVerticalScrollIndicator={false}
           footerHeight={150}
@@ -198,7 +199,7 @@ const SearchScreen = ({route}) => {
             borderColor: Colors.brick,
             backgroundColor: Colors.card,
             paddingHorizontal: 10,
-            height: 40,
+            height: 45,
             borderTopLeftRadius: 5,
             borderBottomLeftRadius: 5,
             color: Colors.foreground,

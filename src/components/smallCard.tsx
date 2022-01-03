@@ -51,10 +51,6 @@ const SmallCard = observer(
                   withOuterLines={false}
                   chartConfig={{
                     color: () => Colors.lighter,
-                    // color: () =>
-                    //   props.change > 0
-                    //     ? 'rgba(10, 207, 36)'
-                    //     : 'rgba(209, 10, 10)',
                     backgroundGradientFromOpacity: 0,
                     backgroundGradientToOpacity: 0,
                     fillShadowGradient: Colors.background,
@@ -128,7 +124,7 @@ const styles = StyleSheet.create({
   },
   coinName: {
     fontSize: 15,
-    marginBottom: 0,
+    marginBottom: 2,
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.foreground,
   },
@@ -171,7 +167,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.card,
     justifyContent: 'center',
     marginHorizontal: 15,
-    marginVertical: 5,
+    marginVertical: 3,
   },
 });
 

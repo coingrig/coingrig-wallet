@@ -53,8 +53,8 @@
       "dashboard.top_3_coins": "Top 3 assets",
       "dashboard.more_wallets_soon": "More wallets coming soon",
       "dashboard.coming_soon": "Coming soon",
-      "dashboard.info1": "Swap tokens",
-      "dashboard.info2": "Manage NFTs",
+      "dashboard.info1": "Avalanche Chain",
+      "dashboard.info2": "Cronos Chain",
       
       "wallet.wallet": "Wallet",
       "wallet.send": "Send",
@@ -169,6 +169,15 @@
       "walletconnect.disconnect": "Disconnect",
       "walletconnect.approve": "Approve",
       "walletconnect.trying_to_connect": "Do you accept the connection?",
-      "walletconnect.disclaimer": "Check the URL carefully, please make sure you're visiting the intended website!"
+      "walletconnect.disclaimer": "Check the URL carefully, please make sure you're visiting the intended website!",
+
+      "hub.search": "Search in Hub",
+      "hub.modules": "Modules",
+      "hub.swap": "Swap",
+      "hub.index": "Coingrig Index",
+      "hub.earn": "Earn interest",
+      "hub.portfolio_tracker": "Portfolio tracker",
+      "hub.create_token": "Create token",
+      "hub.create_nft": "Create NFT"
   }
 }

@@ -53,8 +53,8 @@
       "dashboard.top_3_coins": "Top 3 active",
       "dashboard.more_wallets_soon": "Mai multe portofole disponibile în curând",
       "dashboard.coming_soon": "În curând",
-      "dashboard.info1": "Schimbă tokeni",
-      "dashboard.info2": "Administrează NFTuri",
+      "dashboard.info1": "Avalanche Chain",
+      "dashboard.info2": "Cronos Chain",
       
       "wallet.wallet": "Portofel",
       "wallet.send": "Trimite",
@@ -169,6 +169,15 @@
       "walletconnect.disconnect": "Deconectare",
       "walletconnect.approve": "Aprobă",
       "walletconnect.trying_to_connect": "Accepți conexiunea?",
-      "walletconnect.disclaimer": "Verificați cu atenție adresa URL, asigurați-vă că vizitați site-ul web dorit!"
+      "walletconnect.disclaimer": "Verificați cu atenție adresa URL, asigurați-vă că vizitați site-ul web dorit!",
+
+      "hub.search": "Caută în Hub",
+      "hub.modules": "Module",
+      "hub.swap": "Swap",
+      "hub.index": "Coingrig Index",
+      "hub.earn": "Câștigă dobândă",
+      "hub.portfolio_tracker": "Analiză Portofoliu",
+      "hub.create_token": "Crează token",
+      "hub.create_nft": "Crează NFT"
   }
 }

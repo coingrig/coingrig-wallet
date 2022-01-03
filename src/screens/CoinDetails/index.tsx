@@ -193,7 +193,7 @@ const CoinDetailScreen = observer(({route}) => {
               {price}
             </Text>
           </View>
-          <View style={{marginRight: 20}}>
+          <View style={{marginRight: 15}}>
             <Text style={styles.subTitleTop}>{t('coindetails.change')}</Text>
             <View
               style={[
@@ -228,7 +228,7 @@ const CoinDetailScreen = observer(({route}) => {
               withHorizontalLabels={false}
               withHorizontalLines={false}
               useShadowColorFromDataSet={false}
-              width={SIZE.width - 15}
+              width={SIZE.width - 5}
               height={160}
               bezier
               withDots={false}

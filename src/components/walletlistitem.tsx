@@ -11,7 +11,7 @@ const WalletListItem = (props: {coin: IWallet; onPress?: any}) => {
   return (
     <TouchableOpacity
       onPress={props.onPress ? props.onPress : null}
-      style={{height: 80, marginVertical: 4}}>
+      style={{height: 80, marginVertical: 3}}>
       <View style={styles.container}>
         <View style={styles.card}>
           {props.coin.type === 'coin' ? (
