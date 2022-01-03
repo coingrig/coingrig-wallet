@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
+import {showMessage} from 'react-native-flash-message';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import apps from './apps';
 import {styles} from './styles';
@@ -33,6 +34,13 @@ const HubScreen = () => {
     } else {
       setShowHeader(false);
     }
+  };
+
+  const soon = () => {
+    showMessage({
+      message: t('dashboard.coming_soon'),
+      type: 'warning',
+    });
   };
 
   const viewabilityConfig = {
@@ -69,9 +77,9 @@ const HubScreen = () => {
             backgroundColor: Colors.background,
             borderRadius: 20,
             padding: 5,
-            opacity: 0.8,
+            opacity: 0.7,
           }}>
-          <Icon1 name="web" size={19} color={Colors.lighter} />
+          <Icon1 name="web" size={16} color={Colors.lighter} />
         </View>
       );
     }
@@ -108,8 +116,11 @@ const HubScreen = () => {
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
-        onPress={() => (item.enable ? onClick(item) : null)}
-        style={[styles.brick, {}]}>
+        onPress={() => (item.enable ? onClick(item) : soon())}
+        style={[
+          styles.brick,
+          {backgroundColor: item.enable ? Colors.card : Colors.background},
+        ]}>
         <ImageBackground
           source={item.backgroundImage}
           resizeMode="contain"

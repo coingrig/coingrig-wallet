@@ -42,7 +42,7 @@ const apps = [
   {
     title: 'hub.earn',
     screen: 'IndexScreen',
-    backgroundImage: require('../../assets/hub/token.png'),
+    backgroundImage: require('../../assets/hub/savings.png'),
     keywords: 'index, etf, invest',
     enable: false,
     module: true,
