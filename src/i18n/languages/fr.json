@@ -175,9 +175,9 @@
       "hub.modules": "Modules",
       "hub.swap": "Swap",
       "hub.index": "Coingrig Index",
-      "hub.earn": "Earn interest",
-      "hub.portfolio_tracker": "Portfolio tracker",
-      "hub.create_token": "Create token",
-      "hub.create_nft": "Create NFT"
+      "hub.earn": "Gagner des intérêts",
+      "hub.portfolio_tracker": "Suivi portfolio",
+      "hub.create_token": "Créer token",
+      "hub.create_nft": "Créer NFT"
   }
 }
