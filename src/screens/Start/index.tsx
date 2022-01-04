@@ -36,7 +36,7 @@ const StartScreen = () => {
           //@ts-ignore
           onPress={() => navigation.navigate('SetPinScreen', {new: true})}
         />
-        <View style={{height: 10}} />
+        <View style={{height: 5}} />
         <BigButton
           text={t('init.import_wallet')}
           backgroundColor={Colors.background}

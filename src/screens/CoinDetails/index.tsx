@@ -1,7 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {createRef, useCallback, useEffect, useState} from 'react';
-import {View, ScrollView, Text, RefreshControl, FlatList} from 'react-native';
+import {
+  View,
+  ScrollView,
+  Text,
+  RefreshControl,
+  FlatList,
+  Linking,
+  TouchableOpacity,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Feather';
 import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
 import FastImage from 'react-native-fast-image';
@@ -17,6 +26,8 @@ import {CryptoService} from 'services/crypto';
 import {SmallButton} from 'components/smallButton';
 import ActionSheet from 'react-native-actions-sheet';
 import {WalletStore} from 'stores/wallet';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
+import {Logs} from 'services/logs';
 
 const actionSheetRef = createRef();
 
@@ -35,6 +46,13 @@ const CoinDetailScreen = observer(({route}) => {
     navigation.setOptions({
       headerTitle:
         route.params.title?.toUpperCase() ?? route.params.coin.toUpperCase(),
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => openLink(route.params.coin)}
+          style={styles.moreBtn}>
+          <Icon name="external-link" size={21} color={Colors.foreground} />
+        </TouchableOpacity>
+      ),
     });
   }, []);
 
@@ -43,6 +61,31 @@ const CoinDetailScreen = observer(({route}) => {
       getData();
     }
   }, [transitionEnded]);
+
+  const openLink = async coin => {
+    const url = 'https://www.coingecko.com/en/coins/' + coin;
+    try {
+      if (await InAppBrowser.isAvailable()) {
+        await InAppBrowser.open(url, {
+          dismissButtonStyle: 'cancel',
+          readerMode: false,
+          animated: true,
+          modalPresentationStyle: 'automatic',
+          modalTransitionStyle: 'coverVertical',
+          modalEnabled: true,
+          enableBarCollapsing: false,
+          showTitle: true,
+          enableUrlBarHiding: true,
+          enableDefaultShare: true,
+          forceCloseOnRedirection: false,
+        });
+      } else {
+        Linking.openURL(url);
+      }
+    } catch (error) {
+      Logs.error(error);
+    }
+  };
 
   const getData = async () => {
     // get data from coingecko
@@ -121,7 +164,7 @@ const CoinDetailScreen = observer(({route}) => {
     if (route.params.isSupported && platforms.length > 0) {
       return (
         <SmallButton
-          text={t('Add to portfolio')}
+          text={t('coindetails.add_to_portfolio')}
           onPress={() => addWallet()}
           color={Colors.darker}
           style={styles.addtoPortfolio}
@@ -150,7 +193,7 @@ const CoinDetailScreen = observer(({route}) => {
               {price}
             </Text>
           </View>
-          <View style={{marginRight: 20}}>
+          <View style={{marginRight: 15}}>
             <Text style={styles.subTitleTop}>{t('coindetails.change')}</Text>
             <View
               style={[
@@ -185,7 +228,7 @@ const CoinDetailScreen = observer(({route}) => {
               withHorizontalLabels={false}
               withHorizontalLines={false}
               useShadowColorFromDataSet={false}
-              width={SIZE.width - 15}
+              width={SIZE.width - 5}
               height={160}
               bezier
               withDots={false}
@@ -270,7 +313,7 @@ const CoinDetailScreen = observer(({route}) => {
             </Text>
             <Text style={styles.textr}>
               {coinData?.market_data.circulating_supply != null
-                ? formatNumber(coinData?.circulating_supply ?? 0)
+                ? formatNumber(coinData?.market_data.circulating_supply ?? 0)
                 : '-'}
             </Text>
           </View>
@@ -287,7 +330,7 @@ const CoinDetailScreen = observer(({route}) => {
               {t('coindetails.total_supply')}:
             </Text>
             <Text style={styles.textr}>
-              {coinData?.total_supply != null
+              {coinData?.market_data.total_supply != null
                 ? formatNumber(coinData?.market_data.total_supply ?? 0)
                 : '-'}
             </Text>

@@ -25,15 +25,24 @@ import {BigButton} from 'components/bigButton';
 
 const actionCamera: React.RefObject<any> = createRef();
 
-const WalletconnectScreen = observer(() => {
+const WalletconnectScreen = observer(({route}) => {
   const {t} = useTranslation();
 
   useEffect((): any => {
+    if (route.params && route.params.uri) {
+      let uri = route.params.uri;
+      const data: any = {uri};
+      data.redirect = '';
+      data.autosign = false;
+      if (!WalletConnectService.init(data)) {
+        // Display error message
+      }
+    }
     return WalletConnectService.closeSession;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSuccess = e => {
-    Logs.info(e.data);
     let uri = e.data;
     const data: any = {uri};
     data.redirect = '';
@@ -79,8 +88,7 @@ const WalletconnectScreen = observer(() => {
               marginBottom: 20,
               color: Colors.lighter,
             }}>
-            Check the URL carefully, please make sure you're visiting the
-            intended website!
+            {t('walletconnect.disclaimer')}
           </Text>
           <BigButton
             text={t('walletconnect.scan_qr_code')}
@@ -275,14 +283,14 @@ const WalletconnectScreen = observer(() => {
       if (!cryptoWallet) {
         WalletConnectService.rejectRequest({
           id: WalletconnectStore.transactionData.id!,
-          error: 'This chain is not supported',
+          error: t('message.error.wallet_connect.chain_not_supported'),
         });
       }
       let signingManager = cryptoWallet.getSigningManager();
       if (!signingManager) {
         WalletConnectService.rejectRequest({
           id: WalletconnectStore.transactionData.id!,
-          error: 'This chain can not be signed',
+          error: t('message.error.wallet_connect.chain_not_signable'),
         });
         return;
       }

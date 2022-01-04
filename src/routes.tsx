@@ -8,18 +8,21 @@ import {
 } from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {withTranslation} from 'react-i18next';
 import SplashScreen from 'screens/Splash';
 import DashboardScreen from 'screens/Dashboard';
 import SearchScreen from 'screens/Search';
 import GenerateWalletScreen from 'screens/WalletSetup/generateWallet';
 import ValidateWalletScreen from 'screens/WalletSetup/validateWallet';
 import StartScreen from 'screens/Start';
+import HubScreen from 'screens/Hub';
 import SwapScreen from 'screens/Swap';
 import EnterPinScreen from 'screens/Pin/enterPin';
 import ReEnterPinScreen from 'screens/Pin/reEnterPin';
 import SetPinScreen from 'screens/Pin/setPin';
 import ImportWalletScreen from 'screens/WalletSetup/importWallet';
 import SettingScreen from 'screens/Settings';
+import LanguageScreen from 'screens/Language';
 import SendReceiveScreen from 'screens/SendReceive';
 import WalletScreen from 'screens/Wallet';
 import MarketScreen from 'screens/Market';
@@ -93,7 +96,7 @@ const SmallLogo = () => {
           height: 280 / 13,
           width: 279 / 13,
           tintColor: Colors.foreground,
-          marginLeft: 3,
+          // marginLeft: 3,
         }}
       />
       {isTestnet()}
@@ -106,6 +109,7 @@ function BottomTabs() {
     <Tab.Navigator
       initialRouteName="Dashboard"
       headerMode="screen"
+      //@ts-ignore
       screenOptions={({route}) => ({
         tabBarShowLabel: false,
         tabBarActiveTintColor: '#FFFFFF',
@@ -113,14 +117,14 @@ function BottomTabs() {
         tabBarStyle: {
           borderTopWidth: 0,
           elevation: 0,
-          height: Platform.OS === 'android' ? 60 : 75,
+          height: Platform.OS === 'android' ? 55 : 75,
           marginTop: 3,
         },
         tabBarItemStyle: {
           marginHorizontal: 20,
           borderRadius: 40,
           paddingVertical: 5,
-          marginBottom: Platform.OS === 'android' && 10,
+          marginBottom: Platform.OS === 'android' && 5,
         },
         tabBarIcon: ({focused}) => {
           if (route.name === 'Dashboard') {
@@ -131,11 +135,11 @@ function BottomTabs() {
             ) : (
               <Icon name="wallet" size={24} color={Colors.foreground} />
             );
-          } else if (route.name === 'MarketScreen') {
+          } else if (route.name === 'HubScreen') {
             return focused ? (
-              <Icon name="stats-chart" size={22} color={Colors.inverse} />
+              <Icon name="apps" size={24} color={Colors.inverse} />
             ) : (
-              <Icon name="stats-chart" size={22} color={Colors.foreground} />
+              <Icon name="apps" size={24} color={Colors.foreground} />
             );
           }
           return null;
@@ -186,8 +190,8 @@ function BottomTabs() {
         }}
       />
       <Tab.Screen
-        name="MarketScreen"
-        component={MarketScreen}
+        name="HubScreen"
+        component={HubScreen}
         options={{
           headerShown: true,
           headerTitle: () => <SmallLogo />,
@@ -209,9 +213,8 @@ function BottomTabs() {
     </Tab.Navigator>
   );
 }
-// const BT = React.memo(BottomTabs);
-// export const NavigationScreens = React.memo(NS);
-export function NavigationScreens() {
+
+function NavigationStack({t}) {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -382,7 +385,7 @@ export function NavigationScreens() {
         component={NewsScreen}
         options={{
           headerShown: true,
-          headerTitle: 'News',
+          headerTitle: t('title.news'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
@@ -437,6 +440,40 @@ export function NavigationScreens() {
         }}
       />
       <Stack.Screen
+        name="LanguageScreen"
+        component={LanguageScreen}
+        options={{
+          presentation: 'modal',
+          headerBackImage: () => (
+            <Icon
+              name="close"
+              size={30}
+              color={Colors.foreground}
+              style={{paddingLeft: 10}}
+            />
+          ),
+          headerShown: true,
+          headerTitle: t('settings.change_language'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
         name="CustomTokenScreen"
         component={CustomTokenScreen}
         options={{
@@ -450,7 +487,7 @@ export function NavigationScreens() {
             />
           ),
           headerShown: true,
-          headerTitle: 'Add Custom Token',
+          headerTitle: t('title.add_custom_token'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
@@ -475,7 +512,7 @@ export function NavigationScreens() {
         component={SwapScreen}
         options={{
           headerShown: true,
-          headerTitle: 'Swap',
+          headerTitle: t('title.swap'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
@@ -500,7 +537,7 @@ export function NavigationScreens() {
         component={SettingScreen}
         options={{
           headerShown: true,
-          headerTitle: 'Settings',
+          headerTitle: t('title.settings'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
@@ -546,11 +583,35 @@ export function NavigationScreens() {
         }}
       />
       <Stack.Screen
+        name="MarketScreen"
+        component={MarketScreen}
+        options={{
+          headerShown: true,
+          headerTitle: t('market.market'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
         name="SendReceiveScreen"
         component={SendReceiveScreen}
         options={{
           presentation: 'modal',
-          cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
           headerShown: true,
           title: '',
           headerBackImage: () => (
@@ -583,3 +644,4 @@ export function NavigationScreens() {
     </Stack.Navigator>
   );
 }
+export const NavigationScreens = withTranslation()(NavigationStack);

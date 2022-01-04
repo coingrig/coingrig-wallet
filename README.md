@@ -59,7 +59,7 @@ This library has adopted a Code of Conduct that we expect project participants t
 
 ## License
 
-The Coingrig Core Library is licensed under the [License](LICENSE).
+The Coingrig Wallet is licensed under the [License](LICENSE).
 
 
 

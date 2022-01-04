@@ -17,7 +17,7 @@ const MarketItem = (props: {
     <TouchableOpacity
       onPress={props.onPress ? props.onPress : null}
       // eslint-disable-next-line react-native/no-inline-styles
-      style={{height: 80, marginVertical: 4}}>
+      style={{height: 80, marginVertical: 3}}>
       <View style={styles.container}>
         <View style={styles.card}>
           <View style={styles.logo}>
@@ -46,7 +46,7 @@ const MarketItem = (props: {
                 // eslint-disable-next-line react-native/no-inline-styles
                 {color: props.change > 0 ? '#5cb85c' : '#d9534f'},
               ]}>
-              {props.change.toFixed(2)} %
+              {props.change.toFixed(2)}%
             </Text>
           </View>
         </View>
@@ -68,10 +68,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   coinSymbol: {
-    fontSize: 14,
+    fontSize: 13,
     marginBottom: 5,
     fontFamily: 'RobotoSlab-Regular',
-    color: Colors.foreground,
+    color: Colors.lighter,
   },
   chart: {
     paddingRight: 0,
@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   coinName: {
-    fontSize: 16,
-    marginBottom: 0,
+    fontSize: 15,
+    marginBottom: 2,
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.foreground,
   },

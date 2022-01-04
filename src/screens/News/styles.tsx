@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.card,
     justifyContent: 'center',
     marginHorizontal: 10,
-    marginVertical: 5,
+    marginVertical: 3,
   },
   title: {
     color: Colors.foreground,

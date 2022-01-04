@@ -9,14 +9,15 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
-import Icon from 'react-native-vector-icons/Ionicons';
 import MarketItem from 'components/marketItem';
 import {Colors} from 'utils/colors';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {MarketStore, MarketCapCoinType} from 'stores/market';
 import {observer} from 'mobx-react-lite';
 import {COINS_MAX} from '../../utils/constants';
 import {styles} from './styles';
 import {showMessage} from 'react-native-flash-message';
+import FastImage from 'react-native-fast-image';
 
 const MarketScreen = observer(() => {
   const FILTER_ALL = 'all';
@@ -25,18 +26,19 @@ const MarketScreen = observer(() => {
   const navigation = useNavigation();
   const [searchFilter, setSearchFilter] = useState(FILTER_ALL);
   const {t} = useTranslation();
+  // const [imgHeight, setImgHeight] = useState(200);
+  // const [imgOpac, setImgOpac] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
-
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
-          onPress={() => navigation.navigate('NewsScreen')}
+          onPress={() =>
+            //@ts-ignore
+            navigation.navigate('SearchScreen', {onlySupported: false})
+          }
           style={styles.moreBtn}>
-          <Text style={{color: Colors.foreground, marginRight: 5}}>
-            {t('News')}
-          </Text>
-          <Icon name="newspaper" size={23} color={Colors.foreground} />
+          <Icon name="search" size={22} color={Colors.foreground} />
         </TouchableOpacity>
       ),
     });
@@ -100,60 +102,46 @@ const MarketScreen = observer(() => {
     return styles.appButtonContainer;
   };
 
-  let getMarketAverage = (): string => {
-    if (!MarketStore.coins.length) {
-      return '';
-    }
-    return String(
-      (
-        MarketStore.coins.reduce(
-          (sum: number, value: MarketCapCoinType): number => {
-            return sum + value.price_change_percentage_24h;
-          },
-          0,
-        ) / MarketStore.coins.length
-      ).toFixed(2),
-    );
-  };
-
   const listHeader = () => {
     return (
       <View>
-        <TouchableOpacity
-          onPressIn={() =>
-            navigation.navigate('SearchScreen', {onlySupported: false})
-          }
-          style={styles.searchbar}>
-          <Text style={styles.textInputStyle}>
-            {t('market.search_placeholder')}
-          </Text>
-        </TouchableOpacity>
-        <View style={styles.pillsContainer}>
-          <TouchableOpacity
-            style={getCoinFilterStyle(FILTER_ALL)}
-            onPress={() => {
-              setSearchFilter(FILTER_ALL);
-            }}>
-            <Text style={styles.appButtonText}>
-              {t('market.top')} {COINS_MAX}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={getCoinFilterStyle(FILTER_GAINERS)}
-            onPress={() => {
-              setSearchFilter(FILTER_GAINERS);
-            }}>
-            <Text style={styles.appButtonText}>{t('market.gainers')}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={getCoinFilterStyle(FILTER_LOSERS)}
-            onPress={() => {
-              setSearchFilter(FILTER_LOSERS);
-            }}>
-            <Text style={styles.appButtonText}>{t('market.losers')}</Text>
-          </TouchableOpacity>
+        <FastImage
+          source={require('../../assets/hub/market.png')}
+          resizeMode="contain"
+          style={{
+            height: 190,
+            width: '100%',
+            marginVertical: 10,
+          }}
+        />
+        <View style={styles.subtitleContainer}>
+          <Text style={styles.subtitle}>{t('market.assets')}</Text>
+          <View style={styles.pillsContainer}>
+            <TouchableOpacity
+              style={getCoinFilterStyle(FILTER_ALL)}
+              onPress={() => {
+                setSearchFilter(FILTER_ALL);
+              }}>
+              <Text style={styles.appButtonText}>
+                {t('market.top')} {COINS_MAX}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={getCoinFilterStyle(FILTER_GAINERS)}
+              onPress={() => {
+                setSearchFilter(FILTER_GAINERS);
+              }}>
+              <Text style={styles.appButtonText}>{t('market.gainers')}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={getCoinFilterStyle(FILTER_LOSERS)}
+              onPress={() => {
+                setSearchFilter(FILTER_LOSERS);
+              }}>
+              <Text style={styles.appButtonText}>{t('market.losers')}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <Text style={styles.subtitle}>{t('market.assets')}</Text>
       </View>
     );
   };
@@ -161,6 +149,15 @@ const MarketScreen = observer(() => {
     setRefreshing(true);
     fetchCoins();
   }, []);
+
+  // const handleScroll = (event: any) => {
+  //   let opac = 1 - event.nativeEvent.contentOffset.y * 0.004;
+  //   if (opac > 1 || opac < 0) {
+  //     return;
+  //   }
+  //   setImgOpac(1 - event.nativeEvent.contentOffset.y * 0.004);
+  //   // setImgHeight(220 - event.nativeEvent.contentOffset.y);
+  // };
 
   const renderList = () => {
     return (
@@ -179,25 +176,16 @@ const MarketScreen = observer(() => {
         maxToRenderPerBatch={5}
         initialNumToRender={10}
         ListHeaderComponent={listHeader()}
+        // onScroll={handleScroll}
         showsVerticalScrollIndicator={false}
+        // eslint-disable-next-line react-native/no-inline-styles
+        ListFooterComponent={() => <View style={{height: 30}} />}
       />
     );
   };
   return (
     <View style={styles.container}>
-      <View>
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.title}>{t('market.market')} </Text>
-          <Text
-            style={[
-              styles.change,
-              // eslint-disable-next-line react-native/no-inline-styles
-              {color: Number(getMarketAverage()) > 0 ? '#5cb85c' : '#d9534f'},
-            ]}>
-            {getMarketAverage()} %
-          </Text>
-        </View>
-      </View>
+      <View />
       {renderList()}
     </View>
   );

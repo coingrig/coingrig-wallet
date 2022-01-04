@@ -4,6 +4,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "RNSplashScreen.h"  // here
+#import <React/RCTLinkingManager.h>
 
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
@@ -42,15 +43,30 @@ static void InitializeFlipper(UIApplication *application) {
   } else {
       rootView.backgroundColor = [UIColor whiteColor];
   }
-
+  
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  [RNSplashScreen show];  // here
+  [RNSplashScreen show];
   return YES;
 }
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+  _appSwitcherView = [[[NSBundle mainBundle] loadNibNamed:@"lock" owner:self options:nil] objectAtIndex:0];
+  CGRect frame = [self window].frame;
+  frame.origin = CGPointMake(0, 0);
+  _appSwitcherView.frame = frame;    
+ [[self window ] addSubview: [self appSwitcherView]];
+
+}
+
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+  [_appSwitcherView removeFromSuperview];
+}
+
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
@@ -59,6 +75,22 @@ static void InitializeFlipper(UIApplication *application) {
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+}
+
+- (BOOL)application:(UIApplication *)application
+   openURL:(NSURL *)url
+   options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+  return [RCTLinkingManager application:application openURL:url options:options];
+}
+
+// Add this above `@end`:
+- (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity
+ restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
+{
+ return [RCTLinkingManager application:application
+                  continueUserActivity:userActivity
+                    restorationHandler:restorationHandler];
 }
 
 @end

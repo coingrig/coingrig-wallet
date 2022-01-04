@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
     fontSize: 25,
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.foreground,
-    marginLeft: 20,
+    marginLeft: 15,
     marginBottom: 20,
     marginTop: 0,
   },
@@ -131,7 +131,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'RobotoSlab-Regular',
     color: Colors.foreground,
-    marginLeft: 20,
+    marginLeft: 15,
     marginTop: 10,
   },
   smallContainer: {
@@ -147,5 +147,10 @@ export const styles = StyleSheet.create({
     fontFamily: 'RobotoSlab-Bold',
     marginBottom: 5,
     color: Colors.foreground,
+  },
+  moreBtn: {
+    paddingHorizontal: 5,
+    justifyContent: 'space-around',
+    paddingRight: 15,
   },
 });

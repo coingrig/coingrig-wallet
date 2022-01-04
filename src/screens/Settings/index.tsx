@@ -96,19 +96,19 @@ const SettingScreen = observer(() => {
           <Text style={styles.subtitle}>{t('settings.wallet')}</Text>
           <TouchableOpacity
             style={styles.item}
-            onPress={() => navigation.navigate('WalletconnectScreen')}>
-            <Icon name="qr-code" size={23} color="#1a6edb" />
-            <Text style={styles.textItem}>{t('settings.walletconnect')}</Text>
-            <Icon name="arrow-forward" size={20} color="gray" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.item}
             onPress={() => {
               //@ts-ignore
               actionSheetRef.current?.setModalVisible();
             }}>
             <Icon name="key" size={23} color={Colors.foreground} />
             <Text style={styles.textItem}>{t('settings.backup_phrase')}</Text>
+            <Icon name="arrow-forward" size={20} color="gray" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => navigation.navigate('LanguageScreen')}>
+            <Icon name="language" size={23} color={Colors.foreground} />
+            <Text style={styles.textItem}>{t('settings.change_language')}</Text>
             <Icon name="arrow-forward" size={20} color="gray" />
           </TouchableOpacity>
           <TouchableOpacity

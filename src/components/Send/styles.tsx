@@ -67,7 +67,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     minHeight: 50,
     borderWidth: 1,
-    padding: 10,
+    paddingHorizontal: 10,
     borderRadius: 5,
     fontSize: 14,
     marginVertical: 10,

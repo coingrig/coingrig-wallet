@@ -45,7 +45,7 @@ const SearchScreen = ({route}) => {
     }
     setSearchText(text);
     const newData = coinsList.filter(item => {
-      const itemData = `${item.name.toUpperCase()}   
+      const itemData = `${item.name.toUpperCase()}
       ${item.symbol.toUpperCase()}`;
 
       const textData = text.toUpperCase();
@@ -168,6 +168,7 @@ const SearchScreen = ({route}) => {
           itemHeight={60}
           insetBottom={30}
           insetTop={10}
+          keyboardDismissMode="on-drag"
           // batchSizeThreshold={1.5}
           showsVerticalScrollIndicator={false}
           footerHeight={150}
@@ -198,7 +199,7 @@ const SearchScreen = ({route}) => {
             borderColor: Colors.brick,
             backgroundColor: Colors.card,
             paddingHorizontal: 10,
-            height: 40,
+            height: 45,
             borderTopLeftRadius: 5,
             borderBottomLeftRadius: 5,
             color: Colors.foreground,
@@ -207,12 +208,12 @@ const SearchScreen = ({route}) => {
           autoCorrect={false}
           placeholderTextColor={'gray'}
           onChangeText={text => searchCoin(text)}
-          placeholder={'Search Asset'}
+          placeholder={t('search.search_assets')}
         />
 
         <TouchableOpacity
           style={{
-            flex: 1,
+            flex: 1.2,
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: Colors.brick,
@@ -221,7 +222,7 @@ const SearchScreen = ({route}) => {
           }}
           onPress={() => navigation.goBack()}>
           <Text style={{color: Colors.foreground, fontWeight: 'bold'}}>
-            Close
+            {t('settings.cancel')}
           </Text>
         </TouchableOpacity>
       </View>

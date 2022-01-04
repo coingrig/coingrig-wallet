@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -27,7 +27,7 @@ import {CryptoService} from 'services/crypto';
 import {WalletStore} from 'stores/wallet';
 import {Logs} from 'services/logs';
 
-export default function CustomTokenScreen() {
+export default function CustomTokenScreen({route}) {
   const {t} = useTranslation();
   const navigation = useNavigation();
   const [selectedChain, setSelectedChain] = React.useState('Ethereum');
@@ -35,11 +35,19 @@ export default function CustomTokenScreen() {
   const [inProgress, setInProgress] = React.useState<boolean>(false);
   const [previewWallet, setPreviewWallet] = React.useState<any>(null);
 
+  useEffect(() => {
+    if (route.params) {
+      Logs.info(route.params);
+      // coingrig://add/polygon/0x0c51f415cf478f8d08c246a6c6ee180c5dc3a012
+      autoTokenData();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const fetchCopiedText = async () => {
     setInProgress(true);
     setPreviewWallet(null);
     const clipboardToken = await Clipboard.getString();
-    Logs.info('Clipboard: ', clipboardToken);
     setToken(clipboardToken);
     let chain = 'Ethereum';
     switch (selectedChain) {
@@ -66,10 +74,7 @@ export default function CustomTokenScreen() {
       setPreviewWallet(wallet);
     } catch (error) {
       Logs.error(error);
-      Alert.alert(
-        'Error',
-        'Cannot get contract data. Please check the contract address and the network.',
-      );
+      Alert.alert('Error', t('custom_token.network_error'));
     }
 
     setInProgress(false);
@@ -93,7 +98,7 @@ export default function CustomTokenScreen() {
         CryptoService.getAccountBalance();
         navigation.goBack();
       } else {
-        Alert.alert('Info', 'This asset already exists in your portfolio');
+        Alert.alert('Info', t('message.wallet.token.already_exists'));
       }
     }
   };
@@ -111,13 +116,44 @@ export default function CustomTokenScreen() {
     }
   };
 
+  const autoTokenData = async () => {
+    try {
+      setToken(route.params.token);
+      switch (route.params.chain.toUpperCase()) {
+        case 'ETH':
+          setSelectedChain('Ethereum');
+          break;
+        case 'BSC':
+          setSelectedChain('Binance Smart Chain');
+          break;
+        case 'POLYGON':
+          setSelectedChain('Polygon');
+          break;
+        default:
+          break;
+      }
+      let wallet = await CryptoService.prepareCustomToken(
+        route.params.chain.toUpperCase(),
+        route.params.token,
+        getTokenIcon(route.params.chain.toUpperCase()),
+      );
+      Logs.info(wallet);
+      setPreviewWallet(wallet);
+    } catch (error) {
+      Logs.error(error);
+      Alert.alert('Error', t('custom_token.network_error'));
+    }
+  };
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{flexGrow: 1}}>
       <View>
         <View style={{flexDirection: 'row', marginVertical: 5}}>
-          <Text style={styles.selectNetwork}>Select Network:</Text>
+          <Text style={styles.selectNetwork}>
+            {t('custom_token.select_network')}
+          </Text>
           <View style={styles.pill}>
             <Menu>
               <MenuTrigger text={selectedChain} customStyles={triggerStyles} />
@@ -146,7 +182,7 @@ export default function CustomTokenScreen() {
             style={styles.input}
             value={token}
             editable={false}
-            placeholder={t('Smart Contract Address')}
+            placeholder={t('custom_token.contract_address')}
             numberOfLines={1}
             returnKeyType="done"
             placeholderTextColor="gray"
@@ -160,11 +196,7 @@ export default function CustomTokenScreen() {
             <Icon name="content-paste" size={20} color={Colors.foreground} />
           </TouchableOpacity>
         </View>
-        <Text style={styles.warning}>
-          Anyone can create a token with any name, including creating fake
-          versions of existing tokens and tokens that claim to represent
-          projects that do not have a token.
-        </Text>
+        <Text style={styles.warning}>{t('custom_token.disclaimer')}</Text>
         {inProgress ? (
           <ActivityIndicator
             size="small"
@@ -174,14 +206,14 @@ export default function CustomTokenScreen() {
         ) : null}
         {previewWallet !== null ? (
           <View>
-            <Text style={styles.previewText}>{t('Preview')}</Text>
+            <Text style={styles.previewText}>{t('custom_token.preview')}</Text>
             <TokenPreview coin={previewWallet} />
           </View>
         ) : null}
       </View>
       <View style={{position: 'absolute', alignSelf: 'center', bottom: 40}}>
         <BigButton
-          text={t('Add token')}
+          text={t('custom_token.add_asset')}
           backgroundColor={Colors.foreground}
           color={Colors.background}
           disabled={!previewWallet}
