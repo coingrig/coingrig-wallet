@@ -6,7 +6,7 @@ import AppsStateService from './src/services/appStates';
 // eslint-disable-next-line no-unused-vars
 import DeepLinkService from './src/services/deeplink';
 import {MenuProvider} from 'react-native-popup-menu';
-import {NavigationScreens} from './src/routes';
+import {NavigationScreens} from './src/router/router';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {LoadingSheet} from './src/components/loadingSheet';
 import FlashMessage from 'react-native-flash-message';
@@ -18,6 +18,7 @@ function App() {
       StatusBar.setBackgroundColor('black');
     }
   } catch (e) {}
+
   const CoingrigTheme = {
     colors: {
       background: Colors.background,
