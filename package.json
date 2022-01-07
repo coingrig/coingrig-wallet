@@ -37,11 +37,15 @@
     "@walletconnect/client": "^1.6.6",
     "@walletconnect/types": "^1.6.6",
     "@walletconnect/utils": "^1.6.6",
+    "add": "^2.0.6",
     "assert": "^2.0.0",
     "asyncstorage-down": "4.2.0",
     "axios": "0.21.1",
+    "big-integer": "^1.6.51",
     "bignumber.js": "^9.0.1",
     "browserify-sign": "^4.2.1",
+    "browserify-zlib": "^0.2.0",
+    "ccxt": "^1.66.36",
     "decimal.js": "10.3.1",
     "events": "^3.3.0",
     "https-browserify": "0.0.1",
@@ -53,6 +57,7 @@
     "mobx": "6.3.2",
     "mobx-persist-store": "1.0.3",
     "mobx-react-lite": "3.2.0",
+    "node-libs-react-native": "^1.2.1",
     "numeral": "2.0.6",
     "path-browserify": "0.0.0",
     "react": "17.0.1",
@@ -96,7 +101,8 @@
     "readable-stream": "1.0.33",
     "stream-browserify": "^3.0.0",
     "url": "^0.11.0",
-    "use-count-up": "^3.0.1"
+    "use-count-up": "^3.0.1",
+    "yarn": "^1.22.17"
   },
   "devDependencies": {
     "@babel/core": "7.15.0",

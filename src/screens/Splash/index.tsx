@@ -16,6 +16,7 @@ import {MigrationService} from 'services/migrations';
 import {ConfigStore} from 'stores/config';
 import CONFIG from 'config';
 import {Logs} from 'services/logs';
+var ccxt = require('ccxt');
 
 const SplashScreen: FC = () => {
   const navigation = useNavigation();
@@ -28,6 +29,25 @@ const SplashScreen: FC = () => {
   }, []);
 
   const check = async () => {
+    const exchangeId = 'binance';
+    const exchangeClass = ccxt[exchangeId];
+    let exchange = new exchangeClass({
+      apiKey: '-',
+      secret: '-',
+    });
+    // exchange.verbose = true;
+    const b = await exchange.fetchBalance();
+
+    for (const [key, v] of Object.entries(b.total)) {
+      if (v > 0) {
+        console.log(`${key}: ${v}`);
+      }
+    }
+
+    console.log(await exchange.fetchDepositAddress('BTC'));
+    console.log('--', await exchange.fetchTicker('BTC/USDT'));
+    return;
+
     if (await MigrationService.migrationRequired()) {
       await MigrationService.handleMigrations();
       Logs.info('Migration completed');
