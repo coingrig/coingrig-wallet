@@ -16,7 +16,7 @@ import {MigrationService} from 'services/migrations';
 import {ConfigStore} from 'stores/config';
 import CONFIG from 'config';
 import {Logs} from 'services/logs';
-var ccxt = require('ccxt');
+// var ccxt = require('ccxt');
 
 const SplashScreen: FC = () => {
   const navigation = useNavigation();
@@ -29,24 +29,30 @@ const SplashScreen: FC = () => {
   }, []);
 
   const check = async () => {
-    const exchangeId = 'binance';
-    const exchangeClass = ccxt[exchangeId];
-    let exchange = new exchangeClass({
-      apiKey: '-',
-      secret: '-',
-    });
+    // const exchangeId = 'binance';
+    // const exchangeClass = ccxt[exchangeId];
+    // let exchange = new exchangeClass();
     // exchange.verbose = true;
-    const b = await exchange.fetchBalance();
+    // const b = await exchange.fetchBalance();
 
-    for (const [key, v] of Object.entries(b.total)) {
-      if (v > 0) {
-        console.log(`${key}: ${v}`);
-      }
-    }
-
-    console.log(await exchange.fetchDepositAddress('BTC'));
-    console.log('--', await exchange.fetchTicker('BTC/USDT'));
-    return;
+    // for (const [key, v] of Object.entries(b.total)) {
+    //   if (v > 0) {
+    //     console.log(`${key}: ${v}`);
+    //     // console.log('--', await exchange.fetchTicker(key + '/USDT'));
+    //   }
+    // }
+    // console.log('--', await exchange.fetchTickers(['BTC/USDT', 'ICP/USDT']));
+    // console.log(exchange.currency('BTC'));
+    // console.log(await exchange.fetchDepositAddress('BTC'));
+    // console.log('--', await exchange.fetchTicker('BTC/USDT'));
+    // let sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+    // if (exchange.has.fetchOHLCV) {
+    //   for (exchange.symbol in exchange.markets) {
+    //     await sleep(exchange.rateLimit); // milliseconds
+    //     console.log(await exchange.fetchOHLCV(exchange.symbol, '1m')); // one minute
+    //   }
+    // }
+    // return;
 
     if (await MigrationService.migrationRequired()) {
       await MigrationService.handleMigrations();
