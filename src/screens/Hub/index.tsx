@@ -127,6 +127,7 @@ const HubScreen = () => {
           imageStyle={{
             opacity: item.enable ? 0.8 : 0.15,
             marginBottom: 20,
+            marginHorizontal: 20,
           }}
           style={{flex: 1, justifyContent: 'flex-end'}}>
           <View style={[styles.brickTxt, {opacity: item.enable ? 1 : 0.5}]}>
