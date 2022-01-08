@@ -204,7 +204,7 @@ const SearchScreen = ({route}) => {
             borderBottomLeftRadius: 5,
             color: Colors.foreground,
           }}
-          autoFocus
+          // autoFocus
           autoCorrect={false}
           placeholderTextColor={'gray'}
           onChangeText={text => searchCoin(text)}

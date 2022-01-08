@@ -36,7 +36,7 @@ class CryptoService {
 
   getNFTs = async () => {
     let ETHAddress;
-    if (__DEV__ && CONFIG.testNFTs) {
+    if (CONFIG.testNFTs) {
       ETHAddress = CONFIG.testNFTs;
     } else {
       ETHAddress = WalletStore.getWalletAddressByChain('ETH');

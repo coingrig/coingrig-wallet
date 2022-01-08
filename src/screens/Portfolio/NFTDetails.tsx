@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  Image,
-  Linking,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, Image, Linking, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import * as Animatable from 'react-native-animatable';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import {Colors} from 'utils/colors';
@@ -44,44 +38,61 @@ const NFTScreen = props => {
 
   return (
     <View style={{flex: 1, backgroundColor: Colors.stats}}>
-      <TouchableOpacity
-        onPress={() => navigation.goBack()}
-        style={{
-          position: 'absolute',
-          backgroundColor: Colors.background,
-          width: 45,
-          height: 45,
-          left: 10,
-          top: 15,
-          zIndex: 10,
-          justifyContent: 'center',
-          alignItems: 'center',
-          borderRadius: 100,
-        }}>
-        <Icon name="close" size={30} color={Colors.foreground} />
-      </TouchableOpacity>
-      <Image
-        style={{
-          height: 300,
-        }}
-        defaultSource={require('assets/no-image.png')}
-        resizeMode="cover"
-        source={{
-          uri: item.image_url,
-        }}
-      />
-      <ScrollView
-        style={{
-          flex: 1,
-          paddingVertical: 15,
-        }}>
-        <View style={{flex: 1, paddingHorizontal: 15, paddingBottom: 150}}>
+      <ParallaxScrollView
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+        fadeOutForeground={false}
+        backgroundColor={Colors.stats}
+        contentBackgroundColor={Colors.stats}
+        parallaxHeaderHeight={350}
+        stickyHeaderHeight={55}
+        renderFixedHeader={() => (
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{
+              position: 'absolute',
+              backgroundColor: Colors.background,
+              width: 40,
+              height: 40,
+              left: 10,
+              top: 10,
+              zIndex: 10,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 100,
+            }}>
+            <Icon name="close" size={30} color={Colors.foreground} />
+          </TouchableOpacity>
+        )}
+        renderStickyHeader={() => <></>}
+        renderForeground={() => (
+          <>
+            <Image
+              style={{
+                height: 350,
+              }}
+              defaultSource={require('assets/no-image.png')}
+              resizeMode="cover"
+              source={{
+                uri: item.image_url,
+              }}
+            />
+          </>
+        )}>
+        <View
+          style={{
+            flex: 1,
+            paddingHorizontal: 15,
+            // height: '100%',
+            // paddingBottom: 150,
+            backgroundColor: Colors.stats,
+          }}>
           <Text
             style={{
               fontSize: 13,
               color: Colors.lighter,
               fontFamily: 'RobotoSlab-Regular',
-              marginTop: 0,
+              marginTop: 15,
             }}>
             {'Created Date: ' +
               new Date(item.asset_contract.created_date).toDateString() ?? null}
@@ -100,13 +111,13 @@ const NFTScreen = props => {
               fontSize: 17,
               color: Colors.foreground,
               fontFamily: 'RobotoSlab-Bold',
-              marginTop: 25,
+              marginTop: 15,
             }}>
             {'Item Description'}
           </Text>
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 13,
               color: Colors.foreground,
               fontFamily: 'RobotoSlab-Regular',
               marginTop: 10,
@@ -124,7 +135,7 @@ const NFTScreen = props => {
           </Text>
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 13,
               color: Colors.foreground,
               fontFamily: 'RobotoSlab-Regular',
               marginTop: 10,
@@ -132,7 +143,7 @@ const NFTScreen = props => {
             {item.asset_contract.description ?? '- No description'}
           </Text>
         </View>
-      </ScrollView>
+      </ParallaxScrollView>
       <Animatable.View
         animation="bounceIn"
         delay={300}
