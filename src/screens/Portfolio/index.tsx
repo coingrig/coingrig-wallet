@@ -214,11 +214,12 @@ const PortfolioScreen = observer(() => {
             {t('portfolio.portfolio')}{' '}
           </Text>
           <View
-            style={{paddingRight: 15, justifyContent: 'center', marginTop: 5}}>
+            style={{marginRight: 15, justifyContent: 'center', marginTop: 5}}>
             <SegmentedControl
               inactiveTintColor={Colors.lighter}
               initialSelectedName="Coins"
-              style={{backgroundColor: Colors.darker, width: 130}}
+              sliderStyle={{width: '47%'}}
+              style={{backgroundColor: Colors.darker, width: 140}}
               onChangeValue={name => changeTab(name)}>
               <Segment name="Coins" content="Coins" />
               <Segment name="NFTs" content="NFTs" />
