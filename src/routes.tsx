@@ -32,6 +32,7 @@ import CoinDetailScreen from './screens/CoinDetails';
 import OnBoardingScreen from './screens/Onboarding';
 import WalletconnectScreen from './screens/Walletconnect';
 import CustomTokenScreen from './screens/CustomToken';
+import NFTScreen from './screens/Portfolio/NFTDetails';
 
 import {Colors} from 'utils/colors';
 import CONFIG from 'config';
@@ -512,6 +513,32 @@ function NavigationStack({t}) {
         component={SwapScreen}
         options={{
           headerShown: true,
+          headerTitle: t('title.swap'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+            letterSpacing: 1,
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 20,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="NFTScreen"
+        component={NFTScreen}
+        options={{
+          headerShown: false,
+          presentation: 'modal',
           headerTitle: t('title.swap'),
           headerStyle: {
             backgroundColor: Colors.darker,

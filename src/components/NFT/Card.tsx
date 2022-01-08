@@ -1,38 +1,15 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {View, Text, Image, Linking} from 'react-native';
 import {Colors} from 'utils/colors';
 import {Logs} from 'services/logs';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import InAppBrowser from 'react-native-inappbrowser-reborn';
+import {useNavigation} from '@react-navigation/native';
 
 export default function NFTCard({item}) {
-  const openLink = async url => {
-    try {
-      if (await InAppBrowser.isAvailable()) {
-        await InAppBrowser.open(url, {
-          dismissButtonStyle: 'cancel',
-          readerMode: false,
-          animated: true,
-          modalPresentationStyle: 'automatic',
-          modalTransitionStyle: 'coverVertical',
-          modalEnabled: true,
-          enableBarCollapsing: false,
-          showTitle: true,
-          enableUrlBarHiding: true,
-          enableDefaultShare: true,
-          forceCloseOnRedirection: false,
-        });
-      } else {
-        Linking.openURL(url);
-      }
-    } catch (error) {
-      Logs.error(error);
-    }
-  };
-
+  const navigation = useNavigation();
   return (
     <TouchableOpacity
-      onPress={() => openLink(item.permalink)}
+      onPress={() => navigation.push('NFTScreen', {item})}
       style={{
         marginHorizontal: 15,
         backgroundColor: Colors.card,
