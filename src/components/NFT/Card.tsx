@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, Text, Image, Linking} from 'react-native';
 import {Colors} from 'utils/colors';
-import {Logs} from 'services/logs';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 
@@ -24,7 +23,7 @@ export default function NFTCard({item}) {
           borderTopLeftRadius: 10,
           borderTopRightRadius: 10,
         }}
-        defaultSource={require('assets/no-image.jpg')}
+        defaultSource={require('assets/no-image.png')}
         resizeMode="cover"
         source={{
           uri: item.image_url,

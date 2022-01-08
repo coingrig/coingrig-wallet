@@ -64,7 +64,7 @@ const NFTScreen = props => {
         style={{
           height: 300,
         }}
-        defaultSource={require('assets/no-image.jpg')}
+        defaultSource={require('assets/no-image.png')}
         resizeMode="cover"
         source={{
           uri: item.image_url,
@@ -145,7 +145,7 @@ const NFTScreen = props => {
           alignItems: 'center',
           alignContent: 'center',
           alignSelf: 'center',
-          height: 50,
+          height: 45,
           minWidth: '70%',
           backgroundColor: Colors.foreground,
           shadowColor: '#000',
@@ -172,8 +172,8 @@ const NFTScreen = props => {
           onPress={() => openLink(item.permalink)}>
           <Image
             style={{
-              height: 60,
-              width: 60,
+              height: 55,
+              width: 55,
             }}
             source={require('assets/opensea.png')}
             resizeMode="contain"

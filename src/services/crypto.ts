@@ -35,12 +35,18 @@ class CryptoService {
   };
 
   getNFTs = async () => {
+    let ETHAddress;
+    if (__DEV__ && CONFIG.testNFTs) {
+      ETHAddress = CONFIG.testNFTs;
+    } else {
+      ETHAddress = WalletStore.getWalletAddressByChain('ETH');
+    }
+    const url = endpoints.opensea + '/assets?format=json&owner=' + ETHAddress;
     var config = {
       method: 'get',
-      url:
-        endpoints.opensea +
-        '/assets?format=json&owner=0x3317ca6bc64c2f1187354bcdab55fec47c7b4df4',
+      url: url,
     };
+    Logs.info('Fetching NFTs for ', url);
     try {
       const response = await axios(config);
       return response.data.assets || [];

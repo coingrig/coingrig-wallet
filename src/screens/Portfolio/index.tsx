@@ -42,6 +42,7 @@ const PortfolioScreen = observer(() => {
         </TouchableOpacity>
       ),
     });
+    fetchNFTs();
   }, []);
 
   const fetchCoins = async () => {
@@ -120,7 +121,7 @@ const PortfolioScreen = observer(() => {
   const renderNFTs = ({item}) => {
     // console.log(item.image_url);
     if (item.image_url === null || item.image_url === '') {
-      item.image_url = 'https://via.placeholder.com/350';
+      item.image_url = 'https://i.imgur.com/5VXj3Ts.png';
     }
     return <NFTCard item={item} />;
   };
@@ -186,7 +187,7 @@ const PortfolioScreen = observer(() => {
         return (
           <View
             style={{
-              flex: 0.8,
+              flex: 0.9,
               justifyContent: 'center',
               alignContent: 'center',
               alignItems: 'center',
