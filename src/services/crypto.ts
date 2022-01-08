@@ -34,6 +34,22 @@ class CryptoService {
     return JSON.parse(storedKeys);
   };
 
+  getNFTs = async () => {
+    var config = {
+      method: 'get',
+      url:
+        endpoints.opensea +
+        '/assets?format=json&owner=0x3317ca6bc64c2f1187354bcdab55fec47c7b4df4',
+    };
+    try {
+      const response = await axios(config);
+      return response.data.assets || [];
+    } catch (error) {
+      Logs.error(error);
+      return [];
+    }
+  };
+
   getBlockExplorer = (chain: string) => {
     switch (chain) {
       case 'BTC':

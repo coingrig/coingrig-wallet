@@ -1,6 +1,10 @@
+// import {LogBox} from 'react-native';
+
 const CONFIG = {};
 
 process.env.TESTNET = false;
+
+// LogBox.ignoreLogs(['Easing']);
 
 CONFIG.APP_VERSION = '1.3.3 (40)';
 CONFIG.BUILD_NUMBER = 40;

@@ -40,6 +40,7 @@ export const styles = StyleSheet.create({
     color: Colors.foreground,
     marginTop: 0,
     marginLeft: 15,
+    flex: 1,
   },
   subtitle: {
     fontSize: 16,
@@ -73,6 +74,22 @@ export const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 10,
     marginRight: 5,
+  },
+  subLeft: {
+    fontSize: 16,
+    fontFamily: 'RobotoSlab-Bold',
+    color: Colors.lighter,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginTop: 20,
+  },
+  subRight: {
+    fontSize: 16,
+    fontFamily: 'RobotoSlab-Bold',
+    color: Colors.lighter,
+    marginBottom: 10,
+    marginRight: 20,
+    marginTop: 20,
   },
   appButtonText: {
     fontSize: 11,

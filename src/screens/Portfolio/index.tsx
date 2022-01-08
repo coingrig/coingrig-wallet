@@ -6,11 +6,14 @@ import {
   FlatList,
   TouchableOpacity,
   RefreshControl,
+  Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {SegmentedControl, Segment} from 'react-native-resegmented-control';
 import WalletListItem from 'components/walletlistitem';
+import NFTCard from 'components/NFT/Card';
 import {Colors} from 'utils/colors';
 import {observer} from 'mobx-react-lite';
 import {styles} from './styles';
@@ -24,6 +27,8 @@ const PortfolioScreen = observer(() => {
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
   const [showHeader, setShowHeader] = useState(false);
+  const [showNFTs, setShowNFTs] = useState(false);
+  const [nfts, setNFTs] = useState<any[]>([]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -41,6 +46,7 @@ const PortfolioScreen = observer(() => {
 
   const fetchCoins = async () => {
     const fetchedCoins = await CryptoService.getAccountBalance();
+    fetchNFTs();
     if (!fetchedCoins) {
       showMessage({
         message: t('message.error.remote_servers_not_available'),
@@ -48,6 +54,12 @@ const PortfolioScreen = observer(() => {
       });
     }
     setRefreshing(false);
+  };
+
+  const fetchNFTs = async () => {
+    // eslint-disable-next-line no-shadow
+    const NFTList: any = await CryptoService.getNFTs();
+    setNFTs(NFTList);
   };
 
   const renderItem = ({item}: {item: IWallet}) => {
@@ -70,33 +82,18 @@ const PortfolioScreen = observer(() => {
   const listHeader = () => {
     return (
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <Text
-          // eslint-disable-next-line react-native/no-inline-styles
-          style={{
-            fontSize: 16,
-            fontFamily: 'RobotoSlab-Bold',
-            color: Colors.lighter,
-            marginBottom: 10,
-            marginLeft: 20,
-            marginTop: 20,
-          }}>
-          {t('portfolio.my_assets')}
+        <Text style={styles.subLeft}>
+          {showNFTs ? t('portfolio.my_nfts') : t('portfolio.my_assets')}
         </Text>
-        <Text
-          style={{
-            fontSize: 16,
-            fontFamily: 'RobotoSlab-Bold',
-            color: Colors.lighter,
-            marginBottom: 10,
-            marginRight: 20,
-            marginTop: 20,
-          }}>
-          {' '}
-          {formatPrice(WalletStore.totalBalance, true) || 0.0}
+        <Text style={styles.subRight}>
+          {showNFTs
+            ? t('Ethereum')
+            : formatPrice(WalletStore.totalBalance, true) || 0.0}
         </Text>
       </View>
     );
   };
+
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     fetchCoins();
@@ -120,34 +117,112 @@ const PortfolioScreen = observer(() => {
     {viewabilityConfig, onViewableItemsChanged},
   ]);
 
+  const renderNFTs = ({item}) => {
+    // console.log(item.image_url);
+    if (item.image_url === null || item.image_url === '') {
+      item.image_url = 'https://via.placeholder.com/350';
+    }
+    return <NFTCard item={item} />;
+  };
+
+  const changeTab = name => {
+    name === 'NFTs' ? setShowNFTs(true) : setShowNFTs(false);
+    if (name === 'NFTs' && nfts.length === 0) {
+      fetchNFTs();
+    }
+  };
+
   const renderList = () => {
-    return (
-      <FlatList
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            tintColor={Colors.lighter}
-            colors={[Colors.lighter]}
+    if (!showNFTs) {
+      return (
+        <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              tintColor={Colors.lighter}
+              colors={[Colors.lighter]}
+            />
+          }
+          //@ts-ignore
+          viewabilityConfigCallbackPairs={
+            viewabilityConfigCallbackPairs.current
+          }
+          data={WalletStore.wallets}
+          renderItem={renderItem}
+          keyExtractor={(item: any) => item.cid + item.chain ?? ''}
+          maxToRenderPerBatch={5}
+          initialNumToRender={5}
+          showsVerticalScrollIndicator={false}
+          ListHeaderComponent={listHeader()}
+        />
+      );
+    } else {
+      if (nfts.length > 0) {
+        return (
+          <FlatList
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                tintColor={Colors.lighter}
+                colors={[Colors.lighter]}
+              />
+            }
+            //@ts-ignore
+            viewabilityConfigCallbackPairs={
+              viewabilityConfigCallbackPairs.current
+            }
+            data={nfts}
+            renderItem={renderNFTs}
+            keyExtractor={(item: any) => item.id ?? ''}
+            maxToRenderPerBatch={4}
+            initialNumToRender={4}
+            showsVerticalScrollIndicator={false}
+            ListHeaderComponent={listHeader()}
           />
-        }
-        //@ts-ignore
-        viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
-        data={WalletStore.wallets}
-        renderItem={renderItem}
-        keyExtractor={(item: any) => item.cid + item.chain ?? ''}
-        maxToRenderPerBatch={5}
-        initialNumToRender={10}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponent={listHeader()}
-      />
-    );
+        );
+      } else {
+        return (
+          <View
+            style={{
+              flex: 0.8,
+              justifyContent: 'center',
+              alignContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Image
+              style={{
+                height: 200,
+                tintColor: 'gray',
+                opacity: 0.4,
+              }}
+              source={require('assets/nft.png')}
+              resizeMode="contain"
+            />
+          </View>
+        );
+      }
+    }
   };
   return (
     <View style={styles.container}>
       <View style={showHeader ? styles.headerShadow : null}>
-        <View>
-          <Text style={styles.title}>{t('portfolio.portfolio')} </Text>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <Text style={styles.title} numberOfLines={1}>
+            {t('portfolio.portfolio')}{' '}
+          </Text>
+          <View
+            style={{paddingRight: 15, justifyContent: 'center', marginTop: 5}}>
+            <SegmentedControl
+              inactiveTintColor={Colors.lighter}
+              initialSelectedName="Coins"
+              style={{backgroundColor: Colors.darker, width: 130}}
+              onChangeValue={name => changeTab(name)}>
+              <Segment name="Coins" content="Coins" />
+              <Segment name="NFTs" content="NFTs" />
+            </SegmentedControl>
+          </View>
         </View>
       </View>
       {renderList()}

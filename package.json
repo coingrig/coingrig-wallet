@@ -82,6 +82,7 @@
     "react-native-qrcode-scanner": "1.5.4",
     "react-native-randombytes": "3.6.1",
     "react-native-reanimated": "2.0.0",
+    "react-native-resegmented-control": "^2.4.0",
     "react-native-restart": "0.0.22",
     "react-native-rss-parser": "^1.5.1",
     "react-native-safe-area-context": "3.3.2",
