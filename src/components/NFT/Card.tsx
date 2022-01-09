@@ -11,8 +11,9 @@ export default function NFTCard({item}) {
       onPress={() => navigation.push('NFTScreen', {item})}
       style={{
         marginHorizontal: 15,
+        marginTop: 5,
         backgroundColor: Colors.card,
-        marginBottom: 10,
+        marginBottom: 5,
         borderRadius: 10,
         borderWidth: 1,
         borderColor: Colors.border,

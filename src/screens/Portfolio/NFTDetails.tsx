@@ -37,13 +37,13 @@ const NFTScreen = props => {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: Colors.stats}}>
+    <View style={{flex: 1, backgroundColor: Colors.background}}>
       <ParallaxScrollView
         bounces={false}
         showsVerticalScrollIndicator={false}
         fadeOutForeground={false}
-        backgroundColor={Colors.stats}
-        contentBackgroundColor={Colors.stats}
+        backgroundColor={Colors.background}
+        contentBackgroundColor={Colors.background}
         parallaxHeaderHeight={350}
         stickyHeaderHeight={55}
         renderFixedHeader={() => (
@@ -82,121 +82,139 @@ const NFTScreen = props => {
         <View
           style={{
             flex: 1,
-            paddingHorizontal: 15,
+            // paddingHorizontal: 15,
             // height: '100%',
             // paddingBottom: 150,
-            backgroundColor: Colors.stats,
+            backgroundColor: Colors.background,
           }}>
-          <Text
+          <View
             style={{
-              fontSize: 13,
-              color: Colors.lighter,
-              fontFamily: 'RobotoSlab-Regular',
-              marginTop: 15,
+              paddingHorizontal: 15,
+              backgroundColor: Colors.darker,
+              paddingVertical: 10,
             }}>
-            {'Created Date: ' +
-              new Date(item.asset_contract.created_date).toDateString() ?? null}
-          </Text>
-          <Text
-            style={{
-              fontSize: 26,
-              color: Colors.foreground,
-              fontFamily: 'RobotoSlab-Bold',
-              marginTop: 10,
-            }}>
-            {item.name}
-          </Text>
-          <Text
-            style={{
-              fontSize: 17,
-              color: Colors.foreground,
-              fontFamily: 'RobotoSlab-Bold',
-              marginTop: 15,
-            }}>
-            {'Item Description'}
-          </Text>
-          <Text
-            style={{
-              fontSize: 13,
-              color: Colors.foreground,
-              fontFamily: 'RobotoSlab-Regular',
-              marginTop: 10,
-            }}>
-            {item.description ?? '- No description'}
-          </Text>
-          <Text
-            style={{
-              fontSize: 17,
-              color: Colors.foreground,
-              fontFamily: 'RobotoSlab-Bold',
-              marginTop: 25,
-            }}>
-            {'Contract Description'}
-          </Text>
-          <Text
-            style={{
-              fontSize: 13,
-              color: Colors.foreground,
-              fontFamily: 'RobotoSlab-Regular',
-              marginTop: 10,
-            }}>
-            {item.asset_contract.description ?? '- No description'}
-          </Text>
+            <Text
+              style={{
+                fontSize: 12,
+                color: Colors.lighter,
+                fontFamily: 'RobotoSlab-Regular',
+              }}>
+              {'Created Date: ' +
+                new Date(item.asset_contract.created_date).toDateString() ??
+                null}
+            </Text>
+            <Text
+              style={{
+                fontSize: 23,
+                color: Colors.foreground,
+                fontFamily: 'RobotoSlab-Bold',
+                marginTop: 5,
+              }}>
+              {item.name}
+            </Text>
+          </View>
+          <View style={{paddingHorizontal: 15}}>
+            <Text
+              style={{
+                fontSize: 17,
+                color: Colors.foreground,
+                fontFamily: 'RobotoSlab-Bold',
+                marginTop: 15,
+              }}>
+              {'Description'}
+            </Text>
+            <Text
+              style={{
+                fontSize: 14,
+                color: Colors.foreground,
+                fontFamily: 'RobotoSlab-Regular',
+                marginTop: 10,
+              }}>
+              {item.description ?? '- No description'}
+            </Text>
+            <View style={{marginTop: 15, flexDirection: 'row'}}>
+              <View
+                style={{
+                  backgroundColor: Colors.darker,
+                  padding: 5,
+                  borderRadius: 20,
+                  paddingHorizontal: 10,
+                  marginRight: 5,
+                }}>
+                <Text style={{color: Colors.foreground, fontSize: 13}}>
+                  {'Sales: ' + item.num_sales}
+                </Text>
+              </View>
+              <View
+                style={{
+                  backgroundColor: Colors.darker,
+                  padding: 5,
+                  borderRadius: 20,
+                  paddingHorizontal: 10,
+                  marginRight: 5,
+                }}>
+                <Text style={{color: Colors.foreground, fontSize: 13}}>
+                  {'Symbol: ' + item.asset_contract.symbol}
+                </Text>
+              </View>
+              <View
+                style={{
+                  backgroundColor: Colors.darker,
+                  padding: 5,
+                  borderRadius: 20,
+                  paddingHorizontal: 10,
+                  marginRight: 5,
+                }}>
+                <Text style={{color: Colors.foreground, fontSize: 13}}>
+                  {'Total Supply: ' + (item.asset_contract.total_supply ?? '-')}
+                </Text>
+              </View>
+            </View>
+            <Text
+              style={{
+                fontSize: 17,
+                color: Colors.foreground,
+                fontFamily: 'RobotoSlab-Bold',
+                marginTop: 15,
+              }}>
+              {'Contract Description'}
+            </Text>
+            <Text
+              style={{
+                fontSize: 13,
+                color: Colors.foreground,
+                fontFamily: 'RobotoSlab-Regular',
+                marginTop: 10,
+              }}>
+              {item.asset_contract.description ?? '- No description'}
+            </Text>
+            <View style={{marginTop: 20}}>
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  backgroundColor: '#2081E2',
+                  alignContent: 'flex-start',
+                  alignSelf: 'flex-start',
+                  paddingHorizontal: 10,
+                  paddingRight: 15,
+                  borderRadius: 10,
+                }}
+                onPress={() => openLink(item.permalink)}>
+                <Image
+                  style={{
+                    height: 30,
+                    width: 30,
+                  }}
+                  source={require('assets/opensea.png')}
+                  resizeMode="contain"
+                />
+                <Text style={{color: 'white'}}>OpenSea</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
       </ParallaxScrollView>
-      <Animatable.View
-        animation="bounceIn"
-        delay={300}
-        style={{
-          paddingHorizontal: 10,
-          flexDirection: 'row',
-          position: 'absolute',
-          bottom: 30,
-          justifyContent: 'center',
-          alignItems: 'center',
-          alignContent: 'center',
-          alignSelf: 'center',
-          height: 45,
-          minWidth: '70%',
-          backgroundColor: Colors.foreground,
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 0,
-          },
-          shadowOpacity: 0.22,
-          shadowRadius: 2.22,
-          elevation: 3,
-          borderRadius: 50,
-        }}>
-        <Text
-          style={{
-            color: Colors.background,
-            flex: 1,
-            textAlign: 'center',
-          }}
-          numberOfLines={1}>
-          {'Sales: ' + item.num_sales ?? 0}
-        </Text>
-        <TouchableOpacity
-          style={{flex: 1, alignItems: 'center'}}
-          onPress={() => openLink(item.permalink)}>
-          <Image
-            style={{
-              height: 55,
-              width: 55,
-            }}
-            source={require('assets/opensea.png')}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
-
-        <Text
-          style={{color: Colors.background, flex: 1, textAlign: 'center'}}
-          numberOfLines={1}>
-          {item.asset_contract.symbol}
-        </Text>
-      </Animatable.View>
     </View>
   );
 };
