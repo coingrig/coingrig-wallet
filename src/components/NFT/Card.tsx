@@ -34,7 +34,7 @@ const NFTCard = ({item}) => {
           style={{
             fontSize: 14,
             color: Colors.lighter,
-            fontFamily: 'RobotoSlab-Medium',
+            fontFamily: 'RobotoSlab-Regular',
           }}>
           {item.name}
         </Text>

@@ -103,10 +103,9 @@ const NFTScreen = props => {
             </Text>
             <Text
               style={{
-                fontSize: 25,
+                fontSize: 23,
                 color: Colors.foreground,
                 fontFamily: 'RobotoSlab-Bold',
-                marginTop: 5,
               }}>
               {item.name}
             </Text>
@@ -123,12 +122,12 @@ const NFTScreen = props => {
             </Text>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 15,
                 color: Colors.foreground,
-                // fontFamily: 'RobotoSlab-Regular',
+                fontFamily: 'RobotoSlab-Regular',
                 marginTop: 10,
               }}>
-              {item.description ?? '- No description'}
+              {item.description ?? 'No description'}
             </Text>
             <View style={{marginTop: 15, flexDirection: 'row'}}>
               <View
@@ -178,10 +177,10 @@ const NFTScreen = props => {
               style={{
                 fontSize: 14,
                 color: Colors.foreground,
-                // fontFamily: 'RobotoSlab-Regular',
+                fontFamily: 'RobotoSlab-Light',
                 marginTop: 15,
               }}>
-              {item.asset_contract.description ?? '- No description'}
+              {item.asset_contract.description ?? 'No description'}
             </Text>
             <View style={{marginTop: 20}}>
               <TouchableOpacity
