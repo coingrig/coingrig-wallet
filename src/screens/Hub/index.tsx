@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {
   FlatList,
   ImageBackground,
@@ -24,32 +24,12 @@ const HubScreen = () => {
   const {t} = useTranslation();
   const [data, setData] = useState(apps);
   const [searchText, setSearchText] = useState('');
-  const [showHeader, setShowHeader] = useState(false);
-
-  const onViewableItemsChanged = ({viewableItems}) => {
-    if (viewableItems[0].index !== 0) {
-      if (!showHeader) {
-        setShowHeader(true);
-      }
-    } else {
-      setShowHeader(false);
-    }
-  };
-
   const soon = () => {
     showMessage({
       message: t('dashboard.coming_soon'),
       type: 'warning',
     });
   };
-
-  const viewabilityConfig = {
-    itemVisiblePercentThreshold: 90,
-    waitForInteraction: true,
-  };
-  const viewabilityConfigCallbackPairs = useRef([
-    {viewabilityConfig, onViewableItemsChanged},
-  ]);
 
   const renderIco = item => {
     if (item.module) {
@@ -174,7 +154,7 @@ const HubScreen = () => {
   };
   return (
     <View style={styles.container}>
-      <View style={showHeader ? styles.headerShadow : null}>
+      <View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text style={styles.title}>{t('Hub')} </Text>
           <Text style={styles.subtitle}>
@@ -188,7 +168,6 @@ const HubScreen = () => {
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         keyboardDismissMode="on-drag"
-        viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
         numColumns={2}
         //@ts-ignore
         keyExtractor={(item, index) => index}

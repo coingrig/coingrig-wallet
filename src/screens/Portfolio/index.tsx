@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -21,12 +21,12 @@ import {showMessage} from 'react-native-flash-message';
 import {IWallet, WalletStore} from 'stores/wallet';
 import {CryptoService} from 'services/crypto';
 import {formatPrice} from 'utils';
+import BigList from 'react-native-big-list';
 
 const PortfolioScreen = observer(() => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
-  const [showHeader, setShowHeader] = useState(false);
   const [showNFTs, setShowNFTs] = useState(false);
   const [nfts, setNFTs] = useState<any[]>([]);
 
@@ -100,27 +100,13 @@ const PortfolioScreen = observer(() => {
     fetchCoins();
   }, []);
 
-  const onViewableItemsChanged = ({viewableItems}) => {
-    if (viewableItems[0].index !== 0) {
-      if (!showHeader) {
-        setShowHeader(true);
-      }
-    } else {
-      setShowHeader(false);
-    }
-  };
-
-  const viewabilityConfig = {
-    itemVisiblePercentThreshold: 90,
-    waitForInteraction: true,
-  };
-  const viewabilityConfigCallbackPairs = useRef([
-    {viewabilityConfig, onViewableItemsChanged},
-  ]);
-
   const renderNFTs = ({item}) => {
     // console.log(item.image_url);
-    if (item.image_url === null || item.image_url === '') {
+    if (
+      item.image_url === null ||
+      item.image_url === '' ||
+      item.image_url.includes('svg')
+    ) {
       item.image_url = 'https://i.imgur.com/5VXj3Ts.png';
     }
     return <NFTCard item={item} />;
@@ -145,15 +131,11 @@ const PortfolioScreen = observer(() => {
               colors={[Colors.lighter]}
             />
           }
-          //@ts-ignore
-          viewabilityConfigCallbackPairs={
-            viewabilityConfigCallbackPairs.current
-          }
           data={WalletStore.wallets}
           renderItem={renderItem}
           keyExtractor={(item: any) => item.cid + item.chain ?? ''}
-          maxToRenderPerBatch={5}
-          initialNumToRender={5}
+          maxToRenderPerBatch={10}
+          initialNumToRender={10}
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={listHeader()}
         />
@@ -161,26 +143,16 @@ const PortfolioScreen = observer(() => {
     } else {
       if (nfts.length > 0) {
         return (
-          <FlatList
-            refreshControl={
-              <RefreshControl
-                refreshing={refreshing}
-                onRefresh={onRefresh}
-                tintColor={Colors.lighter}
-                colors={[Colors.lighter]}
-              />
-            }
-            //@ts-ignore
-            viewabilityConfigCallbackPairs={
-              viewabilityConfigCallbackPairs.current
-            }
+          <BigList
             data={nfts}
             renderItem={renderNFTs}
-            keyExtractor={(item: any) => item.id ?? ''}
-            maxToRenderPerBatch={4}
-            initialNumToRender={4}
+            itemHeight={250}
+            insetBottom={30}
+            headerHeight={50}
+            renderHeader={listHeader}
+            keyboardDismissMode="on-drag"
             showsVerticalScrollIndicator={false}
-            ListHeaderComponent={listHeader()}
+            keyExtractor={(item: any) => item.id.toString() ?? ''}
           />
         );
       } else {
@@ -208,7 +180,7 @@ const PortfolioScreen = observer(() => {
   };
   return (
     <View style={styles.container}>
-      <View style={showHeader ? styles.headerShadow : null}>
+      <View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text style={styles.title} numberOfLines={1}>
             {t('portfolio.portfolio')}{' '}

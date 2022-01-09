@@ -2,7 +2,6 @@ import React from 'react';
 import {View, Text, Image, Linking, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import * as Animatable from 'react-native-animatable';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import {Colors} from 'utils/colors';
 import {Logs} from 'services/logs';
@@ -71,7 +70,6 @@ const NFTScreen = props => {
               style={{
                 height: 350,
               }}
-              defaultSource={require('assets/no-image.png')}
               resizeMode="cover"
               source={{
                 uri: item.image_url,
@@ -140,6 +138,8 @@ const NFTScreen = props => {
                   borderRadius: 20,
                   paddingHorizontal: 10,
                   marginRight: 5,
+                  borderWidth: 1,
+                  borderColor: Colors.pill,
                 }}>
                 <Text style={{color: Colors.foreground, fontSize: 13}}>
                   {'Sales: ' + item.num_sales}
@@ -152,6 +152,8 @@ const NFTScreen = props => {
                   borderRadius: 20,
                   paddingHorizontal: 10,
                   marginRight: 5,
+                  borderWidth: 1,
+                  borderColor: Colors.pill,
                 }}>
                 <Text style={{color: Colors.foreground, fontSize: 13}}>
                   {'Symbol: ' + item.asset_contract.symbol}
@@ -164,6 +166,8 @@ const NFTScreen = props => {
                   borderRadius: 20,
                   paddingHorizontal: 10,
                   marginRight: 5,
+                  borderWidth: 1,
+                  borderColor: Colors.pill,
                 }}>
                 <Text style={{color: Colors.foreground, fontSize: 13}}>
                   {'Total Supply: ' + (item.asset_contract.total_supply ?? '-')}
@@ -172,19 +176,10 @@ const NFTScreen = props => {
             </View>
             <Text
               style={{
-                fontSize: 17,
-                color: Colors.foreground,
-                fontFamily: 'RobotoSlab-Bold',
-                marginTop: 15,
-              }}>
-              {'Contract Description'}
-            </Text>
-            <Text
-              style={{
-                fontSize: 13,
+                fontSize: 14,
                 color: Colors.foreground,
                 fontFamily: 'RobotoSlab-Regular',
-                marginTop: 10,
+                marginTop: 15,
               }}>
               {item.asset_contract.description ?? '- No description'}
             </Text>
@@ -198,18 +193,18 @@ const NFTScreen = props => {
                   alignSelf: 'flex-start',
                   paddingHorizontal: 10,
                   paddingRight: 15,
-                  borderRadius: 10,
+                  borderRadius: 5,
                 }}
                 onPress={() => openLink(item.permalink)}>
                 <Image
                   style={{
-                    height: 30,
-                    width: 30,
+                    height: 25,
+                    width: 25,
                   }}
                   source={require('assets/opensea.png')}
                   resizeMode="contain"
                 />
-                <Text style={{color: 'white'}}>OpenSea</Text>
+                <Text style={{color: 'white', fontSize: 13}}>OpenSea</Text>
               </TouchableOpacity>
             </View>
           </View>
