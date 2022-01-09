@@ -166,7 +166,7 @@ const PortfolioScreen = observer(() => {
             }}>
             <Image
               style={{
-                height: 200,
+                height: 180,
                 tintColor: 'gray',
                 opacity: 0.4,
               }}
