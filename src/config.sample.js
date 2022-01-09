@@ -18,4 +18,6 @@ CONFIG.COVALENT_KEY = '';
 CONFIG.MIGRATION_KEY = '@MIGRATION_KEY';
 CONFIG.INIT_KEY = '@init';
 
+// CONFIG.testNFTs = '';
+
 export default CONFIG;
