@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: Colors.card,
     justifyContent: 'center',
-    marginHorizontal: 15,
+    marginHorizontal: 5,
   },
 });
 

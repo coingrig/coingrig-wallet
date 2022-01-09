@@ -138,6 +138,7 @@ const PortfolioScreen = observer(() => {
           initialNumToRender={10}
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={listHeader()}
+          style={{marginHorizontal: 10}}
         />
       );
     } else {
@@ -146,10 +147,12 @@ const PortfolioScreen = observer(() => {
           <BigList
             data={nfts}
             renderItem={renderNFTs}
-            itemHeight={250}
+            itemHeight={200}
             insetBottom={30}
             headerHeight={50}
             renderHeader={listHeader}
+            numColumns={2}
+            style={{marginHorizontal: 10}}
             keyboardDismissMode="on-drag"
             showsVerticalScrollIndicator={false}
             keyExtractor={(item: any) => item.id.toString() ?? ''}

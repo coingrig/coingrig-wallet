@@ -80,7 +80,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'RobotoSlab-Medium',
     color: Colors.lighter,
     marginBottom: 10,
-    marginLeft: 20,
+    marginLeft: 10,
     marginTop: 20,
   },
   subRight: {
@@ -88,7 +88,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'RobotoSlab-Medium',
     color: Colors.lighter,
     marginBottom: 10,
-    marginRight: 20,
+    marginRight: 10,
     marginTop: 20,
   },
   appButtonText: {

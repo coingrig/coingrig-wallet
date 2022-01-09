@@ -10,7 +10,7 @@ const NFTCard = ({item}) => {
     <TouchableOpacity
       onPress={() => navigation.push('NFTScreen', {item})}
       style={{
-        marginHorizontal: 15,
+        marginHorizontal: 5,
         backgroundColor: Colors.card,
         marginBottom: 5,
         borderRadius: 10,
@@ -19,7 +19,7 @@ const NFTCard = ({item}) => {
       }}>
       <Image
         style={{
-          height: 200,
+          height: 150,
           borderTopLeftRadius: 10,
           borderTopRightRadius: 10,
         }}
@@ -30,8 +30,9 @@ const NFTCard = ({item}) => {
       />
       <View style={{padding: 10}}>
         <Text
+          numberOfLines={1}
           style={{
-            fontSize: 15,
+            fontSize: 14,
             color: Colors.lighter,
             fontFamily: 'RobotoSlab-Medium',
           }}>
