@@ -60,7 +60,7 @@ const NFTScreen = props => {
               alignItems: 'center',
               borderRadius: 100,
             }}>
-            <Icon name="close" size={30} color={Colors.foreground} />
+            <Icon name="close" size={25} color={Colors.foreground} />
           </TouchableOpacity>
         )}
         renderStickyHeader={() => <></>}
@@ -95,7 +95,7 @@ const NFTScreen = props => {
               style={{
                 fontSize: 12,
                 color: Colors.lighter,
-                fontFamily: 'RobotoSlab-Regular',
+                // fontFamily: 'RobotoSlab-Regular',
               }}>
               {'Created Date: ' +
                 new Date(item.asset_contract.created_date).toDateString() ??
@@ -103,7 +103,7 @@ const NFTScreen = props => {
             </Text>
             <Text
               style={{
-                fontSize: 23,
+                fontSize: 25,
                 color: Colors.foreground,
                 fontFamily: 'RobotoSlab-Bold',
                 marginTop: 5,
@@ -123,9 +123,9 @@ const NFTScreen = props => {
             </Text>
             <Text
               style={{
-                fontSize: 14,
+                fontSize: 16,
                 color: Colors.foreground,
-                fontFamily: 'RobotoSlab-Regular',
+                // fontFamily: 'RobotoSlab-Regular',
                 marginTop: 10,
               }}>
               {item.description ?? '- No description'}
@@ -141,7 +141,7 @@ const NFTScreen = props => {
                   borderWidth: 1,
                   borderColor: Colors.pill,
                 }}>
-                <Text style={{color: Colors.foreground, fontSize: 13}}>
+                <Text style={{color: Colors.foreground, fontSize: 12}}>
                   {'Sales: ' + item.num_sales}
                 </Text>
               </View>
@@ -155,7 +155,7 @@ const NFTScreen = props => {
                   borderWidth: 1,
                   borderColor: Colors.pill,
                 }}>
-                <Text style={{color: Colors.foreground, fontSize: 13}}>
+                <Text style={{color: Colors.foreground, fontSize: 12}}>
                   {'Symbol: ' + item.asset_contract.symbol}
                 </Text>
               </View>
@@ -169,7 +169,7 @@ const NFTScreen = props => {
                   borderWidth: 1,
                   borderColor: Colors.pill,
                 }}>
-                <Text style={{color: Colors.foreground, fontSize: 13}}>
+                <Text style={{color: Colors.foreground, fontSize: 12}}>
                   {'Total Supply: ' + (item.asset_contract.total_supply ?? '-')}
                 </Text>
               </View>
@@ -178,7 +178,7 @@ const NFTScreen = props => {
               style={{
                 fontSize: 14,
                 color: Colors.foreground,
-                fontFamily: 'RobotoSlab-Regular',
+                // fontFamily: 'RobotoSlab-Regular',
                 marginTop: 15,
               }}>
               {item.asset_contract.description ?? '- No description'}

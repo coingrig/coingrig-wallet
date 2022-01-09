@@ -3,7 +3,6 @@ import {View, Text, Image} from 'react-native';
 import {Colors} from 'utils/colors';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
-import FastImage from 'react-native-fast-image';
 
 const NFTCard = ({item}) => {
   const navigation = useNavigation();
