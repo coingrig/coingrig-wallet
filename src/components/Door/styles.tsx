@@ -3,11 +3,15 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    position: 'absolute',
+    // backgroundColor: 'red',
+    height: '100%',
+    width: '100%',
   },
   waves: {
-    height: '70%',
+    height: '100%',
     width: '150%',
     margin: 0,
     bottom: 0,
@@ -15,7 +19,7 @@ export const styles = StyleSheet.create({
     zIndex: -5,
   },
   waves2: {
-    height: '68%',
+    height: '98%',
     width: '160%',
     margin: 0,
     bottom: 0,
