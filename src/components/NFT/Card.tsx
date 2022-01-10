@@ -24,6 +24,7 @@ const NFTCard = ({item}) => {
           borderTopRightRadius: 10,
         }}
         resizeMode="cover"
+        defaultSource={require('../../assets/no-nft.png')}
         source={{
           uri: item.image_url,
         }}

@@ -58,6 +58,7 @@ const NFTScreen = props => {
         <>
           <Image
             style={styles.paraFore}
+            defaultSource={require('../../assets/no-nft.png')}
             resizeMode="cover"
             source={{
               uri: item.image_url,

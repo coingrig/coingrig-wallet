@@ -108,7 +108,7 @@ const PortfolioScreen = observer(() => {
       item.image_url === '' ||
       item.image_url.includes('svg')
     ) {
-      item.image_url = 'https://i.imgur.com/5VXj3Ts.png';
+      item.image_url = 'https://i.imgur.com/owox3N8.png';
     }
     return <NFTCard item={item} />;
   };
