@@ -28,14 +28,15 @@ import WalletScreen from 'screens/Wallet';
 import MarketScreen from 'screens/Market';
 import PortfolioScreen from 'screens/Portfolio';
 import NewsScreen from 'screens/News';
-import CoinDetailScreen from './screens/CoinDetails';
-import OnBoardingScreen from './screens/Onboarding';
-import WalletconnectScreen from './screens/Walletconnect';
-import CustomTokenScreen from './screens/CustomToken';
-import NFTScreen from './screens/Portfolio/NFTDetails';
+import CoinDetailScreen from 'screens/CoinDetails';
+import OnBoardingScreen from 'screens/Onboarding';
+import WalletconnectScreen from 'screens/Walletconnect';
+import CustomTokenScreen from 'screens/CustomToken';
+import NFTScreen from 'screens/Portfolio/NFTDetails';
 
 import {Colors} from 'utils/colors';
 import CONFIG from 'config';
+import styles from './styles';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -71,7 +72,7 @@ const TabLogo = (inverse = false) => {
         alignItems: 'center',
       }}>
       <Image
-        source={require('./assets/logo_small.png')}
+        source={require('../assets/logo_small.png')}
         style={{
           height: 280 / 13,
           width: 279 / 13,
@@ -92,7 +93,7 @@ const SmallLogo = () => {
         alignItems: 'center',
       }}>
       <Image
-        source={require('./assets/logo_small.png')}
+        source={require('../assets/logo_small.png')}
         style={{
           height: 280 / 13,
           width: 279 / 13,
@@ -109,8 +110,8 @@ function BottomTabs() {
   return (
     <Tab.Navigator
       initialRouteName="Dashboard"
-      headerMode="screen"
       //@ts-ignore
+      headerMode="screen"
       screenOptions={({route}) => ({
         tabBarShowLabel: false,
         tabBarActiveTintColor: '#FFFFFF',
@@ -221,34 +222,22 @@ function NavigationStack({t}) {
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
-        options={{
-          headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
-        }}
+        options={styles.noAnim}
       />
       <Stack.Screen
         name="OnBoardingScreen"
         component={OnBoardingScreen}
-        options={{
-          headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
-        }}
+        options={styles.noAnim}
       />
       <Stack.Screen
         name="StartScreen"
         component={StartScreen}
-        options={{
-          headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
-        }}
+        options={styles.noAnim}
       />
       <Stack.Screen
         name="SetPinScreen"
         component={SetPinScreen}
-        options={{
-          headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
-        }}
+        options={styles.noAnim}
       />
       <Stack.Screen
         name="ReEnterPinScreen"
@@ -262,10 +251,7 @@ function NavigationStack({t}) {
       <Stack.Screen
         name="EnterPinScreen"
         component={EnterPinScreen}
-        options={{
-          headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
-        }}
+        options={styles.noAnim}
       />
       <Stack.Screen
         name="GenerateWalletScreen"
@@ -303,83 +289,22 @@ function NavigationStack({t}) {
       <Stack.Screen
         name="ValidateWalletScreen"
         component={ValidateWalletScreen}
-        options={{
-          headerShown: false,
-          title: '',
-          headerStyle: {
-            shadowColor: 'transparent', // ios
-            elevation: 0, // android
-          },
-          headerTintColor: Colors.foreground,
-          headerBackTitleVisible: false,
-          headerBackTitleStyle: {
-            fontFamily: 'RobotoSlab-Regular',
-          },
-          headerTitleStyle: {
-            fontWeight: '400',
-
-            fontFamily: 'RobotoSlab-Regular',
-            fontSize: 19,
-            justifyContent: 'center',
-          },
-        }}
+        options={styles.importWallet}
       />
       <Stack.Screen
         name="ImportWalletScreen"
         component={ImportWalletScreen}
-        options={{
-          headerShown: false,
-          title: '',
-          headerStyle: {
-            shadowColor: 'transparent', // ios
-            elevation: 0, // android
-          },
-          headerTintColor: Colors.foreground,
-          headerBackTitleVisible: false,
-          headerBackTitleStyle: {
-            fontFamily: 'RobotoSlab-Regular',
-          },
-          headerTitleStyle: {
-            fontWeight: '400',
-
-            fontFamily: 'RobotoSlab-Regular',
-            fontSize: 19,
-            justifyContent: 'center',
-          },
-        }}
+        options={styles.importWallet}
       />
       <Stack.Screen
         name="HomeScreens"
         component={BottomTabs}
-        options={{
-          headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
-        }}
+        options={styles.noAnim}
       />
       <Stack.Screen
         name="WalletScreen"
         component={WalletScreen}
-        options={{
-          headerShown: true,
-          headerTitle: '',
-          headerStyle: {
-            backgroundColor: Colors.darker,
-            shadowColor: 'transparent', // ios
-            elevation: 0, // android
-          },
-          headerTintColor: Colors.foreground,
-          headerBackTitleVisible: false,
-          headerBackTitleStyle: {
-            fontFamily: 'RobotoSlab-Regular',
-          },
-          headerTitleStyle: {
-            fontWeight: '400',
-
-            fontFamily: 'RobotoSlab-Regular',
-            fontSize: 19,
-            justifyContent: 'center',
-          },
-        }}
+        options={styles.walletscreen}
       />
       <Stack.Screen
         name="NewsScreen"
