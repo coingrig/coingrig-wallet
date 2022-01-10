@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useCallback, useEffect, useState} from 'react';
 import {
@@ -160,19 +161,9 @@ const PortfolioScreen = observer(() => {
         );
       } else {
         return (
-          <View
-            style={{
-              flex: 0.9,
-              justifyContent: 'center',
-              alignContent: 'center',
-              alignItems: 'center',
-            }}>
+          <View style={styles.nonft}>
             <Image
-              style={{
-                height: 180,
-                tintColor: 'gray',
-                opacity: 0.4,
-              }}
+              style={styles.noNftImg}
               source={require('assets/nft.png')}
               resizeMode="contain"
             />
