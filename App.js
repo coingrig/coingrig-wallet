@@ -9,7 +9,7 @@ import {MenuProvider} from 'react-native-popup-menu';
 import {NavigationScreens} from './src/routes';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {LoadingSheet} from './src/components/loadingSheet';
-// import Door from './src/components/Door';
+import Door from './src/components/Door';
 import FlashMessage from 'react-native-flash-message';
 import {Colors} from './src/utils/colors';
 
@@ -31,10 +31,9 @@ function App() {
         <MenuProvider>
           <NavigationScreens />
         </MenuProvider>
-
         <FlashMessage position="top" />
         <LoadingSheet />
-        {/* <Door count={2} /> */}
+        <Door />
       </NavigationContainer>
     </SafeAreaProvider>
   );

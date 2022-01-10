@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {Colors} from 'utils/colors';
 
 export const styles = StyleSheet.create({
   container: {
@@ -15,7 +16,7 @@ export const styles = StyleSheet.create({
     zIndex: -5,
   },
   waves2: {
-    height: '68%',
+    height: '69%',
     width: '160%',
     margin: 0,
     bottom: 0,
@@ -36,7 +37,7 @@ export const styles = StyleSheet.create({
   bottomContainer: {
     flex: 2,
     justifyContent: 'flex-end',
-    marginBottom: 30,
+    marginBottom: 40,
   },
   subtitle: {
     fontFamily: 'RobotoSlab-Regular',

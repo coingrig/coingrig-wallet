@@ -1,7 +1,13 @@
 import * as React from 'react';
 const bip39 = require('bip39');
 import {useTranslation} from 'react-i18next';
-import {Text, View, StyleSheet, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  DeviceEventEmitter,
+} from 'react-native';
 import {useNavigation, CommonActions} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Clipboard from '@react-native-clipboard/clipboard';
@@ -35,7 +41,7 @@ export default function ImportWalletScreen({}) {
         });
         return;
       }
-      LoadingModal.instance.current?.show();
+      DeviceEventEmitter.emit('showDoor');
       await sleep(500);
       const importAcc = await WalletStore.createWallets(copiedText, COIN_LIST);
       if (importAcc) {

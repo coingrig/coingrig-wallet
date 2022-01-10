@@ -2,6 +2,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useCallback, useEffect, useState} from 'react';
 import {
+  DeviceEventEmitter,
   RefreshControl,
   ScrollView,
   Text,
@@ -19,7 +20,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon2 from 'react-native-vector-icons/Entypo';
 import Icon3 from 'react-native-vector-icons/Ionicons';
 import {ListPrices} from 'components/widgets/listPrices';
-import {formatPrice} from '../../utils';
+import {formatPrice, sleep} from '../../utils';
 import {observer} from 'mobx-react-lite';
 import {Loader} from 'components/loader';
 import {LoadingModal} from 'services/loading';
@@ -29,6 +30,7 @@ import {showMessage} from 'react-native-flash-message';
 import {CONFIG_MODULES, CONFIG_PROPERTIES, ConfigStore} from 'stores/config';
 import AppsStateService from 'services/appStates';
 import {useNavigation} from '@react-navigation/native';
+import {Logs} from 'services/logs';
 
 const DashboardScreen = observer(() => {
   const {t} = useTranslation();
@@ -38,14 +40,13 @@ const DashboardScreen = observer(() => {
 
   useEffect(() => {
     AppsStateService.coldStart = false;
+    // LoadingModal.door.current?.count = 2;
     if (DeepLinkService.data) {
       DeepLinkService.handleDeepLink(DeepLinkService.data);
     }
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity
-          onPress={() => navigation.navigate('SettingScreen')}
-          style={styles.moreBtn}>
+        <TouchableOpacity onPress={() => test()} style={styles.moreBtn}>
           <Icon3 name="settings-sharp" size={23} color={Colors.foreground} />
         </TouchableOpacity>
       ),
@@ -59,6 +60,14 @@ const DashboardScreen = observer(() => {
       ),
     );
   }, []);
+
+  const test = async () => {
+    DeviceEventEmitter.emit('showDoor');
+    await sleep(500);
+    navigation.navigate('SettingScreen');
+    await sleep(3500);
+    DeviceEventEmitter.emit('hideDoor');
+  };
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
@@ -74,8 +83,7 @@ const DashboardScreen = observer(() => {
       });
     }
     setRefreshing(false);
-    //@ts-ignore
-    LoadingModal.instance.current?.hide();
+    DeviceEventEmitter.emit('hideDoor');
   }, []);
 
   const Marketing = () => {

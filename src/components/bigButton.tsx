@@ -22,7 +22,7 @@ export function BigButton(props) {
 
 const styles = StyleSheet.create({
   bigBtn: {
-    borderWidth: 1,
+    borderWidth: 0.5,
     padding: 15,
     borderRadius: 30,
     paddingHorizontal: 20,

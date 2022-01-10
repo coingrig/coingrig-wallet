@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: Colors.splash,
   },
   logo: {
     fontFamily: 'RobotoSlab-Bold',
