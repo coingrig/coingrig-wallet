@@ -1,16 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {View, ScrollView, ActivityIndicator} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {Switch} from 'components/switch';
 import {ReceiveContainer} from 'components/Receive';
 import {SendContainer} from 'components/Send';
 import {WalletStore} from 'stores/wallet';
 import {TransitionEnd} from 'utils/hooks';
 import {styles} from './styles';
 import {Colors} from 'utils/colors';
+import {Segment, SegmentedControl} from 'react-native-resegmented-control';
+import {useTranslation} from 'react-i18next';
 
 const SendReceiveScreen = ({route}) => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
   const [isReceive, setIsReceive] = useState(route.params.receive);
   const [address, setAddress] = useState('loading...');
   const [coinDescriptor, setCoinDescriptor] = useState({});
@@ -63,7 +65,16 @@ const SendReceiveScreen = ({route}) => {
       scrollEnabled={false}
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled">
-      <Switch switcher={v => setIsReceive(v)} receive={isReceive} />
+      <SegmentedControl
+        inactiveTintColor={Colors.lighter}
+        initialSelectedName={isReceive ? 'receive' : 'send'}
+        style={styles.segment}
+        onChangeValue={name =>
+          name === 'receive' ? setIsReceive(true) : setIsReceive(false)
+        }>
+        <Segment name="receive" content={t('tx.receive')} />
+        <Segment name="send" content={t('tx.send')} />
+      </SegmentedControl>
       {renderContainer()}
     </ScrollView>
   );
