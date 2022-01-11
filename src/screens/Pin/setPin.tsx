@@ -21,7 +21,9 @@ const SetPinScreen = ({route}) => {
       : 'ImportWalletScreen';
 
     if (goTo === 'GenerateWalletScreen') {
-      DeviceEventEmitter.emit('showDoor');
+      DeviceEventEmitter.emit('showDoor', {
+        title: t('modal.please_wait'),
+      });
       await sleep(500);
       const newMnemonic = WalletGenerator.generateMnemonic();
       createWallet(newMnemonic);

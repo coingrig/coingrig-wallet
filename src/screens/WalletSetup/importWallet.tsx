@@ -41,7 +41,9 @@ export default function ImportWalletScreen({}) {
         });
         return;
       }
-      DeviceEventEmitter.emit('showDoor');
+      DeviceEventEmitter.emit('showDoor', {
+        title: t('modal.please_wait'),
+      });
       await sleep(500);
       const importAcc = await WalletStore.createWallets(copiedText, COIN_LIST);
       if (importAcc) {

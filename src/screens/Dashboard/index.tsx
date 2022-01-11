@@ -30,7 +30,6 @@ import {showMessage} from 'react-native-flash-message';
 import {CONFIG_MODULES, CONFIG_PROPERTIES, ConfigStore} from 'stores/config';
 import AppsStateService from 'services/appStates';
 import {useNavigation} from '@react-navigation/native';
-import {Logs} from 'services/logs';
 
 const DashboardScreen = observer(() => {
   const {t} = useTranslation();
@@ -46,7 +45,9 @@ const DashboardScreen = observer(() => {
     }
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity onPress={() => test()} style={styles.moreBtn}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('SettingScreen')}
+          style={styles.moreBtn}>
           <Icon3 name="settings-sharp" size={23} color={Colors.foreground} />
         </TouchableOpacity>
       ),
@@ -60,14 +61,6 @@ const DashboardScreen = observer(() => {
       ),
     );
   }, []);
-
-  const test = async () => {
-    DeviceEventEmitter.emit('showDoor');
-    await sleep(500);
-    navigation.navigate('SettingScreen');
-    await sleep(3500);
-    DeviceEventEmitter.emit('hideDoor');
-  };
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);

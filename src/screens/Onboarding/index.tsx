@@ -3,9 +3,9 @@ import {View, Text, Pressable} from 'react-native';
 import PagerView from 'react-native-pager-view';
 import {useTranslation} from 'react-i18next';
 import {useNavigation, CommonActions} from '@react-navigation/native';
-import Privacy from 'assets/svg/privacy.svg';
-import Crypto from 'assets/svg/crypto.svg';
-import Finance from 'assets/svg/finance.svg';
+import Privacy from 'assets/svg/sec.svg';
+import Rocket from 'assets/svg/rocket.svg';
+import Finance from 'assets/svg/market.svg';
 import {styles} from './styles';
 
 const OnBoardingScreen = () => {
@@ -45,7 +45,7 @@ const OnBoardingScreen = () => {
           <Text style={styles.desc}>{t('onboarding.text1')}</Text>
         </View>
         <View key="2" style={styles.pagerView}>
-          <Crypto width={280} height={350} />
+          <Rocket width={280} height={350} />
           <Text style={styles.desc}>{t('onboarding.text2')}</Text>
         </View>
         <View key="3" style={styles.pagerView}>

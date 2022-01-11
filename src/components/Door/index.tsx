@@ -11,17 +11,37 @@ import * as Animatable from 'react-native-animatable';
 import {Colors} from 'utils/colors';
 import {styles} from './styles';
 
+let DoorClose = false;
+
+//TODO To improve/opt
 function Door() {
   const [show, setShow] = React.useState(false);
   const [running, setRunning] = React.useState(false);
+  const [title, setTitle] = React.useState(null);
+  const [body, setBody] = React.useState(null);
+
   const tc = React.useRef(null);
   const bc = React.useRef(null);
   React.useEffect(() => {
     const showListener = DeviceEventEmitter.addListener('showDoor', message => {
+      if (DoorClose) {
+        return;
+      }
+      DoorClose = true;
+      if (message && message.title) {
+        setTitle(message.title);
+      }
+      if (message && message.body) {
+        setBody(message.body);
+      }
       setShow(true);
       setRunning(true);
     });
     const hideListener = DeviceEventEmitter.addListener('hideDoor', () => {
+      if (!DoorClose) {
+        return;
+      }
+      DoorClose = false;
       setShow(false);
       try {
         //@ts-ignore
@@ -30,6 +50,8 @@ function Door() {
         bc.current.bounceInUp().then(endState => {
           if (endState.finished) {
             setRunning(false);
+            setTitle(null);
+            setBody(null);
           }
         });
       } catch (error) {}
@@ -49,18 +71,17 @@ function Door() {
           ref={tc}
           delay={100}
           useNativeDriver
-          // onAnimationEnd={e => (e.finished ? setShow(false) : null)}
           animation="bounceInDown"
           direction={show ? 'normal' : 'reverse'}
           style={{
             height: '100%',
-            marginTop: -40,
+            marginTop: -60,
           }}>
           <View>
             <Image
               style={{
-                height: 80,
-                width: 80,
+                height: 70,
+                width: 70,
                 tintColor: 'white',
                 zIndex: 100,
                 justifyContent: 'center',
@@ -112,28 +133,33 @@ function Door() {
               justifyContent: 'flex-end',
               alignSelf: 'center',
               marginBottom: 150,
-              marginHorizontal: 30,
+              marginHorizontal: 40,
             }}>
             <ActivityIndicator size="small" color="#e0e0e0" />
-            <Text
-              style={{
-                color: '#e0e0e0',
-                fontSize: 20,
-                textAlign: 'center',
-                fontWeight: 'bold',
-                marginTop: 20,
-              }}>
-              Please wait
-            </Text>
-            <Text
-              style={{
-                color: '#c2c2c2',
-                fontSize: 16,
-                textAlign: 'center',
-                marginTop: 20,
-              }}>
-              Lorem ipsum ala bala portocala ala bala portocoala
-            </Text>
+            {title ? (
+              <Text
+                style={{
+                  color: '#d4cfcf',
+                  fontSize: 19,
+                  textAlign: 'center',
+                  fontWeight: '500',
+                  marginTop: 20,
+                }}>
+                {title}
+              </Text>
+            ) : null}
+            {body ? (
+              <Text
+                style={{
+                  color: '#aba4a4',
+                  fontSize: 15,
+                  textAlign: 'center',
+                  marginTop: 20,
+                  lineHeight: 20,
+                }}>
+                {body}
+              </Text>
+            ) : null}
           </View>
           <Svg
             viewBox="0 0 400 150"

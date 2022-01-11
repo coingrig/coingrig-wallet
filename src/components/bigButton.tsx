@@ -28,11 +28,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignSelf: 'center',
     margin: 5,
-    minWidth: 280,
+    minWidth: 250,
     borderColor: Colors.foreground,
   },
   bigBtnText: {
-    fontSize: 22,
+    fontSize: 20,
     fontFamily: 'RobotoSlab-Bold',
     textAlign: 'center',
   },
