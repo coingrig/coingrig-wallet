@@ -24,7 +24,7 @@ const SplashScreen: FC = () => {
   ConfigStore.initializeConfig();
 
   useEffect(() => {
-    // check();
+    check();
   }, []);
 
   const check = async () => {
