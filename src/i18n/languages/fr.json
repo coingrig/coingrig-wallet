@@ -48,6 +48,7 @@
       "setup.import_wallet": "Importer portefeuille",
 
       "modal.please_wait": "S'il vous plaît, attendez",
+      "modal.remember_to_backup": "Remember to backup your recovery phrase.",
 
       "dashboard.my_balance": "Mon solde",
       "dashboard.wallets": "Portefeuille",

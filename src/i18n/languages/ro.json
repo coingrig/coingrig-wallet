@@ -48,6 +48,7 @@
       "setup.import_wallet": "Importă portofel",
 
       "modal.please_wait": "Te rog să aștepți",
+      "modal.remember_to_backup": "Nu uita să copiezi fraza secretă",
 
       "dashboard.my_balance": "Balanța mea",
       "dashboard.wallets": "Portofel",
@@ -117,8 +118,8 @@
       "language.french": "Franceză",
       "language.romanian": "Română",
 
-      "onboarding.text1": "Privat, Custodie proprie\nCheile tale, banii tai",
-      "onboarding.text2": "Open Source\nSecuritate, Calitate și Libertate",
+      "onboarding.text1": "Privat, Custodie proprie.\nCheile tale, banii tai.",
+      "onboarding.text2": "Cumpară cu cardul.\nTrimite și primeste orice activ.",
       "onboarding.text3": "Un portofel pentru toată lumea.\nPeste 1 milion de tokeni.",
       "onboarding.next": "Continuă",
 

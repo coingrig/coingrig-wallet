@@ -48,6 +48,7 @@
       "setup.import_wallet": "Import wallet",
 
       "modal.please_wait": "Please wait",
+      "modal.remember_to_backup": "Remember to backup your recovery phrase.",
 
       "dashboard.my_balance": "My balance",
       "dashboard.wallets": "Wallet",

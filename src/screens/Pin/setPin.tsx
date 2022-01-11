@@ -23,6 +23,7 @@ const SetPinScreen = ({route}) => {
     if (goTo === 'GenerateWalletScreen') {
       DeviceEventEmitter.emit('showDoor', {
         title: t('modal.please_wait'),
+        body: t('modal.remember_to_backup'),
       });
       await sleep(500);
       const newMnemonic = WalletGenerator.generateMnemonic();
@@ -38,11 +39,7 @@ const SetPinScreen = ({route}) => {
   };
 
   const createWallet = async mnemonic => {
-    //@ts-ignore
-    // LoadingModal.instance.current?.show();
-    // await sleep(500);
     const newWallet = await WalletStore.createWallets(mnemonic, COIN_LIST);
-    // setLoading(false);
     if (newWallet) {
       navigation.dispatch(
         CommonActions.reset({
