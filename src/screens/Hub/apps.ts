@@ -28,7 +28,7 @@ const apps = [
     screen: 'SwapScreen',
     backgroundImage: require('../../assets/hub/swap.png'),
     keywords: 'swap, schimb, exchange',
-    enable: false,
+    enable: true,
     module: true,
   },
   {

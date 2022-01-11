@@ -1,5 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {Colors} from 'utils/colors';
+import {SIZE} from 'utils/constants';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -22,6 +23,11 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1,
     borderColor: Colors.brick,
+  },
+  swapApproveContainer: {
+    height: SIZE.height / 1.7,
+    margin: 10,
+    backgroundColor: Colors.card,
   },
   connector: {
     width: 50,
