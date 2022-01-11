@@ -117,9 +117,9 @@
       "language.french": "Français",
       "language.romanian": "Roumaine",
 
-      "onboarding.text1": "Privé, non dépositaire \n - Vos clés, votre crypto-",
-      "onboarding.text2": "Open Source \n - Sécurité, Qualité et Liberté -",
-      "onboarding.text3": "Un portefeuille pour tous \n - Interface facile à utiliser pour les besoins quotidiens -",
+      "onboarding.text1": "Privé, non dépositaire.\nVos clés, votre crypto.",
+      "onboarding.text2": "Open Source\n.Sécurité, Qualité et Liberté.",
+      "onboarding.text3": "Un portefeuille pour tous.\nInterface facile à utiliser pour les besoins quotidiens.",
       "onboarding.next": "Suivant",
 
       "tx.destination_address": "Adresse de destination",

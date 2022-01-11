@@ -25,12 +25,12 @@ export const styles = StyleSheet.create({
   },
   logo: {
     // fontFamily: 'RobotoSlab-Light',
-    fontSize: 20,
+    fontSize: 19,
     letterSpacing: 1,
     marginTop: 20,
   },
   topContainer: {
-    flex: 4,
+    flex: 3,
     alignItems: 'center',
     justifyContent: 'center',
   },

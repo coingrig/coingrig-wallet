@@ -30,6 +30,7 @@ import {showMessage} from 'react-native-flash-message';
 import {CONFIG_MODULES, CONFIG_PROPERTIES, ConfigStore} from 'stores/config';
 import AppsStateService from 'services/appStates';
 import {useNavigation} from '@react-navigation/native';
+import {SettingsStore} from 'stores/settings';
 
 const DashboardScreen = observer(() => {
   const {t} = useTranslation();
@@ -48,6 +49,7 @@ const DashboardScreen = observer(() => {
         <TouchableOpacity
           onPress={() => navigation.navigate('SettingScreen')}
           style={styles.moreBtn}>
+          {SettingsStore.mnemonicBackupDone ? null : badge()}
           <Icon3 name="settings-sharp" size={23} color={Colors.foreground} />
         </TouchableOpacity>
       ),
@@ -60,7 +62,9 @@ const DashboardScreen = observer(() => {
         false,
       ),
     );
-  }, []);
+  }, [SettingsStore.mnemonicBackupDone]);
+
+  const badge = () => <View style={styles.badge} />;
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);

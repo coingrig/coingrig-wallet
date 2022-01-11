@@ -19,7 +19,7 @@ const StartScreen = () => {
         <View>
           <Image
             // eslint-disable-next-line react-native/no-inline-styles
-            style={{height: 80, tintColor: Colors.foreground}}
+            style={{height: 75, tintColor: Colors.foreground}}
             resizeMode="contain"
             source={require('../../assets/logo.png')}
           />

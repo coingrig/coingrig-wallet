@@ -19,6 +19,7 @@ import {LoadingModal} from 'services/loading';
 import {Colors} from 'utils/colors';
 import {COIN_LIST} from 'utils/constants';
 import {showMessage} from 'react-native-flash-message';
+import {SettingsStore} from 'stores/settings';
 
 export default function ImportWalletScreen({}) {
   const {t} = useTranslation();
@@ -47,6 +48,7 @@ export default function ImportWalletScreen({}) {
       await sleep(500);
       const importAcc = await WalletStore.createWallets(copiedText, COIN_LIST);
       if (importAcc) {
+        SettingsStore.setMnemonicBackupDone(true);
         navigation.dispatch(
           CommonActions.reset({
             index: 1,

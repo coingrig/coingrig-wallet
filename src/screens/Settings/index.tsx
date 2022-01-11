@@ -33,6 +33,7 @@ const SettingScreen = observer(() => {
 
   const copyToClipboard = () => {
     Clipboard.setString(CONFIG.mnemonic);
+    SettingsStore.setMnemonicBackupDone(true);
     showMessage({
       message: t('message.success.mnemonic_copied'),
       type: 'success',
@@ -87,6 +88,8 @@ const SettingScreen = observer(() => {
     }
   };
 
+  const badge = () => <View style={styles.badge} />;
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -100,6 +103,7 @@ const SettingScreen = observer(() => {
               //@ts-ignore
               actionSheetRef.current?.setModalVisible();
             }}>
+            {SettingsStore.mnemonicBackupDone ? null : badge()}
             <Icon name="key" size={23} color={Colors.foreground} />
             <Text style={styles.textItem}>{t('settings.backup_phrase')}</Text>
             <Icon name="arrow-forward" size={20} color="gray" />
