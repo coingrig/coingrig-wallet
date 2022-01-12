@@ -24,6 +24,7 @@ import {WalletFactory} from '@coingrig/core';
 import {BigButton} from 'components/bigButton';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
+import {toEth, toWei} from 'utils';
 
 const swapContainer: React.RefObject<any> = createRef();
 const swapAllowanceContainer: React.RefObject<any> = createRef();
@@ -129,10 +130,14 @@ const SwapScreen = ({chain, from, to}) => {
     if (!buyToken || (!sellToken && (buyAmmount > 0 || sellAmmount > 0))) {
       return;
     }
+    const sellWallet = WalletStore.getWalletByCoinId(
+      sellTokenSymbol,
+      swapChain,
+    );
     let params = {
       buyToken: buyToken,
       sellToken: sellToken,
-      sellAmount: sellAmmount, //'1000000000000000000', // Always denominated in wei
+      sellAmount: toWei(sellAmmount, sellWallet?.decimals), //'1000000000000000000', // Always denominated in wei
       takerAddress: chainAddress,
     };
     const success = await SwapService.getQuote(swapChain, params);
