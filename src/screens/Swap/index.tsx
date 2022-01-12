@@ -1,6 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState, useCallback, createRef} from 'react';
-import {View, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  TextInput,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Colors} from 'utils/colors';
 import {styles} from './style';
@@ -65,7 +72,7 @@ const ERC20_ABI = [
   },
 ];
 
-const SwapScreen = () => {
+const SwapScreen = ({chain, from, to}) => {
   const {t} = useTranslation();
   // MATIC -> USDT
   // const [buyToken, setBuyToken] = useState(
@@ -73,12 +80,8 @@ const SwapScreen = () => {
   // );
   // const [sellToken, setSellToken] = useState('matic');
   // USDT -> LINK
-  const [buyToken, setBuyToken] = useState(
-    '0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39',
-  );
-  const [sellToken, setSellToken] = useState(
-    '0xc2132d05d31c914a87c6611c10748aeb04b58e8f',
-  );
+  const [buyToken, setBuyToken] = useState('MATIC');
+  const [sellToken, setSellToken] = useState('USDC');
 
   const [swapChain, setSwapChain] = useState('POLYGON');
   const [buyAmmount, setBuyAmount] = useState(0);
@@ -251,37 +254,48 @@ const SwapScreen = () => {
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.swapContainer}>
           <View style={styles.swapItem}>
-            <View>
+            <View style={{flex: 3}}>
               <Text style={styles.youPay}>You pay</Text>
-              <Text style={styles.amount}>{sellAmmount}</Text>
+              <TextInput
+                style={styles.amount}
+                keyboardType="numeric"
+                placeholder="100"
+              />
+              {/* <Text style={styles.amount} numberOfLines={1}>
+                {sellAmmount}
+              </Text> */}
             </View>
-            <View>
+            <View style={{flex: 1}}>
               <View style={styles.coin}>
                 <Image
                   style={styles.tinyLogo}
                   source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
                 />
-                <Text style={styles.coinText}>{sellToken}</Text>
+                <Text style={styles.coinText} numberOfLines={1}>
+                  {sellToken}
+                </Text>
               </View>
             </View>
           </View>
 
           <View style={styles.connector}>
-            <Icon name="swap-vertical" size={25} color={Colors.foreground} />
+            <Icon name="swap-vertical" size={20} color={Colors.foreground} />
           </View>
 
           <View style={styles.swapItem}>
-            <View>
+            <View style={{flex: 3}}>
               <Text style={styles.youPay}>You get</Text>
               <Text style={styles.amount}>{buyAmmount}</Text>
             </View>
-            <View>
+            <View style={{flex: 1}}>
               <TouchableOpacity style={styles.coin} onPress={() => startSwap()}>
                 <Image
                   style={styles.tinyLogo}
                   source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
                 />
-                <Text style={styles.coinText}>{buyToken}</Text>
+                <Text style={styles.coinText} numberOfLines={1}>
+                  {buyToken}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
