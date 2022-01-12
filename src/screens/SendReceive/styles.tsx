@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
   segment: {
     backgroundColor: Colors.darker,
     marginHorizontal: 15,
-    height: 30,
+    height: 35,
     marginBottom: 10,
   },
 });

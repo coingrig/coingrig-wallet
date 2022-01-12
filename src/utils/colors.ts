@@ -45,7 +45,7 @@ if (colorScheme === 'dark') {
     pill: '#262424',
     switchBackground: '#F9F7F1',
     switchForeground: '#353333',
-    inputBackground: '#262424',
+    inputBackground: '#383636',
     inputForeground: '#f2eded',
     switchBackground2: '#F9F7F1',
     switchForeground2: '#353333',

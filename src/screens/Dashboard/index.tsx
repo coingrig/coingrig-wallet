@@ -62,6 +62,7 @@ const DashboardScreen = observer(() => {
         false,
       ),
     );
+    DeviceEventEmitter.emit('hideDoor');
   }, [SettingsStore.mnemonicBackupDone]);
 
   const badge = () => <View style={styles.badge} />;
@@ -80,7 +81,6 @@ const DashboardScreen = observer(() => {
       });
     }
     setRefreshing(false);
-    DeviceEventEmitter.emit('hideDoor');
   }, []);
 
   const Marketing = () => {

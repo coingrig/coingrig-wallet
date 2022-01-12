@@ -97,8 +97,7 @@
     "react-native-vector-icons": "7.1.0",
     "readable-stream": "1.0.33",
     "stream-browserify": "^3.0.0",
-    "url": "^0.11.0",
-    "use-count-up": "^3.0.1"
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "@babel/core": "7.15.0",
