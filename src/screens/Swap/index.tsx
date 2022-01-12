@@ -24,7 +24,7 @@ import {WalletFactory} from '@coingrig/core';
 import {BigButton} from 'components/bigButton';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
-import {formatNoComma, toEth, toWei} from 'utils';
+import {formatNoComma, sleep, toEth, toWei} from 'utils';
 
 const swapContainer: React.RefObject<any> = createRef();
 const swapAllowanceContainer: React.RefObject<any> = createRef();
@@ -110,6 +110,7 @@ const SwapScreen = ({chain, from, to}) => {
   const [keyboardEnabled, setKeyboardEnabled] = useState(false);
 
   useEffect(() => {
+    //@ts-ignore
     setChainAddress(WalletStore.getWalletAddressByChain(swapChain));
     resetSwap('ETH', 'ETH');
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -127,7 +128,10 @@ const SwapScreen = ({chain, from, to}) => {
   }, []);
 
   const fetchQuote = async () => {
-    if (!buyToken || (!sellToken && (buyAmmount > 0 || sellAmmount > 0))) {
+    if (
+      !buyToken ||
+      (!sellToken && (Number(buyAmmount) > 0 || Number(sellAmmount) > 0))
+    ) {
       return;
     }
     const sellWallet = WalletStore.getWalletByCoinId(
@@ -135,6 +139,7 @@ const SwapScreen = ({chain, from, to}) => {
       swapChain,
     );
     const buyWallet = WalletStore.getWalletByCoinId(buyTokenSymbol, swapChain);
+    console.log('------', sellWallet?.decimals);
     let params = {
       buyToken: buyToken,
       sellToken: sellToken,
@@ -143,6 +148,7 @@ const SwapScreen = ({chain, from, to}) => {
         sellWallet?.decimals,
       ).toString(), //'1000000000000000000', // Always denominated in wei
       takerAddress: chainAddress,
+      // slippagePercentage: 0.03,
     };
     try {
       const success = await SwapService.getQuote(swapChain, params);
@@ -154,12 +160,12 @@ const SwapScreen = ({chain, from, to}) => {
         return;
       }
       console.log(success);
-
+      setQuote(success);
       setBuyAmount(toEth(success.buyAmount, buyWallet?.decimals).toString());
       setSellAmount(toEth(success.sellAmount, sellWallet?.decimals).toString());
-      setQuote(success);
-      console.log(success.allowanceTarget);
+      startSwap(success);
     } catch (e) {
+      console.log(e);
       showMessage({
         message: e ?? t('message.error.swap_not_found'),
         type: 'warning',
@@ -212,14 +218,15 @@ const SwapScreen = ({chain, from, to}) => {
     console.log('SHOULD RESET to PREVIEW/QUOTE -- Close Approve and/or Swap');
   };
 
-  const startSwap = async () => {
-    if (
-      quote.allowanceTarget !== '0x0000000000000000000000000000000000000000'
-    ) {
+  const startSwap = async q => {
+    console.log(q);
+    if (q.allowanceTarget !== '0x0000000000000000000000000000000000000000') {
       // Trading an ERC20 token, an allowance must be first set!
+      console.log('--------1');
       prepareApproval();
       swapAllowanceContainer.current?.setModalVisible();
     } else {
+      console.log('--------2');
       swapContainer.current?.setModalVisible();
     }
   };
@@ -236,6 +243,8 @@ const SwapScreen = ({chain, from, to}) => {
         message: t('message.swap_approved'),
         type: 'success',
       });
+      swapAllowanceContainer.current?.setModalVisible(false);
+      sleep(500);
       swapContainer.current?.setModalVisible();
     } catch (ex) {
       console.log(ex);
@@ -244,7 +253,7 @@ const SwapScreen = ({chain, from, to}) => {
         type: 'warning',
       });
     } finally {
-      swapAllowanceContainer.current?.setModalVisible(false);
+      // swapAllowanceContainer.current?.setModalVisible(false);
     }
   };
 
@@ -317,7 +326,16 @@ const SwapScreen = ({chain, from, to}) => {
     if (!w3client || !quote) {
       return;
     }
+
     let contract = new w3client.eth.Contract(ERC20_ABI, quote.sellTokenAddress);
+    // quote.from = chainAddress;
+    // const allowance = await contract.methods
+    //   .allowance(quote.from, quote.allowanceTarget)
+    //   .call();
+
+    // console.log('allowance', allowance);
+    // return;
+
     let action = await contract.methods.approve(
       quote.allowanceTarget,
       quote.sellAmount,
