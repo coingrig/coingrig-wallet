@@ -46,7 +46,7 @@ class CryptoService {
       method: 'get',
       url: url,
     };
-    Logs.info('Fetching NFTs for ', url);
+    Logs.info('Fetching NFTs from', url);
     try {
       const response = await axios(config);
       return response.data.assets || [];

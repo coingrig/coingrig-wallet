@@ -47,7 +47,8 @@
       "setup.import_phrase": "Import recovery phrase",
       "setup.import_wallet": "Import wallet",
 
-      "modal.please_wait": "Please wait...",
+      "modal.please_wait": "Please wait",
+      "modal.remember_to_backup": "Remember to backup your recovery phrase.",
 
       "dashboard.my_balance": "My balance",
       "dashboard.wallets": "Wallet",
@@ -117,9 +118,9 @@
       "language.french": "French",
       "language.romanian": "Romanian",
 
-      "onboarding.text1": "Private, Non-custodial \n - Your keys, your coins -",
-      "onboarding.text2": "Open Source \n - Security, Quality and Freedom -",
-      "onboarding.text3": "A Wallet for Everyone \n - Easy to use interface to the day to day needs -",
+      "onboarding.text1": "Private, Non-custodial.\nYour keys, your coins.",
+      "onboarding.text2": "Buy with card.\nSend and Receive any asset.",
+      "onboarding.text3": "A Wallet for Everyone.\n1M+ assets.",
       "onboarding.next": "Next",
 
       "tx.destination_address": "Destination Address",

@@ -53,7 +53,7 @@ const WalletScreen = observer(({route}) => {
                 });
               }}
               style={styles.moreBtn}>
-              <Icon name="stats-chart" size={18} color={Colors.foreground} />
+              <Icon name="stats-chart" size={19} color={Colors.foreground} />
             </TouchableOpacity>
           )}
           {w?.type === 'token' || w?.type === 'custom-token' ? null : (
@@ -62,7 +62,7 @@ const WalletScreen = observer(({route}) => {
               style={styles.moreBtn}>
               <Icon
                 name="list-circle-outline"
-                size={24}
+                size={25}
                 color={Colors.foreground}
               />
             </TouchableOpacity>
