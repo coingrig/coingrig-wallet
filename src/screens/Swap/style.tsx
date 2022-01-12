@@ -68,8 +68,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   tinyLogo: {
-    width: 25,
-    height: 25,
+    width: 28,
+    height: 28,
     padding: 10,
     marginRight: 10,
     borderRadius: 100,

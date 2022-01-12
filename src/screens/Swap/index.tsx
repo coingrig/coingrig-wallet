@@ -8,6 +8,7 @@ import {
   Image,
   TextInput,
   FlatList,
+  Keyboard,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Colors} from 'utils/colors';
@@ -105,13 +106,26 @@ const SwapScreen = ({chain, from, to}) => {
   const [showFrom, setShowFrom] = useState(false);
   const [showTo, setShowTo] = useState(false);
 
+  const [keyboardEnabled, setKeyboardEnabled] = useState(false);
+
   useEffect(() => {
     setChainAddress(WalletStore.getWalletAddressByChain(swapChain));
     resetSwap('ETH', 'ETH');
+    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardEnabled(true);
+    });
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardEnabled(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
     // fetchQuote();
   }, []);
 
-  const fetchQuote = useCallback(async () => {
+  const fetchQuote = async () => {
     if (!buyToken || (!sellToken && (buyAmmount > 0 || sellAmmount > 0))) {
       return;
     }
@@ -147,7 +161,7 @@ const SwapScreen = ({chain, from, to}) => {
       price: "3061.878060075607073201"
       protocolFee: "0"
     */
-  }, []);
+  };
 
   const resetSwap = (defaultCoin, chain) => {
     setSellToken(defaultCoin);
@@ -294,8 +308,6 @@ const SwapScreen = ({chain, from, to}) => {
   };
 
   const renderItem = (item, from) => {
-    console.log(item);
-    // return <Text>{item.name}</Text>;
     return (
       <TouchableOpacity
         onPress={() => {
@@ -447,7 +459,9 @@ const SwapScreen = ({chain, from, to}) => {
           </Text>
         </View>
       </View>
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        keyboardShouldPersistTaps="handled">
         <View style={{marginTop: 15}}>
           <SegmentedControl
             inactiveTintColor={Colors.lighter}
@@ -463,72 +477,84 @@ const SwapScreen = ({chain, from, to}) => {
             <Segment name="POLYGON" content={'Polygon'} />
           </SegmentedControl>
         </View>
-        <View style={styles.swapContainer}>
-          <View style={styles.swapItem}>
-            <View style={{flex: 2.5}}>
-              <Text style={styles.youPay}>You pay</Text>
-              <TextInput
-                style={styles.amount}
-                keyboardType="numeric"
-                placeholder="0"
-                value={sellAmmount}
-                onChangeText={t => setSellAmount(t)}
-              />
-            </View>
-            <View style={{flex: 1}}>
-              <TouchableOpacity
-                style={styles.coin}
-                onPress={() => {
-                  setShowFrom(true);
-                }}>
-                <FastImage
-                  style={styles.tinyLogo}
-                  source={{
-                    uri: sellTokenLogo,
-                    priority: FastImage.priority.normal,
-                    cache: FastImage.cacheControl.immutable,
-                  }}
+        <View style={{flex: 1, justifyContent: 'space-between'}}>
+          <View
+            style={[styles.swapContainer, {flex: keyboardEnabled ? 0.5 : 4}]}>
+            <View style={styles.swapItem}>
+              <View style={{flex: 2.5}}>
+                <Text style={styles.youPay}>You pay</Text>
+                <TextInput
+                  style={styles.amount}
+                  keyboardType="numeric"
+                  placeholder="0"
+                  value={sellAmmount}
+                  onChangeText={t => setSellAmount(t)}
                 />
-                <Text style={styles.coinText} numberOfLines={1}>
-                  {sellTokenSymbol}
-                </Text>
-              </TouchableOpacity>
+              </View>
+              <View style={{flex: 1}}>
+                <TouchableOpacity
+                  style={styles.coin}
+                  onPress={() => {
+                    setShowFrom(true);
+                  }}>
+                  <FastImage
+                    style={styles.tinyLogo}
+                    source={{
+                      uri: sellTokenLogo,
+                      priority: FastImage.priority.normal,
+                      cache: FastImage.cacheControl.immutable,
+                    }}
+                  />
+                  <Text style={styles.coinText} numberOfLines={1}>
+                    {sellTokenSymbol}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View style={styles.connector}>
+              <Icon name="arrow-down" size={20} color={Colors.foreground} />
+            </View>
+
+            <View style={styles.swapItem}>
+              <View style={{flex: 2.5}}>
+                <Text style={styles.youPay}>You get</Text>
+                <TextInput
+                  style={styles.amount}
+                  value={buyAmmount}
+                  placeholder="0"
+                  editable={false}
+                />
+              </View>
+              <View style={{flex: 1}}>
+                <TouchableOpacity
+                  style={styles.coin}
+                  onPress={() => {
+                    setShowTo(true);
+                  }}>
+                  <FastImage
+                    style={styles.tinyLogo}
+                    source={{
+                      uri: buyTokenLogo,
+                      priority: FastImage.priority.normal,
+                      cache: FastImage.cacheControl.immutable,
+                    }}
+                  />
+                  <Text style={styles.coinText} numberOfLines={1}>
+                    {buyTokenSymbol}
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-
-          <View style={styles.connector}>
-            <Icon name="arrow-down" size={20} color={Colors.foreground} />
-          </View>
-
-          <View style={styles.swapItem}>
-            <View style={{flex: 2.5}}>
-              <Text style={styles.youPay}>You get</Text>
-              <TextInput
-                style={styles.amount}
-                value={buyAmmount}
-                placeholder="0"
-                editable={false}
-              />
-            </View>
-            <View style={{flex: 1}}>
-              <TouchableOpacity
-                style={styles.coin}
-                onPress={() => {
-                  setShowTo(true);
-                }}>
-                <FastImage
-                  style={styles.tinyLogo}
-                  source={{
-                    uri: buyTokenLogo,
-                    priority: FastImage.priority.normal,
-                    cache: FastImage.cacheControl.immutable,
-                  }}
-                />
-                <Text style={styles.coinText} numberOfLines={1}>
-                  {buyTokenSymbol}
-                </Text>
-              </TouchableOpacity>
-            </View>
+          <View style={{flex: 1}}>
+            <BigButton
+              text={t('swap.preview')}
+              backgroundColor={Colors.foreground}
+              color={Colors.background}
+              disabled={false}
+              onPress={() => fetchQuote()}
+            />
           </View>
         </View>
       </ScrollView>
