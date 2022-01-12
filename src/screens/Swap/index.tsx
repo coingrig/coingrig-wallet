@@ -7,11 +7,14 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  FlatList,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Colors} from 'utils/colors';
 import {styles} from './style';
+import {Segment, SegmentedControl} from 'react-native-resegmented-control';
 import {showMessage} from 'react-native-flash-message';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import SwapService from 'services/swap';
 import {useTranslation} from 'react-i18next';
 import ActionSheet from 'react-native-actions-sheet';
@@ -19,6 +22,8 @@ import {CryptoService} from 'services/crypto';
 import {WalletStore} from 'stores/wallet';
 import {WalletFactory} from '@coingrig/core';
 import {BigButton} from 'components/bigButton';
+import FastImage from 'react-native-fast-image';
+import {useNavigation} from '@react-navigation/native';
 
 const swapContainer: React.RefObject<any> = createRef();
 const swapAllowanceContainer: React.RefObject<any> = createRef();
@@ -74,26 +79,36 @@ const ERC20_ABI = [
 
 const SwapScreen = ({chain, from, to}) => {
   const {t} = useTranslation();
+  const navigation = useNavigation();
+  const [swapChain, setSwapChain] = useState('POLYGON');
+
   // MATIC -> USDT
   // const [buyToken, setBuyToken] = useState(
   //   '0xc2132d05d31c914a87c6611c10748aeb04b58e8f',
   // );
   // const [sellToken, setSellToken] = useState('matic');
   // USDT -> LINK
-  const [buyToken, setBuyToken] = useState('MATIC');
+  const [sellTokenSymbol, setSellTokenSymbol] = useState('USDC');
   const [sellToken, setSellToken] = useState('USDC');
+  const [sellTokenLogo, setSellTokenLogo] = useState('USDC');
+  const [sellAmmount, setSellAmount] = useState('');
 
-  const [swapChain, setSwapChain] = useState('POLYGON');
-  const [buyAmmount, setBuyAmount] = useState(0);
-  const [sellAmmount, setSellAmount] = useState('400');
+  const [buyTokenSymbol, setBuyTokenSymbol] = useState('MATIC');
+  const [buyToken, setBuyToken] = useState('MATIC');
+  const [buyTokenLogo, setBuyTokenLogo] = useState('MATIC');
+  const [buyAmmount, setBuyAmount] = useState('');
+
   const [quote, setQuote] = useState(null);
   const [allowance, setAllowance] = useState(null);
   const [allowanceFee, setAllowanceFee] = useState(null);
   const [chainAddress, setChainAddress] = useState(null);
 
+  const [showFrom, setShowFrom] = useState(false);
+  const [showTo, setShowTo] = useState(false);
+
   useEffect(() => {
     setChainAddress(WalletStore.getWalletAddressByChain(swapChain));
-    fetchQuote();
+    // fetchQuote();
   }, []);
 
   const fetchQuote = useCallback(async () => {
@@ -249,9 +264,174 @@ const SwapScreen = ({chain, from, to}) => {
     setAllowanceFee(gasEstimate);
   };
 
+  const renderItem = (item, from) => {
+    // console.log(item);
+    // return <Text>{item.name}</Text>;
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          if (from) {
+            setSellToken(item.contract ?? item.symbol);
+            setSellTokenSymbol(item.symbol);
+            setShowFrom(false);
+          } else {
+            setBuyToken(item.contract ?? item.symbol);
+            setBuyTokenSymbol(item.symbol);
+            setShowTo(false);
+          }
+        }}
+        style={{
+          flexDirection: 'row',
+          flex: 1,
+          borderBottomWidth: 0.5,
+          borderBottomColor: Colors.brick,
+          paddingVertical: 10,
+          alignItems: 'center',
+        }}>
+        <FastImage
+          style={{
+            width: 20,
+            height: 20,
+            marginRight: 0,
+            justifyContent: 'center',
+            alignSelf: 'center',
+            marginVertical: 10,
+          }}
+          source={{
+            uri: item.image,
+            priority: FastImage.priority.normal,
+            cache: FastImage.cacheControl.immutable,
+          }}
+        />
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <Text
+            style={{
+              flex: 5,
+              color: Colors.foreground,
+              marginLeft: 10,
+              fontSize: 17,
+            }}
+            numberOfLines={1}>
+            {item.name}
+          </Text>
+          <Text
+            style={{
+              flex: 1,
+              color: Colors.lighter,
+              marginLeft: 10,
+              fontSize: 13,
+              textAlign: 'right',
+            }}
+            numberOfLines={1}>
+            {item.symbol.toUpperCase()}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  const CoinsList = from => {
+    return (
+      <View style={styles.coinsSheet}>
+        <View
+          style={{
+            paddingVertical: 10,
+            marginHorizontal: 30,
+            height: 52,
+            justifyContent: 'center',
+          }}>
+          <Text
+            style={{
+              fontWeight: '400',
+              letterSpacing: 1,
+              fontFamily: 'RobotoSlab-Regular',
+              fontSize: 20,
+              justifyContent: 'center',
+              textAlign: 'center',
+              color: Colors.foreground,
+            }}>
+            Convert {from ? 'from' : 'to'}
+          </Text>
+        </View>
+        <FlatList
+          data={WalletStore.wallets.filter(el => el.chain === swapChain)}
+          renderItem={data => renderItem(data.item, from)}
+          keyExtractor={(item: any) => item.image + item.name ?? ''}
+          maxToRenderPerBatch={10}
+          initialNumToRender={10}
+          showsVerticalScrollIndicator={false}
+          ListFooterComponent={() => {
+            return (
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontSize: 13,
+                  paddingTop: 25,
+                  color: Colors.lighter,
+                  width: 230,
+                  alignSelf: 'center',
+                  paddingBottom: 50,
+                }}>
+                For more tokens, add them in your portfolio first
+              </Text>
+            );
+          }}
+          style={{paddingHorizontal: 15}}
+        />
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
+      <View
+        style={{
+          height: 52,
+          justifyContent: 'center',
+          // backgroundColor: Colors.darker,
+        }}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.close}>
+          <Icon name="close" size={25} color={Colors.foreground} />
+        </TouchableOpacity>
+        <View style={{paddingVertical: 10, marginHorizontal: 30}}>
+          <Text
+            style={{
+              fontWeight: '400',
+              letterSpacing: 1,
+              fontFamily: 'RobotoSlab-Regular',
+              fontSize: 20,
+              justifyContent: 'center',
+              textAlign: 'center',
+              color: Colors.foreground,
+            }}>
+            Swap
+          </Text>
+        </View>
+      </View>
       <ScrollView contentContainerStyle={styles.container}>
+        <View style={{marginTop: 15}}>
+          <SegmentedControl
+            inactiveTintColor={Colors.lighter}
+            initialSelectedName={'ETH'}
+            style={{
+              marginHorizontal: 15,
+              height: 35,
+              backgroundColor: Colors.darker,
+            }}
+            onChangeValue={name => null}>
+            <Segment name="ETH" content={'Ethereum'} />
+            <Segment name="BSC" content={'BSC'} />
+            <Segment name="POLYGON" content={'Polygon'} />
+          </SegmentedControl>
+        </View>
         <View style={styles.swapContainer}>
           <View style={styles.swapItem}>
             <View style={{flex: 3}}>
@@ -259,22 +439,25 @@ const SwapScreen = ({chain, from, to}) => {
               <TextInput
                 style={styles.amount}
                 keyboardType="numeric"
-                placeholder="100"
+                placeholder="-"
+                value={sellAmmount}
+                onChangeText={t => setSellAmount(t)}
               />
-              {/* <Text style={styles.amount} numberOfLines={1}>
-                {sellAmmount}
-              </Text> */}
             </View>
             <View style={{flex: 1}}>
-              <View style={styles.coin}>
+              <TouchableOpacity
+                style={styles.coin}
+                onPress={() => {
+                  setShowFrom(true);
+                }}>
                 <Image
                   style={styles.tinyLogo}
                   source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
                 />
                 <Text style={styles.coinText} numberOfLines={1}>
-                  {sellToken}
+                  {sellTokenSymbol}
                 </Text>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
 
@@ -285,16 +468,25 @@ const SwapScreen = ({chain, from, to}) => {
           <View style={styles.swapItem}>
             <View style={{flex: 3}}>
               <Text style={styles.youPay}>You get</Text>
-              <Text style={styles.amount}>{buyAmmount}</Text>
+              <TextInput
+                style={styles.amount}
+                value={buyAmmount}
+                placeholder="-"
+                editable={false}
+              />
             </View>
             <View style={{flex: 1}}>
-              <TouchableOpacity style={styles.coin} onPress={() => startSwap()}>
+              <TouchableOpacity
+                style={styles.coin}
+                onPress={() => {
+                  setShowTo(true);
+                }}>
                 <Image
                   style={styles.tinyLogo}
                   source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
                 />
                 <Text style={styles.coinText} numberOfLines={1}>
-                  {buyToken}
+                  {buyTokenSymbol}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -371,6 +563,9 @@ const SwapScreen = ({chain, from, to}) => {
           />
         </View>
       </ActionSheet>
+
+      {showFrom ? CoinsList(true) : null}
+      {showTo ? CoinsList(false) : null}
     </View>
   );
 };

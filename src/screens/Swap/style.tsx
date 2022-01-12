@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet, Dimensions, StatusBar, Platform} from 'react-native';
 import {Colors} from 'utils/colors';
 import {SIZE} from 'utils/constants';
 
@@ -17,9 +17,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     backgroundColor: Colors.card,
     height: 74,
-    marginVertical: 3,
+    marginVertical: 2,
     padding: 20,
-    marginHorizontal: 10,
+    marginHorizontal: 15,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: Colors.brick,
@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: Colors.brick,
     borderRadius: 100,
-    top: 63,
+    top: 60,
     left: windowWidth / 2 - 18,
     zIndex: 1,
     justifyContent: 'center',
@@ -48,15 +48,15 @@ export const styles = StyleSheet.create({
   amount: {
     color: Colors.foreground,
     fontSize: 17,
-    marginTop: 5,
+    marginTop: Platform.OS == 'android' ? 0 : 5,
     paddingRight: 10,
+    height: Platform.OS == 'android' ? 40 : 20,
+    // backgroundColor: 'red',
+    // flex: 1,
   },
   coinText: {
     color: Colors.foreground,
     fontSize: 14,
-    // fontWeight: 'bold',
-    // paddingRight: 20,
-    // textAlign: 'right',
     flex: 1,
   },
   coin: {
@@ -70,6 +70,26 @@ export const styles = StyleSheet.create({
     width: 28,
     height: 28,
     marginRight: 5,
+    borderRadius: 100,
+  },
+  coinsSheet: {
+    flex: 1,
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    zIndex: 2,
+    backgroundColor: Colors.background,
+  },
+  close: {
+    position: 'absolute',
+    backgroundColor: Colors.darker,
+    width: 36,
+    height: 36,
+    left: 10,
+    top: 10,
+    zIndex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 100,
   },
 });

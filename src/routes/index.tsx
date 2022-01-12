@@ -437,25 +437,9 @@ function NavigationStack({t}) {
         name="SwapScreen"
         component={SwapScreen}
         options={{
-          headerShown: true,
-          headerTitle: t('title.swap'),
-          headerStyle: {
-            backgroundColor: Colors.darker,
-            shadowColor: 'transparent', // ios
-            elevation: 0, // android
-          },
-          headerTintColor: Colors.foreground,
-          headerBackTitleVisible: false,
-          headerBackTitleStyle: {
-            fontFamily: 'RobotoSlab-Regular',
-          },
-          headerTitleStyle: {
-            fontWeight: '400',
-            letterSpacing: 1,
-            fontFamily: 'RobotoSlab-Regular',
-            fontSize: 20,
-            justifyContent: 'center',
-          },
+          animationEnabled: Platform.OS === 'ios' ? true : false,
+          headerShown: false,
+          presentation: 'modal',
         }}
       />
       <Stack.Screen
