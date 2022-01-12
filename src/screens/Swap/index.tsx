@@ -87,18 +87,14 @@ const SwapScreen = ({chain, from, to}) => {
   // );
   // const [sellToken, setSellToken] = useState('matic');
   // USDT -> LINK
-  const [sellTokenSymbol, setSellTokenSymbol] = useState('USDC');
-  const [sellToken, setSellToken] = useState('USDC');
-  const [sellTokenLogo, setSellTokenLogo] = useState(
-    'https://assets.coingecko.com/coins/images/279/large/ethereum.png',
-  );
+  const [sellTokenSymbol, setSellTokenSymbol] = useState('');
+  const [sellToken, setSellToken] = useState('');
+  const [sellTokenLogo, setSellTokenLogo] = useState('');
   const [sellAmmount, setSellAmount] = useState('0');
 
-  const [buyTokenSymbol, setBuyTokenSymbol] = useState('MATIC');
+  const [buyTokenSymbol, setBuyTokenSymbol] = useState('');
   const [buyToken, setBuyToken] = useState('MATIC');
-  const [buyTokenLogo, setBuyTokenLogo] = useState(
-    'https://assets.coingecko.com/coins/images/279/large/ethereum.png',
-  );
+  const [buyTokenLogo, setBuyTokenLogo] = useState('');
   const [buyAmmount, setBuyAmount] = useState('0');
 
   const [quote, setQuote] = useState(null);
@@ -111,6 +107,7 @@ const SwapScreen = ({chain, from, to}) => {
 
   useEffect(() => {
     setChainAddress(WalletStore.getWalletAddressByChain(swapChain));
+    resetSwap('ETH', 'ETH');
     // fetchQuote();
   }, []);
 
@@ -155,12 +152,12 @@ const SwapScreen = ({chain, from, to}) => {
   const resetSwap = (defaultCoin, chain) => {
     setSellToken(defaultCoin);
     setSellTokenSymbol(defaultCoin);
-    setSellAmount('0');
+    setSellAmount('');
     const logo = WalletStore.getWalletByCoinId(defaultCoin, chain)?.image;
     setSellTokenLogo(logo || '');
     setBuyToken('-');
     setBuyTokenSymbol('Add');
-    setBuyAmount('0');
+    setBuyAmount('');
     setBuyTokenLogo('https://i.imgur.com/SqrmuZ1.png');
   };
 
@@ -509,7 +506,7 @@ const SwapScreen = ({chain, from, to}) => {
               <TextInput
                 style={styles.amount}
                 value={buyAmmount}
-                // placeholder="0"
+                placeholder="0"
                 editable={false}
               />
             </View>

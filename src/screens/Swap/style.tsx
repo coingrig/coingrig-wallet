@@ -74,8 +74,6 @@ export const styles = StyleSheet.create({
     marginRight: 10,
     borderRadius: 100,
     backgroundColor: 'white',
-    borderWidth: 0.5,
-    borderColor: Colors.darker,
   },
   coinsSheet: {
     flex: 1,
