@@ -24,7 +24,7 @@ import {WalletFactory} from '@coingrig/core';
 import {BigButton} from 'components/bigButton';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
-import {toEth, toWei} from 'utils';
+import {formatNoComma, toEth, toWei} from 'utils';
 
 const swapContainer: React.RefObject<any> = createRef();
 const swapAllowanceContainer: React.RefObject<any> = createRef();
@@ -134,26 +134,37 @@ const SwapScreen = ({chain, from, to}) => {
       sellTokenSymbol,
       swapChain,
     );
+    const buyWallet = WalletStore.getWalletByCoinId(buyTokenSymbol, swapChain);
     let params = {
       buyToken: buyToken,
       sellToken: sellToken,
-      sellAmount: toWei(sellAmmount, sellWallet?.decimals), //'1000000000000000000', // Always denominated in wei
+      sellAmount: toWei(
+        formatNoComma(sellAmmount),
+        sellWallet?.decimals,
+      ).toString(), //'1000000000000000000', // Always denominated in wei
       takerAddress: chainAddress,
     };
-    const success = await SwapService.getQuote(swapChain, params);
-    if (!success) {
+    try {
+      const success = await SwapService.getQuote(swapChain, params);
+      if (!success) {
+        showMessage({
+          message: t('message.error.swap_not_found'),
+          type: 'warning',
+        });
+        return;
+      }
+      console.log(success);
+
+      setBuyAmount(toEth(success.buyAmount, buyWallet?.decimals).toString());
+      setSellAmount(toEth(success.sellAmount, sellWallet?.decimals).toString());
+      setQuote(success);
+      console.log(success.allowanceTarget);
+    } catch (e) {
       showMessage({
-        message: t('message.error.swap_not_found'),
+        message: e ?? t('message.error.swap_not_found'),
         type: 'warning',
       });
-      return;
     }
-    console.log(success);
-
-    setBuyAmount(success.buyAmount);
-    setSellAmount(success.sellAmount);
-    setQuote(success);
-    console.log(success.allowanceTarget);
 
     // More info
     /*
@@ -195,6 +206,10 @@ const SwapScreen = ({chain, from, to}) => {
       default:
         break;
     }
+  };
+
+  const resetToPreview = () => {
+    console.log('SHOULD RESET to PREVIEW/QUOTE -- Close Approve and/or Swap');
   };
 
   const startSwap = async () => {
@@ -493,7 +508,10 @@ const SwapScreen = ({chain, from, to}) => {
                   keyboardType="numeric"
                   placeholder="0"
                   value={sellAmmount}
-                  onChangeText={t => setSellAmount(t)}
+                  onChangeText={t => {
+                    setSellAmount(t);
+                    resetToPreview();
+                  }}
                 />
               </View>
               <View style={{flex: 1}}>

@@ -85,7 +85,7 @@ export const styles = StyleSheet.create({
   },
   close: {
     position: 'absolute',
-    backgroundColor: Colors.darker,
+    // backgroundColor: Colors.darker,
     width: 36,
     height: 36,
     left: 10,

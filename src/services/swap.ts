@@ -24,7 +24,12 @@ class SwapService {
       response = await axios.get(url, {
         params: params,
       });
-    } catch (ex) {}
+    } catch (ex) {
+      console.log(ex.response.data);
+      if (ex.response && ex.response.data) {
+        throw ex.response.data.reason;
+      }
+    }
     return response?.data || null;
   };
 }
