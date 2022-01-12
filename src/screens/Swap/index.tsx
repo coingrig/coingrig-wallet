@@ -14,7 +14,6 @@ import {Colors} from 'utils/colors';
 import {styles} from './style';
 import {Segment, SegmentedControl} from 'react-native-resegmented-control';
 import {showMessage} from 'react-native-flash-message';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import SwapService from 'services/swap';
 import {useTranslation} from 'react-i18next';
 import ActionSheet from 'react-native-actions-sheet';
@@ -80,7 +79,7 @@ const ERC20_ABI = [
 const SwapScreen = ({chain, from, to}) => {
   const {t} = useTranslation();
   const navigation = useNavigation();
-  const [swapChain, setSwapChain] = useState('POLYGON');
+  const [swapChain, setSwapChain] = useState('ETH');
 
   // MATIC -> USDT
   // const [buyToken, setBuyToken] = useState(
@@ -90,13 +89,17 @@ const SwapScreen = ({chain, from, to}) => {
   // USDT -> LINK
   const [sellTokenSymbol, setSellTokenSymbol] = useState('USDC');
   const [sellToken, setSellToken] = useState('USDC');
-  const [sellTokenLogo, setSellTokenLogo] = useState('USDC');
-  const [sellAmmount, setSellAmount] = useState('');
+  const [sellTokenLogo, setSellTokenLogo] = useState(
+    'https://assets.coingecko.com/coins/images/279/large/ethereum.png',
+  );
+  const [sellAmmount, setSellAmount] = useState('0');
 
   const [buyTokenSymbol, setBuyTokenSymbol] = useState('MATIC');
   const [buyToken, setBuyToken] = useState('MATIC');
-  const [buyTokenLogo, setBuyTokenLogo] = useState('MATIC');
-  const [buyAmmount, setBuyAmount] = useState('');
+  const [buyTokenLogo, setBuyTokenLogo] = useState(
+    'https://assets.coingecko.com/coins/images/279/large/ethereum.png',
+  );
+  const [buyAmmount, setBuyAmount] = useState('0');
 
   const [quote, setQuote] = useState(null);
   const [allowance, setAllowance] = useState(null);
@@ -148,6 +151,35 @@ const SwapScreen = ({chain, from, to}) => {
       protocolFee: "0"
     */
   }, []);
+
+  const resetSwap = (defaultCoin, chain) => {
+    setSellToken(defaultCoin);
+    setSellTokenSymbol(defaultCoin);
+    setSellAmount('0');
+    const logo = WalletStore.getWalletByCoinId(defaultCoin, chain)?.image;
+    setSellTokenLogo(logo || '');
+    setBuyToken('-');
+    setBuyTokenSymbol('Add');
+    setBuyAmount('0');
+    setBuyTokenLogo('https://i.imgur.com/SqrmuZ1.png');
+  };
+
+  const changeChain = newChain => {
+    setSwapChain(newChain);
+    switch (newChain) {
+      case 'ETH':
+        resetSwap('ETH', 'ETH');
+        break;
+      case 'BSC':
+        resetSwap('BNB', 'BSC');
+        break;
+      case 'POLYGON':
+        resetSwap('MATIC', 'POLYGON');
+        break;
+      default:
+        break;
+    }
+  };
 
   const startSwap = async () => {
     if (
@@ -265,7 +297,7 @@ const SwapScreen = ({chain, from, to}) => {
   };
 
   const renderItem = (item, from) => {
-    // console.log(item);
+    console.log(item);
     // return <Text>{item.name}</Text>;
     return (
       <TouchableOpacity
@@ -273,10 +305,12 @@ const SwapScreen = ({chain, from, to}) => {
           if (from) {
             setSellToken(item.contract ?? item.symbol);
             setSellTokenSymbol(item.symbol);
+            setSellTokenLogo(item.image);
             setShowFrom(false);
           } else {
             setBuyToken(item.contract ?? item.symbol);
             setBuyTokenSymbol(item.symbol);
+            setBuyTokenLogo(item.image);
             setShowTo(false);
           }
         }}
@@ -420,13 +454,13 @@ const SwapScreen = ({chain, from, to}) => {
         <View style={{marginTop: 15}}>
           <SegmentedControl
             inactiveTintColor={Colors.lighter}
-            initialSelectedName={'ETH'}
+            initialSelectedName={swapChain}
             style={{
               marginHorizontal: 15,
               height: 35,
               backgroundColor: Colors.darker,
             }}
-            onChangeValue={name => null}>
+            onChangeValue={name => changeChain(name)}>
             <Segment name="ETH" content={'Ethereum'} />
             <Segment name="BSC" content={'BSC'} />
             <Segment name="POLYGON" content={'Polygon'} />
@@ -434,12 +468,12 @@ const SwapScreen = ({chain, from, to}) => {
         </View>
         <View style={styles.swapContainer}>
           <View style={styles.swapItem}>
-            <View style={{flex: 3}}>
+            <View style={{flex: 2.5}}>
               <Text style={styles.youPay}>You pay</Text>
               <TextInput
                 style={styles.amount}
                 keyboardType="numeric"
-                placeholder="-"
+                placeholder="0"
                 value={sellAmmount}
                 onChangeText={t => setSellAmount(t)}
               />
@@ -450,9 +484,13 @@ const SwapScreen = ({chain, from, to}) => {
                 onPress={() => {
                   setShowFrom(true);
                 }}>
-                <Image
+                <FastImage
                   style={styles.tinyLogo}
-                  source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+                  source={{
+                    uri: sellTokenLogo,
+                    priority: FastImage.priority.normal,
+                    cache: FastImage.cacheControl.immutable,
+                  }}
                 />
                 <Text style={styles.coinText} numberOfLines={1}>
                   {sellTokenSymbol}
@@ -462,16 +500,16 @@ const SwapScreen = ({chain, from, to}) => {
           </View>
 
           <View style={styles.connector}>
-            <Icon name="swap-vertical" size={20} color={Colors.foreground} />
+            <Icon name="arrow-down" size={20} color={Colors.foreground} />
           </View>
 
           <View style={styles.swapItem}>
-            <View style={{flex: 3}}>
+            <View style={{flex: 2.5}}>
               <Text style={styles.youPay}>You get</Text>
               <TextInput
                 style={styles.amount}
                 value={buyAmmount}
-                placeholder="-"
+                // placeholder="0"
                 editable={false}
               />
             </View>
@@ -481,9 +519,13 @@ const SwapScreen = ({chain, from, to}) => {
                 onPress={() => {
                   setShowTo(true);
                 }}>
-                <Image
+                <FastImage
                   style={styles.tinyLogo}
-                  source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+                  source={{
+                    uri: buyTokenLogo,
+                    priority: FastImage.priority.normal,
+                    cache: FastImage.cacheControl.immutable,
+                  }}
                 />
                 <Text style={styles.coinText} numberOfLines={1}>
                   {buyTokenSymbol}
