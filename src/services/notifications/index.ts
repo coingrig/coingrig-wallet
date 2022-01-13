@@ -6,7 +6,7 @@ class NotificationService {
   constructor() {
     //OneSignal Init Code
     OneSignal.setLogLevel(6, 0);
-    OneSignal.setAppId(CONFIG.OneSignalKey);
+    OneSignal.setAppId(CONFIG.ONESIGNAL_KEY);
     //Method for handling notifications received while app in foreground
     OneSignal.setNotificationWillShowInForegroundHandler(
       notificationReceivedEvent => {
