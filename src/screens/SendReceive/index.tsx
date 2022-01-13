@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import {ReceiveContainer} from 'components/Receive';
 import {SendContainer} from 'components/Send';
 import {WalletStore} from 'stores/wallet';
-import {TransitionEnd} from 'utils/hooks';
+import {useTransitionEnd} from 'utils/hooks/useTransitionEnd';
 import {styles} from './styles';
 import {Colors} from 'utils/colors';
 import {Segment, SegmentedControl} from 'react-native-resegmented-control';
@@ -16,7 +16,7 @@ const SendReceiveScreen = ({route}) => {
   const [isReceive, setIsReceive] = useState(route.params.receive);
   const [address, setAddress] = useState('loading...');
   const [coinDescriptor, setCoinDescriptor] = useState({});
-  const tEnded = TransitionEnd(navigation);
+  const tEnded = useTransitionEnd(navigation);
 
   useEffect(() => {
     navigation.setOptions({

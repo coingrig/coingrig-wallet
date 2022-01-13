@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
 import FastImage from 'react-native-fast-image';
-import {TransitionEnd} from 'utils/hooks';
+import {useTransitionEnd} from 'utils/hooks/useTransitionEnd';
 import {Colors} from 'utils/colors';
 import {SIZE} from 'utils/constants';
 import {styles} from './styles';
@@ -39,7 +39,7 @@ const CoinDetailScreen = observer(({route}) => {
   const [coinData, setCoinData] = useState<any>();
   const [chartData, setChartData] = useState([]);
   const [platforms, setPlatforms] = useState<any>([]);
-  const transitionEnded = TransitionEnd(navigation);
+  const transitionEnded = useTransitionEnd(navigation);
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {

@@ -11,7 +11,7 @@ import BigList from 'react-native-big-list';
 import {useNavigation} from '@react-navigation/native';
 import {Colors} from 'utils/colors';
 import FastImage from 'react-native-fast-image';
-import {TransitionEnd} from 'utils/hooks';
+import {useTransitionEnd} from 'utils/hooks/useTransitionEnd';
 import {useTranslation} from 'react-i18next';
 import {Loader} from 'components/loader';
 import {SmallButton} from 'components/smallButton';
@@ -22,7 +22,7 @@ const SearchScreen = ({route}) => {
   const [data, setData] = useState(coins);
   const [showScreen, setShowScreen] = useState(false);
   const [searchText, setSearchText] = useState('');
-  const transitionEnded = TransitionEnd(navigation);
+  const transitionEnded = useTransitionEnd(navigation);
 
   const {t} = useTranslation();
 
