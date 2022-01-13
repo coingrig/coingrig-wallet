@@ -145,11 +145,12 @@ export const styles = StyleSheet.create({
   nftTitleCont: {
     paddingHorizontal: 15,
     backgroundColor: Colors.darker,
-    paddingVertical: 10,
+    paddingVertical: 15,
   },
   date: {
     fontSize: 12,
     color: Colors.lighter,
+    marginBottom: 5,
   },
   nftTitle: {
     fontSize: 23,
