@@ -23,5 +23,6 @@ endpoints.ramper =
 endpoints.coingecko = 'https://api.coingecko.com/api/v3';
 endpoints.covalent = 'https://api.covalenthq.com/v1';
 endpoints.opensea = 'https://api.opensea.io/api/v1';
+endpoints.assets = 'https://assets.coingrig.com/';
 
 export default endpoints;

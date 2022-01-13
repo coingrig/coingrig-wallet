@@ -23,6 +23,7 @@ import {IWallet, WalletStore} from 'stores/wallet';
 import {CryptoService} from 'services/crypto';
 import {formatPrice} from 'utils';
 import BigList from 'react-native-big-list';
+import endpoints from 'utils/endpoints';
 
 const PortfolioScreen = observer(() => {
   const navigation = useNavigation();
@@ -108,7 +109,7 @@ const PortfolioScreen = observer(() => {
       item.image_url === '' ||
       item.image_url.includes('svg')
     ) {
-      item.image_url = 'https://i.imgur.com/owox3N8.png';
+      item.image_url = endpoints.assets + '/images/no-nft.png';
     }
     return <NFTCard item={item} />;
   };

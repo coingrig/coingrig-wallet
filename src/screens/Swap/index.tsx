@@ -25,6 +25,7 @@ import {BigButton} from 'components/bigButton';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
 import {formatNoComma, sleep, toEth, toWei} from 'utils';
+import endpoints from 'utils/endpoints';
 
 const swapContainer: React.RefObject<any> = createRef();
 const swapAllowanceContainer: React.RefObject<any> = createRef();
@@ -194,7 +195,7 @@ const SwapScreen = ({chain, from, to}) => {
     setBuyToken('-');
     setBuyTokenSymbol('Add');
     setBuyAmount('');
-    setBuyTokenLogo('https://i.imgur.com/SqrmuZ1.png');
+    setBuyTokenLogo(endpoints.assets + 'images/plus.png');
   };
 
   const changeChain = newChain => {
