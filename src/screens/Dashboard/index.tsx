@@ -20,10 +20,10 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon2 from 'react-native-vector-icons/Entypo';
 import Icon3 from 'react-native-vector-icons/Ionicons';
 import {ListPrices} from 'components/widgets/listPrices';
-import {formatPrice, sleep} from '../../utils';
+import {formatPrice} from '../../utils';
 import {observer} from 'mobx-react-lite';
 import {Loader} from 'components/loader';
-import {LoadingModal} from 'services/loading';
+import NotificationService from 'services/notifications';
 import {styles} from './styles';
 import {Colors} from 'utils/colors';
 import {showMessage} from 'react-native-flash-message';
@@ -81,6 +81,7 @@ const DashboardScreen = observer(() => {
       });
     }
     setRefreshing(false);
+    NotificationService.askForPermission();
   }, []);
 
   const Marketing = () => {

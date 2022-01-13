@@ -8719,6 +8719,13 @@ react-native-logs@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-native-logs/-/react-native-logs-3.0.4.tgz#a22c26815ff26d45c4aad96c1b674768f043d79b"
   integrity sha512-gIRuhwllXFWMg3Cq4iQv2K6t9v/gHOmQ2N5gSfsNqsJfx361Y36IkKVVzeK48LBKwa+vf9DmE70MRcJXnikAYw==
 
+react-native-onesignal@^4.3.4:
+  version "4.3.4"
+  resolved "https://registry.yarnpkg.com/react-native-onesignal/-/react-native-onesignal-4.3.4.tgz#ee19d62f255a8146dff6e3de30c4544cd28f95c4"
+  integrity sha512-FpSUA9JczrIndqEGk86pnHr0XHRGmZLB6EhSK2PeF++tAA2GNTKd7ga59RCb8S2097qHzBBpHYVefmIIbR8dtQ==
+  dependencies:
+    invariant "^2.2.2"
+
 react-native-os@1.2.6:
   version "1.2.6"
   resolved "https://registry.yarnpkg.com/react-native-os/-/react-native-os-1.2.6.tgz#1bb16d78ccad1143972183a04f443cf1af9fbefa"
