@@ -9,8 +9,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-// import {useNavigation} from '@react-navigation/native';
-
 import {WalletStore} from 'stores/wallet';
 import {CryptoService} from 'services/crypto';
 import DeepLinkService from 'services/deeplink';
@@ -31,6 +29,7 @@ import {CONFIG_MODULES, CONFIG_PROPERTIES, ConfigStore} from 'stores/config';
 import AppsStateService from 'services/appStates';
 import {useNavigation} from '@react-navigation/native';
 import {SettingsStore} from 'stores/settings';
+// import CustomModal from 'components/Modal';
 
 const DashboardScreen = observer(() => {
   const {t} = useTranslation();
@@ -183,6 +182,7 @@ const DashboardScreen = observer(() => {
         />
       }>
       {preRender()}
+      {/* <CustomModal show={true} /> */}
     </ScrollView>
   );
 });
