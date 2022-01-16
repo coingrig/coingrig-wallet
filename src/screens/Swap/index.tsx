@@ -101,7 +101,7 @@ const SwapScreen = ({chain, from, to}) => {
   const [buyAmmount, setBuyAmount] = useState('0');
 
   const [quote, setQuote] = useState(null);
-  const [allowance, setAllowance] = useState(null);
+  const [allowanceAction, setAllowanceAction] = useState(null);
   const [allowanceFee, setAllowanceFee] = useState(null);
   const [chainAddress, setChainAddress] = useState(null);
 
@@ -125,10 +125,42 @@ const SwapScreen = ({chain, from, to}) => {
       showSubscription.remove();
       hideSubscription.remove();
     };
-    // fetchQuote();
   }, []);
 
-  const fetchQuote = async () => {
+  const fetchQuote = async (
+    _buyToken,
+    _sellToken,
+    _sellAmount,
+    exact = false,
+  ) => {
+    let params = {
+      buyToken: _buyToken,
+      sellToken: _sellToken,
+      sellAmount: _sellAmount, // Always denominated in wei
+      // slippagePercentage: 0.03,
+    };
+    if (exact === true) {
+      params.takerAddress = chainAddress;
+    }
+    try {
+      return await SwapService.getQuote(swapChain, params);
+    } catch (e) {
+      return null;
+    }
+    // More info
+    /*
+      estimatedGas: "136000"
+      gas: "136000"
+      gasPrice: "303000000000"
+      guaranteedPrice: "3031.259279474851002468"
+      minimumProtocolFee: "0"
+      sources: [{name: "0x", proportion: "0"}, {name: "Uniswap", proportion: "0"},…]
+      price: "3061.878060075607073201"
+      protocolFee: "0"
+    */
+  };
+
+  const checkPreview = async () => {
     if (
       !buyToken ||
       (!sellToken && (Number(buyAmmount) > 0 || Number(sellAmmount) > 0))
@@ -139,20 +171,22 @@ const SwapScreen = ({chain, from, to}) => {
       sellTokenSymbol,
       swapChain,
     );
+    // Does the user have enough cash in his wallet to start the sell?
+    if (sellWallet?.balance < sellAmmount) {
+      showMessage({
+        message: t('message.error.not_enough_balance'),
+        type: 'warning',
+      });
+      return;
+    }
     const buyWallet = WalletStore.getWalletByCoinId(buyTokenSymbol, swapChain);
     console.log('------', sellWallet?.decimals);
-    let params = {
-      buyToken: buyToken,
-      sellToken: sellToken,
-      sellAmount: toWei(
-        formatNoComma(sellAmmount),
-        sellWallet?.decimals,
-      ).toString(), //'1000000000000000000', // Always denominated in wei
-      takerAddress: chainAddress,
-      // slippagePercentage: 0.03,
-    };
+    let sellAmount = toWei(
+      formatNoComma(sellAmmount),
+      sellWallet?.decimals,
+    ).toString();
     try {
-      const success = await SwapService.getQuote(swapChain, params);
+      const success = await fetchQuote(buyToken, sellToken, sellAmount, false);
       if (!success) {
         showMessage({
           message: t('message.error.swap_not_found'),
@@ -219,23 +253,120 @@ const SwapScreen = ({chain, from, to}) => {
     console.log('SHOULD RESET to PREVIEW/QUOTE -- Close Approve and/or Swap');
   };
 
-  const startSwap = async q => {
-    console.log(q);
-    if (q.allowanceTarget !== '0x0000000000000000000000000000000000000000') {
+  const getW3client = async () => {
+    // Get the coresponding wallet for the chain
+    let chainType = swapChain;
+    // Get the coin descriptor for the chain native asset
+    let cryptoWalletDescriptor = WalletStore.getWalletByCoinId(
+      CryptoService.getChainNativeAsset(chainType),
+      chainType,
+    );
+    // Get the chain private key for signature
+    let chainKeys = await CryptoService.getChainPrivateKeys();
+    // Build the crypto wallet to send the transaction with
+    let cryptoWallet = WalletFactory.getWallet(
+      Object.assign({}, cryptoWalletDescriptor, {
+        walletAddress: chainAddress,
+        privKey: chainKeys.ETH,
+      }),
+    );
+    let signingManager = cryptoWallet.getSigningManager();
+    let w3client = signingManager?.client;
+    if (!w3client) {
+      return;
+    }
+    return w3client;
+  };
+
+  const startSwap = async quoteInfo => {
+    console.log(quoteInfo);
+    if (
+      quoteInfo.allowanceTarget !== '0x0000000000000000000000000000000000000000'
+    ) {
       // Trading an ERC20 token, an allowance must be first set!
-      console.log('--------1');
-      prepareApproval();
-      swapAllowanceContainer.current?.setModalVisible();
+      console.log('Checking allowance');
+      // Check if the contract has sufficient allowance
+      let w3client = await getW3client();
+      if (!w3client) {
+        showMessage({
+          message: t('message.error.swap_chain_not_supported'),
+          type: 'warning',
+        });
+      }
+      let contract = new w3client!.eth.Contract(
+        ERC20_ABI,
+        quoteInfo.sellTokenAddress,
+      );
+      quoteInfo.from = chainAddress;
+      const spendingAllowance = await contract.methods
+        .allowance(quoteInfo.from, quoteInfo.allowanceTarget)
+        .call();
+      // Are we already allowed to sell the amount we desire?
+      if (spendingAllowance < quoteInfo.sellAmount) {
+        console.log(
+          'Approval required',
+          `${spendingAllowance} < ${quoteInfo.sellAmount}`,
+        );
+        prepareApproval(contract, quoteInfo);
+        swapAllowanceContainer.current?.setModalVisible();
+        return;
+      } else {
+        console.log('Allowance is sufficient');
+      }
     } else {
-      console.log('--------2');
+      console.log('Allowance is not required');
+    }
+    // Get the exact quote now that allowance is OK and let the user send the transaction
+    try {
+      const sellWallet = WalletStore.getWalletByCoinId(
+        sellTokenSymbol,
+        swapChain,
+      );
+      // Does the user have enough cash in his wallet to start the sell?
+      if (sellWallet?.balance < sellAmmount) {
+        showMessage({
+          message: t('message.error.not_enough_balance'),
+          type: 'warning',
+        });
+        return;
+      }
+      const buyWallet = WalletStore.getWalletByCoinId(
+        buyTokenSymbol,
+        swapChain,
+      );
+      console.log('------', sellWallet?.decimals);
+      let sellAmount = toWei(
+        formatNoComma(sellAmmount),
+        sellWallet?.decimals,
+      ).toString();
+
+      const success = await fetchQuote(buyToken, sellToken, sellAmount, true);
+      if (!success) {
+        showMessage({
+          message: t('message.error.swap_not_found'),
+          type: 'warning',
+        });
+        return;
+      }
+      console.log(success);
+      setQuote(success);
+      setBuyAmount(toEth(success.buyAmount, buyWallet?.decimals).toString());
+      setSellAmount(toEth(success.sellAmount, sellWallet?.decimals).toString());
       swapContainer.current?.setModalVisible();
+    } catch (e) {
+      console.log(e);
+      showMessage({
+        message: e ?? t('message.error.swap_not_found'),
+        type: 'warning',
+      });
     }
   };
 
   const executeAllowance = async () => {
     console.log('executeAllowance');
     try {
-      let tx = await allowance.send({
+      // Send the pre-set allowance action to the chain
+      let tx = await allowanceAction.send({
         from: chainAddress,
         gas: allowanceFee,
       });
@@ -245,8 +376,8 @@ const SwapScreen = ({chain, from, to}) => {
         type: 'success',
       });
       swapAllowanceContainer.current?.setModalVisible(false);
-      sleep(500);
-      swapContainer.current?.setModalVisible();
+      // Check again after approval if swap can be edxecuted
+      checkPreview();
     } catch (ex) {
       console.log(ex);
       showMessage({
@@ -305,43 +436,12 @@ const SwapScreen = ({chain, from, to}) => {
     }
   };
 
-  const prepareApproval = async () => {
-    // Get the coresponding wallet for the chain
-    let chainType = swapChain;
-    // Get the coin descriptor for the chain native asset
-    let cryptoWalletDescriptor = WalletStore.getWalletByCoinId(
-      CryptoService.getChainNativeAsset(chainType),
-      chainType,
-    );
-    // Get the chain private key for signature
-    let chainKeys = await CryptoService.getChainPrivateKeys();
-    // Build the crypto wallet to send the transaction with
-    let cryptoWallet = WalletFactory.getWallet(
-      Object.assign({}, cryptoWalletDescriptor, {
-        walletAddress: chainAddress,
-        privKey: chainKeys.ETH,
-      }),
-    );
-    let signingManager = cryptoWallet.getSigningManager();
-    let w3client = signingManager?.client;
-    if (!w3client || !quote) {
-      return;
-    }
-
-    let contract = new w3client.eth.Contract(ERC20_ABI, quote.sellTokenAddress);
-    // quote.from = chainAddress;
-    // const allowance = await contract.methods
-    //   .allowance(quote.from, quote.allowanceTarget)
-    //   .call();
-
-    // console.log('allowance', allowance);
-    // return;
-
+  const prepareApproval = async (contract, quoteDetails) => {
     let action = await contract.methods.approve(
-      quote.allowanceTarget,
-      quote.sellAmount,
+      quoteDetails.allowanceTarget,
+      quoteDetails.sellAmount,
     );
-    setAllowance(action);
+    setAllowanceAction(action);
     let gasEstimate = await action.estimateGas();
     setAllowanceFee(gasEstimate);
   };
@@ -595,7 +695,7 @@ const SwapScreen = ({chain, from, to}) => {
               backgroundColor={Colors.foreground}
               color={Colors.background}
               disabled={false}
-              onPress={() => fetchQuote()}
+              onPress={() => checkPreview()}
             />
           </View>
         </View>
