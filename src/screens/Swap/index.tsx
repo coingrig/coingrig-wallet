@@ -18,7 +18,6 @@ import {Segment, SegmentedControl} from 'react-native-resegmented-control';
 import {showMessage} from 'react-native-flash-message';
 import SwapService from 'services/swap';
 import {useTranslation} from 'react-i18next';
-import ActionSheet from 'react-native-actions-sheet';
 import {CryptoService} from 'services/crypto';
 import {WalletStore} from 'stores/wallet';
 import {BigButton} from 'components/bigButton';
@@ -27,9 +26,6 @@ import {useNavigation} from '@react-navigation/native';
 import {calcFee, formatFee, formatNoComma, sleep, toEth, toWei} from 'utils';
 import endpoints from 'utils/endpoints';
 import {LoadingModal} from 'services/loading';
-
-const swapContainer: React.RefObject<any> = createRef();
-const swapAllowanceContainer: React.RefObject<any> = createRef();
 
 const ERC20_ABI = [
   {
@@ -85,6 +81,7 @@ const SwapScreen = ({chain, from, to}) => {
   const navigation = useNavigation();
   const [swapChain, setSwapChain] = useState('ETH');
   const [status, setStatus] = useState('preview');
+  const [slippage, setSlippage] = useState(0.001);
   // MATIC -> USDT
   // const [buyToken, setBuyToken] = useState(
   //   '0xc2132d05d31c914a87c6611c10748aeb04b58e8f',
@@ -144,8 +141,8 @@ const SwapScreen = ({chain, from, to}) => {
     let params: any = {
       buyToken: _buyToken,
       sellToken: _sellToken,
-      sellAmount: _sellAmount, // Always denominated in wei
-      // slippagePercentage: 0.03,
+      sellAmount: _sellAmount,
+      slippagePercentage: slippage,
     };
     if (exact === true) {
       params.takerAddress = chainAddress;
@@ -186,7 +183,6 @@ const SwapScreen = ({chain, from, to}) => {
       swapChain,
     );
     const buyWallet = WalletStore.getWalletByCoinId(buyTokenSymbol, swapChain);
-    console.log('------', sellWallet?.decimals);
     let sellAmount = toWei(
       formatNoComma(sellAmmount),
       sellWallet?.decimals,
@@ -201,7 +197,7 @@ const SwapScreen = ({chain, from, to}) => {
         });
         return;
       }
-      console.log(success);
+      // console.log(success);
       setQuote(success);
       setBuyAmount(toEth(success.buyAmount, buyWallet?.decimals).toString());
       setSellAmount(toEth(success.sellAmount, sellWallet?.decimals).toString());
@@ -217,11 +213,11 @@ const SwapScreen = ({chain, from, to}) => {
       startSwap(success);
     } catch (e) {
       console.log(e);
+      LoadingModal.instance.current?.hide();
       showMessage({
         message: e ?? t('message.error.swap_not_found'),
         type: 'warning',
       });
-      LoadingModal.instance.current?.hide();
     }
 
     // More info
@@ -342,6 +338,7 @@ const SwapScreen = ({chain, from, to}) => {
 
       const success = await fetchQuote(buyToken, sellToken, sellAmount, true);
       if (!success) {
+        LoadingModal.instance.current?.hide();
         showMessage({
           message: t('message.error.swap_not_found'),
           type: 'warning',
@@ -357,6 +354,7 @@ const SwapScreen = ({chain, from, to}) => {
       LoadingModal.instance.current?.hide();
     } catch (e) {
       console.log(e);
+      LoadingModal.instance.current?.hide();
       showMessage({
         message: e ?? t('message.error.swap_not_found'),
         type: 'warning',
@@ -380,6 +378,7 @@ const SwapScreen = ({chain, from, to}) => {
       });
       // swapAllowanceContainer.current?.setModalVisible(false);
       // Check again after approval if swap can be edxecuted
+      sleep(1500);
       checkPreview(true);
     } catch (ex) {
       LoadingModal.instance.current?.hide();
@@ -541,7 +540,7 @@ const SwapScreen = ({chain, from, to}) => {
         </View>
         <View style={styles.detailItem}>
           <Text style={{color: Colors.lighter}}>Slippage</Text>
-          <Text style={{color: Colors.foreground}}>0.1 %</Text>
+          <Text style={{color: Colors.foreground}}>{slippage * 100} %</Text>
         </View>
         <View style={styles.detailItem}>
           <Text style={{color: Colors.lighter}}>Estimated Gas Fee</Text>
@@ -656,6 +655,7 @@ const SwapScreen = ({chain, from, to}) => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
+      //@ts-ignore
       keyboardVerticalOffset={Platform.select({
         ios: () => 50,
         android: () => 10,
@@ -665,7 +665,6 @@ const SwapScreen = ({chain, from, to}) => {
         style={{
           height: 60,
           justifyContent: 'center',
-          // backgroundColor: Colors.darker,
         }}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -782,97 +781,6 @@ const SwapScreen = ({chain, from, to}) => {
           <View style={{marginBottom: 30}}>{renderAction()}</View>
         </View>
       </ScrollView>
-      <ActionSheet
-        //@ts-ignore
-        ref={swapAllowanceContainer}
-        gestureEnabled={true}
-        headerAlwaysVisible
-        containerStyle={styles.swapApproveContainer}>
-        <View
-          style={{
-            justifyContent: 'space-between',
-            height: '100%',
-            paddingBottom: 20,
-            alignSelf: 'center',
-            alignContent: 'center',
-            alignItems: 'center',
-          }}>
-          <View>
-            <Text style={styles.modalTitle}>Approve to spend</Text>
-          </View>
-          <View>
-            <View>
-              <Text style={[styles.modalBody, {color: Colors.lighter}]}>
-                DEX will be allowed to Spend
-              </Text>
-              <Text style={[styles.modalBody, {fontWeight: 'bold'}]}>
-                {quote ? humanNumber(false) : ''} {sellTokenSymbol}
-              </Text>
-            </View>
-            <View>
-              <Text
-                style={[
-                  styles.modalBody,
-                  {marginTop: 20, color: Colors.lighter},
-                ]}>
-                Fee
-              </Text>
-              <Text style={[styles.modalBody, {fontWeight: 'bold'}]}>
-                {quote ? humanNumber(true, allowanceFee, quote.gasPrice) : ''}
-              </Text>
-            </View>
-          </View>
-          <View>
-            <BigButton
-              text={t('swap.grant_allowance')}
-              backgroundColor={Colors.foreground}
-              color={Colors.background}
-              onPress={executeAllowance}
-            />
-          </View>
-        </View>
-      </ActionSheet>
-      <ActionSheet
-        //@ts-ignore
-        ref={swapContainer}
-        gestureEnabled={true}
-        headerAlwaysVisible
-        containerStyle={styles.swapApproveContainer}>
-        <View>
-          <Text style={styles.youPay}>Execute transaction</Text>
-        </View>
-        <View>
-          <Text style={styles.youPay}>Receive</Text>
-          <Text style={styles.amount}>
-            {quote ? quote.buyAmount : ''} {buyToken}
-          </Text>
-        </View>
-        <View>
-          <Text style={styles.youPay}>Send</Text>
-          <Text style={styles.amount}>
-            {quote ? quote.sellAmount : ''} {sellToken}
-          </Text>
-        </View>
-        <View>
-          <Text style={styles.youPay}>at a price of</Text>
-          <Text style={styles.amount}>{quote ? quote.price : ''}</Text>
-        </View>
-        <View>
-          <Text style={styles.youPay}>Fee</Text>
-          <Text style={styles.amount}>
-            {quote ? quote.gas : ''} * {quote ? quote.gasPrice : ''}
-          </Text>
-        </View>
-        <View>
-          <BigButton
-            text={t('swap.swap')}
-            backgroundColor={Colors.foreground}
-            color={Colors.background}
-            onPress={executeSwap}
-          />
-        </View>
-      </ActionSheet>
-
       {showFrom ? CoinsList(true) : null}
       {showTo ? CoinsList(false) : null}
     </KeyboardAvoidingView>
