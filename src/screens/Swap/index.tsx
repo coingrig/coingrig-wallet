@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useEffect, useState, createRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -12,9 +12,11 @@ import {
   Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/FontAwesome';
 import {Colors} from 'utils/colors';
 import {styles} from './style';
 import {Segment, SegmentedControl} from 'react-native-resegmented-control';
+import Dialog from 'react-native-dialog';
 import {showMessage} from 'react-native-flash-message';
 import SwapService from 'services/swap';
 import {useTranslation} from 'react-i18next';
@@ -83,6 +85,9 @@ const SwapScreen = ({chain, from, to}) => {
   const [swapChain, setSwapChain] = useState('ETH');
   const [status, setStatus] = useState('preview');
   const [slippage, setSlippage] = useState(0.005);
+  const [slippageText, setSlippageText] = useState(0.5);
+  const [showSlippage, setShowSlippage] = useState(false);
+
   // MATIC -> USDT
   // const [buyToken, setBuyToken] = useState(
   //   '0xc2132d05d31c914a87c6611c10748aeb04b58e8f',
@@ -629,7 +634,7 @@ const SwapScreen = ({chain, from, to}) => {
               </Text>
             );
           }}
-          style={{paddingHorizontal: 15}}
+          style={{paddingHorizontal: 20}}
         />
       </View>
     );
@@ -702,6 +707,13 @@ const SwapScreen = ({chain, from, to}) => {
             Swap
           </Text>
         </View>
+        <TouchableOpacity
+          onPress={() => {
+            setShowSlippage(true);
+          }}
+          style={styles.slippage}>
+          <Icon2 name="sliders" size={23} color={Colors.foreground} />
+        </TouchableOpacity>
       </View>
       <ScrollView
         contentContainerStyle={styles.container}
@@ -800,6 +812,35 @@ const SwapScreen = ({chain, from, to}) => {
       </ScrollView>
       {showFrom ? CoinsList(true) : null}
       {showTo ? CoinsList(false) : null}
+      <Dialog.Container visible={showSlippage}>
+        <Dialog.Title>Slippage</Dialog.Title>
+        <Dialog.Description>
+          Set the Slippage tolerance in percentages. Default value is 0.5%
+        </Dialog.Description>
+        <Dialog.Input
+          keyboardType="numeric"
+          autoFocus
+          defaultValue={String(slippage * 100)}
+          value={slippageText.toString()}
+          onChangeText={t => setSlippageText(t)}
+        />
+        <Dialog.Button
+          label="Cancel"
+          onPress={() => {
+            setSlippageText(slippage * 100);
+            setShowSlippage(false);
+          }}
+        />
+        <Dialog.Button
+          label="Save"
+          onPress={() => {
+            let slp = Number(slippageText) / 100;
+            setSlippage(slp);
+            setShowSlippage(false);
+            setStatus('preview');
+          }}
+        />
+      </Dialog.Container>
     </KeyboardAvoidingView>
   );
 };

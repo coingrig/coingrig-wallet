@@ -184,11 +184,11 @@ const PortfolioScreen = observer(() => {
             style={{marginRight: 15, justifyContent: 'center', marginTop: 5}}>
             <SegmentedControl
               inactiveTintColor={Colors.lighter}
-              initialSelectedName="Coins"
+              initialSelectedName="Tokens"
               sliderStyle={{width: '47%'}}
               style={{backgroundColor: Colors.darker, width: 140}}
               onChangeValue={name => changeTab(name)}>
-              <Segment name="Coins" content="Coins" />
+              <Segment name="Tokens" content="Tokens" />
               <Segment name="NFTs" content="NFTs" />
             </SegmentedControl>
           </View>
