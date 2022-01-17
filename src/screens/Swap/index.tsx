@@ -87,31 +87,20 @@ const SwapScreen = ({chain, from, to}) => {
   const [slippage, setSlippage] = useState(0.005);
   const [slippageText, setSlippageText] = useState(0.5);
   const [showSlippage, setShowSlippage] = useState(false);
-
-  // MATIC -> USDT
-  // const [buyToken, setBuyToken] = useState(
-  //   '0xc2132d05d31c914a87c6611c10748aeb04b58e8f',
-  // );
-  // const [sellToken, setSellToken] = useState('matic');
-  // USDT -> LINK
   const [sellTokenSymbol, setSellTokenSymbol] = useState('');
   const [sellToken, setSellToken] = useState('');
   const [sellTokenLogo, setSellTokenLogo] = useState('');
   const [sellAmmount, setSellAmount] = useState('0');
-
   const [buyTokenSymbol, setBuyTokenSymbol] = useState('');
   const [buyToken, setBuyToken] = useState('MATIC');
   const [buyTokenLogo, setBuyTokenLogo] = useState('');
   const [buyAmmount, setBuyAmount] = useState('0');
-
   const [quote, setQuote] = useState(null);
   const [allowanceAction, setAllowanceAction] = useState(null);
   const [allowanceFee, setAllowanceFee] = useState(null);
   const [chainAddress, setChainAddress] = useState(null);
-
   const [showFrom, setShowFrom] = useState(false);
   const [showTo, setShowTo] = useState(false);
-
   const [keyboardEnabled, setKeyboardEnabled] = useState(false);
 
   useEffect(() => {
@@ -158,17 +147,6 @@ const SwapScreen = ({chain, from, to}) => {
     } catch (e) {
       return null;
     }
-    // More info
-    /*
-      estimatedGas: "136000"
-      gas: "136000"
-      gasPrice: "303000000000"
-      guaranteedPrice: "3031.259279474851002468"
-      minimumProtocolFee: "0"
-      sources: [{name: "0x", proportion: "0"}, {name: "Uniswap", proportion: "0"},…]
-      price: "3061.878060075607073201"
-      protocolFee: "0"
-    */
   };
 
   const checkPreview = async forApprove => {
@@ -389,6 +367,7 @@ const SwapScreen = ({chain, from, to}) => {
     LoadingModal.instance.current?.show();
     try {
       // Send the pre-set allowance action to the chain
+      //@ts-ignore
       let tx = await allowanceAction.send({
         from: chainAddress,
         gas: allowanceFee,
@@ -495,55 +474,20 @@ const SwapScreen = ({chain, from, to}) => {
           setQuote(null);
           setStatus('preview');
         }}
-        style={{
-          flexDirection: 'row',
-          flex: 1,
-          borderBottomWidth: 0.5,
-          borderBottomColor: Colors.brick,
-          paddingVertical: 10,
-          alignItems: 'center',
-        }}>
+        style={styles.listItem}>
         <FastImage
-          style={{
-            width: 20,
-            height: 20,
-            marginRight: 0,
-            justifyContent: 'center',
-            alignSelf: 'center',
-            marginVertical: 10,
-          }}
+          style={styles.listImg}
           source={{
             uri: item.image,
             priority: FastImage.priority.normal,
             cache: FastImage.cacheControl.immutable,
           }}
         />
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <Text
-            style={{
-              flex: 2,
-              color: Colors.foreground,
-              marginLeft: 10,
-              fontSize: 17,
-            }}
-            numberOfLines={1}>
+        <View style={styles.listContainer}>
+          <Text style={styles.listName} numberOfLines={1}>
             {item.name}
           </Text>
-          <Text
-            style={{
-              flex: 1,
-              color: Colors.lighter,
-              marginLeft: 10,
-              fontSize: 13,
-              textAlign: 'right',
-            }}
-            numberOfLines={1}>
+          <Text style={styles.listBalance} numberOfLines={1}>
             {item.balance}
           </Text>
         </View>
@@ -584,12 +528,7 @@ const SwapScreen = ({chain, from, to}) => {
   const CoinsList = from => {
     return (
       <View style={styles.coinsSheet}>
-        <View
-          style={{
-            paddingVertical: 10,
-            height: 60,
-            justifyContent: 'center',
-          }}>
+        <View style={styles.list}>
           <TouchableOpacity
             onPress={() => {
               setShowFrom(false);
@@ -598,18 +537,7 @@ const SwapScreen = ({chain, from, to}) => {
             style={styles.close}>
             <Icon name="arrow-back" size={30} color={Colors.foreground} />
           </TouchableOpacity>
-          <Text
-            style={{
-              fontWeight: '400',
-              letterSpacing: 1,
-              fontFamily: 'RobotoSlab-Regular',
-              fontSize: 20,
-              justifyContent: 'center',
-              textAlign: 'center',
-              color: Colors.foreground,
-            }}>
-            Convert {from ? 'from' : 'to'}
-          </Text>
+          <Text style={styles.listTitle}>Convert {from ? 'from' : 'to'}</Text>
         </View>
         <FlatList
           data={WalletStore.wallets.filter(el => el.chain === swapChain)}
@@ -620,16 +548,7 @@ const SwapScreen = ({chain, from, to}) => {
           showsVerticalScrollIndicator={false}
           ListFooterComponent={() => {
             return (
-              <Text
-                style={{
-                  textAlign: 'center',
-                  fontSize: 13,
-                  paddingTop: 25,
-                  color: Colors.lighter,
-                  width: 230,
-                  alignSelf: 'center',
-                  paddingBottom: 50,
-                }}>
+              <Text style={styles.listFooter}>
                 For more tokens, add them in your portfolio first
               </Text>
             );
@@ -683,29 +602,14 @@ const SwapScreen = ({chain, from, to}) => {
         android: () => 10,
       })()}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <View
-        style={{
-          height: 60,
-          justifyContent: 'center',
-        }}>
+      <View style={styles.header}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={styles.close}>
           <Icon name="close" size={30} color={Colors.foreground} />
         </TouchableOpacity>
         <View style={{paddingVertical: 10, marginHorizontal: 30}}>
-          <Text
-            style={{
-              fontWeight: '400',
-              letterSpacing: 1,
-              fontFamily: 'RobotoSlab-Regular',
-              fontSize: 20,
-              justifyContent: 'center',
-              textAlign: 'center',
-              color: Colors.foreground,
-            }}>
-            Swap
-          </Text>
+          <Text style={styles.title}>Swap</Text>
         </View>
         <TouchableOpacity
           onPress={() => {
@@ -722,11 +626,7 @@ const SwapScreen = ({chain, from, to}) => {
           <SegmentedControl
             inactiveTintColor={Colors.lighter}
             initialSelectedName={swapChain}
-            style={{
-              marginHorizontal: 15,
-              height: 35,
-              backgroundColor: Colors.darker,
-            }}
+            style={styles.segment}
             onChangeValue={name => changeChain(name)}>
             <Segment name="ETH" content={'Ethereum'} />
             <Segment name="BSC" content={'BSC'} />
@@ -781,7 +681,7 @@ const SwapScreen = ({chain, from, to}) => {
                   style={styles.amount}
                   value={buyAmmount}
                   placeholder="0"
-                  placeholderTextColor={Colors.foreground}
+                  placeholderTextColor={Colors.lighter}
                   editable={false}
                 />
               </View>
