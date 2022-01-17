@@ -117,6 +117,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 100,
+    color: Colors.foreground,
   },
   modalTitle: {
     color: Colors.foreground,

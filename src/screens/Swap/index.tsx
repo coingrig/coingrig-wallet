@@ -82,7 +82,7 @@ const SwapScreen = ({chain, from, to}) => {
   const navigation = useNavigation();
   const [swapChain, setSwapChain] = useState('ETH');
   const [status, setStatus] = useState('preview');
-  const [slippage, setSlippage] = useState(0.001);
+  const [slippage, setSlippage] = useState(0.005);
   // MATIC -> USDT
   // const [buyToken, setBuyToken] = useState(
   //   '0xc2132d05d31c914a87c6611c10748aeb04b58e8f',
@@ -591,7 +591,7 @@ const SwapScreen = ({chain, from, to}) => {
               setShowTo(false);
             }}
             style={styles.close}>
-            <Icon name="close" size={30} color={Colors.foreground} />
+            <Icon name="arrow-back" size={30} color={Colors.foreground} />
           </TouchableOpacity>
           <Text
             style={{
