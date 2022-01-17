@@ -437,9 +437,9 @@ function NavigationStack({t}) {
         name="SwapScreen"
         component={SwapScreen}
         options={{
-          animationEnabled: Platform.OS === 'ios' ? true : false,
+          // animationEnabled: Platform.OS === 'ios' ? true : false,
           headerShown: false,
-          presentation: 'modal',
+          presentation: Platform.OS === 'ios' ? 'modal' : 'card',
         }}
       />
       <Stack.Screen

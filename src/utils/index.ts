@@ -68,5 +68,9 @@ export const toWei = (amount, decimals) => {
 };
 
 export const toEth = (amount, decimals) => {
-  return Number(new BigNumber(amount).div(10 ** decimals!));
+  return String(new BigNumber(amount).div(10 ** decimals!));
+};
+
+export const calcFee = (gas, gasPrice) => {
+  return Number(new BigNumber(gas).multipliedBy(gasPrice));
 };

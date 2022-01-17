@@ -102,6 +102,32 @@ class CryptoService {
     }
   };
 
+  getWeb3Client = async chain => {
+    // Get the coresponding wallet for the chain
+    let chainType = chain;
+    // Get the coin descriptor for the chain native asset
+    let cryptoWalletDescriptor = WalletStore.getWalletByCoinId(
+      this.getChainNativeAsset(chainType),
+      chainType,
+    );
+    const chainAddress = WalletStore.getWalletAddressByChain(chainType);
+    // Get the chain private key for signature
+    let chainKeys = await this.getChainPrivateKeys();
+    // Build the crypto wallet to send the transaction with
+    let cryptoWallet = WalletFactory.getWallet(
+      Object.assign({}, cryptoWalletDescriptor, {
+        walletAddress: chainAddress,
+        privKey: chainKeys.ETH,
+      }),
+    );
+    let signingManager = cryptoWallet.getSigningManager();
+    let w3client = signingManager?.client;
+    if (!w3client) {
+      return;
+    }
+    return w3client;
+  };
+
   getAccountBalance = async () => {
     const now = Date.now();
     if (now - this.lastFetchedBalance! < CONFIG.BALANCE_TIMEOUT * 1000) {

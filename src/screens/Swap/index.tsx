@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useEffect, useState, useCallback, createRef} from 'react';
+import React, {useEffect, useState, createRef} from 'react';
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
-  Image,
   TextInput,
   FlatList,
   Keyboard,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Colors} from 'utils/colors';
@@ -20,12 +21,12 @@ import {useTranslation} from 'react-i18next';
 import ActionSheet from 'react-native-actions-sheet';
 import {CryptoService} from 'services/crypto';
 import {WalletStore} from 'stores/wallet';
-import {WalletFactory} from '@coingrig/core';
 import {BigButton} from 'components/bigButton';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
-import {formatNoComma, sleep, toEth, toWei} from 'utils';
+import {calcFee, formatFee, formatNoComma, sleep, toEth, toWei} from 'utils';
 import endpoints from 'utils/endpoints';
+import {LoadingModal} from 'services/loading';
 
 const swapContainer: React.RefObject<any> = createRef();
 const swapAllowanceContainer: React.RefObject<any> = createRef();
@@ -83,7 +84,7 @@ const SwapScreen = ({chain, from, to}) => {
   const {t} = useTranslation();
   const navigation = useNavigation();
   const [swapChain, setSwapChain] = useState('ETH');
-
+  const [status, setStatus] = useState('preview');
   // MATIC -> USDT
   // const [buyToken, setBuyToken] = useState(
   //   '0xc2132d05d31c914a87c6611c10748aeb04b58e8f',
@@ -117,12 +118,19 @@ const SwapScreen = ({chain, from, to}) => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
       setKeyboardEnabled(true);
     });
+    const willShowSubscription = Keyboard.addListener(
+      'keyboardWillShow',
+      () => {
+        setKeyboardEnabled(true);
+      },
+    );
     const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
       setKeyboardEnabled(false);
     });
 
     return () => {
       showSubscription.remove();
+      willShowSubscription.remove();
       hideSubscription.remove();
     };
   }, []);
@@ -133,7 +141,7 @@ const SwapScreen = ({chain, from, to}) => {
     _sellAmount,
     exact = false,
   ) => {
-    let params = {
+    let params: any = {
       buyToken: _buyToken,
       sellToken: _sellToken,
       sellAmount: _sellAmount, // Always denominated in wei
@@ -160,25 +168,23 @@ const SwapScreen = ({chain, from, to}) => {
     */
   };
 
-  const checkPreview = async () => {
+  const checkPreview = async forApprove => {
+    if (!forApprove) {
+      Keyboard.dismiss();
+      await sleep(500);
+      LoadingModal.instance.current?.show();
+    }
     if (
       !buyToken ||
       (!sellToken && (Number(buyAmmount) > 0 || Number(sellAmmount) > 0))
     ) {
+      LoadingModal.instance.current?.hide();
       return;
     }
     const sellWallet = WalletStore.getWalletByCoinId(
       sellTokenSymbol,
       swapChain,
     );
-    // Does the user have enough cash in his wallet to start the sell?
-    if (sellWallet?.balance < sellAmmount) {
-      showMessage({
-        message: t('message.error.not_enough_balance'),
-        type: 'warning',
-      });
-      return;
-    }
     const buyWallet = WalletStore.getWalletByCoinId(buyTokenSymbol, swapChain);
     console.log('------', sellWallet?.decimals);
     let sellAmount = toWei(
@@ -188,6 +194,7 @@ const SwapScreen = ({chain, from, to}) => {
     try {
       const success = await fetchQuote(buyToken, sellToken, sellAmount, false);
       if (!success) {
+        LoadingModal.instance.current?.hide();
         showMessage({
           message: t('message.error.swap_not_found'),
           type: 'warning',
@@ -198,6 +205,15 @@ const SwapScreen = ({chain, from, to}) => {
       setQuote(success);
       setBuyAmount(toEth(success.buyAmount, buyWallet?.decimals).toString());
       setSellAmount(toEth(success.sellAmount, sellWallet?.decimals).toString());
+      // Does the user have enough cash in his wallet to start the sell?
+      if (sellWallet?.balance < sellAmmount) {
+        LoadingModal.instance.current?.hide();
+        showMessage({
+          message: t('message.error.not_enough_balance'),
+          type: 'warning',
+        });
+        return;
+      }
       startSwap(success);
     } catch (e) {
       console.log(e);
@@ -205,6 +221,7 @@ const SwapScreen = ({chain, from, to}) => {
         message: e ?? t('message.error.swap_not_found'),
         type: 'warning',
       });
+      LoadingModal.instance.current?.hide();
     }
 
     // More info
@@ -227,13 +244,15 @@ const SwapScreen = ({chain, from, to}) => {
     const logo = WalletStore.getWalletByCoinId(defaultCoin, chain)?.image;
     setSellTokenLogo(logo || '');
     setBuyToken('-');
-    setBuyTokenSymbol('Add');
+    setBuyTokenSymbol('Select');
     setBuyAmount('');
     setBuyTokenLogo(endpoints.assets + 'images/plus.png');
   };
 
   const changeChain = newChain => {
     setSwapChain(newChain);
+    setStatus('preview');
+    setQuote(null);
     switch (newChain) {
       case 'ETH':
         resetSwap('ETH', 'ETH');
@@ -251,43 +270,20 @@ const SwapScreen = ({chain, from, to}) => {
 
   const resetToPreview = () => {
     console.log('SHOULD RESET to PREVIEW/QUOTE -- Close Approve and/or Swap');
-  };
-
-  const getW3client = async () => {
-    // Get the coresponding wallet for the chain
-    let chainType = swapChain;
-    // Get the coin descriptor for the chain native asset
-    let cryptoWalletDescriptor = WalletStore.getWalletByCoinId(
-      CryptoService.getChainNativeAsset(chainType),
-      chainType,
-    );
-    // Get the chain private key for signature
-    let chainKeys = await CryptoService.getChainPrivateKeys();
-    // Build the crypto wallet to send the transaction with
-    let cryptoWallet = WalletFactory.getWallet(
-      Object.assign({}, cryptoWalletDescriptor, {
-        walletAddress: chainAddress,
-        privKey: chainKeys.ETH,
-      }),
-    );
-    let signingManager = cryptoWallet.getSigningManager();
-    let w3client = signingManager?.client;
-    if (!w3client) {
-      return;
-    }
-    return w3client;
+    setStatus('preview');
   };
 
   const startSwap = async quoteInfo => {
-    console.log(quoteInfo);
+    // console.log(quoteInfo);
     if (
       quoteInfo.allowanceTarget !== '0x0000000000000000000000000000000000000000'
     ) {
       // Trading an ERC20 token, an allowance must be first set!
       console.log('Checking allowance');
       // Check if the contract has sufficient allowance
-      let w3client = await getW3client();
+      let w3client = await CryptoService.getWeb3Client(swapChain);
       if (!w3client) {
+        LoadingModal.instance.current?.hide();
         showMessage({
           message: t('message.error.swap_chain_not_supported'),
           type: 'warning',
@@ -308,10 +304,13 @@ const SwapScreen = ({chain, from, to}) => {
           `${spendingAllowance} < ${quoteInfo.sellAmount}`,
         );
         prepareApproval(contract, quoteInfo);
-        swapAllowanceContainer.current?.setModalVisible();
+        // swapAllowanceContainer.current?.setModalVisible();
+        setStatus('approve');
+        LoadingModal.instance.current?.hide();
         return;
       } else {
         console.log('Allowance is sufficient');
+        setAllowanceFee(null);
       }
     } else {
       console.log('Allowance is not required');
@@ -324,6 +323,7 @@ const SwapScreen = ({chain, from, to}) => {
       );
       // Does the user have enough cash in his wallet to start the sell?
       if (sellWallet?.balance < sellAmmount) {
+        LoadingModal.instance.current?.hide();
         showMessage({
           message: t('message.error.not_enough_balance'),
           type: 'warning',
@@ -352,7 +352,9 @@ const SwapScreen = ({chain, from, to}) => {
       setQuote(success);
       setBuyAmount(toEth(success.buyAmount, buyWallet?.decimals).toString());
       setSellAmount(toEth(success.sellAmount, sellWallet?.decimals).toString());
-      swapContainer.current?.setModalVisible();
+      // swapContainer.current?.setModalVisible();
+      setStatus('swap');
+      LoadingModal.instance.current?.hide();
     } catch (e) {
       console.log(e);
       showMessage({
@@ -364,6 +366,7 @@ const SwapScreen = ({chain, from, to}) => {
 
   const executeAllowance = async () => {
     console.log('executeAllowance');
+    LoadingModal.instance.current?.show();
     try {
       // Send the pre-set allowance action to the chain
       let tx = await allowanceAction.send({
@@ -375,10 +378,11 @@ const SwapScreen = ({chain, from, to}) => {
         message: t('message.swap_approved'),
         type: 'success',
       });
-      swapAllowanceContainer.current?.setModalVisible(false);
+      // swapAllowanceContainer.current?.setModalVisible(false);
       // Check again after approval if swap can be edxecuted
-      checkPreview();
+      checkPreview(true);
     } catch (ex) {
+      LoadingModal.instance.current?.hide();
       console.log(ex);
       showMessage({
         message: t('message.error.swap_no_funds'),
@@ -390,29 +394,16 @@ const SwapScreen = ({chain, from, to}) => {
   };
 
   const executeSwap = async () => {
+    LoadingModal.instance.current?.show();
     try {
-      // Get the coresponding wallet for the chain
-      let chainType = swapChain;
-      // Get the coin descriptor for the chain native asset
-      let cryptoWalletDescriptor = WalletStore.getWalletByCoinId(
-        CryptoService.getChainNativeAsset(chainType),
-        chainType,
-      );
-      // Get the chain private key for signature
-      let chainKeys = await CryptoService.getChainPrivateKeys();
-      // Build the crypto wallet to send the transaction with
-      let cryptoWallet = WalletFactory.getWallet(
-        Object.assign({}, cryptoWalletDescriptor, {
-          walletAddress: chainAddress,
-          privKey: chainKeys.ETH,
-        }),
-      );
-      let signingManager = cryptoWallet.getSigningManager();
-      let w3client = signingManager?.client;
-      if (!w3client || !quote) {
-        return;
+      let w3client = await CryptoService.getWeb3Client(swapChain);
+      if (!w3client) {
+        showMessage({
+          message: t('message.error.swap_chain_not_supported'),
+          type: 'warning',
+        });
       }
-      let x = await w3client.eth.sendTransaction({
+      let tx = await w3client!.eth.sendTransaction({
         from: chainAddress,
         to: quote.to,
         data: quote.data,
@@ -420,7 +411,7 @@ const SwapScreen = ({chain, from, to}) => {
         gasPrice: quote.gasPrice,
         gas: quote.gas,
       });
-      console.log(x);
+      console.log(tx);
       showMessage({
         message: t('message.swap_executed'),
         type: 'success',
@@ -432,7 +423,10 @@ const SwapScreen = ({chain, from, to}) => {
         type: 'warning',
       });
     } finally {
-      swapContainer.current?.setModalVisible(false);
+      // swapContainer.current?.setModalVisible(false);
+      LoadingModal.instance.current?.hide();
+      setStatus('preview');
+      CryptoService.getAccountBalance();
     }
   };
 
@@ -446,6 +440,21 @@ const SwapScreen = ({chain, from, to}) => {
     setAllowanceFee(gasEstimate);
   };
 
+  const humanNumber = (isFee, gas, gasPrice) => {
+    if (!isFee) {
+      const wallet = WalletStore.getWalletByCoinId(sellTokenSymbol, swapChain);
+      const decimals = wallet?.decimals;
+      return toEth(quote.sellAmount, decimals);
+    } else {
+      const chainNativeAsset = CryptoService.getChainNativeAsset(swapChain);
+      const wallet = WalletStore.getWalletByCoinId(chainNativeAsset, swapChain);
+      const decimals = wallet?.decimals;
+      const fee = calcFee(gas, gasPrice);
+      const finalFee = toEth(fee, decimals);
+      const dollarFee = calcFee(finalFee, wallet!.price);
+      return formatFee(dollarFee);
+    }
+  };
   const renderItem = (item, from) => {
     return (
       <TouchableOpacity
@@ -461,6 +470,9 @@ const SwapScreen = ({chain, from, to}) => {
             setBuyTokenLogo(item.image);
             setShowTo(false);
           }
+          setBuyAmount('');
+          setQuote(null);
+          setStatus('preview');
         }}
         style={{
           flexDirection: 'row',
@@ -494,7 +506,7 @@ const SwapScreen = ({chain, from, to}) => {
           }}>
           <Text
             style={{
-              flex: 5,
+              flex: 2,
               color: Colors.foreground,
               marginLeft: 10,
               fontSize: 17,
@@ -511,10 +523,40 @@ const SwapScreen = ({chain, from, to}) => {
               textAlign: 'right',
             }}
             numberOfLines={1}>
-            {item.symbol.toUpperCase()}
+            {item.balance}
           </Text>
         </View>
       </TouchableOpacity>
+    );
+  };
+
+  const renderDetails = () => {
+    return (
+      <View style={styles.details}>
+        <View style={styles.detailItem}>
+          <Text style={{color: Colors.lighter}}>Price 1 {sellTokenSymbol}</Text>
+          <Text style={{color: Colors.foreground}}>
+            {quote ? quote.price + ' ' + buyTokenSymbol : '-'}
+          </Text>
+        </View>
+        <View style={styles.detailItem}>
+          <Text style={{color: Colors.lighter}}>Slippage</Text>
+          <Text style={{color: Colors.foreground}}>0.1 %</Text>
+        </View>
+        <View style={styles.detailItem}>
+          <Text style={{color: Colors.lighter}}>Estimated Gas Fee</Text>
+          <Text style={{color: Colors.foreground}}>
+            {' '}
+            {quote
+              ? humanNumber(true, allowanceFee || quote.gas, quote.gasPrice)
+              : '-'}
+          </Text>
+        </View>
+        <View style={styles.detailItem}>
+          <Text style={{color: Colors.lighter}}>Allowance</Text>
+          <Text style={{color: Colors.foreground}}>Exact amount</Text>
+        </View>
+      </View>
     );
   };
 
@@ -524,10 +566,17 @@ const SwapScreen = ({chain, from, to}) => {
         <View
           style={{
             paddingVertical: 10,
-            marginHorizontal: 30,
-            height: 52,
+            height: 60,
             justifyContent: 'center',
           }}>
+          <TouchableOpacity
+            onPress={() => {
+              setShowFrom(false);
+              setShowTo(false);
+            }}
+            style={styles.close}>
+            <Icon name="close" size={30} color={Colors.foreground} />
+          </TouchableOpacity>
           <Text
             style={{
               fontWeight: '400',
@@ -570,18 +619,58 @@ const SwapScreen = ({chain, from, to}) => {
     );
   };
 
+  const renderAction = () => {
+    if (status === 'preview') {
+      return (
+        <BigButton
+          text={t('swap.preview')}
+          backgroundColor={Colors.foreground}
+          color={Colors.background}
+          disabled={false}
+          onPress={() => checkPreview(false)}
+        />
+      );
+    } else if (status === 'approve') {
+      return (
+        <BigButton
+          text={t('swap.approve')}
+          backgroundColor={Colors.foreground}
+          color={Colors.background}
+          disabled={false}
+          onPress={() => executeAllowance()}
+        />
+      );
+    } else if (status === 'swap') {
+      return (
+        <BigButton
+          text={t('swap.swap')}
+          backgroundColor={Colors.foreground}
+          color={Colors.background}
+          disabled={false}
+          onPress={() => executeSwap()}
+        />
+      );
+    }
+  };
+
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      keyboardVerticalOffset={Platform.select({
+        ios: () => 50,
+        android: () => 10,
+      })()}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <View
         style={{
-          height: 52,
+          height: 60,
           justifyContent: 'center',
           // backgroundColor: Colors.darker,
         }}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={styles.close}>
-          <Icon name="close" size={25} color={Colors.foreground} />
+          <Icon name="close" size={30} color={Colors.foreground} />
         </TouchableOpacity>
         <View style={{paddingVertical: 10, marginHorizontal: 30}}>
           <Text
@@ -617,15 +706,15 @@ const SwapScreen = ({chain, from, to}) => {
           </SegmentedControl>
         </View>
         <View style={{flex: 1, justifyContent: 'space-between'}}>
-          <View
-            style={[styles.swapContainer, {flex: keyboardEnabled ? 0.5 : 4}]}>
-            <View style={styles.swapItem}>
+          <View style={[styles.swapContainer, {}]}>
+            <View style={[styles.swapItem, {}]}>
               <View style={{flex: 2.5}}>
                 <Text style={styles.youPay}>You pay</Text>
                 <TextInput
                   style={styles.amount}
                   keyboardType="numeric"
                   placeholder="0"
+                  placeholderTextColor={Colors.foreground}
                   value={sellAmmount}
                   onChangeText={t => {
                     setSellAmount(t);
@@ -653,18 +742,18 @@ const SwapScreen = ({chain, from, to}) => {
                 </TouchableOpacity>
               </View>
             </View>
-
             <View style={styles.connector}>
               <Icon name="arrow-down" size={20} color={Colors.foreground} />
             </View>
 
-            <View style={styles.swapItem}>
+            <View style={[styles.swapItem, {}]}>
               <View style={{flex: 2.5}}>
                 <Text style={styles.youPay}>You get</Text>
                 <TextInput
                   style={styles.amount}
                   value={buyAmmount}
                   placeholder="0"
+                  placeholderTextColor={Colors.foreground}
                   editable={false}
                 />
               </View>
@@ -688,16 +777,9 @@ const SwapScreen = ({chain, from, to}) => {
                 </TouchableOpacity>
               </View>
             </View>
+            {keyboardEnabled ? null : renderDetails()}
           </View>
-          <View style={{flex: 1}}>
-            <BigButton
-              text={t('swap.preview')}
-              backgroundColor={Colors.foreground}
-              color={Colors.background}
-              disabled={false}
-              onPress={() => checkPreview()}
-            />
-          </View>
+          <View style={{marginBottom: 30}}>{renderAction()}</View>
         </View>
       </ScrollView>
       <ActionSheet
@@ -706,28 +788,48 @@ const SwapScreen = ({chain, from, to}) => {
         gestureEnabled={true}
         headerAlwaysVisible
         containerStyle={styles.swapApproveContainer}>
-        <View>
-          <Text style={styles.youPay}>Grant permission for transaction</Text>
-        </View>
-        <View>
-          <Text style={styles.youPay}>DEX will be allowed to Spend</Text>
-          <Text style={styles.amount}>
-            {quote ? quote.sellAmount : ''} {sellToken}
-          </Text>
-        </View>
-        <View>
-          <Text style={styles.youPay}>Fee</Text>
-          <Text style={styles.amount}>
-            {quote ? allowanceFee : ''} * {quote ? quote.gasPrice : ''}
-          </Text>
-        </View>
-        <View>
-          <BigButton
-            text={t('swap.grant_allowance')}
-            backgroundColor={Colors.foreground}
-            color={Colors.background}
-            onPress={executeAllowance}
-          />
+        <View
+          style={{
+            justifyContent: 'space-between',
+            height: '100%',
+            paddingBottom: 20,
+            alignSelf: 'center',
+            alignContent: 'center',
+            alignItems: 'center',
+          }}>
+          <View>
+            <Text style={styles.modalTitle}>Approve to spend</Text>
+          </View>
+          <View>
+            <View>
+              <Text style={[styles.modalBody, {color: Colors.lighter}]}>
+                DEX will be allowed to Spend
+              </Text>
+              <Text style={[styles.modalBody, {fontWeight: 'bold'}]}>
+                {quote ? humanNumber(false) : ''} {sellTokenSymbol}
+              </Text>
+            </View>
+            <View>
+              <Text
+                style={[
+                  styles.modalBody,
+                  {marginTop: 20, color: Colors.lighter},
+                ]}>
+                Fee
+              </Text>
+              <Text style={[styles.modalBody, {fontWeight: 'bold'}]}>
+                {quote ? humanNumber(true, allowanceFee, quote.gasPrice) : ''}
+              </Text>
+            </View>
+          </View>
+          <View>
+            <BigButton
+              text={t('swap.grant_allowance')}
+              backgroundColor={Colors.foreground}
+              color={Colors.background}
+              onPress={executeAllowance}
+            />
+          </View>
         </View>
       </ActionSheet>
       <ActionSheet
@@ -773,7 +875,7 @@ const SwapScreen = ({chain, from, to}) => {
 
       {showFrom ? CoinsList(true) : null}
       {showTo ? CoinsList(false) : null}
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
