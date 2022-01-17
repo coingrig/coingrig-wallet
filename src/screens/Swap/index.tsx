@@ -189,29 +189,42 @@ const SwapScreen = ({chain, from, to}) => {
       sellWallet?.decimals,
     ).toString();
     try {
-      const success = await fetchQuote(buyToken, sellToken, sellAmount, false);
-      if (!success) {
-        LoadingModal.instance.current?.hide();
-        showMessage({
-          message: t('message.error.swap_not_found'),
-          type: 'warning',
-        });
-        return;
+      if (!forApprove) {
+        const success = await fetchQuote(
+          buyToken,
+          sellToken,
+          sellAmount,
+          false,
+        );
+        if (!success) {
+          LoadingModal.instance.current?.hide();
+          showMessage({
+            message: t('message.error.swap_not_found'),
+            type: 'warning',
+          });
+          setStatus('preview');
+          return;
+        }
+        // console.log(success);
+        setQuote(success);
+        setBuyAmount(toEth(success.buyAmount, buyWallet?.decimals).toString());
+        setSellAmount(
+          toEth(success.sellAmount, sellWallet?.decimals).toString(),
+        );
+        // Does the user have enough cash in his wallet to start the sell?
+        if (sellWallet?.balance < sellAmmount) {
+          LoadingModal.instance.current?.hide();
+          showMessage({
+            message: t('message.error.not_enough_balance'),
+            type: 'warning',
+          });
+          setStatus('preview');
+          return;
+        }
+        startSwap(success);
+      } else {
+        startSwap(quote);
       }
-      // console.log(success);
-      setQuote(success);
-      setBuyAmount(toEth(success.buyAmount, buyWallet?.decimals).toString());
-      setSellAmount(toEth(success.sellAmount, sellWallet?.decimals).toString());
-      // Does the user have enough cash in his wallet to start the sell?
-      if (sellWallet?.balance < sellAmmount) {
-        LoadingModal.instance.current?.hide();
-        showMessage({
-          message: t('message.error.not_enough_balance'),
-          type: 'warning',
-        });
-        return;
-      }
-      startSwap(success);
     } catch (e) {
       console.log(e);
       LoadingModal.instance.current?.hide();
@@ -219,6 +232,7 @@ const SwapScreen = ({chain, from, to}) => {
         message: e ?? t('message.error.swap_not_found'),
         type: 'warning',
       });
+      setStatus('preview');
     }
 
     // More info
@@ -284,6 +298,8 @@ const SwapScreen = ({chain, from, to}) => {
           message: t('message.error.swap_chain_not_supported'),
           type: 'warning',
         });
+        setStatus('preview');
+        return;
       }
       let contract = new w3client!.eth.Contract(
         ERC20_ABI,
@@ -324,6 +340,7 @@ const SwapScreen = ({chain, from, to}) => {
           message: t('message.error.not_enough_balance'),
           type: 'warning',
         });
+        setStatus('preview');
         return;
       }
       const buyWallet = WalletStore.getWalletByCoinId(
@@ -342,6 +359,7 @@ const SwapScreen = ({chain, from, to}) => {
           message: t('message.error.swap_not_found'),
           type: 'warning',
         });
+        setStatus('preview');
         return;
       }
       setQuote(success);
@@ -357,6 +375,7 @@ const SwapScreen = ({chain, from, to}) => {
         message: e ?? t('message.error.swap_not_found'),
         type: 'warning',
       });
+      setStatus('preview');
     }
   };
 
