@@ -687,7 +687,7 @@ const SwapScreen = ({chain, from, to}) => {
       <ScrollView
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled">
-        <View style={{marginTop: 15}}>
+        <View>
           <SegmentedControl
             inactiveTintColor={Colors.lighter}
             initialSelectedName={swapChain}
