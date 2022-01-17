@@ -26,6 +26,7 @@ import {useNavigation} from '@react-navigation/native';
 import {calcFee, formatFee, formatNoComma, sleep, toEth, toWei} from 'utils';
 import endpoints from 'utils/endpoints';
 import {LoadingModal} from 'services/loading';
+import {Logs} from 'services/logs';
 
 const ERC20_ABI = [
   {
@@ -265,7 +266,6 @@ const SwapScreen = ({chain, from, to}) => {
   };
 
   const resetToPreview = () => {
-    console.log('SHOULD RESET to PREVIEW/QUOTE -- Close Approve and/or Swap');
     setStatus('preview');
   };
 
@@ -275,7 +275,7 @@ const SwapScreen = ({chain, from, to}) => {
       quoteInfo.allowanceTarget !== '0x0000000000000000000000000000000000000000'
     ) {
       // Trading an ERC20 token, an allowance must be first set!
-      console.log('Checking allowance');
+      Logs.info('Checking allowance');
       // Check if the contract has sufficient allowance
       let w3client = await CryptoService.getWeb3Client(swapChain);
       if (!w3client) {
@@ -295,7 +295,7 @@ const SwapScreen = ({chain, from, to}) => {
         .call();
       // Are we already allowed to sell the amount we desire?
       if (spendingAllowance < quoteInfo.sellAmount) {
-        console.log(
+        Logs.info(
           'Approval required',
           `${spendingAllowance} < ${quoteInfo.sellAmount}`,
         );
@@ -305,11 +305,11 @@ const SwapScreen = ({chain, from, to}) => {
         LoadingModal.instance.current?.hide();
         return;
       } else {
-        console.log('Allowance is sufficient');
+        Logs.info('Allowance is sufficient');
         setAllowanceFee(null);
       }
     } else {
-      console.log('Allowance is not required');
+      Logs.info('Allowance is not required');
     }
     // Get the exact quote now that allowance is OK and let the user send the transaction
     try {
@@ -330,7 +330,6 @@ const SwapScreen = ({chain, from, to}) => {
         buyTokenSymbol,
         swapChain,
       );
-      console.log('------', sellWallet?.decimals);
       let sellAmount = toWei(
         formatNoComma(sellAmmount),
         sellWallet?.decimals,
@@ -345,7 +344,6 @@ const SwapScreen = ({chain, from, to}) => {
         });
         return;
       }
-      console.log(success);
       setQuote(success);
       setBuyAmount(toEth(success.buyAmount, buyWallet?.decimals).toString());
       setSellAmount(toEth(success.sellAmount, sellWallet?.decimals).toString());
@@ -353,7 +351,7 @@ const SwapScreen = ({chain, from, to}) => {
       setStatus('swap');
       LoadingModal.instance.current?.hide();
     } catch (e) {
-      console.log(e);
+      Logs.error(e);
       LoadingModal.instance.current?.hide();
       showMessage({
         message: e ?? t('message.error.swap_not_found'),
@@ -363,7 +361,7 @@ const SwapScreen = ({chain, from, to}) => {
   };
 
   const executeAllowance = async () => {
-    console.log('executeAllowance');
+    Logs.info('executeAllowance');
     LoadingModal.instance.current?.show();
     try {
       // Send the pre-set allowance action to the chain
@@ -371,7 +369,7 @@ const SwapScreen = ({chain, from, to}) => {
         from: chainAddress,
         gas: allowanceFee,
       });
-      console.log('allowance', tx);
+      Logs.info('allowance', tx);
       showMessage({
         message: t('message.swap_approved'),
         type: 'success',
@@ -382,7 +380,7 @@ const SwapScreen = ({chain, from, to}) => {
       checkPreview(true);
     } catch (ex) {
       LoadingModal.instance.current?.hide();
-      console.log(ex);
+      // console.log(ex);
       showMessage({
         message: t('message.error.swap_no_funds'),
         type: 'warning',
@@ -410,7 +408,7 @@ const SwapScreen = ({chain, from, to}) => {
         gasPrice: quote.gasPrice,
         gas: quote.gas,
       });
-      console.log(tx);
+      // console.log(tx);
       showMessage({
         message: t('message.swap_executed'),
         type: 'success',
