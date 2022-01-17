@@ -12,7 +12,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Icon2 from 'react-native-vector-icons/FontAwesome5';
+import Icon2 from 'react-native-vector-icons/FontAwesome';
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import {useTranslation} from 'react-i18next';
 import Svg, {Path} from 'react-native-svg';
@@ -56,17 +56,15 @@ const WalletScreen = observer(({route}) => {
               <Icon name="stats-chart" size={19} color={Colors.foreground} />
             </TouchableOpacity>
           )}
-          {w?.type === 'token' || w?.type === 'custom-token' ? null : (
-            <TouchableOpacity
-              onPress={() => showTransactions()}
-              style={styles.moreBtn}>
-              <Icon
-                name="list-circle-outline"
-                size={25}
-                color={Colors.foreground}
-              />
-            </TouchableOpacity>
-          )}
+          <TouchableOpacity
+            onPress={() => showTransactions()}
+            style={styles.moreBtn}>
+            <Icon
+              name="list-circle-outline"
+              size={25}
+              color={Colors.foreground}
+            />
+          </TouchableOpacity>
         </View>
       ),
     });
@@ -205,27 +203,16 @@ const WalletScreen = observer(({route}) => {
       route.params.symbol,
       route.params.chain,
     );
-    if (w?.type === 'token' || w?.type === 'custom-token') {
+    if (w?.type === 'coin') {
       return (
-        <>
-          <TouchableOpacity
-            onPress={() => showTransactions()}
-            style={styles.roundBtn}>
-            <Icon name="list" size={20} color={Colors.background} />
-          </TouchableOpacity>
-          <Text style={styles.roundb}>{t('wallet.transactions')}</Text>
-        </>
-      );
-    } else {
-      return (
-        <>
+        <View style={{marginHorizontal: 15}}>
           <TouchableOpacity
             onPress={() => buySellAction()}
             style={styles.roundBtn}>
-            <Icon2 name="dollar-sign" size={20} color={Colors.background} />
+            <Icon2 name="dollar" size={20} color={Colors.background} />
           </TouchableOpacity>
           <Text style={styles.roundb}>{t('wallet.buysell')}</Text>
-        </>
+        </View>
       );
     }
   };
@@ -303,7 +290,6 @@ const WalletScreen = observer(({route}) => {
               </TouchableOpacity>
               <Text style={styles.roundb}>{t('wallet.send')}</Text>
             </View>
-            <View style={{marginHorizontal: 15}}>{buyOrTx()}</View>
             <View style={{marginHorizontal: 15}}>
               <TouchableOpacity
                 onPress={() =>
@@ -319,6 +305,26 @@ const WalletScreen = observer(({route}) => {
               </TouchableOpacity>
               <Text style={styles.roundb}>{t('wallet.receive')}</Text>
             </View>
+            <View style={{marginHorizontal: 15}}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('SwapScreen', {
+                    wallet: WalletStore.getWalletByCoinId(
+                      route.params.symbol,
+                      route.params.chain,
+                    ),
+                  })
+                }
+                style={styles.roundBtn}>
+                <Icon
+                  name="swap-horizontal"
+                  size={20}
+                  color={Colors.background}
+                />
+              </TouchableOpacity>
+              <Text style={styles.roundb}>{t('hub.swap')}</Text>
+            </View>
+            <View>{buyOrTx()}</View>
           </View>
           {renderUnconfirmedTx()}
         </ScrollView>

@@ -79,10 +79,12 @@ const ERC20_ABI = [
   },
 ];
 
-const SwapScreen = ({chain, from, to}) => {
+const SwapScreen = props => {
   const {t} = useTranslation();
   const navigation = useNavigation();
-  const [swapChain, setSwapChain] = useState('ETH');
+  const [swapChain, setSwapChain] = useState(
+    props.route.params ? props.route.params.wallet.chain : 'ETH',
+  );
   const [status, setStatus] = useState('preview');
   const [slippage, setSlippage] = useState(0.005);
   const [slippageText, setSlippageText] = useState(0.5);
@@ -106,7 +108,21 @@ const SwapScreen = ({chain, from, to}) => {
   useEffect(() => {
     //@ts-ignore
     setChainAddress(WalletStore.getWalletAddressByChain(swapChain));
-    resetSwap('ETH', 'ETH');
+
+    if (props.route.params && props.route.params.wallet) {
+      const wallet = props.route.params.wallet;
+      setStatus('preview');
+      setQuote(null);
+      setSellToken(wallet.contract ?? wallet.symbol);
+      setSellTokenSymbol(wallet.symbol);
+      setSellTokenLogo(wallet.image);
+      setBuyToken('-');
+      setBuyTokenSymbol('Select');
+      setBuyAmount('');
+      setBuyTokenLogo(endpoints.assets + 'images/plus.png');
+    } else {
+      resetSwap('ETH', 'ETH');
+    }
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
       setKeyboardEnabled(true);
     });
