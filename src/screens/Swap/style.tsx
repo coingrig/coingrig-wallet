@@ -108,11 +108,9 @@ export const styles = StyleSheet.create({
   },
   close: {
     position: 'absolute',
-    // backgroundColor: Colors.darker,
     width: 36,
     height: 36,
     left: 10,
-    top: 15,
     zIndex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -120,11 +118,9 @@ export const styles = StyleSheet.create({
   },
   slippage: {
     position: 'absolute',
-    // backgroundColor: Colors.darker,
     width: 36,
     height: 36,
     right: 15,
-    top: 15,
     zIndex: 1,
     justifyContent: 'center',
     alignItems: 'center',
