@@ -572,7 +572,7 @@ const SwapScreen = ({chain, from, to}) => {
               setShowTo(false);
             }}
             style={styles.close}>
-            <Icon name="close" size={30} color={Colors.foreground} />
+            <Icon name="arrow-back" size={30} color={Colors.foreground} />
           </TouchableOpacity>
           <Text
             style={{
