@@ -181,6 +181,8 @@
       "hub.portfolio_tracker": "Suivi portfolio",
       "hub.create_token": "Créer token",
       "hub.create_nft": "Créer NFT",
+      "hub.card": "Coingrig Card",
+      "hub.connector": "Connectors",
 
       "swap.you_pay": "You pay",
       "swap.you_get": "You get",
@@ -190,6 +192,9 @@
       "swap.exact_amount": "Exact Amount",
       "swap.preview": "Preview",
       "swap.approve": "Approve",
-      "swap.swap": "Swap"
+      "swap.swap": "Swap",
+      "swap.convert_from": "Convert from",
+      "swap.convert_to": "Convert to",
+      "swap.convert_footer": "For more tokens, add them in your portfolio first"
   }
 }

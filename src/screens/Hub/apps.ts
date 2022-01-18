@@ -26,9 +26,17 @@ const apps = [
   {
     title: 'hub.swap',
     screen: 'SwapScreen',
-    backgroundImage: require('../../assets/hub/swap.png'),
+    backgroundImage: require('../../assets/hub/exchange.png'),
     keywords: 'swap, schimb, exchange',
     enable: true,
+    module: true,
+  },
+  {
+    title: 'hub.card',
+    screen: 'CardScreen',
+    backgroundImage: require('../../assets/hub/card.png'),
+    keywords: 'card, debit',
+    enable: false,
     module: true,
   },
   {
@@ -44,6 +52,14 @@ const apps = [
     screen: 'IndexScreen',
     backgroundImage: require('../../assets/hub/savings.png'),
     keywords: 'index, etf, invest, dobanda',
+    enable: false,
+    module: true,
+  },
+  {
+    title: 'hub.connector',
+    screen: 'ConnectorScreen',
+    backgroundImage: require('../../assets/hub/connector.png'),
+    keywords: 'connector, cex, binance',
     enable: false,
     module: true,
   },

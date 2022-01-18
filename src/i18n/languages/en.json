@@ -181,6 +181,8 @@
       "hub.portfolio_tracker": "Portfolio tracker",
       "hub.create_token": "Create token",
       "hub.create_nft": "Create NFT",
+      "hub.card": "Coingrig Card",
+      "hub.connector": "Connectors",
 
       "swap.you_pay": "You pay",
       "swap.you_get": "You get",
