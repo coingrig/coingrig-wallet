@@ -205,13 +205,35 @@ const WalletScreen = observer(({route}) => {
     );
     if (w?.type === 'coin') {
       return (
-        <View style={{marginHorizontal: 15}}>
+        <View>
           <TouchableOpacity
             onPress={() => buySellAction()}
             style={styles.roundBtn}>
             <Icon2 name="dollar" size={20} color={Colors.background} />
           </TouchableOpacity>
           <Text style={styles.roundb}>{t('wallet.buysell')}</Text>
+        </View>
+      );
+    }
+  };
+
+  const renderSwap = () => {
+    if (route.params.symbol !== 'BTC') {
+      return (
+        <View>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('SwapScreen', {
+                wallet: WalletStore.getWalletByCoinId(
+                  route.params.symbol,
+                  route.params.chain,
+                ),
+              })
+            }
+            style={styles.roundBtn}>
+            <Icon name="swap-horizontal" size={20} color={Colors.background} />
+          </TouchableOpacity>
+          <Text style={styles.roundb}>{t('hub.swap')}</Text>
         </View>
       );
     }
@@ -275,7 +297,7 @@ const WalletScreen = observer(({route}) => {
             {route.params.symbol}
           </Text>
           <View style={styles.btnCointainers}>
-            <View style={{marginHorizontal: 15}}>
+            <View>
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('SendReceiveScreen', {
@@ -290,7 +312,7 @@ const WalletScreen = observer(({route}) => {
               </TouchableOpacity>
               <Text style={styles.roundb}>{t('wallet.send')}</Text>
             </View>
-            <View style={{marginHorizontal: 15}}>
+            <View>
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('SendReceiveScreen', {
@@ -305,26 +327,8 @@ const WalletScreen = observer(({route}) => {
               </TouchableOpacity>
               <Text style={styles.roundb}>{t('wallet.receive')}</Text>
             </View>
-            <View style={{marginHorizontal: 15}}>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('SwapScreen', {
-                    wallet: WalletStore.getWalletByCoinId(
-                      route.params.symbol,
-                      route.params.chain,
-                    ),
-                  })
-                }
-                style={styles.roundBtn}>
-                <Icon
-                  name="swap-horizontal"
-                  size={20}
-                  color={Colors.background}
-                />
-              </TouchableOpacity>
-              <Text style={styles.roundb}>{t('hub.swap')}</Text>
-            </View>
-            <View>{buyOrTx()}</View>
+            {renderSwap()}
+            {buyOrTx()}
           </View>
           {renderUnconfirmedTx()}
         </ScrollView>

@@ -29,9 +29,9 @@
       "bricks.all_wallets": "My assets",
       "bricks.check_portfolio": "Check your portfolio",
 
-      "portfolio.my_assets": "My assets",
+      "portfolio.my_assets": "Tokens",
       "portfolio.portfolio": "Portfolio",
-      "portfolio.my_nfts": "My NFTs",
+      "portfolio.my_nfts": "NFTs",
 
       "setup.your_recovery_phrase": "Your recovery phrase",
       "setup.copy_these_words": "Copy these words in the right order and save them somewhere safe",
@@ -180,6 +180,19 @@
       "hub.earn": "Earn interest",
       "hub.portfolio_tracker": "Portfolio tracker",
       "hub.create_token": "Create token",
-      "hub.create_nft": "Create NFT"
+      "hub.create_nft": "Create NFT",
+
+      "swap.you_pay": "You pay",
+      "swap.you_get": "You get",
+      "swap.slippage": "Slippage",
+      "swap.estimated_gas": "Estimated Gas Fee",
+      "swap.allowance": "Allowance",
+      "swap.exact_amount": "Exact Amount",
+      "swap.preview": "Preview",
+      "swap.approve": "Approve",
+      "swap.swap": "Swap",
+      "swap.convert_from": "Convert from",
+      "swap.convert_to": "Convert to",
+      "swap.convert_footer": "For more tokens, add them in your portfolio first"
   }
 }

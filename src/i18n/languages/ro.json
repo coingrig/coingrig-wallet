@@ -29,9 +29,9 @@
       "bricks.all_wallets": "Activele mele",
       "bricks.check_portfolio": "Accesează portofoliul",
 
-      "portfolio.my_assets": "Activele mele",
+      "portfolio.my_assets": "Tokeni",
       "portfolio.portfolio": "Portofoliu",
-      "portfolio.my_nfts": "NFT-urile mele",
+      "portfolio.my_nfts": "NFTs",
 
       "setup.your_recovery_phrase": "Fraza secretă",
       "setup.copy_these_words": "Copiază aceste cuvinte in ordinea afișată și salvează-le într-un loc sigur",
@@ -180,6 +180,17 @@
       "hub.earn": "Câștigă dobândă",
       "hub.portfolio_tracker": "Analiză Portofoliu",
       "hub.create_token": "Crează token",
-      "hub.create_nft": "Crează NFT"
+      "hub.create_nft": "Crează NFT",
+
+      "swap.you_pay": "You pay",
+      "swap.you_get": "You get",
+      "swap.slippage": "Slippage",
+      "swap.estimated_gas": "Estimated Gas Fee",
+      "swap.allowance": "Allowance",
+      "swap.exact_amount": "Exact Amount",
+      "swap.preview": "Preview",
+      "swap.approve": "Approve",
+      "swap.swap": "Swap"
+
   }
 }

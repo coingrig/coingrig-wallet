@@ -120,9 +120,11 @@ export const styles = StyleSheet.create({
   },
   btnCointainers: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     marginTop: 45,
     marginBottom: 10,
+    alignSelf: 'center',
+    width: '75%',
   },
   chart: {
     paddingRight: 0,

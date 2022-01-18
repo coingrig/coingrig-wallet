@@ -1,5 +1,5 @@
 var axios = require('axios');
-import {COINS_MIN, STORED_CHAIN_KEYS} from 'utils/constants';
+import {COINS_MIN, STORED_CHAIN_KEYS, UA} from 'utils/constants';
 import {MarketStore} from 'stores/market';
 import {IWallet, IWalletAddresses, WalletStore} from 'stores/wallet';
 import BigNumber from 'bignumber.js';
@@ -41,10 +41,14 @@ class CryptoService {
     } else {
       ETHAddress = WalletStore.getWalletAddressByChain('ETH');
     }
-    const url = endpoints.opensea + '/assets?format=json&owner=' + ETHAddress;
+    const url =
+      endpoints.opensea + '/assets?format=json&limit=50&owner=' + ETHAddress;
     var config = {
       method: 'get',
       url: url,
+      headers: {
+        'User-Agent': UA,
+      },
     };
     Logs.info('Fetching NFTs from', url);
     try {

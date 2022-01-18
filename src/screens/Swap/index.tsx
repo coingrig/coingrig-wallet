@@ -29,6 +29,7 @@ import {calcFee, formatFee, formatNoComma, sleep, toEth, toWei} from 'utils';
 import endpoints from 'utils/endpoints';
 import {LoadingModal} from 'services/loading';
 import {Logs} from 'services/logs';
+import {useTransitionEnd} from 'utils/hooks/useTransitionEnd';
 
 const ERC20_ABI = [
   {
@@ -85,6 +86,7 @@ const SwapScreen = props => {
   const [swapChain, setSwapChain] = useState(
     props.route.params ? props.route.params.wallet.chain : 'ETH',
   );
+  const transitionEnded = useTransitionEnd(navigation);
   const [status, setStatus] = useState('preview');
   const [slippage, setSlippage] = useState(0.005);
   const [slippageText, setSlippageText] = useState(0.5);
@@ -97,10 +99,10 @@ const SwapScreen = props => {
   const [buyToken, setBuyToken] = useState('MATIC');
   const [buyTokenLogo, setBuyTokenLogo] = useState('');
   const [buyAmmount, setBuyAmount] = useState('0');
-  const [quote, setQuote] = useState(null);
+  const [quote, setQuote] = useState<any>(null);
   const [allowanceAction, setAllowanceAction] = useState(null);
   const [allowanceFee, setAllowanceFee] = useState(null);
-  const [chainAddress, setChainAddress] = useState(null);
+  const [chainAddress, setChainAddress] = useState<any>(null);
   const [showFrom, setShowFrom] = useState(false);
   const [showTo, setShowTo] = useState(false);
   const [keyboardEnabled, setKeyboardEnabled] = useState(false);
@@ -108,21 +110,10 @@ const SwapScreen = props => {
   useEffect(() => {
     //@ts-ignore
     setChainAddress(WalletStore.getWalletAddressByChain(swapChain));
-
-    if (props.route.params && props.route.params.wallet) {
-      const wallet = props.route.params.wallet;
-      setStatus('preview');
-      setQuote(null);
-      setSellToken(wallet.contract ?? wallet.symbol);
-      setSellTokenSymbol(wallet.symbol);
-      setSellTokenLogo(wallet.image);
-      setBuyToken('-');
-      setBuyTokenSymbol('Select');
-      setBuyAmount('');
-      setBuyTokenLogo(endpoints.assets + 'images/plus.png');
-    } else {
+    if (!props.route.params) {
       resetSwap('ETH', 'ETH');
     }
+    //TODO Change to keyboardListener hook
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
       setKeyboardEnabled(true);
     });
@@ -142,6 +133,43 @@ const SwapScreen = props => {
       hideSubscription.remove();
     };
   }, []);
+
+  useEffect(() => {
+    if (transitionEnded) {
+      if (props.route.params && props.route.params.wallet) {
+        const wallet = props.route.params.wallet;
+        setStatus('preview');
+        setQuote(null);
+        setSellToken(wallet.contract ?? wallet.symbol);
+        setSellTokenSymbol(wallet.symbol);
+        setSellTokenLogo(wallet.image);
+        setBuyToken('-');
+        setBuyTokenSymbol('Select');
+        setBuyAmount('');
+        setBuyTokenLogo(endpoints.assets + 'images/plus.png');
+      }
+    }
+  }, [transitionEnded]);
+
+  const reverse = () => {
+    let temp: any = {};
+    temp.buyToken = buyToken;
+    temp.buyTokenSymbol = buyTokenSymbol;
+    temp.buyTokenLogo = buyTokenLogo;
+    temp.sellToken = sellToken;
+    temp.sellTokenSymbol = sellTokenSymbol;
+    temp.sellTokenLogo = sellTokenLogo;
+
+    setStatus('preview');
+    setQuote(null);
+    setSellToken(temp.buyToken);
+    setSellTokenSymbol(temp.buyTokenSymbol);
+    setSellTokenLogo(temp.buyTokenLogo);
+    setBuyToken(temp.sellToken);
+    setBuyTokenSymbol(temp.sellTokenSymbol);
+    setBuyTokenLogo(temp.sellTokenLogo);
+    temp = null;
+  };
 
   const fetchQuote = async (
     _buyToken,
@@ -204,13 +232,13 @@ const SwapScreen = props => {
           setStatus('preview');
           return;
         }
-        // console.log(success);
         setQuote(success);
         setBuyAmount(toEth(success.buyAmount, buyWallet?.decimals).toString());
         setSellAmount(
           toEth(success.sellAmount, sellWallet?.decimals).toString(),
         );
         // Does the user have enough cash in his wallet to start the sell?
+        //@ts-ignore
         if (sellWallet?.balance < sellAmmount) {
           LoadingModal.instance.current?.hide();
           showMessage({
@@ -225,7 +253,7 @@ const SwapScreen = props => {
         startSwap(quote);
       }
     } catch (e) {
-      console.log(e);
+      Logs.error(e);
       LoadingModal.instance.current?.hide();
       showMessage({
         message: e ?? t('message.error.swap_not_found'),
@@ -233,18 +261,6 @@ const SwapScreen = props => {
       });
       setStatus('preview');
     }
-
-    // More info
-    /*
-      estimatedGas: "136000"
-      gas: "136000"
-      gasPrice: "303000000000"
-      guaranteedPrice: "3031.259279474851002468"
-      minimumProtocolFee: "0"
-      sources: [{name: "0x", proportion: "0"}, {name: "Uniswap", proportion: "0"},…]
-      price: "3061.878060075607073201"
-      protocolFee: "0"
-    */
   };
 
   const resetSwap = (defaultCoin, chain) => {
@@ -283,7 +299,6 @@ const SwapScreen = props => {
   };
 
   const startSwap = async quoteInfo => {
-    // console.log(quoteInfo);
     if (
       quoteInfo.allowanceTarget !== '0x0000000000000000000000000000000000000000'
     ) {
@@ -399,7 +414,6 @@ const SwapScreen = props => {
       checkPreview(true);
     } catch (ex) {
       LoadingModal.instance.current?.hide();
-      // console.log(ex);
       showMessage({
         message: t('message.error.swap_no_funds'),
         type: 'warning',
@@ -427,13 +441,13 @@ const SwapScreen = props => {
         gasPrice: quote.gasPrice,
         gas: quote.gas,
       });
-      // console.log(tx);
+      Logs.info(tx);
       showMessage({
         message: t('message.swap_executed'),
         type: 'success',
       });
     } catch (ex) {
-      console.log(ex);
+      Logs.error(ex);
       showMessage({
         message: t('message.error.swap_failed'),
         type: 'warning',
@@ -515,17 +529,19 @@ const SwapScreen = props => {
     return (
       <View style={styles.details}>
         <View style={styles.detailItem}>
-          <Text style={{color: Colors.lighter}}>Price 1 {sellTokenSymbol}</Text>
+          <Text style={{color: Colors.lighter}}>
+            {t('coindetails.price')} 1 {sellTokenSymbol}
+          </Text>
           <Text style={{color: Colors.foreground}}>
             {quote ? quote.price + ' ' + buyTokenSymbol : '-'}
           </Text>
         </View>
         <View style={styles.detailItem}>
-          <Text style={{color: Colors.lighter}}>Slippage</Text>
+          <Text style={{color: Colors.lighter}}>{t('swap.slippage')}</Text>
           <Text style={{color: Colors.foreground}}>{slippage * 100} %</Text>
         </View>
         <View style={styles.detailItem}>
-          <Text style={{color: Colors.lighter}}>Estimated Gas Fee</Text>
+          <Text style={{color: Colors.lighter}}>{t('swap.estimated_gas')}</Text>
           <Text style={{color: Colors.foreground}}>
             {' '}
             {quote
@@ -534,8 +550,10 @@ const SwapScreen = props => {
           </Text>
         </View>
         <View style={styles.detailItem}>
-          <Text style={{color: Colors.lighter}}>Allowance</Text>
-          <Text style={{color: Colors.foreground}}>Exact amount</Text>
+          <Text style={{color: Colors.lighter}}>{t('swap.allowance')}</Text>
+          <Text style={{color: Colors.foreground}}>
+            {t('swap.exact_amount')}
+          </Text>
         </View>
       </View>
     );
@@ -553,7 +571,9 @@ const SwapScreen = props => {
             style={styles.close}>
             <Icon name="arrow-back" size={30} color={Colors.foreground} />
           </TouchableOpacity>
-          <Text style={styles.listTitle}>Convert {from ? 'from' : 'to'}</Text>
+          <Text style={styles.listTitle}>
+            {from ? t('swap.convert_from') : t('swap.convert_to')}
+          </Text>
         </View>
         <FlatList
           data={WalletStore.wallets.filter(el => el.chain === swapChain)}
@@ -564,9 +584,7 @@ const SwapScreen = props => {
           showsVerticalScrollIndicator={false}
           ListFooterComponent={() => {
             return (
-              <Text style={styles.listFooter}>
-                For more tokens, add them in your portfolio first
-              </Text>
+              <Text style={styles.listFooter}>{t('swap.convert_footer')}</Text>
             );
           }}
           style={{paddingHorizontal: 20}}
@@ -653,7 +671,7 @@ const SwapScreen = props => {
           <View style={[styles.swapContainer, {}]}>
             <View style={[styles.swapItem, {}]}>
               <View style={{flex: 2.5}}>
-                <Text style={styles.youPay}>You pay</Text>
+                <Text style={styles.youPay}>{t('swap.you_pay')}</Text>
                 <TextInput
                   style={styles.amount}
                   keyboardType="numeric"
@@ -686,13 +704,13 @@ const SwapScreen = props => {
                 </TouchableOpacity>
               </View>
             </View>
-            <View style={styles.connector}>
-              <Icon name="arrow-down" size={20} color={Colors.foreground} />
-            </View>
+            <TouchableOpacity style={styles.connector} onPress={reverse}>
+              <Icon name="swap-vertical" size={20} color={Colors.foreground} />
+            </TouchableOpacity>
 
             <View style={[styles.swapItem, {}]}>
               <View style={{flex: 2.5}}>
-                <Text style={styles.youPay}>You get</Text>
+                <Text style={styles.youPay}>{t('swap.you_get')}</Text>
                 <TextInput
                   style={styles.amount}
                   value={buyAmmount}
