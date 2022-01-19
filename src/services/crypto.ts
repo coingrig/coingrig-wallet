@@ -47,7 +47,7 @@ class CryptoService {
       method: 'get',
       url: url,
       headers: {
-        'User-Agent': UA,
+        'X-API-KEY': '790d4e9223714481a11633acbda338de',
       },
     };
     Logs.info('Fetching NFTs from', url);
