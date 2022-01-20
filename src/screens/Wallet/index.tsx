@@ -231,7 +231,7 @@ const WalletScreen = observer(({route}) => {
               })
             }
             style={styles.roundBtn}>
-            <Icon name="swap-horizontal" size={20} color={Colors.background} />
+            <Icon2 name="exchange" size={18} color={Colors.background} />
           </TouchableOpacity>
           <Text style={styles.roundb}>{t('hub.swap')}</Text>
         </View>
