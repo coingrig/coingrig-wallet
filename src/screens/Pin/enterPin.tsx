@@ -5,7 +5,6 @@ import {STORED_MNEMONIC} from 'utils/constants';
 import {clearAllAppData} from 'utils';
 import CONFIG from '../../config';
 import {Pincode} from '../../components/pincode';
-import {DeviceEventEmitter} from 'react-native';
 
 const EnterPinScreen = () => {
   const navigation = useNavigation();

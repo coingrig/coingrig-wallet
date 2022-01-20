@@ -3,10 +3,7 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
     position: 'absolute',
-    // backgroundColor: 'red',
     height: '100%',
     width: '100%',
   },
@@ -26,11 +23,47 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: -5,
   },
-  logo: {
-    // fontFamily: 'RobotoSlab-Light',
-    fontSize: 20,
-    letterSpacing: 1,
+  animContainer: {
+    height: '100%',
+    marginTop: -60,
+  },
+  title: {
+    color: '#d4cfcf',
+    fontSize: 19,
+    textAlign: 'center',
+    fontWeight: '500',
     marginTop: 20,
+  },
+  body: {
+    color: '#aba4a4',
+    fontSize: 15,
+    textAlign: 'center',
+    marginTop: 20,
+    lineHeight: 20,
+  },
+  animview: {
+    width: '100%',
+    height: '110%',
+    position: 'absolute',
+    bottom: -80,
+    transform: [{scaleX: 1}],
+  },
+  animbody: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignSelf: 'center',
+    marginBottom: 150,
+    marginHorizontal: 40,
+  },
+  logo: {
+    height: 70,
+    width: 70,
+    tintColor: 'white',
+    zIndex: 100,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginTop: 200,
+    opacity: 0.7,
   },
   topContainer: {
     flex: 4,

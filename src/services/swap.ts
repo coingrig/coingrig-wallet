@@ -1,9 +1,5 @@
 /* eslint-disable no-undef */
 var axios = require('axios');
-import {Linking} from 'react-native';
-import CONFIG from '../config';
-import appStates from './appStates';
-import {Logs} from './logs';
 
 let APP_URI = {
   ETH: 'https://api.0x.org/swap/v1',

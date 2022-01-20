@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions, StatusBar, Platform} from 'react-native';
+import {StyleSheet, Dimensions, Platform} from 'react-native';
 import {Colors} from 'utils/colors';
 import {SIZE} from 'utils/constants';
 

@@ -6,8 +6,6 @@ import {useTranslation} from 'react-i18next';
 import {Colors} from 'utils/colors';
 import {styles} from './styles';
 import Svg, {Path} from 'react-native-svg';
-import * as Animatable from 'react-native-animatable';
-import CONFIG from 'config';
 
 const StartScreen = () => {
   const navigation = useNavigation();

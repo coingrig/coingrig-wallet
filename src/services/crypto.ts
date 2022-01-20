@@ -1,5 +1,5 @@
 var axios = require('axios');
-import {COINS_MIN, STORED_CHAIN_KEYS, UA} from 'utils/constants';
+import {COINS_MIN, STORED_CHAIN_KEYS} from 'utils/constants';
 import {MarketStore} from 'stores/market';
 import {IWallet, IWalletAddresses, WalletStore} from 'stores/wallet';
 import BigNumber from 'bignumber.js';

@@ -15,7 +15,6 @@ import {SmallButton} from 'components/smallButton';
 import {BigButton} from 'components/bigButton';
 import {WalletStore} from 'stores/wallet';
 import {sleep} from 'utils';
-import {LoadingModal} from 'services/loading';
 import {Colors} from 'utils/colors';
 import {COIN_LIST} from 'utils/constants';
 import {showMessage} from 'react-native-flash-message';

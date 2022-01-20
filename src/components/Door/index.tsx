@@ -73,22 +73,10 @@ function Door() {
           useNativeDriver
           animation="bounceInDown"
           direction={show ? 'normal' : 'reverse'}
-          style={{
-            height: '100%',
-            marginTop: -60,
-          }}>
+          style={styles.animContainer}>
           <View>
             <Image
-              style={{
-                height: 70,
-                width: 70,
-                tintColor: 'white',
-                zIndex: 100,
-                justifyContent: 'center',
-                alignSelf: 'center',
-                marginTop: 200,
-                opacity: 0.7,
-              }}
+              style={styles.logo}
               resizeMode="contain"
               source={require('../../assets/logo.png')}
             />
@@ -120,46 +108,11 @@ function Door() {
           animation="bounceInUp"
           useNativeDriver
           direction={show ? 'normal' : 'reverse'}
-          style={{
-            width: '100%',
-            height: '110%',
-            position: 'absolute',
-            bottom: -80,
-            transform: [{scaleX: 1}],
-          }}>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'flex-end',
-              alignSelf: 'center',
-              marginBottom: 150,
-              marginHorizontal: 40,
-            }}>
+          style={styles.animview}>
+          <View style={styles.animbody}>
             <ActivityIndicator size="small" color="#e0e0e0" />
-            {title ? (
-              <Text
-                style={{
-                  color: '#d4cfcf',
-                  fontSize: 19,
-                  textAlign: 'center',
-                  fontWeight: '500',
-                  marginTop: 20,
-                }}>
-                {title}
-              </Text>
-            ) : null}
-            {body ? (
-              <Text
-                style={{
-                  color: '#aba4a4',
-                  fontSize: 15,
-                  textAlign: 'center',
-                  marginTop: 20,
-                  lineHeight: 20,
-                }}>
-                {body}
-              </Text>
-            ) : null}
+            {title ? <Text style={styles.title}>{title}</Text> : null}
+            {body ? <Text style={styles.body}>{body}</Text> : null}
           </View>
           <Svg
             viewBox="0 0 400 150"
