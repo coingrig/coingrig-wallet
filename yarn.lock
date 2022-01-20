@@ -2460,10 +2460,9 @@ asynckit@^0.4.0:
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
   integrity sha1-x57Zf380y48robyXkLzDZkdLS3k=
 
-asyncstorage-down@4.2.0:
+"asyncstorage-down@https://github.com/coingrig/asyncstorage-down.git":
   version "4.2.0"
-  resolved "https://registry.yarnpkg.com/asyncstorage-down/-/asyncstorage-down-4.2.0.tgz#6d126f42e6e4db0a25113e118ff618f2d4534046"
-  integrity sha512-xTljBjicpnxsoA7yEs6duXFXWEZC0V1Q/PeKcUM7Cd2k2W1XPGfyBY1kPXBxTqR++u6ZuDa5egnU8/E/WkJv4Q==
+  resolved "https://github.com/coingrig/asyncstorage-down.git#653e6f0006cd99998b546d2ed76ba227d03a9696"
   dependencies:
     abstract-leveldown "2.6.1"
     argsarray "0.0.1"
