@@ -205,6 +205,13 @@
       "swap.error.swap_failed": "Swap-ul nu a putut fi realizat!",
       "swap.error.swap_not_found": "Nu există swap pentru această pereche!",
       "swap.error.not_enough_balance": "Balanță insuficientă pentru swap sau comision.",
-      "swap.error.swap_chain_not_supported": "Rețeaua dorită nu este suportată!"
+      "swap.error.swap_chain_not_supported": "Rețeaua dorită nu este suportată!",
+
+      "nft.description": "Descriere",
+      "nft.no_description": "Fără descriere",
+      "nft.created_date": "Creat",
+      "nft.sales": "Vânzări",
+      "nft.symbol": "Simbol",
+      "nft.total_supply": "Volum total"
   }
 }

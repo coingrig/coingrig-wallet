@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, Text, Image, Linking, TouchableOpacity} from 'react-native';
+import {useTranslation} from 'react-i18next';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
@@ -10,6 +11,7 @@ import {Logs} from 'services/logs';
 import {useNavigation} from '@react-navigation/native';
 
 const NFTScreen = props => {
+  const {t} = useTranslation();
   const {item} = props.route.params;
   const navigation = useNavigation();
 
@@ -69,30 +71,33 @@ const NFTScreen = props => {
       <View style={styles.paraContainer}>
         <View style={styles.nftTitleCont}>
           <Text style={styles.date}>
-            {'Created Date: ' +
+            {t('nft.created_date') +
+              ': ' +
               new Date(item.asset_contract.created_date).toDateString() ?? null}
           </Text>
           <Text style={styles.nftTitle}>{item.name}</Text>
         </View>
         <View style={{paddingHorizontal: 15}}>
-          <Text style={styles.nftTitleDesc}>{'Description'}</Text>
+          <Text style={styles.nftTitleDesc}>{t('nft.description')}</Text>
           <Text style={styles.nftDesc}>
-            {item.description ?? 'No description'}
+            {item.description ?? t('nft.no_description')}
           </Text>
           <View style={{marginTop: 25, flexDirection: 'row'}}>
             <View style={styles.nftpills}>
               <Text style={{color: Colors.foreground, fontSize: 12}}>
-                {'Sales: ' + item.num_sales}
+                {t('nft.sales') + ': ' + item.num_sales}
               </Text>
             </View>
             <View style={styles.nftpills}>
               <Text style={{color: Colors.foreground, fontSize: 12}}>
-                {'Symbol: ' + item.asset_contract.symbol}
+                {t('nft.symbol') + ': ' + item.asset_contract.symbol}
               </Text>
             </View>
             <View style={styles.nftpills}>
               <Text style={{color: Colors.foreground, fontSize: 12}}>
-                {'Total Supply: ' + (item.asset_contract.total_supply ?? '-')}
+                {t('nft.total_supply') +
+                  ': ' +
+                  (item.asset_contract.total_supply ?? '-')}
               </Text>
             </View>
           </View>
@@ -105,7 +110,7 @@ const NFTScreen = props => {
           {item.asset_contract.description &&
           item.asset_contract.description.length > 0 ? (
             <Text style={styles.nftDesc2}>
-              {item.asset_contract.description ?? 'No description'}
+              {item.asset_contract.description ?? t('nft.no_description')}
             </Text>
           ) : null}
           <View style={{marginTop: 20}}>
