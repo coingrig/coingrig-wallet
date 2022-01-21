@@ -23,6 +23,7 @@ import {useTranslation} from 'react-i18next';
 import {CryptoService} from 'services/crypto';
 import {WalletStore} from 'stores/wallet';
 import {BigButton} from 'components/bigButton';
+import SwapCoin from 'components/SwapCoin';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
 import {calcFee, formatFee, formatNoComma, sleep, toEth, toWei} from 'utils';
@@ -650,7 +651,7 @@ const SwapScreen = props => {
             setShowSlippage(true);
           }}
           style={styles.slippage}>
-          <Icon2 name="sliders" size={23} color={Colors.foreground} />
+          <Icon2 name="sliders" size={22} color={Colors.foreground} />
         </TouchableOpacity>
       </View>
       <ScrollView
@@ -684,25 +685,12 @@ const SwapScreen = props => {
                   }}
                 />
               </View>
-              <View style={{flex: 1}}>
-                <TouchableOpacity
-                  style={styles.coin}
-                  onPress={() => {
-                    setShowFrom(true);
-                  }}>
-                  <FastImage
-                    style={styles.tinyLogo}
-                    source={{
-                      uri: sellTokenLogo,
-                      priority: FastImage.priority.normal,
-                      cache: FastImage.cacheControl.immutable,
-                    }}
-                  />
-                  <Text style={styles.coinText} numberOfLines={1}>
-                    {sellTokenSymbol}
-                  </Text>
-                </TouchableOpacity>
-              </View>
+              <SwapCoin
+                setShow={setShowFrom}
+                tokenSymbol={sellTokenSymbol}
+                tokenLogo={sellTokenLogo}
+                styles={styles}
+              />
             </View>
             <TouchableOpacity style={styles.connector} onPress={reverse}>
               <Icon name="swap-vertical" size={20} color={Colors.foreground} />
@@ -719,25 +707,12 @@ const SwapScreen = props => {
                   editable={false}
                 />
               </View>
-              <View style={{flex: 1}}>
-                <TouchableOpacity
-                  style={styles.coin}
-                  onPress={() => {
-                    setShowTo(true);
-                  }}>
-                  <FastImage
-                    style={styles.tinyLogo}
-                    source={{
-                      uri: buyTokenLogo,
-                      priority: FastImage.priority.normal,
-                      cache: FastImage.cacheControl.immutable,
-                    }}
-                  />
-                  <Text style={styles.coinText} numberOfLines={1}>
-                    {buyTokenSymbol}
-                  </Text>
-                </TouchableOpacity>
-              </View>
+              <SwapCoin
+                setShow={setShowTo}
+                tokenSymbol={buyTokenSymbol}
+                tokenLogo={buyTokenLogo}
+                styles={styles}
+              />
             </View>
             {keyboardEnabled ? null : renderDetails()}
           </View>

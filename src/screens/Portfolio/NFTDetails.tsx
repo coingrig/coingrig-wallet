@@ -126,4 +126,4 @@ const NFTScreen = props => {
   );
 };
 
-export default NFTScreen;
+export default React.memo(NFTScreen);
