@@ -133,7 +133,7 @@
       "tx.amount_in_usd": "Amount in USD",
       "tx.network_fee": "Network fee",
       "tx.total_usd": "TOTAL USD",
-    "tx.available": "Available",
+      "tx.available": "Available",
       "tx.confirm": "CONFIRM",
 
       "search.add_asset": "Add Custom Token",
@@ -187,14 +187,24 @@
       "swap.you_pay": "You pay",
       "swap.you_get": "You get",
       "swap.slippage": "Slippage",
+      "swap.slippage_save": "Save",
+      "swap.slippage_cancel": "Cancel",
+      "swap.slippage_description": "Set the Slippage tolerance in percentages. Default value is 0.5%",
       "swap.estimated_gas": "Estimated Gas Fee",
       "swap.allowance": "Allowance",
       "swap.exact_amount": "Exact Amount",
       "swap.preview": "Preview",
       "swap.approve": "Approve",
       "swap.swap": "Swap",
+      "swap.select": "Select",
       "swap.convert_from": "Convert from",
       "swap.convert_to": "Convert to",
-      "swap.convert_footer": "For more tokens, add them in your portfolio first"
+      "swap.convert_footer": "For more tokens, add them in your portfolio first",
+      "swap.message.swap_approved": "Swap allowance confirmed!",
+      "swap.message.swap_executed": "Swap executed!",
+      "swap.error.swap_failed": "The swap could not be made!",
+      "swap.error.swap_not_found": "No swap available for this pair!",
+      "swap.error.not_enough_balance": "Not enough balance for the swap or for the fees!",
+      "swap.error.swap_chain_not_supported": "The chain you request is not supported!"
   }
 }

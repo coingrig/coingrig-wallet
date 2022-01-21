@@ -145,7 +145,7 @@ const SwapScreen = props => {
         setSellTokenSymbol(wallet.symbol);
         setSellTokenLogo(wallet.image);
         setBuyToken('-');
-        setBuyTokenSymbol('Select');
+        setBuyTokenSymbol(t('swap.select'));
         setBuyAmount('');
         setBuyTokenLogo(endpoints.assets + 'images/plus.png');
       }
@@ -227,7 +227,7 @@ const SwapScreen = props => {
         if (!success) {
           LoadingModal.instance.current?.hide();
           showMessage({
-            message: t('message.error.swap_not_found'),
+            message: t('swap.error.swap_not_found'),
             type: 'warning',
           });
           setStatus('preview');
@@ -243,7 +243,7 @@ const SwapScreen = props => {
         if (sellWallet?.balance < sellAmmount) {
           LoadingModal.instance.current?.hide();
           showMessage({
-            message: t('message.error.not_enough_balance'),
+            message: t('swap.error.not_enough_balance'),
             type: 'warning',
           });
           setStatus('preview');
@@ -257,7 +257,7 @@ const SwapScreen = props => {
       Logs.error(e);
       LoadingModal.instance.current?.hide();
       showMessage({
-        message: e ?? t('message.error.swap_not_found'),
+        message: e ?? t('swap.error.swap_not_found'),
         type: 'warning',
       });
       setStatus('preview');
@@ -271,7 +271,7 @@ const SwapScreen = props => {
     const logo = WalletStore.getWalletByCoinId(defaultCoin, chain)?.image;
     setSellTokenLogo(logo || '');
     setBuyToken('-');
-    setBuyTokenSymbol('Select');
+    setBuyTokenSymbol(t('swap.select'));
     setBuyAmount('');
     setBuyTokenLogo(endpoints.assets + 'images/plus.png');
   };
@@ -310,7 +310,7 @@ const SwapScreen = props => {
       if (!w3client) {
         LoadingModal.instance.current?.hide();
         showMessage({
-          message: t('message.error.swap_chain_not_supported'),
+          message: t('swap.error.swap_chain_not_supported'),
           type: 'warning',
         });
         setStatus('preview');
@@ -352,7 +352,7 @@ const SwapScreen = props => {
       if (sellWallet?.balance < sellAmmount) {
         LoadingModal.instance.current?.hide();
         showMessage({
-          message: t('message.error.not_enough_balance'),
+          message: t('swap.error.not_enough_balance'),
           type: 'warning',
         });
         setStatus('preview');
@@ -371,7 +371,7 @@ const SwapScreen = props => {
       if (!success) {
         LoadingModal.instance.current?.hide();
         showMessage({
-          message: t('message.error.swap_not_found'),
+          message: t('swap.error.swap_not_found'),
           type: 'warning',
         });
         setStatus('preview');
@@ -387,7 +387,7 @@ const SwapScreen = props => {
       Logs.error(e);
       LoadingModal.instance.current?.hide();
       showMessage({
-        message: e ?? t('message.error.swap_not_found'),
+        message: e ?? t('swap.error.swap_not_found'),
         type: 'warning',
       });
       setStatus('preview');
@@ -406,7 +406,7 @@ const SwapScreen = props => {
       });
       Logs.info('allowance', tx);
       showMessage({
-        message: t('message.swap_approved'),
+        message: t('swap.message.swap_approved'),
         type: 'success',
       });
       // swapAllowanceContainer.current?.setModalVisible(false);
@@ -416,7 +416,7 @@ const SwapScreen = props => {
     } catch (ex) {
       LoadingModal.instance.current?.hide();
       showMessage({
-        message: t('message.error.swap_no_funds'),
+        message: t('swap.error.not_enough_balance'),
         type: 'warning',
       });
     } finally {
@@ -430,7 +430,7 @@ const SwapScreen = props => {
       let w3client = await CryptoService.getWeb3Client(swapChain);
       if (!w3client) {
         showMessage({
-          message: t('message.error.swap_chain_not_supported'),
+          message: t('swap.error.swap_chain_not_supported'),
           type: 'warning',
         });
       }
@@ -444,13 +444,13 @@ const SwapScreen = props => {
       });
       Logs.info(tx);
       showMessage({
-        message: t('message.swap_executed'),
+        message: t('swap.message.swap_executed'),
         type: 'success',
       });
     } catch (ex) {
       Logs.error(ex);
       showMessage({
-        message: t('message.error.swap_failed'),
+        message: t('swap.error.swap_failed'),
         type: 'warning',
       });
     } finally {
@@ -722,9 +722,9 @@ const SwapScreen = props => {
       {showFrom ? CoinsList(true) : null}
       {showTo ? CoinsList(false) : null}
       <Dialog.Container visible={showSlippage}>
-        <Dialog.Title>Slippage</Dialog.Title>
+        <Dialog.Title>{t('swap.slippage')}</Dialog.Title>
         <Dialog.Description>
-          Set the Slippage tolerance in percentages. Default value is 0.5%
+          {t('swap.slippage_description')}
         </Dialog.Description>
         <Dialog.Input
           keyboardType="numeric"
@@ -734,16 +734,20 @@ const SwapScreen = props => {
           onChangeText={t => setSlippageText(t)}
         />
         <Dialog.Button
-          label="Cancel"
+          label={t('swap.slippage_cancel')}
           onPress={() => {
             setSlippageText(slippage * 100);
             setShowSlippage(false);
           }}
         />
         <Dialog.Button
-          label="Save"
+          label={t('swap.slippage_save')}
           onPress={() => {
             let slp = Number(slippageText) / 100;
+            if (isNaN(slp)) {
+              slp = 0.005;
+              setSlippageText(slp * 100);
+            }
             setSlippage(slp);
             setShowSlippage(false);
             setStatus('preview');

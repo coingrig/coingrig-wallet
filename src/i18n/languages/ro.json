@@ -184,18 +184,27 @@
       "hub.card": "Coingrig Card",
       "hub.connector": "Connectors",
 
-      "swap.you_pay": "You pay",
-      "swap.you_get": "You get",
+      "swap.you_pay": "Plătești",
+      "swap.you_get": "Primești",
       "swap.slippage": "Slippage",
-      "swap.estimated_gas": "Estimated Gas Fee",
-      "swap.allowance": "Allowance",
-      "swap.exact_amount": "Exact Amount",
-      "swap.preview": "Preview",
-      "swap.approve": "Approve",
+      "swap.slippage_save": "Salvează",
+      "swap.slippage_cancel": "Anulează",
+      "swap.slippage_description": "Setează variația de preț acceptată (slippage) în procente. Valoarea implicită este 0.5%",
+      "swap.estimated_gas": "Cost gaz estimat",
+      "swap.allowance": "Autorizare",
+      "swap.exact_amount": "Sumă exactă",
+      "swap.preview": "Previzualizare",
+      "swap.approve": "Confirmă",
       "swap.swap": "Swap",
-      "swap.convert_from": "Convert from",
-      "swap.convert_to": "Convert to",
-      "swap.convert_footer": "For more tokens, add them in your portfolio first"
-
+      "swap.select": "Alege",
+      "swap.convert_from": "Conversie din",
+      "swap.convert_to": "Conversie în",
+      "swap.convert_footer": "Pentru alți tokeni, adaugații în portofoliu.",
+      "swap.message.swap_approved": "Autorizare confirmată!",
+      "swap.message.swap_executed": "Swap executat!",
+      "swap.error.swap_failed": "Swap-ul nu a putut fi realizat!",
+      "swap.error.swap_not_found": "Nu există swap pentru această pereche!",
+      "swap.error.not_enough_balance": "Balanță insuficientă pentru swap sau comision.",
+      "swap.error.swap_chain_not_supported": "Rețeaua dorită nu este suportată!"
   }
 }
