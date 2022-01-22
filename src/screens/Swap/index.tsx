@@ -240,7 +240,7 @@ const SwapScreen = props => {
         );
         // Does the user have enough cash in his wallet to start the sell?
         //@ts-ignore
-        if (sellWallet?.balance < sellAmmount) {
+        if (Number(sellWallet?.balance) < Number(sellAmmount)) {
           LoadingModal.instance.current?.hide();
           showMessage({
             message: t('swap.error.not_enough_balance'),
@@ -325,7 +325,7 @@ const SwapScreen = props => {
         .allowance(quoteInfo.from, quoteInfo.allowanceTarget)
         .call();
       // Are we already allowed to sell the amount we desire?
-      if (spendingAllowance < quoteInfo.sellAmount) {
+      if (Number(spendingAllowance) < Number(quoteInfo.sellAmount)) {
         Logs.info(
           'Approval required',
           `${spendingAllowance} < ${quoteInfo.sellAmount}`,
@@ -349,7 +349,8 @@ const SwapScreen = props => {
         swapChain,
       );
       // Does the user have enough cash in his wallet to start the sell?
-      if (sellWallet?.balance < sellAmmount) {
+      //@ts-ignore
+      if (Number(sellWallet?.balance) < Number(sellAmmount)) {
         LoadingModal.instance.current?.hide();
         showMessage({
           message: t('swap.error.not_enough_balance'),
@@ -415,6 +416,7 @@ const SwapScreen = props => {
       checkPreview(true);
     } catch (ex) {
       LoadingModal.instance.current?.hide();
+      // console.log(ex);
       showMessage({
         message: t('swap.error.not_enough_balance'),
         type: 'warning',
