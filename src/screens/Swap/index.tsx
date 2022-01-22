@@ -31,6 +31,7 @@ import endpoints from 'utils/endpoints';
 import {LoadingModal} from 'services/loading';
 import {Logs} from 'services/logs';
 import {useTransitionEnd} from 'utils/hooks/useTransitionEnd';
+import BigNumber from 'bignumber.js';
 
 const ERC20_ABI = [
   {
@@ -325,7 +326,11 @@ const SwapScreen = props => {
         .allowance(quoteInfo.from, quoteInfo.allowanceTarget)
         .call();
       // Are we already allowed to sell the amount we desire?
-      if (Number(spendingAllowance) < Number(quoteInfo.sellAmount)) {
+      if (
+        new BigNumber(spendingAllowance).isLessThan(
+          new BigNumber(quoteInfo.sellAmount),
+        )
+      ) {
         Logs.info(
           'Approval required',
           `${spendingAllowance} < ${quoteInfo.sellAmount}`,
