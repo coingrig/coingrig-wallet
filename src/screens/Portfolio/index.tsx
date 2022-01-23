@@ -31,6 +31,7 @@ const PortfolioScreen = observer(() => {
   const [refreshing, setRefreshing] = useState(false);
   const [showNFTs, setShowNFTs] = useState(false);
   const [nfts, setNFTs] = useState<any[]>([]);
+  const [showHeader, setShowHeader] = useState(false);
 
   useEffect(() => {
     navigation.setOptions({
@@ -119,6 +120,7 @@ const PortfolioScreen = observer(() => {
     if (name === 'NFTs' && nfts.length === 0) {
       fetchNFTs();
     }
+    setShowHeader(false);
   };
 
   const renderList = () => {
@@ -141,6 +143,8 @@ const PortfolioScreen = observer(() => {
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={listHeader()}
           style={{marginHorizontal: 10}}
+          scrollEventThrottle={200}
+          onScroll={e => onScroll(e.nativeEvent.contentOffset.y)}
         />
       );
     } else {
@@ -158,6 +162,8 @@ const PortfolioScreen = observer(() => {
             keyboardDismissMode="on-drag"
             showsVerticalScrollIndicator={false}
             keyExtractor={(item: any) => item.id.toString() ?? ''}
+            scrollEventThrottle={200}
+            onScroll={e => onScroll(e.nativeEvent.contentOffset.y)}
           />
         );
       } else {
@@ -173,9 +179,22 @@ const PortfolioScreen = observer(() => {
       }
     }
   };
+
+  const onScroll = y => {
+    if (y > 15) {
+      if (!showHeader) {
+        setShowHeader(true);
+      }
+    } else if (y < 15) {
+      if (showHeader) {
+        setShowHeader(false);
+      }
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <View>
+      <View style={showHeader ? styles.headerShadow : null}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text style={styles.title} numberOfLines={1}>
             {t('portfolio.portfolio')}{' '}

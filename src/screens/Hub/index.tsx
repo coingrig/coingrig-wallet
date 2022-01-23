@@ -24,6 +24,7 @@ const HubScreen = () => {
   const {t} = useTranslation();
   const [data, setData] = useState(apps);
   const [searchText, setSearchText] = useState('');
+  const [showHeader, setShowHeader] = useState(false);
   const soon = () => {
     showMessage({
       message: t('dashboard.coming_soon'),
@@ -139,6 +140,18 @@ const HubScreen = () => {
     setData(newData);
   };
 
+  const onScroll = y => {
+    if (y > 5) {
+      if (!showHeader) {
+        setShowHeader(true);
+      }
+    } else if (y < 5) {
+      if (showHeader) {
+        setShowHeader(false);
+      }
+    }
+  };
+
   const listHeader = () => {
     return (
       <View style={{flex: 1, marginHorizontal: 5, marginBottom: 10}}>
@@ -154,7 +167,7 @@ const HubScreen = () => {
   };
   return (
     <View style={styles.container}>
-      <View>
+      <View style={showHeader ? styles.headerShadow : null}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text style={styles.title}>{t('Hub')} </Text>
           <Text style={styles.subtitle}>
@@ -168,6 +181,8 @@ const HubScreen = () => {
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         keyboardDismissMode="on-drag"
+        scrollEventThrottle={200}
+        onScroll={e => onScroll(e.nativeEvent.contentOffset.y)}
         numColumns={2}
         //@ts-ignore
         keyExtractor={(item, index) => index}
