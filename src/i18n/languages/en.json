@@ -87,7 +87,7 @@
       "coindetails.choose_network": "Choose network",
       "coindetails.chain_note": "Some assets are available on multiple chains/networks. Assets can not be directly used across chains.",
       "coindetails.add_to_portfolio": "Add to portfolio",
-      "coindetails.manual_note": "This assets it's already in your portfolio OR the blockchain it's not supported yet! You can still add it and track manually.",
+      "coindetails.manual_note": "This assets it's already in your portfolio OR the blockchain it's not supported yet! You can still track it manually.",
       "coindetails.manual": "Manual",
 
       "market.market": "Market",

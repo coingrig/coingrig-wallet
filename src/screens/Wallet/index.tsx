@@ -434,12 +434,12 @@ const WalletScreen = observer(({route}) => {
               );
               editSheet.current?.setModalVisible(false);
             }}
-            color={Colors.background}
+            color="#f2eded"
             // eslint-disable-next-line react-native/no-inline-styles
             style={{
-              backgroundColor: Colors.foreground,
+              backgroundColor: '#2e2c2c',
               width: '70%',
-              marginTop: 30,
+              marginTop: 20,
             }}
           />
         </ActionSheet>
