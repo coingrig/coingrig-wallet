@@ -143,7 +143,7 @@ const PortfolioScreen = observer(() => {
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={listHeader()}
           style={{marginHorizontal: 10}}
-          scrollEventThrottle={200}
+          scrollEventThrottle={100}
           onScroll={e => onScroll(e.nativeEvent.contentOffset.y)}
         />
       );
@@ -162,7 +162,7 @@ const PortfolioScreen = observer(() => {
             keyboardDismissMode="on-drag"
             showsVerticalScrollIndicator={false}
             keyExtractor={(item: any) => item.id.toString() ?? ''}
-            scrollEventThrottle={200}
+            scrollEventThrottle={100}
             onScroll={e => onScroll(e.nativeEvent.contentOffset.y)}
           />
         );

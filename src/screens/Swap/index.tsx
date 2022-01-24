@@ -10,6 +10,7 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
@@ -82,6 +83,8 @@ const ERC20_ABI = [
   },
 ];
 
+let timer: any = null;
+
 const SwapScreen = props => {
   const {t} = useTranslation();
   const navigation = useNavigation();
@@ -133,6 +136,7 @@ const SwapScreen = props => {
       showSubscription.remove();
       willShowSubscription.remove();
       hideSubscription.remove();
+      clearTimer();
     };
   }, []);
 
@@ -400,16 +404,52 @@ const SwapScreen = props => {
     }
   };
 
+  const clearTimer = () => {
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+  };
+
+  const alertTimer = isSwap => {
+    // isSwap or approve
+    Alert.alert(
+      t('swap.network_congestion'),
+      t(
+        'swap.Blockchain is slow ! You can come back later and check your transaction. Do you want to exit ?',
+      ),
+      [
+        {
+          text: t('settings.cancel'),
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: t('settings.yes'),
+          onPress: async () => {
+            LoadingModal.instance.current?.hide();
+            navigation.goBack();
+          },
+        },
+      ],
+    );
+  };
+
   const executeAllowance = async () => {
     Logs.info('executeAllowance');
     LoadingModal.instance.current?.show();
     try {
+      let tx = null;
+      timer = setTimeout(() => {
+        alertTimer(false);
+      }, 30000);
       // Send the pre-set allowance action to the chain
       //@ts-ignore
-      let tx = await allowanceAction.send({
+      tx = await allowanceAction.send({
         from: chainAddress,
         gas: allowanceFee,
       });
+      clearTimer();
       Logs.info('allowance', tx);
       showMessage({
         message: t('swap.message.swap_approved'),
@@ -684,7 +724,7 @@ const SwapScreen = props => {
                   style={styles.amount}
                   keyboardType="numeric"
                   placeholder="0"
-                  placeholderTextColor={Colors.foreground}
+                  placeholderTextColor={Colors.lighter}
                   value={sellAmmount}
                   onChangeText={t => {
                     setSellAmount(t);
@@ -710,7 +750,7 @@ const SwapScreen = props => {
                   style={styles.amount}
                   value={buyAmmount}
                   placeholder="0"
-                  placeholderTextColor={Colors.lighter}
+                  placeholderTextColor={'gray'}
                   editable={false}
                 />
               </View>

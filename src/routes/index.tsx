@@ -77,7 +77,7 @@ const TabLogo = (inverse = false) => {
           height: 280 / 13,
           width: 279 / 13,
           tintColor: inverse ? Colors.foreground : Colors.background,
-          marginLeft: 3,
+          // marginLeft: 3,
         }}
       />
     </View>
@@ -133,9 +133,9 @@ function BottomTabs() {
             return focused ? TabLogo(false) : TabLogo(true);
           } else if (route.name === 'PortfolioScreen') {
             return focused ? (
-              <Icon name="wallet" size={24} color={Colors.inverse} />
+              <Icon name="wallet" size={25} color={Colors.inverse} />
             ) : (
-              <Icon name="wallet" size={24} color={Colors.foreground} />
+              <Icon name="wallet" size={25} color={Colors.foreground} />
             );
           } else if (route.name === 'HubScreen') {
             return focused ? (
