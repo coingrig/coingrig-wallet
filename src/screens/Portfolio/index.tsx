@@ -137,7 +137,9 @@ const PortfolioScreen = observer(() => {
           }
           data={WalletStore.wallets}
           renderItem={renderItem}
-          keyExtractor={(item: any) => item.cid + item.chain ?? ''}
+          keyExtractor={(item: any, index) =>
+            item.cid + item.chain + index.toString() ?? ''
+          }
           maxToRenderPerBatch={10}
           initialNumToRender={10}
           showsVerticalScrollIndicator={false}

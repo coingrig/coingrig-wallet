@@ -9,6 +9,7 @@ import {styles} from './styles';
 import {Colors} from 'utils/colors';
 import {Segment, SegmentedControl} from 'react-native-resegmented-control';
 import {useTranslation} from 'react-i18next';
+import {CryptoService} from 'services/crypto';
 
 const SendReceiveScreen = ({route}) => {
   const navigation = useNavigation();
@@ -28,6 +29,7 @@ const SendReceiveScreen = ({route}) => {
     );
     setAddress(WalletStore.getWalletAddressByChain(wallet?.chain ?? '') ?? '');
     setCoinDescriptor(wallet ?? {});
+    CryptoService.getAccountBalance();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

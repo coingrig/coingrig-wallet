@@ -145,10 +145,12 @@ const CoinDetailScreen = observer(({route}) => {
     actionSheetRef.current?.setModalVisible(true);
   };
 
-  const saveWallet = (platform, contract) => {
-    CryptoService.prepareNewWallet(coinData, platform, contract);
-    // Remove the added platform from the availability list to add
-    setPlatforms(platforms.filter(o => o.chain !== platform));
+  const saveWallet = (platform, contract, external) => {
+    CryptoService.prepareNewWallet(coinData, platform, contract, external);
+    if (!external) {
+      // Remove the added platform from the availability list to add
+      setPlatforms(platforms.filter(o => o.chain !== platform));
+    }
     //@ts-ignore
     actionSheetRef.current?.setModalVisible(false);
     //TODO: Translate
@@ -161,7 +163,7 @@ const CoinDetailScreen = observer(({route}) => {
 
   const addToPortfolio = () => {
     // Display if chain is supported and if is not already added
-    if (route.params.isSupported && platforms.length > 0) {
+    if (route.params.showAdd) {
       return (
         <SmallButton
           text={t('coindetails.add_to_portfolio')}
@@ -352,29 +354,56 @@ const CoinDetailScreen = observer(({route}) => {
           <Text style={styles.choose_network}>
             {t('coindetails.choose_network')}
           </Text>
-          <FlatList
-            data={platforms}
-            keyExtractor={(item, index) => index.toString()}
-            showsVerticalScrollIndicator={false}
-            renderItem={({item}) => (
-              <View>
-                <SmallButton
-                  text={CryptoService.getSupportedChainNamebyID(item.chain)}
-                  onPress={() => {
-                    saveWallet(item.chain, item.contract);
-                  }}
-                  color={Colors.darker}
-                  // eslint-disable-next-line react-native/no-inline-styles
-                  style={{
-                    backgroundColor: Colors.foreground,
-                    width: '70%',
-                    borderWidth: 0,
-                  }}
-                />
-              </View>
-            )}
+          {route.params.isSupported && platforms.length > 0 ? (
+            <>
+              <FlatList
+                data={platforms}
+                keyExtractor={(item, index) => index.toString()}
+                showsVerticalScrollIndicator={false}
+                renderItem={({item}) => (
+                  <View>
+                    <SmallButton
+                      text={CryptoService.getSupportedChainNamebyID(item.chain)}
+                      onPress={() => {
+                        saveWallet(item.chain, item.contract, false);
+                      }}
+                      color={Colors.darker}
+                      // eslint-disable-next-line react-native/no-inline-styles
+                      style={{
+                        backgroundColor: Colors.foreground,
+                        width: '70%',
+                        marginBottom: 5,
+                        borderWidth: 0,
+                      }}
+                    />
+                  </View>
+                )}
+              />
+
+              <Text style={styles.chain_note}>
+                {t('coindetails.chain_note')}
+              </Text>
+            </>
+          ) : (
+            <Text style={styles.manual_note}>
+              {t('coindetails.manual_note')}
+            </Text>
+          )}
+          <SmallButton
+            text={t('coindetails.manual')}
+            onPress={() => {
+              saveWallet(null, null, true);
+            }}
+            color={Colors.foreground}
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              backgroundColor: Colors.background,
+              width: '70%',
+              borderWidth: 0.5,
+              marginVertical: 20,
+              borderColor: Colors.foreground,
+            }}
           />
-          <Text style={styles.chain_note}>{t('coindetails.chain_note')}</Text>
         </View>
       </ActionSheet>
     </ScrollView>

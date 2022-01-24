@@ -154,6 +154,7 @@ const SwapScreen = props => {
         setBuyAmount('');
         setBuyTokenLogo(endpoints.assets + 'images/plus.png');
       }
+      CryptoService.getAccountBalance();
     }
   }, [transitionEnded]);
 

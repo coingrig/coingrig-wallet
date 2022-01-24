@@ -155,6 +155,13 @@ class CryptoService {
       let chainKeys = await this.getChainPrivateKeys();
       for (let i = 0; i < WalletStore.wallets.length; i++) {
         let chain = WalletStore.wallets[i].chain;
+        if (chain.startsWith('cg_')) {
+          const w = WalletStore.wallets[i];
+          let np = prices[w.cid!.toLowerCase()]?.usd ?? null;
+          np = parseFloat(np);
+          WalletStore.setPrice(w.symbol, w.chain, np);
+          continue;
+        }
         let contract = WalletStore.wallets[i].contract?.toLowerCase() ?? null;
         let wallet = Object.assign({}, WalletStore.wallets[i], {
           privKey: chainKeys[chain],
@@ -319,13 +326,13 @@ class CryptoService {
     }
   };
 
-  prepareNewWallet = async (data, chain, contract) => {
+  prepareNewWallet = async (data, chain, contract, external) => {
     let wallet: IWallet = {
       symbol: data.symbol.toUpperCase(),
       name: data.name,
       cid: data.id || data.symbol.toUpperCase(),
-      chain: chain,
-      type: 'token',
+      chain: external ? 'cg_' + Date.now() : chain,
+      type: external ? 'external' : 'token',
       decimals: null,
       contract: contract || null,
       privKey: null,
@@ -338,29 +345,35 @@ class CryptoService {
       walletAddress: null,
       version: CONFIG.NEW_ASSET_DESCRIPTOR_VERSION,
     };
-    let chainAddress = WalletStore.getWalletAddressByChain(wallet.chain);
-    let cryptoWallet = WalletFactory.getWallet(
-      Object.assign({}, wallet, {walletAddress: chainAddress}),
-    );
-    let decimals = await cryptoWallet.getDecimals();
-    // Adjust the wallet settings with decimals to prevent
-    // requesting again the decimals when getting the balance
-    cryptoWallet.config.decimals = decimals;
-    let balance = await cryptoWallet.getBalance();
-    wallet.decimals = decimals;
-    wallet.balance = balance.confirmedBalance;
-    wallet.unconfirmedBalance = balance.unconfirmedBalance;
-    if (wallet.balance > 0) {
-      wallet.value = Number(
-        new BigNumber(wallet.balance).multipliedBy(wallet.price),
+    if (!external) {
+      let chainAddress = WalletStore.getWalletAddressByChain(wallet.chain);
+      let cryptoWallet = WalletFactory.getWallet(
+        Object.assign({}, wallet, {walletAddress: chainAddress}),
       );
+      let decimals = await cryptoWallet.getDecimals();
+      // Adjust the wallet settings with decimals to prevent
+      // requesting again the decimals when getting the balance
+      cryptoWallet.config.decimals = decimals;
+      let balance = await cryptoWallet.getBalance();
+      wallet.decimals = decimals;
+      wallet.balance = balance.confirmedBalance;
+      wallet.unconfirmedBalance = balance.unconfirmedBalance;
+      if (wallet.balance > 0) {
+        wallet.value = Number(
+          new BigNumber(wallet.balance).multipliedBy(wallet.price),
+        );
+      }
     }
     WalletStore.addWallet(wallet);
+    this.getAccountBalance();
   };
 
   updateWalletBalance = async (coin, chain) => {
     Logs.info('Get ' + coin + ' balance');
     const wallet = WalletStore.getWalletByCoinId(coin, chain);
+    if (wallet?.type === 'external') {
+      return true;
+    }
     let chainAddress = WalletStore.getWalletAddressByChain(wallet!.chain);
     let cryptoWallet = WalletFactory.getWallet(
       Object.assign({}, wallet, {walletAddress: chainAddress}),

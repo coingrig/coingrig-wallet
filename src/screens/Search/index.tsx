@@ -57,11 +57,6 @@ const SearchScreen = ({route}) => {
   };
 
   const getData = () => {
-    if (route.params.onlySupported) {
-      return data.filter(item => {
-        return item.supported === true;
-      });
-    }
     return data;
   };
 
@@ -91,9 +86,6 @@ const SearchScreen = ({route}) => {
   };
 
   const renderItem = ({item}) => {
-    if (route.params.onlySupported && !item.supported) {
-      return null;
-    }
     return (
       <TouchableOpacity
         onPress={() =>
@@ -101,6 +93,7 @@ const SearchScreen = ({route}) => {
             coin: item.id,
             title: item.symbol,
             isSupported: item.supported,
+            showAdd: true,
           })
         }
         style={{

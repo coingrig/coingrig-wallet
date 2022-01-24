@@ -67,6 +67,9 @@
       "wallet.delete_wallet": "Supprimer le portefeuille",
       "wallet.alert_delete_wallet": "Êtes-vous sûr de vouloir supprimer ce portefeuille?",
       "wallet.network": "Network",
+      "wallet.edit": "Edit",
+      "wallet.edit_balance": "Edit balance",
+      "wallet.added_manually": "Manually tracked",
 
       "coindetails.change": "Changement 24h",
       "coindetails.price": "Prix",
@@ -84,6 +87,8 @@
       "coindetails.choose_network": "Choix Network",
       "coindetails.chain_note": "Certains actifs sont disponibles sur plusieurs chaînes/réseaux. Les actifs ne peuvent pas être utilisés directement dans les chaînes.",
       "coindetails.add_to_portfolio": "Ajoutez au portefeuille",
+      "coindetails.manual_note": "This assets it's already in your portfolio OR the blockchain it's not supported yet! You can still add it and track manually.",
+      "coindetails.manual": "Manual",
 
       "market.market": "Marché",
       "market.assets": "Actifs",

@@ -67,6 +67,9 @@
       "wallet.delete_wallet": "Elimină activ",
       "wallet.alert_delete_wallet": "Ești sigur că vrei să elimini acest activ?",
       "wallet.network": "Network",
+      "wallet.edit": "Editeaza",
+      "wallet.edit_balance": "Editeaza balanta",
+      "wallet.added_manually": "Urmarit manual",
 
       "coindetails.change": "Variație 24h",
       "coindetails.price": "Preț",
@@ -84,6 +87,8 @@
       "coindetails.choose_network": "Alege rețea",
       "coindetails.chain_note": "Unele active se găsesc pe mai multe rețele/blockchainuri, dar acestea nu sunt interoperabile.",
       "coindetails.add_to_portfolio": "Adaugă în portofoliu",
+      "coindetails.manual_note": "Acest activ este deja in portofoliul tau sau blockchainul nu este inca suportat. Il poti adauga si urmarii doar manual.",
+      "coindetails.manual": "Manual",
 
       "market.market": "Piața",
       "market.assets": "Active",

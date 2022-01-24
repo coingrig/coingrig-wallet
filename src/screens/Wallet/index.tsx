@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useEffect, useState, useCallback, createRef} from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   ScrollView,
   RefreshControl,
   Alert,
+  TextInput,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
@@ -17,7 +18,7 @@ import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import {useTranslation} from 'react-i18next';
 import Svg, {Path} from 'react-native-svg';
 import {WalletStore} from 'stores/wallet';
-import {formatCoins, formatPrice} from 'utils';
+import {formatCoins, formatNoComma, formatPrice} from 'utils';
 import FastImage from 'react-native-fast-image';
 import {styles} from './styles';
 import {CryptoService} from 'services/crypto';
@@ -25,11 +26,16 @@ import {Colors} from 'utils/colors';
 import {showMessage} from 'react-native-flash-message';
 import {SettingsStore} from 'stores/settings';
 import endpoints from 'utils/endpoints';
+import ActionSheet from 'react-native-actions-sheet';
+import {SmallButton} from 'components/smallButton';
+
+const editSheet: React.RefObject<any> = createRef();
 
 const WalletScreen = observer(({route}) => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
+  const [customBalance, setCustomBalance] = useState('');
   const chain = CryptoService.getSupportedChainNamebyID(
     WalletStore.getWalletByCoinId(route.params.symbol, route.params.chain)
       ?.chain,
@@ -50,21 +56,24 @@ const WalletScreen = observer(({route}) => {
                   coin: route.params.coin,
                   chain: route.params.chain,
                   title: route.params.symbol,
+                  showAdd: false,
                 });
               }}
               style={styles.moreBtn}>
               <Icon name="stats-chart" size={19} color={Colors.foreground} />
             </TouchableOpacity>
           )}
-          <TouchableOpacity
-            onPress={() => showTransactions()}
-            style={styles.moreBtn}>
-            <Icon
-              name="list-circle-outline"
-              size={25}
-              color={Colors.foreground}
-            />
-          </TouchableOpacity>
+          {w?.type === 'external' ? null : (
+            <TouchableOpacity
+              onPress={() => showTransactions()}
+              style={styles.moreBtn}>
+              <Icon
+                name="list-circle-outline"
+                size={25}
+                color={Colors.foreground}
+              />
+            </TouchableOpacity>
+          )}
         </View>
       ),
     });
@@ -126,7 +135,10 @@ const WalletScreen = observer(({route}) => {
       console.log(error);
     }
   };
-  const deleteWallet = async () => {
+  const deleteWallet = async wallet => {
+    if (!wallet) {
+      return;
+    }
     Alert.alert(t('wallet.delete_wallet'), t('wallet.alert_delete_wallet'), [
       {
         text: t('settings.cancel'),
@@ -136,12 +148,7 @@ const WalletScreen = observer(({route}) => {
       {
         text: t('settings.yes'),
         onPress: async () => {
-          const w = WalletStore.getWalletByCoinId(
-            route.params.symbol,
-            route.params.chain,
-          );
-          console.log();
-          const wIndex = WalletStore.wallets.indexOf(w!);
+          const wIndex = WalletStore.wallets.indexOf(wallet!);
           if (wIndex) {
             WalletStore.deleteWallet(wIndex);
             navigation.goBack();
@@ -175,6 +182,9 @@ const WalletScreen = observer(({route}) => {
   };
 
   const renderUnconfirmedTx = () => {
+    if (!route.params.chain) {
+      return null;
+    }
     const unconfTxValue = WalletStore.getWalletByCoinId(
       route.params.symbol,
       route.params.chain,
@@ -218,7 +228,11 @@ const WalletScreen = observer(({route}) => {
   };
 
   const renderSwap = () => {
-    if (route.params.symbol !== 'BTC') {
+    // alert(route.params.chain);
+    if (
+      route.params.symbol !== 'BTC' &&
+      !route.params.chain.startsWith('cg_')
+    ) {
       return (
         <View>
           <TouchableOpacity
@@ -234,6 +248,71 @@ const WalletScreen = observer(({route}) => {
             <Icon2 name="exchange" size={18} color={Colors.background} />
           </TouchableOpacity>
           <Text style={styles.roundb}>{t('hub.swap')}</Text>
+        </View>
+      );
+    }
+  };
+
+  const renderButtons = wallet => {
+    if (!wallet) {
+      return;
+    }
+    if (wallet.type === 'external') {
+      return (
+        <View style={styles.btnCointainers}>
+          <View>
+            <TouchableOpacity
+              onPress={() => {
+                setCustomBalance(wallet.balance.toString());
+                editSheet.current?.setModalVisible(true);
+              }}
+              style={styles.roundBtn}>
+              <Icon2
+                name="edit"
+                size={20}
+                color={Colors.background}
+                style={{marginLeft: 3}}
+              />
+            </TouchableOpacity>
+            <Text style={styles.roundb}>{t('wallet.edit')}</Text>
+          </View>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.btnCointainers}>
+          <View>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('SendReceiveScreen', {
+                  coin: route.params.symbol,
+                  chain: route.params.chain,
+                  name: wallet?.name,
+                  receive: false,
+                })
+              }
+              style={styles.roundBtn}>
+              <Icon name="arrow-up" size={20} color={Colors.background} />
+            </TouchableOpacity>
+            <Text style={styles.roundb}>{t('wallet.send')}</Text>
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('SendReceiveScreen', {
+                  coin: route.params.symbol,
+                  chain: route.params.chain,
+                  name: wallet?.name,
+                  receive: true,
+                })
+              }
+              style={styles.roundBtn}>
+              <Icon name="arrow-down" size={20} color={Colors.background} />
+            </TouchableOpacity>
+            <Text style={styles.roundb}>{t('wallet.receive')}</Text>
+          </View>
+          {renderSwap()}
+          {buyOrTx()}
         </View>
       );
     }
@@ -272,8 +351,8 @@ const WalletScreen = observer(({route}) => {
             </View>
             <View style={styles.pills}>
               <Text style={{fontSize: 12, color: Colors.lighter}}>
-                {chain + ' '}
-                {chain.length < 15 ? t('wallet.network') : null}
+                {(chain ? chain : t('wallet.added_manually')) + ' '}
+                {chain.length < 15 && chain ? t('wallet.network') : null}
               </Text>
             </View>
           </View>
@@ -296,40 +375,7 @@ const WalletScreen = observer(({route}) => {
             ) || 0}{' '}
             {route.params.symbol}
           </Text>
-          <View style={styles.btnCointainers}>
-            <View>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('SendReceiveScreen', {
-                    coin: route.params.symbol,
-                    chain: route.params.chain,
-                    name: wallet?.name,
-                    receive: false,
-                  })
-                }
-                style={styles.roundBtn}>
-                <Icon name="arrow-up" size={20} color={Colors.background} />
-              </TouchableOpacity>
-              <Text style={styles.roundb}>{t('wallet.send')}</Text>
-            </View>
-            <View>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('SendReceiveScreen', {
-                    coin: route.params.symbol,
-                    chain: route.params.chain,
-                    name: wallet?.name,
-                    receive: true,
-                  })
-                }
-                style={styles.roundBtn}>
-                <Icon name="arrow-down" size={20} color={Colors.background} />
-              </TouchableOpacity>
-              <Text style={styles.roundb}>{t('wallet.receive')}</Text>
-            </View>
-            {renderSwap()}
-            {buyOrTx()}
-          </View>
+          {renderButtons(wallet)}
           {renderUnconfirmedTx()}
         </ScrollView>
         <FastImage
@@ -349,15 +395,54 @@ const WalletScreen = observer(({route}) => {
             fill={Colors.darker}
           />
         </Svg>
-        {wallet?.type === 'token' || wallet?.type === 'custom-token' ? (
+        {wallet?.type === 'token' ||
+        wallet?.type === 'custom-token' ||
+        wallet?.type === 'external' ? (
           <View style={{right: 20, bottom: 40, position: 'absolute'}}>
             <TouchableOpacity
-              onPress={() => deleteWallet()}
+              onPress={() => deleteWallet(wallet)}
               style={styles.deleteBtn}>
               <Icon name="trash" size={20} color="white" />
             </TouchableOpacity>
           </View>
         ) : null}
+        <ActionSheet
+          //@ts-ignore
+          ref={editSheet}
+          keyboardShouldPersistTaps="always"
+          // gestureEnabled={true}
+          // headerAlwaysVisible
+          containerStyle={styles.editContainer}>
+          <Text style={styles.editTitle}>
+            {t('wallet.edit_balance') + ' (' + wallet?.symbol + ')'}
+          </Text>
+          <TextInput
+            keyboardType="numeric"
+            placeholder="0"
+            placeholderTextColor={'gray'}
+            style={styles.editInput}
+            value={customBalance}
+            onChangeText={t => setCustomBalance(t)}
+          />
+          <SmallButton
+            text={t('swap.slippage_save')}
+            onPress={() => {
+              WalletStore.setBalance(
+                wallet?.symbol,
+                wallet?.chain,
+                Number(formatNoComma(customBalance)),
+              );
+              editSheet.current?.setModalVisible(false);
+            }}
+            color={Colors.background}
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              backgroundColor: Colors.foreground,
+              width: '70%',
+              marginTop: 30,
+            }}
+          />
+        </ActionSheet>
       </View>
     );
   };

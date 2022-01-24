@@ -67,6 +67,9 @@
       "wallet.delete_wallet": "Remove asset",
       "wallet.alert_delete_wallet": "Are you sure you want to remove this asset?",
       "wallet.network": "Network",
+      "wallet.edit": "Edit",
+      "wallet.edit_balance": "Edit balance",
+      "wallet.added_manually": "Manually tracked",
 
       "coindetails.change": "Change 24h",
       "coindetails.price": "Price",
@@ -84,6 +87,8 @@
       "coindetails.choose_network": "Choose network",
       "coindetails.chain_note": "Some assets are available on multiple chains/networks. Assets can not be directly used across chains.",
       "coindetails.add_to_portfolio": "Add to portfolio",
+      "coindetails.manual_note": "This assets it's already in your portfolio OR the blockchain it's not supported yet! You can still add it and track manually.",
+      "coindetails.manual": "Manual",
 
       "market.market": "Market",
       "market.assets": "Assets",
