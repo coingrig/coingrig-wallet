@@ -390,7 +390,9 @@ const CoinDetailScreen = observer(({route}) => {
                 {t('coindetails.not_available')}
               </Text>
               <Text style={styles.manual_note}>
-                {t('coindetails.manual_note')}
+                {!route.params.isSupported
+                  ? t('coindetails.manual_note')
+                  : t('coindetails.already_note')}
               </Text>
             </>
           )}
