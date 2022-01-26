@@ -36,7 +36,7 @@ const WalletListItem = (props: {coin: IWallet; onPress?: any}) => {
               fontSize: 10,
               paddingBottom: 2,
             }}>
-            m
+            e
           </Text>
         </View>
       );

@@ -69,7 +69,7 @@
       "wallet.network": "Network",
       "wallet.edit": "Edit",
       "wallet.edit_balance": "Edit balance",
-      "wallet.added_manually": "Manually tracked",
+      "wallet.added_manually": "External Wallet",
 
       "coindetails.change": "Changement 24h",
       "coindetails.price": "Prix",
@@ -88,7 +88,8 @@
       "coindetails.chain_note": "Certains actifs sont disponibles sur plusieurs chaînes/réseaux. Les actifs ne peuvent pas être utilisés directement dans les chaînes.",
       "coindetails.add_to_portfolio": "Ajoutez au portefeuille",
       "coindetails.manual_note": "This assets it's already in your portfolio OR the blockchain it's not supported yet! You can still add it and track manually.",
-      "coindetails.manual": "Manual",
+      "coindetails.manual": "External Wallet",
+      "coindetails.not_available": "Not available",
 
       "market.market": "Marché",
       "market.assets": "Actifs",

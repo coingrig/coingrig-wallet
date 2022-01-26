@@ -69,7 +69,7 @@
       "wallet.network": "Network",
       "wallet.edit": "Edit",
       "wallet.edit_balance": "Edit balance",
-      "wallet.added_manually": "Manually tracked",
+      "wallet.added_manually": "External Wallet",
 
       "coindetails.change": "Change 24h",
       "coindetails.price": "Price",
@@ -85,10 +85,11 @@
       "coindetails.max_supply": "Max Supply",
       "coindetails.total_supply": "Total Supply",
       "coindetails.choose_network": "Choose network",
-      "coindetails.chain_note": "Some assets are available on multiple chains/networks. Assets can not be directly used across chains.",
+      "coindetails.chain_note": "Or you can add it as an External Wallet(not tradeable) and track it manually.",
       "coindetails.add_to_portfolio": "Add to portfolio",
-      "coindetails.manual_note": "This assets it's already in your portfolio OR the blockchain it's not supported yet! You can still track it manually.",
-      "coindetails.manual": "Manual",
+      "coindetails.manual_note": "This assets it's already in your portfolio OR the blockchain it's not supported yet! You can add it as an External Wallet and track it manually.",
+      "coindetails.manual": "External Wallet",
+      "coindetails.not_available": "Not available",
 
       "market.market": "Market",
       "market.assets": "Assets",

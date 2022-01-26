@@ -99,11 +99,11 @@ const SwapScreen = props => {
   const [sellTokenSymbol, setSellTokenSymbol] = useState('');
   const [sellToken, setSellToken] = useState('');
   const [sellTokenLogo, setSellTokenLogo] = useState('');
-  const [sellAmmount, setSellAmount] = useState('0');
+  const [sellAmmount, setSellAmount] = useState('');
   const [buyTokenSymbol, setBuyTokenSymbol] = useState('');
   const [buyToken, setBuyToken] = useState('MATIC');
   const [buyTokenLogo, setBuyTokenLogo] = useState('');
-  const [buyAmmount, setBuyAmount] = useState('0');
+  const [buyAmmount, setBuyAmount] = useState('');
   const [quote, setQuote] = useState<any>(null);
   const [allowanceAction, setAllowanceAction] = useState(null);
   const [allowanceFee, setAllowanceFee] = useState(null);
@@ -482,7 +482,11 @@ const SwapScreen = props => {
           type: 'warning',
         });
       }
-      let tx = await w3client!.eth.sendTransaction({
+      let tx: any = null;
+      timer = setTimeout(() => {
+        alertTimer(true);
+      }, 30000);
+      tx = await w3client!.eth.sendTransaction({
         from: chainAddress,
         to: quote.to,
         data: quote.data,
@@ -491,6 +495,7 @@ const SwapScreen = props => {
         gas: quote.gas,
       });
       Logs.info(tx);
+      clearTimer();
       showMessage({
         message: t('swap.message.swap_executed'),
         type: 'success',

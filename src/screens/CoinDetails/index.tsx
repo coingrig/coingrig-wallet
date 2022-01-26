@@ -351,11 +351,11 @@ const CoinDetailScreen = observer(({route}) => {
           backgroundColor: Colors.background,
         }}>
         <View style={{backgroundColor: Colors.background}}>
-          <Text style={styles.choose_network}>
-            {t('coindetails.choose_network')}
-          </Text>
           {route.params.isSupported && platforms.length > 0 ? (
             <>
+              <Text style={styles.choose_network}>
+                {t('coindetails.choose_network')}
+              </Text>
               <FlatList
                 data={platforms}
                 keyExtractor={(item, index) => index.toString()}
@@ -385,9 +385,14 @@ const CoinDetailScreen = observer(({route}) => {
               </Text>
             </>
           ) : (
-            <Text style={styles.manual_note}>
-              {t('coindetails.manual_note')}
-            </Text>
+            <>
+              <Text style={styles.choose_network}>
+                {t('coindetails.not_available')}
+              </Text>
+              <Text style={styles.manual_note}>
+                {t('coindetails.manual_note')}
+              </Text>
+            </>
           )}
           <SmallButton
             text={t('coindetails.manual')}
