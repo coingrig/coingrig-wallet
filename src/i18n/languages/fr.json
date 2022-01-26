@@ -91,7 +91,8 @@
       "coindetails.manual": "External Wallet",
       "coindetails.not_available": "Not available",
       "coindetails.already_note": "This asset is already in your portfolio!\nYou can add the asset as an External Wallet and edit the balance manually.",
-
+      "coindetails.already_title": "Already in your portfolio",
+      
       "market.market": "Marché",
       "market.assets": "Actifs",
       "market.search_placeholder": "Recherchez dans des milliers d'actifs",

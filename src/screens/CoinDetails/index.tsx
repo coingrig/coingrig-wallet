@@ -387,7 +387,9 @@ const CoinDetailScreen = observer(({route}) => {
           ) : (
             <>
               <Text style={styles.choose_network}>
-                {t('coindetails.not_available')}
+                {!route.params.isSupported
+                  ? t('coindetails.not_available')
+                  : t('coindetails.already_title')}
               </Text>
               <Text style={styles.manual_note}>
                 {!route.params.isSupported
@@ -407,7 +409,7 @@ const CoinDetailScreen = observer(({route}) => {
               backgroundColor: Colors.background,
               width: '70%',
               borderWidth: 0.5,
-              marginVertical: 20,
+              marginBottom: 20,
               borderColor: Colors.foreground,
             }}
           />
