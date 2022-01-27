@@ -451,6 +451,7 @@ const SwapScreen = props => {
       tx = await allowanceAction.send({
         from: chainAddress,
         gas: allowanceFee,
+        gasPrice: quote.gasPrice,
       });
       clearTimer();
       Logs.info('allowance', tx);
@@ -464,7 +465,8 @@ const SwapScreen = props => {
       checkPreview(true);
     } catch (ex) {
       LoadingModal.instance.current?.hide();
-      // console.log(ex);
+      clearTimer();
+      Logs.info(ex);
       showMessage({
         message: t('swap.error.not_enough_balance'),
         type: 'warning',
@@ -488,6 +490,7 @@ const SwapScreen = props => {
       timer = setTimeout(() => {
         alertTimer(true);
       }, 30000);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       tx = await w3client!.eth.sendTransaction({
         from: chainAddress,
         to: quote.to,
@@ -496,7 +499,7 @@ const SwapScreen = props => {
         gasPrice: quote.gasPrice,
         gas: quote.gas,
       });
-      Logs.info(tx);
+      // Logs.info(tx);
       clearTimer();
       showMessage({
         message: t('swap.message.swap_executed'),
@@ -504,6 +507,7 @@ const SwapScreen = props => {
       });
     } catch (ex) {
       Logs.error(ex);
+      clearTimer();
       showMessage({
         message: t('swap.error.swap_failed'),
         type: 'warning',
