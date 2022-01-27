@@ -63,7 +63,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     marginTop: 200,
-    opacity: 0.7,
+    opacity: 0.8,
   },
   topContainer: {
     flex: 4,
