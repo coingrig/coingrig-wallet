@@ -641,7 +641,7 @@
 				CODE_SIGN_ENTITLEMENTS = Coingrig/Coingrig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 47;
 				DEVELOPMENT_TEAM = L63HFFVTBZ;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
@@ -743,7 +743,7 @@
 				CODE_SIGN_ENTITLEMENTS = Coingrig/Coingrig.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Qubevo Sourcing SRL (L63HFFVTBZ)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 47;
 				DEVELOPMENT_TEAM = L63HFFVTBZ;
 				"HEADER_SEARCH_PATHS[arch=*]" = (
 					"$(inherited)",
