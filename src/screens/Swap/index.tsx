@@ -415,14 +415,16 @@ const SwapScreen = props => {
   const alertTimer = isSwap => {
     // isSwap or approve
     Alert.alert(
-      t('swap.network_congestion'),
-      t(
-        'swap.Blockchain is slow ! You can come back later and check your transaction. Do you want to exit ?',
-      ),
+      t('swap.network_congestion_title'),
+      t('swap.network_congestion_message'),
       [
         {
           text: t('settings.cancel'),
-          onPress: () => console.log('Cancel Pressed'),
+          onPress: () => {
+            timer = setTimeout(() => {
+              alertTimer(false);
+            }, 30000);
+          },
           style: 'cancel',
         },
         {

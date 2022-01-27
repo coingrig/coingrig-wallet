@@ -208,6 +208,8 @@
       "swap.convert_from": "Convert from",
       "swap.convert_to": "Convert to",
       "swap.convert_footer": "For more tokens, add them in your portfolio first",
+      "swap.network_congestion_title": "Blockchain is slow!",
+      "swap.network_congestion_message": "Your transaction is on the blockchain and waiting confirmation. Do you want to exit and return later to check your transaction?",
       "swap.message.swap_approved": "Swap allowance confirmed!",
       "swap.message.swap_executed": "Swap executed!",
       "swap.error.swap_failed": "The swap could not be made!",
