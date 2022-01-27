@@ -58,3 +58,5 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 src/config.js
+ios/AppCenter-Config.plist
+android/app/src/main/assets/appcenter-config.json

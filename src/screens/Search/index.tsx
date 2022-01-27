@@ -11,7 +11,7 @@ import BigList from 'react-native-big-list';
 import {useNavigation} from '@react-navigation/native';
 import {Colors} from 'utils/colors';
 import FastImage from 'react-native-fast-image';
-import {TransitionEnd} from 'utils/hooks';
+import {useTransitionEnd} from 'utils/hooks/useTransitionEnd';
 import {useTranslation} from 'react-i18next';
 import {Loader} from 'components/loader';
 import {SmallButton} from 'components/smallButton';
@@ -22,7 +22,7 @@ const SearchScreen = ({route}) => {
   const [data, setData] = useState(coins);
   const [showScreen, setShowScreen] = useState(false);
   const [searchText, setSearchText] = useState('');
-  const transitionEnded = TransitionEnd(navigation);
+  const transitionEnded = useTransitionEnd(navigation);
 
   const {t} = useTranslation();
 
@@ -57,11 +57,6 @@ const SearchScreen = ({route}) => {
   };
 
   const getData = () => {
-    if (route.params.onlySupported) {
-      return data.filter(item => {
-        return item.supported === true;
-      });
-    }
     return data;
   };
 
@@ -91,9 +86,6 @@ const SearchScreen = ({route}) => {
   };
 
   const renderItem = ({item}) => {
-    if (route.params.onlySupported && !item.supported) {
-      return null;
-    }
     return (
       <TouchableOpacity
         onPress={() =>
@@ -101,6 +93,7 @@ const SearchScreen = ({route}) => {
             coin: item.id,
             title: item.symbol,
             isSupported: item.supported,
+            showAdd: true,
           })
         }
         style={{
@@ -204,7 +197,7 @@ const SearchScreen = ({route}) => {
             borderBottomLeftRadius: 5,
             color: Colors.foreground,
           }}
-          autoFocus
+          // autoFocus
           autoCorrect={false}
           placeholderTextColor={'gray'}
           onChangeText={text => searchCoin(text)}

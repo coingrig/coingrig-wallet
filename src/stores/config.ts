@@ -1,3 +1,4 @@
+var axios = require('axios');
 import {action, makeAutoObservable} from 'mobx';
 import {makePersistable} from 'mobx-persist-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -39,8 +40,6 @@ const DEFAULT_CONFIG = {
     },
   ],
 };
-
-var axios = require('axios');
 
 class configStore {
   lastConfigTime: string;

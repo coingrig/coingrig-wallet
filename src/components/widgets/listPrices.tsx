@@ -23,6 +23,7 @@ export const ListPrices = observer(() => {
                 navigation.navigate('CoinDetailScreen', {
                   coin: i.id,
                   title: i.symbol,
+                  showAdd: false,
                 })
               }
             />

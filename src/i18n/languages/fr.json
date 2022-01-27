@@ -29,8 +29,9 @@
       "bricks.all_wallets": "Mes actifs",
       "bricks.check_portfolio": "Consultez votre portefeuille",
 
-      "portfolio.my_assets": "Mes actifs",
+      "portfolio.my_assets": "Tokens",
       "portfolio.portfolio": "Portefeuille",
+      "portfolio.my_nfts": "NFTs",
 
       "setup.your_recovery_phrase": "Votre phrase de récupération",
       "setup.copy_these_words": "Copiez ces mots dans le bon ordre et enregistrez-les dans un endroit sûr",
@@ -46,7 +47,8 @@
       "setup.import_phrase": "Importer la phrase de récupération",
       "setup.import_wallet": "Importer portefeuille",
 
-      "modal.please_wait": "S'il vous plaît, attendez...",
+      "modal.please_wait": "S'il vous plaît, attendez",
+      "modal.remember_to_backup": "N'oubliez pas de sauvegarder votre phrase de récupération.",
 
       "dashboard.my_balance": "Mon solde",
       "dashboard.wallets": "Portefeuille",
@@ -65,6 +67,9 @@
       "wallet.delete_wallet": "Supprimer le portefeuille",
       "wallet.alert_delete_wallet": "Êtes-vous sûr de vouloir supprimer ce portefeuille?",
       "wallet.network": "Network",
+      "wallet.edit": "Modifier",
+      "wallet.edit_balance": "Modifier le solde",
+      "wallet.added_manually": "Portefeuille Externe",
 
       "coindetails.change": "Changement 24h",
       "coindetails.price": "Prix",
@@ -80,9 +85,14 @@
       "coindetails.max_supply": "Entièrement émis",
       "coindetails.total_supply": "Total disponible",
       "coindetails.choose_network": "Choix Network",
-      "coindetails.chain_note": "Certains actifs sont disponibles sur plusieurs chaînes/réseaux. Les actifs ne peuvent pas être utilisés directement dans les chaînes.",
+      "coindetails.chain_note": "Vous pouvez ajouter l'actif en tant que Portefeuille Externe et modifier le solde manuellement.",
       "coindetails.add_to_portfolio": "Ajoutez au portefeuille",
-
+      "coindetails.manual_note": "La reseaux de cet actif n'est pas prise en charge!\nVous pouvez ajouter l'actif en tant que Portefeuille Externe et modifier le solde manuellement.",
+      "coindetails.manual": "Portfeuille Externe",
+      "coindetails.not_available": "Pas disponible",
+      "coindetails.already_note": "Cet actif est déjà dans votre portefeuille!\nVous pouvez ajouter l'actif en tant que Portefeuille Externe et modifier le solde manuellement.",
+      "coindetails.already_title": "Déjà dans votre portefeuille",
+      
       "market.market": "Marché",
       "market.assets": "Actifs",
       "market.search_placeholder": "Recherchez dans des milliers d'actifs",
@@ -116,9 +126,9 @@
       "language.french": "Français",
       "language.romanian": "Roumaine",
 
-      "onboarding.text1": "Privé, non dépositaire \n - Vos clés, votre crypto-",
-      "onboarding.text2": "Open Source \n - Sécurité, Qualité et Liberté -",
-      "onboarding.text3": "Un portefeuille pour tous \n - Interface facile à utiliser pour les besoins quotidiens -",
+      "onboarding.text1": "Privé, non dépositaire.\nVos clés, votre crypto.",
+      "onboarding.text2": "Acheter avec carte de crédit.\nEnvoyez et recevez tout actif.",
+      "onboarding.text3": "Un portefeuille pour tous.\n1M+ d'actifs.",
       "onboarding.next": "Suivant",
 
       "tx.destination_address": "Adresse de destination",
@@ -178,6 +188,40 @@
       "hub.earn": "Gagner des intérêts",
       "hub.portfolio_tracker": "Suivi portfolio",
       "hub.create_token": "Créer token",
-      "hub.create_nft": "Créer NFT"
+      "hub.create_nft": "Créer NFT",
+      "hub.card": "Coingrig Card",
+      "hub.connector": "Connectors",
+
+      "swap.you_pay": "Vous payez",
+      "swap.you_get": "Vous recevez",
+      "swap.slippage": "Slippage",
+      "swap.slippage_save": "Sauvegarder",
+      "swap.slippage_cancel": "Annuler",
+      "swap.slippage_description": "Configurez la variation de prix acceptée (slippage) en pourcentage. La valeur par défaut est 0,5%",
+      "swap.estimated_gas": "Cout gas estimé",
+      "swap.allowance": "Autorisation",
+      "swap.exact_amount": "Somme exacte",
+      "swap.preview": "Prévisualiser",
+      "swap.approve": "Confirmer",
+      "swap.swap": "Swap",
+      "swap.select": "Choisir",
+      "swap.convert_from": "Convertir de",
+      "swap.convert_to": "Convertir dans",
+      "swap.convert_footer": "Pour plus de jetons, ajoutez-les d'abord à votre portefeuille",
+      "swap.network_congestion_title": "La blockchain est lente!",
+      "swap.network_congestion_message": "Votre transaction est sur la blockchain et en attente de confirmation. Voulez-vous sortir et revenir plus tard pour vérifier votre transaction?",
+      "swap.message.swap_approved": "Autorisation d'échange confirmée!",
+      "swap.message.swap_executed": "Swap exécuté!",
+      "swap.error.swap_failed": "Le Swap n'a pas pu être effectué!",
+      "swap.error.swap_not_found": "Pas de swap disponible pour cette paire!",
+      "swap.error.not_enough_balance": "Pas assez de solde pour le swap ou pour les frais!",
+      "swap.error.swap_chain_not_supported": "La reseaux que vous demandez n'est pas prise en charge!",
+
+      "nft.description": "Description",
+      "nft.no_description": "Pas de description",
+      "nft.created_date": "Créé le",
+      "nft.sales": "Ventes",
+      "nft.symbol": "Symbol",
+      "nft.total_supply": "Volume total"
   }
 }

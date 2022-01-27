@@ -1,7 +1,13 @@
 import * as React from 'react';
 const bip39 = require('bip39');
 import {useTranslation} from 'react-i18next';
-import {Text, View, StyleSheet, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  DeviceEventEmitter,
+} from 'react-native';
 import {useNavigation, CommonActions} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Clipboard from '@react-native-clipboard/clipboard';
@@ -9,10 +15,10 @@ import {SmallButton} from 'components/smallButton';
 import {BigButton} from 'components/bigButton';
 import {WalletStore} from 'stores/wallet';
 import {sleep} from 'utils';
-import {LoadingModal} from 'services/loading';
 import {Colors} from 'utils/colors';
 import {COIN_LIST} from 'utils/constants';
 import {showMessage} from 'react-native-flash-message';
+import {SettingsStore} from 'stores/settings';
 
 export default function ImportWalletScreen({}) {
   const {t} = useTranslation();
@@ -35,10 +41,13 @@ export default function ImportWalletScreen({}) {
         });
         return;
       }
-      LoadingModal.instance.current?.show();
+      DeviceEventEmitter.emit('showDoor', {
+        title: t('modal.please_wait'),
+      });
       await sleep(500);
       const importAcc = await WalletStore.createWallets(copiedText, COIN_LIST);
       if (importAcc) {
+        SettingsStore.setMnemonicBackupDone(true);
         navigation.dispatch(
           CommonActions.reset({
             index: 1,

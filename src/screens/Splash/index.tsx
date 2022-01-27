@@ -45,7 +45,7 @@ const SplashScreen: FC = () => {
         i18n.changeLanguage(local[0].languageCode);
       }
     }
-    checkPin();
+    await checkPin();
     SS.hide();
   };
 
@@ -74,7 +74,7 @@ const SplashScreen: FC = () => {
   return (
     <View style={styles.container}>
       <Image
-        style={{height: 100, tintColor: Colors.foreground}}
+        style={{height: 75, tintColor: '#353333'}}
         resizeMode="contain"
         source={require('../../assets/logo.png')}
       />
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: Colors.splash,
   },
   logo: {
     fontFamily: 'RobotoSlab-Bold',

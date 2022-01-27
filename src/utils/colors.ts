@@ -23,6 +23,9 @@ let theme = {
   switchBackground2: '#F9F7F1',
   switchForeground2: '#353333',
   stats: '#fff',
+  door: '#262424',
+  waveborder: '#c4bba7',
+  splash: '#fff',
 };
 if (colorScheme === 'dark') {
   theme = {
@@ -42,11 +45,14 @@ if (colorScheme === 'dark') {
     pill: '#262424',
     switchBackground: '#F9F7F1',
     switchForeground: '#353333',
-    inputBackground: '#262424',
+    inputBackground: '#383636',
     inputForeground: '#f2eded',
     switchBackground2: '#F9F7F1',
     switchForeground2: '#353333',
     stats: '#2e2c2c',
+    door: '#262424',
+    waveborder: '#1c1b1b',
+    splash: '#000',
   };
 }
 

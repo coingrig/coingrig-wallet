@@ -29,8 +29,9 @@
       "bricks.all_wallets": "My assets",
       "bricks.check_portfolio": "Check your portfolio",
 
-      "portfolio.my_assets": "My assets",
+      "portfolio.my_assets": "Tokens",
       "portfolio.portfolio": "Portfolio",
+      "portfolio.my_nfts": "NFTs",
 
       "setup.your_recovery_phrase": "Your recovery phrase",
       "setup.copy_these_words": "Copy these words in the right order and save them somewhere safe",
@@ -46,7 +47,8 @@
       "setup.import_phrase": "Import recovery phrase",
       "setup.import_wallet": "Import wallet",
 
-      "modal.please_wait": "Please wait...",
+      "modal.please_wait": "Please wait",
+      "modal.remember_to_backup": "Remember to backup your recovery phrase.",
 
       "dashboard.my_balance": "My balance",
       "dashboard.wallets": "Wallet",
@@ -65,6 +67,9 @@
       "wallet.delete_wallet": "Remove asset",
       "wallet.alert_delete_wallet": "Are you sure you want to remove this asset?",
       "wallet.network": "Network",
+      "wallet.edit": "Edit",
+      "wallet.edit_balance": "Edit balance",
+      "wallet.added_manually": "External Wallet",
 
       "coindetails.change": "Change 24h",
       "coindetails.price": "Price",
@@ -80,8 +85,13 @@
       "coindetails.max_supply": "Max Supply",
       "coindetails.total_supply": "Total Supply",
       "coindetails.choose_network": "Choose network",
-      "coindetails.chain_note": "Some assets are available on multiple chains/networks. Assets can not be directly used across chains.",
+      "coindetails.chain_note": "You can add the asset as an External Wallet and edit the balance manually.",
       "coindetails.add_to_portfolio": "Add to portfolio",
+      "coindetails.manual_note": "The blockchain of this asset is not supported!\nYou can add the asset as an External Wallet and edit the balance manually.",
+      "coindetails.manual": "External Wallet",
+      "coindetails.not_available": "Not available",
+      "coindetails.already_note": "This asset is already in your portfolio!\nYou can add the asset as an External Wallet and edit the balance manually.",
+      "coindetails.already_title": "Already in your portfolio",
 
       "market.market": "Market",
       "market.assets": "Assets",
@@ -116,9 +126,9 @@
       "language.french": "French",
       "language.romanian": "Romanian",
 
-      "onboarding.text1": "Private, Non-custodial \n - Your keys, your coins -",
-      "onboarding.text2": "Open Source \n - Security, Quality and Freedom -",
-      "onboarding.text3": "A Wallet for Everyone \n - Easy to use interface to the day to day needs -",
+      "onboarding.text1": "Private, Non-custodial.\nYour keys, your coins.",
+      "onboarding.text2": "Buy with card.\nSend and Receive any asset.",
+      "onboarding.text3": "A Wallet for Everyone.\n1M+ assets.",
       "onboarding.next": "Next",
 
       "tx.destination_address": "Destination Address",
@@ -131,7 +141,7 @@
       "tx.amount_in_usd": "Amount in USD",
       "tx.network_fee": "Network fee",
       "tx.total_usd": "TOTAL USD",
-    "tx.available": "Available",
+      "tx.available": "Available",
       "tx.confirm": "CONFIRM",
 
       "search.add_asset": "Add Custom Token",
@@ -178,6 +188,40 @@
       "hub.earn": "Earn interest",
       "hub.portfolio_tracker": "Portfolio tracker",
       "hub.create_token": "Create token",
-      "hub.create_nft": "Create NFT"
+      "hub.create_nft": "Create NFT",
+      "hub.card": "Coingrig Card",
+      "hub.connector": "Connectors",
+
+      "swap.you_pay": "You pay",
+      "swap.you_get": "You get",
+      "swap.slippage": "Slippage",
+      "swap.slippage_save": "Save",
+      "swap.slippage_cancel": "Cancel",
+      "swap.slippage_description": "Set the Slippage tolerance in percentages. Default value is 0.5%",
+      "swap.estimated_gas": "Estimated Gas Fee",
+      "swap.allowance": "Allowance",
+      "swap.exact_amount": "Exact Amount",
+      "swap.preview": "Preview",
+      "swap.approve": "Approve",
+      "swap.swap": "Swap",
+      "swap.select": "Select",
+      "swap.convert_from": "Convert from",
+      "swap.convert_to": "Convert to",
+      "swap.convert_footer": "For more tokens, add them in your portfolio first",
+      "swap.network_congestion_title": "Blockchain is slow!",
+      "swap.network_congestion_message": "Your transaction is on the blockchain and waiting confirmation. Do you want to exit and return later to check your transaction?",
+      "swap.message.swap_approved": "Swap allowance confirmed!",
+      "swap.message.swap_executed": "Swap executed!",
+      "swap.error.swap_failed": "The swap could not be made!",
+      "swap.error.swap_not_found": "No swap available for this pair!",
+      "swap.error.not_enough_balance": "Not enough balance for the swap or for the fees!",
+      "swap.error.swap_chain_not_supported": "The chain you request is not supported!",
+
+      "nft.description": "Description",
+      "nft.no_description": "No Description",
+      "nft.created_date": "Created",
+      "nft.sales": "Sales",
+      "nft.symbol": "Symbol",
+      "nft.total_supply": "Total supply"
   }
 }
