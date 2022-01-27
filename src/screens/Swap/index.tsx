@@ -412,7 +412,7 @@ const SwapScreen = props => {
     }
   };
 
-  const alertTimer = isSwap => {
+  const alertTimer = () => {
     // isSwap or approve
     Alert.alert(
       t('swap.network_congestion_title'),
@@ -422,7 +422,7 @@ const SwapScreen = props => {
           text: t('settings.cancel'),
           onPress: () => {
             timer = setTimeout(() => {
-              alertTimer(false);
+              alertTimer();
             }, 30000);
           },
           style: 'cancel',
@@ -444,7 +444,7 @@ const SwapScreen = props => {
     try {
       let tx = null;
       timer = setTimeout(() => {
-        alertTimer(false);
+        alertTimer();
       }, 30000);
       // Send the pre-set allowance action to the chain
       //@ts-ignore
@@ -488,7 +488,7 @@ const SwapScreen = props => {
       }
       let tx: any = null;
       timer = setTimeout(() => {
-        alertTimer(true);
+        alertTimer();
       }, 30000);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       tx = await w3client!.eth.sendTransaction({
