@@ -96,7 +96,7 @@ function Door() {
             preserveAspectRatio="none"
             style={[styles.waves, {transform: [{rotate: '180deg'}]}]}>
             <Path
-              d="M0 40.98c149.99 100.02 349.2-59.96 500 0V150H0z"
+              d="M0 25.98c149.99 100.02 349.2-59.96 500 0V150H0z"
               fill={Colors.door}
               // opacity="0.7"
             />
