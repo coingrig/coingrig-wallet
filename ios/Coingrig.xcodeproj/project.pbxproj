@@ -20,6 +20,7 @@
 		4E5404AD26CD83330055EE3E /* RobotoSlab-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E5404A426CD83320055EE3E /* RobotoSlab-Regular.ttf */; };
 		4E5404AE26CD83330055EE3E /* RobotoSlab-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E5404A526CD83320055EE3E /* RobotoSlab-Black.ttf */; };
 		4E5404AF26CD83330055EE3E /* RobotoSlab-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E5404A626CD83330055EE3E /* RobotoSlab-Thin.ttf */; };
+		4E7FF0F327A28031007C17D2 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E7FF0F227A28031007C17D2 /* AppCenter-Config.plist */; };
 		5BBFAFBAD85CB9128AC703B4 /* libPods-Coingrig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87AEA7FC882C6B7889BFB6C8 /* libPods-Coingrig.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A60153BE27730D61000A5391 /* lock.xib in Resources */ = {isa = PBXBuildFile; fileRef = A60153BD27730D61000A5391 /* lock.xib */; };
@@ -64,6 +65,7 @@
 		4E5404A426CD83320055EE3E /* RobotoSlab-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoSlab-Regular.ttf"; path = "../src/assets/fonts/RobotoSlab-Regular.ttf"; sourceTree = "<group>"; };
 		4E5404A526CD83320055EE3E /* RobotoSlab-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoSlab-Black.ttf"; path = "../src/assets/fonts/RobotoSlab-Black.ttf"; sourceTree = "<group>"; };
 		4E5404A626CD83330055EE3E /* RobotoSlab-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoSlab-Thin.ttf"; path = "../src/assets/fonts/RobotoSlab-Thin.ttf"; sourceTree = "<group>"; };
+		4E7FF0F227A28031007C17D2 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		4ECEF88926CC36B80069C5C1 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
 		4ECEF88A26CC36B80069C5C1 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		4ECEF88B26CC36B80069C5C1 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				4E7FF0F227A28031007C17D2 /* AppCenter-Config.plist */,
 				A67F9FD926E782FA00CC9AD1 /* test.swift */,
 				4E5404A526CD83320055EE3E /* RobotoSlab-Black.ttf */,
 				4E54049E26CD83320055EE3E /* RobotoSlab-Bold.ttf */,
@@ -384,6 +387,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				4E5404A726CD83330055EE3E /* RobotoSlab-Bold.ttf in Resources */,
 				4E5404A826CD83330055EE3E /* RobotoSlab-ExtraLight.ttf in Resources */,
+				4E7FF0F327A28031007C17D2 /* AppCenter-Config.plist in Resources */,
 				4E5404A926CD83330055EE3E /* RobotoSlab-ExtraBold.ttf in Resources */,
 				4E5404AA26CD83330055EE3E /* RobotoSlab-Light.ttf in Resources */,
 				A60153BE27730D61000A5391 /* lock.xib in Resources */,
@@ -637,7 +641,7 @@
 				CODE_SIGN_ENTITLEMENTS = Coingrig/Coingrig.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_TEAM = L63HFFVTBZ;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
@@ -714,7 +718,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.4;
+				MARKETING_VERSION = 1.3.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -739,7 +743,7 @@
 				CODE_SIGN_ENTITLEMENTS = Coingrig/Coingrig.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Qubevo Sourcing SRL (L63HFFVTBZ)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_TEAM = L63HFFVTBZ;
 				"HEADER_SEARCH_PATHS[arch=*]" = (
 					"$(inherited)",
@@ -815,7 +819,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.4;
+				MARKETING_VERSION = 1.3.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -863,7 +867,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -928,7 +932,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

@@ -5,9 +5,46 @@ import {formatCoins, formatPrice} from '../utils';
 import {Colors} from 'utils/colors';
 import {IWallet} from 'stores/wallet';
 import {CryptoService} from 'services/crypto';
+import {useTranslation} from 'react-i18next';
 
 const WalletListItem = (props: {coin: IWallet; onPress?: any}) => {
   const chain = CryptoService.getSupportedChainNamebyID(props.coin.chain);
+  const {t} = useTranslation();
+
+  const external = () => {
+    if (props.coin.type === 'external') {
+      return (
+        <View
+          style={{
+            width: 15,
+            height: 15,
+            backgroundColor: 'deeppink',
+            position: 'absolute',
+            justifyContent: 'center',
+            alignContent: 'center',
+            alignItems: 'center',
+            zIndex: 1,
+            borderRadius: 20,
+            top: -1,
+            left: -1,
+          }}>
+          <Text
+            style={{
+              color: 'white',
+              justifyContent: 'center',
+              textAlign: 'center',
+              fontSize: 10,
+              paddingBottom: 2,
+            }}>
+            e
+          </Text>
+        </View>
+      );
+    } else {
+      return null;
+    }
+  };
+
   return (
     <TouchableOpacity
       onPress={props.onPress ? props.onPress : null}
@@ -18,6 +55,7 @@ const WalletListItem = (props: {coin: IWallet; onPress?: any}) => {
             <View style={styles.verticalLine} />
           ) : null}
           <View style={styles.logo}>
+            {external()}
             <CoinsAvatar
               style={styles.logoimg}
               coin={props.coin.symbol}
@@ -33,8 +71,8 @@ const WalletListItem = (props: {coin: IWallet; onPress?: any}) => {
             </Text>
             <View>
               <Text style={styles.coinSymbol} numberOfLines={1}>
-                {chain + ' '}
-                {chain.length < 15 ? 'Network' : null}
+                {(chain ? chain : t('wallet.added_manually')) + ' '}
+                {chain.length < 15 && chain ? 'Network' : null}
               </Text>
             </View>
           </View>
@@ -147,7 +185,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: Colors.card,
     justifyContent: 'center',
-    marginHorizontal: 15,
+    marginHorizontal: 5,
   },
 });
 

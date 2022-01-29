@@ -29,8 +29,9 @@
       "bricks.all_wallets": "Activele mele",
       "bricks.check_portfolio": "Accesează portofoliul",
 
-      "portfolio.my_assets": "Activele mele",
+      "portfolio.my_assets": "Tokeni",
       "portfolio.portfolio": "Portofoliu",
+      "portfolio.my_nfts": "NFTs",
 
       "setup.your_recovery_phrase": "Fraza secretă",
       "setup.copy_these_words": "Copiază aceste cuvinte in ordinea afișată și salvează-le într-un loc sigur",
@@ -46,7 +47,8 @@
       "setup.import_phrase": "Importă fraza secretă",
       "setup.import_wallet": "Importă portofel",
 
-      "modal.please_wait": "Te rog să aștepți...",
+      "modal.please_wait": "Te rog să aștepți",
+      "modal.remember_to_backup": "Nu uita să copiezi fraza secretă",
 
       "dashboard.my_balance": "Balanța mea",
       "dashboard.wallets": "Portofel",
@@ -65,6 +67,9 @@
       "wallet.delete_wallet": "Elimină activ",
       "wallet.alert_delete_wallet": "Ești sigur că vrei să elimini acest activ?",
       "wallet.network": "Network",
+      "wallet.edit": "Editează",
+      "wallet.edit_balance": "Editează balanța",
+      "wallet.added_manually": "Portofel Extern",
 
       "coindetails.change": "Variație 24h",
       "coindetails.price": "Preț",
@@ -80,9 +85,14 @@
       "coindetails.max_supply": "Total emiși",
       "coindetails.total_supply": "Total disponibili",
       "coindetails.choose_network": "Alege rețea",
-      "coindetails.chain_note": "Unele active se găsesc pe mai multe rețele/blockchainuri, dar acestea nu sunt interoperabile.",
+      "coindetails.chain_note": "Puteți adăuga activul ca Portofel Extern și să editați balanța manual.",
       "coindetails.add_to_portfolio": "Adaugă în portofoliu",
-
+      "coindetails.manual_note": "Rețeaua acestui activ nu este suportată!\nPuteți adăuga activul ca Portofel Extern și să editați balanța manual.",
+      "coindetails.manual": "Portofel Extern",
+      "coindetails.not_available": "Activ indisponibil",
+      "coindetails.already_note": "Acest activ este deja prezent în portofoliu!\nPuteți adăuga activul ca Portofel Extern și să editați balanța manual.",
+      "coindetails.already_title": "Prezent în portofoliu",
+      
       "market.market": "Piața",
       "market.assets": "Active",
       "market.search_placeholder": "Caută în mii de active",
@@ -116,9 +126,9 @@
       "language.french": "Franceză",
       "language.romanian": "Română",
 
-      "onboarding.text1": "Privat, Custodie proprie \n - Cheile tale, banii tai -",
-      "onboarding.text2": "Open Source \n - Securitate, Calitate și Libertate -",
-      "onboarding.text3": "Un portofel pentru toată lumea \n - O interfață ușor de utilizat pentru operațiunile de zi cu zi -",
+      "onboarding.text1": "Privat, Custodie proprie.\nCheile tale, banii tăi.",
+      "onboarding.text2": "Cumpară cu cardul.\nTrimite și primeste orice activ.",
+      "onboarding.text3": "Un portofel pentru toată lumea.\nPeste 1 milion de tokeni.",
       "onboarding.next": "Continuă",
 
       "tx.destination_address": "Adresa de destinație",
@@ -178,6 +188,40 @@
       "hub.earn": "Câștigă dobândă",
       "hub.portfolio_tracker": "Analiză Portofoliu",
       "hub.create_token": "Crează token",
-      "hub.create_nft": "Crează NFT"
+      "hub.create_nft": "Crează NFT",
+      "hub.card": "Coingrig Card",
+      "hub.connector": "Connectors",
+
+      "swap.you_pay": "Plătești",
+      "swap.you_get": "Primești",
+      "swap.slippage": "Slippage",
+      "swap.slippage_save": "Salvează",
+      "swap.slippage_cancel": "Anulează",
+      "swap.slippage_description": "Setează variația de preț acceptată (slippage) în procente. Valoarea implicită este 0.5%",
+      "swap.estimated_gas": "Cost gaz estimat",
+      "swap.allowance": "Autorizare",
+      "swap.exact_amount": "Sumă exactă",
+      "swap.preview": "Previzualizare",
+      "swap.approve": "Confirmă",
+      "swap.swap": "Swap",
+      "swap.select": "Alege",
+      "swap.convert_from": "Conversie din",
+      "swap.convert_to": "Conversie în",
+      "swap.convert_footer": "Pentru alți tokeni, adaugații în portofoliu.",
+      "swap.network_congestion_title": "Blockchain-ul este congestionat!",
+      "swap.network_congestion_message": "Tranzacția se află pe blockchain și așteaptă confirmarea. Doriți să ieșiți și să reveniți mai târziu pentru a verifica tranzacția?",
+      "swap.message.swap_approved": "Autorizare confirmată!",
+      "swap.message.swap_executed": "Swap executat!",
+      "swap.error.swap_failed": "Swap-ul nu a putut fi realizat!",
+      "swap.error.swap_not_found": "Nu există swap pentru această pereche!",
+      "swap.error.not_enough_balance": "Balanță insuficientă pentru swap sau comision.",
+      "swap.error.swap_chain_not_supported": "Rețeaua dorită nu este suportată!",
+
+      "nft.description": "Descriere",
+      "nft.no_description": "Fără descriere",
+      "nft.created_date": "Creat",
+      "nft.sales": "Vânzări",
+      "nft.symbol": "Simbol",
+      "nft.total_supply": "Volum total"
   }
 }
