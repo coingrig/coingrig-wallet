@@ -1,7 +1,7 @@
 
 # 🅒🅖🅦 Coingrig Mobile Wallet
 Next-Gen Crypto Wallet. A powerful crypto wallet for everyone,
-unique features and open source
+unique features and free.
 
 ### Building Locally
 
