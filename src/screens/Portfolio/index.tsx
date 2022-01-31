@@ -72,7 +72,6 @@ const PortfolioScreen = observer(() => {
         key={item.cid}
         coin={item}
         onPress={() =>
-          //@ts-ignore
           navigation.navigate('WalletScreen', {
             coin: item.cid,
             symbol: item.symbol,
