@@ -78,13 +78,21 @@ export default function TokenConnectScreen({route}) {
   };
 
   // Search for the icon in our known database
-  const getTokenIcon = symbol => {
+  const getTokenIcon = async symbol => {
     let s = symbol.toUpperCase();
-    let coin = coins.find(o => o.symbol.toUpperCase() === s);
-    if (coin) {
-      return coin.thumb;
+    let coinInfo = coins.find(o => o.symbol.toUpperCase() === s);
+    if (!coinInfo || !coinInfo.id) {
+      return null;
     }
-    return null;
+    try {
+      let data = await CryptoService.getCoinDetails(coinInfo.id);
+      if (data && data.image) {
+        return data.image.large;
+      }
+      return null;
+    } catch (error) {
+      return null;
+    }
   };
 
   const checkTokenExists = async (chain, address) => {
@@ -143,7 +151,7 @@ export default function TokenConnectScreen({route}) {
           getDefaulTokenIcon(chain),
         );
         if (walletFrom) {
-          let icon = getTokenIcon(walletFrom.symbol);
+          let icon = await getTokenIcon(walletFrom.symbol);
           if (icon) {
             walletFrom.image = icon;
           }
@@ -157,7 +165,7 @@ export default function TokenConnectScreen({route}) {
           getDefaulTokenIcon(chain),
         );
         if (walletTo) {
-          let icon = getTokenIcon(walletTo.symbol);
+          let icon = await getTokenIcon(walletTo.symbol);
           if (icon) {
             walletTo.image = icon;
           }
