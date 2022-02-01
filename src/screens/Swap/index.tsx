@@ -88,7 +88,7 @@ let timer: any = null;
 const SwapScreen = props => {
   const {t} = useTranslation();
   const navigation = useNavigation();
-  let defaultSlippage = 0.1;
+  let defaultSlippage = 0.5;
   if (props.route.params && props.route.params.slippage) {
     defaultSlippage = props.route.params.slippage;
   }
