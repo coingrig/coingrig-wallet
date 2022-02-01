@@ -216,6 +216,7 @@
       "swap.error.swap_not_found": "Nu există swap pentru această pereche!",
       "swap.error.not_enough_balance": "Balanță insuficientă pentru swap sau comision.",
       "swap.error.swap_chain_not_supported": "Rețeaua dorită nu este suportată!",
+      "swap.coingrig_fee": "Comision Coingrig",
 
       "nft.description": "Descriere",
       "nft.no_description": "Fără descriere",

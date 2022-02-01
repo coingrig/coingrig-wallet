@@ -216,6 +216,7 @@
       "swap.error.swap_not_found": "No swap available for this pair!",
       "swap.error.not_enough_balance": "Not enough balance for the swap or for the fees!",
       "swap.error.swap_chain_not_supported": "The chain you request is not supported!",
+      "swap.coingrig_fee": "Coingrig Fee",
 
       "nft.description": "Description",
       "nft.no_description": "No Description",
