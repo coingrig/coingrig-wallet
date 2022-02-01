@@ -222,6 +222,13 @@
       "nft.created_date": "Créé le",
       "nft.sales": "Ventes",
       "nft.symbol": "Symbol",
-      "nft.total_supply": "Volume total"
+      "nft.total_supply": "Volume total",
+
+      "token_connect.title": "TokenConnect Setup",
+      "token_connect.error.invalid_link_configuration": "Le lien utilisé n'est pas valide !",
+      "token_connect.swapintro_one": "Pour le swap souhaité, le token suivant doit être ajouté dans votre portefeuille",
+      "token_connect.swapintro_other": "Pour le swap souhaité, les jetons suivants doivent être ajoutés dans votre portefeuille",
+      "token_connect.add_asset_one": "Ajoutez token",
+      "token_connect.add_asset_other": "Ajoutez tokens"
   }
 }

@@ -32,6 +32,7 @@ import CoinDetailScreen from 'screens/CoinDetails';
 import OnBoardingScreen from 'screens/Onboarding';
 import WalletconnectScreen from 'screens/Walletconnect';
 import CustomTokenScreen from 'screens/CustomToken';
+import TokenConnectScreen from 'screens/TokenConnect';
 import NFTScreen from 'screens/Portfolio/NFTDetails';
 
 import {Colors} from 'utils/colors';
@@ -380,6 +381,40 @@ function NavigationStack({t}) {
           ),
           headerShown: true,
           headerTitle: t('settings.change_language'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="TokenConnectScreen"
+        component={TokenConnectScreen}
+        options={{
+          presentation: 'modal',
+          headerBackImage: () => (
+            <Icon
+              name="close"
+              size={30}
+              color={Colors.foreground}
+              style={{paddingLeft: 10}}
+            />
+          ),
+          headerShown: true,
+          headerTitle: t('token_connect.title'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios

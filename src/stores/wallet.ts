@@ -101,6 +101,12 @@ class WalletStoreModule {
     });
   };
 
+  getWalletByCoinContract = (contract: String, chain: String) => {
+    return this.wallets.find((o: IWallet) => {
+      return o.contract === contract && o.chain === chain;
+    });
+  };
+
   getCoinIdsList = () => {
     return this.wallets.map(o => {
       return o.symbol;
