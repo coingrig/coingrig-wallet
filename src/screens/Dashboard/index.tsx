@@ -46,7 +46,7 @@ const DashboardScreen = observer(() => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
-          onPress={() => navigation.navigate('TokenConnectScreen')}
+          onPress={() => navigation.navigate('SettingScreen')}
           style={styles.moreBtn}>
           {SettingsStore.mnemonicBackupDone ? null : badge()}
           <Icon3 name="settings-sharp" size={23} color={Colors.foreground} />

@@ -169,7 +169,9 @@ export default function TokenConnectScreen({route}) {
     } catch (error) {
       setInProgress(false);
       Logs.error(error);
-      Alert.alert('Error', t('custom_token.network_error'));
+      Alert.alert('Error', t('custom_token.network_error'), [
+        {text: 'OK', onPress: () => CONFIG.navigation.goBack(null)},
+      ]);
     }
   };
 
