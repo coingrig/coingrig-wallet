@@ -1,7 +1,9 @@
 /* eslint-disable no-undef */
 import {Linking} from 'react-native';
+import {WalletStore} from 'stores/wallet';
 import CONFIG from '../config';
 import appStates from './appStates';
+import {CryptoService} from './crypto';
 import {Logs} from './logs';
 
 class DeepLinkService {
@@ -61,21 +63,58 @@ class DeepLinkService {
     }
   }
 
-  startSwap(data: any) {
-    Logs.info('startSwap', data);
+  startSwap = async (data: any) => {
+    // Logs.info('startSwap', data);
+
+    const checkTokenExists = async (chain, address) => {
+      // Do we have a contract address
+      if (address.startsWith('0x')) {
+        // Check if it is already in portfolio
+        return WalletStore.getWalletByCoinContract(address, chain);
+      }
+      // Check if address is the native asset of the chain symbol
+      if (CryptoService.getChainNativeAsset(chain) === address) {
+        return WalletStore.getWalletByCoinId(address, chain);
+      }
+      return undefined;
+    };
 
     try {
+      if (!WalletStore.isHydrated) {
+        await WalletStore.hydrateStore();
+      }
+
+      let chain = data[1].toUpperCase();
+      let fromToken = data[2];
+      let toToken = data[3];
+
+      let walletFrom = await checkTokenExists(chain, fromToken);
+      let walletTo = await checkTokenExists(chain, toToken);
+
+      if (walletFrom && walletTo) {
+        // We have both assets already in portfolio, redirect to swap
+        // CONFIG.navigation.goBack(null);
+        CONFIG.navigation.replace('SwapScreen', {
+          chain: chain,
+          wallet: walletFrom,
+          buyWallet: walletTo,
+          slippage: data[4],
+        });
+        this.data = null;
+        return;
+      }
+
       CONFIG.navigation.navigate('TokenConnectScreen', {
-        chain: data[1],
-        from: data[2],
-        to: data[3],
+        chain: chain,
+        from: fromToken,
+        to: toToken,
         slippage: data[4],
       });
       this.data = null;
     } catch (error) {
       Logs.error(error);
     }
-  }
+  };
 
   addNewToken(data: any) {
     try {
