@@ -224,7 +224,7 @@
       "nft.symbol": "Symbol",
       "nft.total_supply": "Total supply",
 
-      "token_connect.title": "TokenConnect Setup",
+      "token_connect.title": "TokenConnect",
       "token_connect.error.invalid_link_configuration": "The used link is not valid!",
       "token_connect.swapintro_one": "For the desired swap, the following token needs to be tracked in your portfolio",
       "token_connect.swapintro_other": "For the desired swap, the following tokens need to be tracked in your portfolio",
