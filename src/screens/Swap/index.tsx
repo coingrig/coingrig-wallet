@@ -208,8 +208,10 @@ const SwapScreen = props => {
     };
     if (exact === true) {
       params.takerAddress = chainAddress;
-      params.buyTokenPercentageFee = CONFIG.SWAP_FEE;
-      params.feeRecipient = CONFIG.FEE_RECIPIENT;
+      if (CONFIG.SWAP_FEE !== 0) {
+        params.buyTokenPercentageFee = CONFIG.SWAP_FEE;
+        params.feeRecipient = CONFIG.FEE_RECIPIENT;
+      }
     }
     try {
       return await SwapService.getQuote(swapChain, params);
