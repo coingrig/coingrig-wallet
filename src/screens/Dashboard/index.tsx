@@ -9,8 +9,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-// import {useNavigation} from '@react-navigation/native';
-
 import {WalletStore} from 'stores/wallet';
 import {CryptoService} from 'services/crypto';
 import DeepLinkService from 'services/deeplink';
@@ -23,6 +21,7 @@ import {ListPrices} from 'components/widgets/listPrices';
 import {formatPrice} from '../../utils';
 import {observer} from 'mobx-react-lite';
 import {Loader} from 'components/loader';
+import NotificationService from 'services/notifications';
 import {styles} from './styles';
 import {Colors} from 'utils/colors';
 import {showMessage} from 'react-native-flash-message';
@@ -30,6 +29,7 @@ import {CONFIG_MODULES, CONFIG_PROPERTIES, ConfigStore} from 'stores/config';
 import AppsStateService from 'services/appStates';
 import {useNavigation} from '@react-navigation/native';
 import {SettingsStore} from 'stores/settings';
+// import CustomModal from 'components/Modal';
 
 const DashboardScreen = observer(() => {
   const {t} = useTranslation();
@@ -80,6 +80,7 @@ const DashboardScreen = observer(() => {
       });
     }
     setRefreshing(false);
+    NotificationService.askForPermission();
   }, []);
 
   const Marketing = () => {
@@ -181,6 +182,7 @@ const DashboardScreen = observer(() => {
         />
       }>
       {preRender()}
+      {/* <CustomModal show={true} /> */}
     </ScrollView>
   );
 });
