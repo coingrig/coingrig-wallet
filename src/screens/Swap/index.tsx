@@ -33,6 +33,7 @@ import {LoadingModal} from 'services/loading';
 import {Logs} from 'services/logs';
 import {useTransitionEnd} from 'utils/hooks/useTransitionEnd';
 import BigNumber from 'bignumber.js';
+import CONFIG from 'config';
 
 const ERC20_ABI = [
   {
@@ -207,6 +208,8 @@ const SwapScreen = props => {
     };
     if (exact === true) {
       params.takerAddress = chainAddress;
+      params.buyTokenPercentageFee = CONFIG.SWAP_FEE;
+      params.feeRecipient = CONFIG.FEE_RECIPIENT;
     }
     try {
       return await SwapService.getQuote(swapChain, params);
@@ -613,7 +616,7 @@ const SwapScreen = props => {
         </View>
         <View style={styles.detailItem}>
           <Text style={{color: Colors.lighter}}>{t('swap.slippage')}</Text>
-          <Text style={{color: Colors.foreground}}>{slippage * 100} %</Text>
+          <Text style={{color: Colors.foreground}}>{slippage * 100}%</Text>
         </View>
         <View style={styles.detailItem}>
           <Text style={{color: Colors.lighter}}>{t('swap.estimated_gas')}</Text>
@@ -622,6 +625,12 @@ const SwapScreen = props => {
             {quote
               ? humanNumber(true, allowanceFee || quote.gas, quote.gasPrice)
               : '-'}
+          </Text>
+        </View>
+        <View style={styles.detailItem}>
+          <Text style={{color: Colors.lighter}}>{t('swap.coingrig_fee')}</Text>
+          <Text style={{color: Colors.foreground}}>
+            {status === 'swap' ? CONFIG.SWAP_FEE * 100 + '%' : '-'}
           </Text>
         </View>
         <View style={styles.detailItem}>
