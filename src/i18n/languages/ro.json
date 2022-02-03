@@ -223,6 +223,13 @@
       "nft.created_date": "Creat",
       "nft.sales": "Vânzări",
       "nft.symbol": "Simbol",
-      "nft.total_supply": "Volum total"
+      "nft.total_supply": "Volum total",
+      
+      "token_connect.title": "TokenConnect",
+      "token_connect.error.invalid_link_configuration": "Link-ul folosit nu este valid!",
+      "token_connect.swapintro_one": "Pentru schimbul dorit, următorul token trebuie adăugat în portofoliu",
+      "token_connect.swapintro_other": "Pentru schimbul dorit, următorii tokeni trebuie adăugați în portofoliu",
+      "token_connect.add_asset_one": "Adaugă Token",
+      "token_connect.add_asset_other": "Adaugă Tokeni"
   }
 }

@@ -134,8 +134,8 @@ android {
         applicationId "com.coingrig"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 48
-        versionName "1.3.5"
+        versionCode 49
+        versionName "1.3.6"
         missingDimensionStrategy 'react-native-camera', 'general'
 
     }
@@ -212,6 +212,7 @@ dependencies {
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.flipper'
     }
+    
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";

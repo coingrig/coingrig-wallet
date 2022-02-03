@@ -89,13 +89,21 @@ let timer: any = null;
 const SwapScreen = props => {
   const {t} = useTranslation();
   const navigation = useNavigation();
+  let defaultSlippage = 0.5;
+  if (props.route.params && props.route.params.slippage) {
+    defaultSlippage = props.route.params.slippage;
+  }
+  defaultSlippage = defaultSlippage / 100;
+  if (isNaN(defaultSlippage)) {
+    defaultSlippage = 0.005;
+  }
   const [swapChain, setSwapChain] = useState(
     props.route.params ? props.route.params.wallet.chain : 'ETH',
   );
   const transitionEnded = useTransitionEnd(navigation);
   const [status, setStatus] = useState('preview');
-  const [slippage, setSlippage] = useState(0.005);
-  const [slippageText, setSlippageText] = useState(0.5);
+  const [slippage, setSlippage] = useState(defaultSlippage); // default 0.005
+  const [slippageText, setSlippageText] = useState(defaultSlippage * 100); // default 0.5
   const [showSlippage, setShowSlippage] = useState(false);
   const [sellTokenSymbol, setSellTokenSymbol] = useState('');
   const [sellToken, setSellToken] = useState('');
@@ -145,15 +153,22 @@ const SwapScreen = props => {
     if (transitionEnded) {
       if (props.route.params && props.route.params.wallet) {
         const wallet = props.route.params.wallet;
+        const buyWallet = props.route.params.buyWallet;
         setStatus('preview');
         setQuote(null);
         setSellToken(wallet.contract ?? wallet.symbol);
         setSellTokenSymbol(wallet.symbol);
         setSellTokenLogo(wallet.image);
-        setBuyToken('-');
-        setBuyTokenSymbol(t('swap.select'));
+        if (buyWallet) {
+          setBuyToken(buyWallet.contract ?? buyWallet.symbol);
+          setBuyTokenSymbol(buyWallet.symbol);
+          setBuyTokenLogo(buyWallet.image);
+        } else {
+          setBuyToken('-');
+          setBuyTokenSymbol(t('swap.select'));
+          setBuyTokenLogo(endpoints.assets + 'images/plus.png');
+        }
         setBuyAmount('');
-        setBuyTokenLogo(endpoints.assets + 'images/plus.png');
       }
       CryptoService.getAccountBalance();
     }
@@ -193,8 +208,10 @@ const SwapScreen = props => {
     };
     if (exact === true) {
       params.takerAddress = chainAddress;
-      params.buyTokenPercentageFee = CONFIG.SWAP_FEE;
-      params.feeRecipient = CONFIG.FEE_RECIPIENT;
+      if (CONFIG.SWAP_FEE !== 0) {
+        params.buyTokenPercentageFee = CONFIG.SWAP_FEE;
+        params.feeRecipient = CONFIG.FEE_RECIPIENT;
+      }
     }
     try {
       return await SwapService.getQuote(swapChain, params);

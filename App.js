@@ -4,6 +4,8 @@ import {NavigationContainer} from '@react-navigation/native';
 // eslint-disable-next-line no-unused-vars
 import AppsStateService from './src/services/appStates';
 // eslint-disable-next-line no-unused-vars
+import NotificationServices from './src/services/notifications';
+// eslint-disable-next-line no-unused-vars
 import DeepLinkService from './src/services/deeplink';
 import {MenuProvider} from 'react-native-popup-menu';
 import {NavigationScreens} from './src/routes';
