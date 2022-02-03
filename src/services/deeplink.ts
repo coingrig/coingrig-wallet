@@ -73,8 +73,8 @@ class DeepLinkService {
         return WalletStore.getWalletByCoinContract(address, chain);
       }
       // Check if address is the native asset of the chain symbol
-      if (CryptoService.getChainNativeAsset(chain) === address) {
-        return WalletStore.getWalletByCoinId(address, chain);
+      if (CryptoService.getChainNativeAsset(chain) === address.toUpperCase()) {
+        return WalletStore.getWalletByCoinId(address.toUpperCase(), chain);
       }
       return undefined;
     };
@@ -94,7 +94,7 @@ class DeepLinkService {
       if (walletFrom && walletTo) {
         // We have both assets already in portfolio, redirect to swap
         // CONFIG.navigation.goBack(null);
-        CONFIG.navigation.replace('SwapScreen', {
+        CONFIG.navigation.navigate('SwapScreen', {
           chain: chain,
           wallet: walletFrom,
           buyWallet: walletTo,
