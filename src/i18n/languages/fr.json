@@ -216,12 +216,20 @@
       "swap.error.swap_not_found": "Pas de swap disponible pour cette paire!",
       "swap.error.not_enough_balance": "Pas assez de solde pour le swap ou pour les frais!",
       "swap.error.swap_chain_not_supported": "La reseaux que vous demandez n'est pas prise en charge!",
+      "swap.coingrig_fee": "Coingrig charge",
 
       "nft.description": "Description",
       "nft.no_description": "Pas de description",
       "nft.created_date": "Créé le",
       "nft.sales": "Ventes",
       "nft.symbol": "Symbol",
-      "nft.total_supply": "Volume total"
+      "nft.total_supply": "Volume total",
+
+      "token_connect.title": "TokenConnect",
+      "token_connect.error.invalid_link_configuration": "Le lien utilisé n'est pas valide !",
+      "token_connect.swapintro_one": "Pour le swap souhaité, le token suivant doit être ajouté dans votre portefeuille",
+      "token_connect.swapintro_other": "Pour le swap souhaité, les jetons suivants doivent être ajoutés dans votre portefeuille",
+      "token_connect.add_asset_one": "Ajoutez token",
+      "token_connect.add_asset_other": "Ajoutez tokens"
   }
 }
