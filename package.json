@@ -1,6 +1,6 @@
 {
   "name": "coingrig",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "private": true,
   "scripts": {
     "android": "npx react-native run-android",
