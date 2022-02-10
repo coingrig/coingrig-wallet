@@ -84,14 +84,14 @@ export default function SyntheticScreen() {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity onPress={() => openLink()} style={styles.moreBtn}>
-          <Icon2 name="external-link" size={22} color={Colors.foreground} />
+          <Icon2 name="info" size={22} color={Colors.foreground} />
         </TouchableOpacity>
       ),
     });
   }, []);
 
   const openLink = async () => {
-    const url = 'https://docs.mirror.finance/';
+    const url = 'https://docs.mirror.finance/faq';
     try {
       if (await InAppBrowser.isAvailable()) {
         await InAppBrowser.open(url, {
