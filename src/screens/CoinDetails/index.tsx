@@ -129,6 +129,14 @@ const CoinDetailScreen = observer(({route}) => {
     let convertPrice = convertExponential(data?.market_data.current_price?.usd);
     convertPrice = formatPrice(convertPrice);
     setPrice(convertPrice);
+    if (route.params.img) {
+      try {
+        data.image.large = route.params.img;
+        data.name = route.params.title;
+      } catch (error) {
+        Logs.error(error);
+      }
+    }
     setCoinData(data);
     setChartData(data?.market_data.sparkline_7d?.price ?? []);
     setShowScreen(true);
