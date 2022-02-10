@@ -177,7 +177,7 @@ export default function SyntheticScreen() {
               flex: 2,
             }}>
             Mimic the price behavior of real world assets without the burdens of
-            owning or transacting real assets.
+            owning or transacting real assets. Powered by Mirror Protocol.
           </Text>
         </View>
       </View>
