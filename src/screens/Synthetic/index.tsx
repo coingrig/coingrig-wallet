@@ -9,74 +9,7 @@ import Icon2 from 'react-native-vector-icons/Feather';
 import {Logs} from 'services/logs';
 import {Colors} from 'utils/colors';
 import {styles} from './styles';
-
-const synthlist = [
-  {
-    cid: 'mirrored-tesla',
-    title: 'Tesla',
-    img: 'https://assets.coingrig.com/images/synth/tesla.png',
-  },
-  {
-    cid: 'mirrored-google',
-    title: 'Google',
-    img: 'https://assets.coingrig.com/images/synth/google.png',
-  },
-  {
-    cid: 'mirrored-microsoft',
-    title: 'Microsoft',
-    img: 'https://assets.coingrig.com/images/synth/microsoft.png',
-  },
-  {
-    cid: 'mirrored-apple',
-    title: 'Apple',
-    img: 'https://assets.coingrig.com/images/synth/apple.png',
-  },
-  {
-    cid: 'mirrored-ishares-silver-trust',
-    title: 'iShares Silver',
-    img: 'https://assets.coingrig.com/images/synth/silver.png',
-  },
-  {
-    cid: 'mirrored-amazon',
-    title: 'Amazon',
-    img: 'https://assets.coingrig.com/images/synth/amazon.png',
-  },
-  {
-    cid: 'mirrored-netflix',
-    title: 'Netflix',
-    img: 'https://assets.coingrig.com/images/synth/netflix.png',
-  },
-  {
-    cid: 'mirrored-united-states-oil-fund',
-    title: 'US OIL Fund',
-    img: 'https://assets.coingrig.com/images/synth/oil.png',
-  },
-  {
-    cid: 'mirrored-twitter',
-    title: 'Twitter',
-    img: 'https://assets.coingrig.com/images/synth/twitter.png',
-  },
-  {
-    cid: 'mirrored-alibaba',
-    title: 'Alibaba',
-    img: 'https://assets.coingrig.com/images/synth/alibaba.png',
-  },
-  {
-    cid: 'mirrored-ishares-gold-trust',
-    title: 'iShares Gold',
-    img: 'https://assets.coingrig.com/images/synth/gold.png',
-  },
-  {
-    cid: 'mirrored-facebook',
-    title: 'Facebook',
-    img: 'https://assets.coingrig.com/images/synth/fb.png',
-  },
-  {
-    cid: 'mirrored-invesco-qqq-trust',
-    title: 'Invesco QQQ',
-    img: 'https://assets.coingrig.com/images/synth/q.png',
-  },
-];
+import {SYNTH_LIST} from 'utils/constants';
 
 export default function SyntheticScreen() {
   const navigation = useNavigation();
@@ -131,6 +64,9 @@ export default function SyntheticScreen() {
         style={styles.item}>
         <CoinsAvatar style={styles.logoimg} source={item.img} />
         <View style={{flex: 1}}>
+          <Text style={{fontSize: 10, marginLeft: 10, color: Colors.lighter}}>
+            Mirrored
+          </Text>
           <Text style={styles.title}>{splitTitle[splitTitle.length - 1]}</Text>
         </View>
         <Icon name="arrow-forward" size={20} color="gray" />
@@ -140,22 +76,12 @@ export default function SyntheticScreen() {
 
   const listHeader = () => {
     return (
-      <View style={{flex: 1, marginHorizontal: 0, marginBottom: 0}}>
-        {/* <FastImage
-          source={require('../../assets/hub/paper_large.png')}
-          resizeMode="contain"
-          style={{
-            height: 130,
-            width: '100%',
-            marginVertical: 60,
-          }}
-        /> */}
+      <View style={{flex: 1, marginTop: 20}}>
         <View
           style={{
             flexDirection: 'row',
             width: '90%',
             marginHorizontal: 16,
-            marginTop: 20,
           }}>
           <FastImage
             source={require('../../assets/hub/mirror.png')}
@@ -187,7 +113,7 @@ export default function SyntheticScreen() {
   const preRender = () => {
     return (
       <FlatList
-        data={synthlist}
+        data={SYNTH_LIST}
         renderItem={renderItem}
         keyExtractor={item => item.cid}
         maxToRenderPerBatch={5}

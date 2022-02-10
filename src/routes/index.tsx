@@ -338,7 +338,7 @@ function NavigationStack({t}) {
         component={SyntheticScreen}
         options={{
           headerShown: true,
-          headerTitle: t('title.synthetic'),
+          headerTitle: t('hub.synthetics'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
