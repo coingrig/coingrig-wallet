@@ -19,7 +19,7 @@ PODS:
     - AppCenter/Core (= 4.4.1)
   - boost-for-react-native (1.63.0)
   - CocoaAsyncSocket (7.6.5)
-  - coingrig-wallet-generator (0.1.4):
+  - coingrig-wallet-generator (0.1.5):
     - React-Core
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.64.2)
@@ -684,10 +684,10 @@ SPEC CHECKSUMS:
   AppCenterReactNativeShared: ac6961204492735ce2507df0a14ce59b13e9c1c5
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
-  coingrig-wallet-generator: 1a52ecba8ff2b75bee6af5b7635a2b6590b11044
+  coingrig-wallet-generator: 0b17ccc3827211563c5cfc6eb74a619351af496c
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: e686045572151edef46010a6f819ade377dfeb4b
-  FBReactNativeSpec: 6f4010c716a5b029c606cb6dc9ec523cdaeaa72c
+  FBReactNativeSpec: 5a6b75a68b0b65cdcb7a94b7880e0b0f866bfd50
   Flipper: d3da1aa199aad94455ae725e9f3aa43f3ec17021
   Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
   Flipper-Folly: 755929a4f851b2fb2c347d533a23f191b008554c
