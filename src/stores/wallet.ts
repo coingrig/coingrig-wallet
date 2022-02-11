@@ -230,16 +230,17 @@ class WalletStoreModule {
           } else {
             // Create the new wallet chain address
             try {
-              if (newWallet) {
-                address = newWallet.address;
-                this.addWalletAddress({
-                  chain: coinDescriptor.chain,
-                  walletAddress: address!,
-                });
-              } else {
+              if (!newWallet) {
                 newWallet = await generateWallet(mnemonic, chainType);
                 newWallet = JSON.parse(newWallet);
+                address = newWallet.address;
+              } else {
+                address = newWallet.address;
               }
+              this.addWalletAddress({
+                chain: coinDescriptor.chain,
+                walletAddress: address!,
+              });
             } catch (error) {
               let xpub = await WalletGenerator.generateWalletXpub(
                 coin,
