@@ -40,4 +40,22 @@ export const styles = StyleSheet.create({
   },
   published: {color: Colors.lighter, fontSize: 13, marginTop: 10},
   source: {color: Colors.lighter, fontSize: 13, marginBottom: 5},
+  desc: {
+    color: Colors.lighter,
+    fontSize: 12,
+    marginBottom: 16,
+    marginHorizontal: 10,
+    flex: 2,
+  },
+  mirrorimg: {
+    height: 40,
+    width: 40,
+  },
+  headersub: {
+    flexDirection: 'row',
+    width: '90%',
+    marginHorizontal: 16,
+  },
+  header: {flex: 1, marginTop: 20},
+  subtitle: {fontSize: 10, marginLeft: 10, color: Colors.lighter},
 });

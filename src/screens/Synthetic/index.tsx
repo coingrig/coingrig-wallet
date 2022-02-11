@@ -1,6 +1,6 @@
+import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {CoinsAvatar} from 'components/coinsAvatar';
-import * as React from 'react';
 import {View, Text, FlatList, TouchableOpacity, Linking} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
@@ -13,7 +13,7 @@ import {SYNTH_LIST} from 'utils/constants';
 
 export default function SyntheticScreen() {
   const navigation = useNavigation();
-  React.useEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity onPress={() => openLink()} style={styles.moreBtn}>
@@ -53,6 +53,7 @@ export default function SyntheticScreen() {
     return (
       <TouchableOpacity
         onPress={() => {
+          //@ts-ignore
           navigation.navigate('CoinDetailScreen', {
             coin: item.cid,
             title: item.title,
@@ -64,9 +65,7 @@ export default function SyntheticScreen() {
         style={styles.item}>
         <CoinsAvatar style={styles.logoimg} source={item.img} />
         <View style={{flex: 1}}>
-          <Text style={{fontSize: 10, marginLeft: 10, color: Colors.lighter}}>
-            Mirrored
-          </Text>
+          <Text style={styles.subtitle}>Mirrored</Text>
           <Text style={styles.title}>{splitTitle[splitTitle.length - 1]}</Text>
         </View>
         <Icon name="arrow-forward" size={20} color="gray" />
@@ -76,32 +75,15 @@ export default function SyntheticScreen() {
 
   const listHeader = () => {
     return (
-      <View style={{flex: 1, marginTop: 20}}>
-        <View
-          style={{
-            flexDirection: 'row',
-            width: '90%',
-            marginHorizontal: 16,
-          }}>
+      <View style={styles.header}>
+        <View style={styles.headersub}>
           <FastImage
             source={require('../../assets/hub/mirror.png')}
             resizeMode="contain"
             tintColor={Colors.lighter}
-            style={{
-              height: 40,
-              width: 40,
-            }}
+            style={styles.mirrorimg}
           />
-          <Text
-            numberOfLines={3}
-            adjustsFontSizeToFit
-            style={{
-              color: Colors.lighter,
-              fontSize: 12,
-              marginBottom: 16,
-              marginHorizontal: 10,
-              flex: 2,
-            }}>
+          <Text numberOfLines={3} adjustsFontSizeToFit style={styles.desc}>
             Mimic the price behavior of real world assets without the burdens of
             owning or transacting real assets. Powered by Mirror Protocol.
           </Text>

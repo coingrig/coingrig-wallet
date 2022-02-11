@@ -32,7 +32,7 @@ const apps = [
     module: true,
   },
   {
-    title: 'Synthetic Assets',
+    title: 'hub.synthetics',
     screen: 'SyntheticScreen',
     backgroundImage: require('../../assets/hub/paper.png'),
     keywords: 'swap, schimb, exchange',
