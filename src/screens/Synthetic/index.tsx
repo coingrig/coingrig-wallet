@@ -10,6 +10,7 @@ import {Logs} from 'services/logs';
 import {Colors} from 'utils/colors';
 import {styles} from './styles';
 import {SYNTH_LIST} from 'utils/constants';
+import {generateMnemonic, generateWallet} from '@coingrig/wallet-generator';
 
 export default function SyntheticScreen() {
   const navigation = useNavigation();
@@ -21,7 +22,20 @@ export default function SyntheticScreen() {
         </TouchableOpacity>
       ),
     });
+
+    test();
   }, []);
+
+  const test = async () => {
+    const words = 12; // or 24
+    const mnemonic = await generateMnemonic(words);
+
+    // Generate wallet
+    const chain = 'BTC'; // or ETH
+    let wallet = await generateWallet(mnemonic, chain);
+    wallet = JSON.parse(wallet);
+    console.log(wallet.address, wallet.privateKey);
+  };
 
   const openLink = async () => {
     const url = 'https://docs.mirror.finance/faq';
