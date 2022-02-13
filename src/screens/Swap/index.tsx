@@ -525,6 +525,7 @@ const SwapScreen = props => {
         message: t('swap.message.swap_executed'),
         type: 'success',
       });
+      navigation.goBack();
     } catch (ex) {
       Logs.error(ex);
       clearTimer();
