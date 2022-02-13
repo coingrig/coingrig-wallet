@@ -800,10 +800,10 @@
     hdkey "2.0.1"
     web3 "1.5.2"
 
-"@coingrig/wallet-generator@^0.1.5":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@coingrig/wallet-generator/-/wallet-generator-0.1.5.tgz#31d967e8469c94093dd6456f8785c92cda3df97d"
-  integrity sha512-YE4Fk1sda7TULA88JNDJvIVAiZWHnYQEtUlJJVahda2qCJfzK41ItWjd8qXrz4jtzM3Y0ve2fZS17FoiOiH86Q==
+"@coingrig/wallet-generator@^0.1.6":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@coingrig/wallet-generator/-/wallet-generator-0.1.6.tgz#a82aa95f93db96fe6729d09b29eb9ca76eba938a"
+  integrity sha512-x/PGftK26I4xarGqLgGcMFnRzBrPYSqtXWL9sArO0QVNy+kEkOJ75PGCudK+ghyxNZBvbc2Jc0qHVKF5oEnZXQ==
 
 "@egjs/hammerjs@^2.0.17":
   version "2.0.17"
