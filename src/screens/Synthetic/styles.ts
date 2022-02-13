@@ -43,19 +43,36 @@ export const styles = StyleSheet.create({
   desc: {
     color: Colors.lighter,
     fontSize: 12,
-    marginBottom: 16,
     marginHorizontal: 10,
     flex: 2,
+  },
+  headerMirror: {
+    marginBottom: 16,
+  },
+  headersubtitle: {
+    color: Colors.lighter,
+    fontSize: 14,
+    marginHorizontal: 10,
+    marginBottom: 5,
+    fontWeight: 'bold',
+  },
+  powered: {
+    color: Colors.lighter,
+    fontSize: 11,
+    marginHorizontal: 10,
+    marginTop: 4,
+    fontWeight: 'bold',
   },
   mirrorimg: {
     height: 40,
     width: 40,
+    justifyContent: 'center',
   },
   headersub: {
     flexDirection: 'row',
     width: '90%',
     marginHorizontal: 16,
   },
-  header: {flex: 1, marginTop: 20},
+  header: {flex: 1, marginTop: 30, marginBottom: 10},
   subtitle: {fontSize: 10, marginLeft: 10, color: Colors.lighter},
 });

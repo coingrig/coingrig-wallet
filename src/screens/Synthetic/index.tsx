@@ -83,10 +83,14 @@ export default function SyntheticScreen() {
             tintColor={Colors.lighter}
             style={styles.mirrorimg}
           />
-          <Text numberOfLines={3} adjustsFontSizeToFit style={styles.desc}>
-            Mimic the price behavior of real world assets without the burdens of
-            owning or transacting real assets. Powered by Mirror Protocol.
-          </Text>
+          <View style={styles.headerMirror}>
+            <Text style={styles.headersubtitle}>Mirror Protocol Tokens</Text>
+            <Text numberOfLines={3} adjustsFontSizeToFit style={styles.desc}>
+              Mimic the price behavior of real world assets without the burdens
+              of owning or transacting real assets.
+            </Text>
+            <Text style={styles.powered}>Powered by Mirror Protocol.</Text>
+          </View>
         </View>
       </View>
     );
