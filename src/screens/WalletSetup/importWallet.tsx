@@ -44,7 +44,7 @@ export default function ImportWalletScreen({}) {
       DeviceEventEmitter.emit('showDoor', {
         title: t('modal.please_wait'),
       });
-      await sleep(2000);
+      await sleep(500);
       const importAcc = await WalletStore.createWallets(copiedText, COIN_LIST);
       if (importAcc) {
         SettingsStore.setMnemonicBackupDone(true);

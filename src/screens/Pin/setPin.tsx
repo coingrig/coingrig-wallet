@@ -26,12 +26,11 @@ const SetPinScreen = ({route}) => {
         title: t('modal.please_wait'),
         body: t('modal.remember_to_backup'),
       });
-      await sleep(2000);
+      await sleep(500);
       let newMnemonic: any = null;
       try {
         const words = 12; // or 24
         newMnemonic = await generateMnemonic(words);
-        console.log('-----------------ooook');
       } catch (error) {
         newMnemonic = WalletGenerator.generateMnemonic();
       }
