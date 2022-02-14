@@ -90,8 +90,8 @@ export default function SyntheticScreen() {
             <Text style={styles.headersubtitle}>Mirror Protocol Tokens</Text>
             <Text numberOfLines={3} adjustsFontSizeToFit style={styles.desc}>
               {t('synthetic.description')}
+              <Text style={styles.powered}> Powered by Mirror Protocol.</Text>
             </Text>
-            <Text style={styles.powered}>Powered by Mirror Protocol.</Text>
           </View>
         </View>
       </View>

@@ -231,6 +231,8 @@
       "token_connect.swapintro_one": "Pentru schimbul dorit, următorul token trebuie adăugat în portofoliu",
       "token_connect.swapintro_other": "Pentru schimbul dorit, următorii tokeni trebuie adăugați în portofoliu",
       "token_connect.add_asset_one": "Adaugă Token",
-      "token_connect.add_asset_other": "Adaugă Tokeni"
+      "token_connect.add_asset_other": "Adaugă Tokeni",
+
+      "synthetic.description": "Tokeni care imită comportamentul prețului activelor din lumea reală."
   }
 }

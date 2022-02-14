@@ -48,6 +48,7 @@ export const styles = StyleSheet.create({
   },
   headerMirror: {
     marginBottom: 16,
+    flex: 1,
   },
   headersubtitle: {
     color: Colors.lighter,
