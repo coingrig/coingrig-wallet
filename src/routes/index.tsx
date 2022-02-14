@@ -38,9 +38,10 @@ import NFTScreen from 'screens/Portfolio/NFTDetails';
 import {Colors} from 'utils/colors';
 import CONFIG from 'config';
 import styles from './styles';
+import type {StackParamsList, TabParamsList} from './types';
 
-const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator<StackParamsList>();
+const Tab = createBottomTabNavigator<TabParamsList>();
 
 const isTestnet = () => {
   if (CONFIG.TESTNET) {

@@ -70,7 +70,9 @@ const Brick = observer((props: any) => {
               symbol: props.coin,
               chain: props.chain,
             })
-          : navigation.navigate('PortfolioScreen')
+          : navigation.navigate('HomeScreens', {
+              screen: 'PortfolioScreen',
+            })
       }>
       <View style={styles.container}>
         <View style={styles.tcontainer}>

@@ -34,7 +34,6 @@ const MarketScreen = observer(() => {
       headerRight: () => (
         <TouchableOpacity
           onPress={() =>
-            //@ts-ignore
             navigation.navigate('SearchScreen', {onlySupported: false})
           }
           style={styles.moreBtn}>
@@ -66,7 +65,6 @@ const MarketScreen = observer(() => {
         image={item.image}
         change={item.price_change_percentage_24h}
         onPress={() =>
-          //@ts-ignore
           navigation.navigate('CoinDetailScreen', {
             coin: item.id,
             title: item.symbol,
