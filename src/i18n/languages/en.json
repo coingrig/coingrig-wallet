@@ -231,6 +231,8 @@
       "token_connect.swapintro_one": "For the desired swap, the following token needs to be tracked in your portfolio",
       "token_connect.swapintro_other": "For the desired swap, the following tokens need to be tracked in your portfolio",
       "token_connect.add_asset_one": "Add Token",
-      "token_connect.add_asset_other": "Add Tokens"
+      "token_connect.add_asset_other": "Add Tokens",
+
+      "synthetic.description": "Custom tokens that mimic the price behavior of real world assets."
   }
 }

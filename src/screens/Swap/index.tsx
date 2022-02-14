@@ -687,7 +687,9 @@ const SwapScreen = props => {
           text={t('swap.preview')}
           backgroundColor={Colors.foreground}
           color={Colors.background}
-          disabled={sellAmmount && buyTokenSymbol !== 'Select' ? false : true}
+          disabled={
+            sellAmmount && buyTokenSymbol !== t('swap.select') ? false : true
+          }
           onPress={() => checkPreview(false)}
         />
       );
