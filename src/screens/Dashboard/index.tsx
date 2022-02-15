@@ -61,13 +61,7 @@ const DashboardScreen = observer(() => {
         false,
       ),
     );
-    hideDoorNow();
   }, [SettingsStore.mnemonicBackupDone]);
-
-  const hideDoorNow = async () => {
-    await sleep(2000);
-    DeviceEventEmitter.emit('hideDoor');
-  };
 
   const badge = () => <View style={styles.badge} />;
 
@@ -85,6 +79,8 @@ const DashboardScreen = observer(() => {
       });
     }
     setRefreshing(false);
+    DeviceEventEmitter.emit('hideDoor');
+    await sleep(2000);
     NotificationService.askForPermission();
   }, []);
 
