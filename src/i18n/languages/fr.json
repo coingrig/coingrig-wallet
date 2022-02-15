@@ -214,7 +214,7 @@
       "swap.message.swap_approved": "Autorisation d'échange confirmée!",
       "swap.message.swap_executed": "Swap exécuté!",
       "swap.error.swap_failed": "Le Swap n'a pas pu être effectué!",
-      "swap.error.swap_not_found": "Pas de swap disponible pour cette paire!",
+      "swap.error.swap_not_found": "Pas de swap disponible maintenant pour cette paire!",
       "swap.error.not_enough_balance": "Pas assez de solde pour le swap ou pour les frais!",
       "swap.error.swap_chain_not_supported": "La reseaux que vous demandez n'est pas prise en charge!",
       "swap.coingrig_fee": "Coingrig charge",

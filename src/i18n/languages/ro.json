@@ -214,7 +214,7 @@
       "swap.message.swap_approved": "Autorizare confirmată!",
       "swap.message.swap_executed": "Swap executat!",
       "swap.error.swap_failed": "Swap-ul nu a putut fi realizat!",
-      "swap.error.swap_not_found": "Nu există swap pentru această pereche!",
+      "swap.error.swap_not_found": "Momentan nu există swap pentru această pereche!",
       "swap.error.not_enough_balance": "Balanță insuficientă pentru swap sau comision.",
       "swap.error.swap_chain_not_supported": "Rețeaua dorită nu este suportată!",
       "swap.coingrig_fee": "Comision Coingrig",
