@@ -11,6 +11,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1A9A811CD152812B5FB1285E /* libPods-Coingrig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB695F2550D8010AE57680A5 /* libPods-Coingrig.a */; };
 		4E5404A726CD83330055EE3E /* RobotoSlab-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E54049E26CD83320055EE3E /* RobotoSlab-Bold.ttf */; };
 		4E5404A826CD83330055EE3E /* RobotoSlab-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E54049F26CD83320055EE3E /* RobotoSlab-ExtraLight.ttf */; };
 		4E5404A926CD83330055EE3E /* RobotoSlab-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E5404A026CD83320055EE3E /* RobotoSlab-ExtraBold.ttf */; };
@@ -21,11 +22,10 @@
 		4E5404AE26CD83330055EE3E /* RobotoSlab-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E5404A526CD83320055EE3E /* RobotoSlab-Black.ttf */; };
 		4E5404AF26CD83330055EE3E /* RobotoSlab-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E5404A626CD83330055EE3E /* RobotoSlab-Thin.ttf */; };
 		4E7FF0F327A28031007C17D2 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E7FF0F227A28031007C17D2 /* AppCenter-Config.plist */; };
-		5BBFAFBAD85CB9128AC703B4 /* libPods-Coingrig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87AEA7FC882C6B7889BFB6C8 /* libPods-Coingrig.a */; };
+		690A3394BD96C49613E87968 /* libPods-Coingrig-CoingrigTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BE65A504C187B295416C3D /* libPods-Coingrig-CoingrigTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A60153BE27730D61000A5391 /* lock.xib in Resources */ = {isa = PBXBuildFile; fileRef = A60153BD27730D61000A5391 /* lock.xib */; };
 		A67F9FDA26E782FA00CC9AD1 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67F9FD926E782FA00CC9AD1 /* test.swift */; };
-		B74FE546EF460F39C063FDB6 /* libPods-Coingrig-CoingrigTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 233248F8EBC736D4AA067C7D /* libPods-Coingrig-CoingrigTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +42,6 @@
 		00E356EE1AD99517003FC87E /* CoingrigTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoingrigTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* CoingrigTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoingrigTests.m; sourceTree = "<group>"; };
-		12461A5DA3CE2FFCA4594F13 /* Pods-Coingrig.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coingrig.release.xcconfig"; path = "Target Support Files/Pods-Coingrig/Pods-Coingrig.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Coingrig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Coingrig.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Coingrig/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Coingrig/AppDelegate.m; sourceTree = "<group>"; };
@@ -50,8 +49,6 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Coingrig/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Coingrig/main.m; sourceTree = "<group>"; };
 		15027C24D0974D3CB8B72F84 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		212EE65988BEA698DF4683F3 /* Pods-Coingrig-CoingrigTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coingrig-CoingrigTests.release.xcconfig"; path = "Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests.release.xcconfig"; sourceTree = "<group>"; };
-		233248F8EBC736D4AA067C7D /* libPods-Coingrig-CoingrigTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Coingrig-CoingrigTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25277035794F4D3792CC654C /* RobotoSlab-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Medium.ttf"; path = "../src/assets/fonts/RobotoSlab-Medium.ttf"; sourceTree = "<group>"; };
 		2A03A6603E1A4889A6FCB33A /* RobotoSlab-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-ExtraBold.ttf"; path = "../src/assets/fonts/RobotoSlab-ExtraBold.ttf"; sourceTree = "<group>"; };
 		3C2D2CB1FE3D42C89FC8726A /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
@@ -85,16 +82,15 @@
 		51BB8C5211F4446D987FE6CD /* RobotoSlab-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Black.ttf"; path = "../src/assets/fonts/RobotoSlab-Black.ttf"; sourceTree = "<group>"; };
 		535D86E5C0974FA2B6181149 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		54525C124F5D466C8E17B012 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		5EAE51A9F6A8B307FAA5925F /* Pods-Coingrig.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coingrig.release.xcconfig"; path = "Target Support Files/Pods-Coingrig/Pods-Coingrig.release.xcconfig"; sourceTree = "<group>"; };
 		62E2855EB1614071B6ACF6AA /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		67D0B4F4B0254DD2BD61F654 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Coingrig/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		81B27697F091481A948F91AA /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		865FD0F7B68D4BDAB3577A94 /* RobotoSlab-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Light.ttf"; path = "../src/assets/fonts/RobotoSlab-Light.ttf"; sourceTree = "<group>"; };
-		87AEA7FC882C6B7889BFB6C8 /* libPods-Coingrig.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Coingrig.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		968B866E1160F5B82451E656 /* Pods-Coingrig-CoingrigTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coingrig-CoingrigTests.debug.xcconfig"; path = "Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8AE5E47BEBE3FE23F3E1CB64 /* Pods-Coingrig-CoingrigTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coingrig-CoingrigTests.release.xcconfig"; path = "Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests.release.xcconfig"; sourceTree = "<group>"; };
 		9A1F3FBCDE5B4BA5BE1705C8 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		9A2B60DAAC424A81AC7403D4 /* RobotoSlab-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-SemiBold.ttf"; path = "../src/assets/fonts/RobotoSlab-SemiBold.ttf"; sourceTree = "<group>"; };
-		A05B5316E83D7F83AC804D7B /* Pods-Coingrig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coingrig.debug.xcconfig"; path = "Target Support Files/Pods-Coingrig/Pods-Coingrig.debug.xcconfig"; sourceTree = "<group>"; };
 		A253347E5B3640B98626F5E3 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		A60153BD27730D61000A5391 /* lock.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = lock.xib; sourceTree = "<group>"; };
 		A67F9FD626E7829D00CC9AD1 /* liblottie-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "liblottie-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +98,8 @@
 		A67F9FD926E782FA00CC9AD1 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		ACB5A85A930F46F38B91DA3F /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		AF0958351FDB448C9C8BFC30 /* RobotoSlab-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Bold.ttf"; path = "../src/assets/fonts/RobotoSlab-Bold.ttf"; sourceTree = "<group>"; };
+		B271697B6380FDD48B0D0E92 /* Pods-Coingrig-CoingrigTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coingrig-CoingrigTests.debug.xcconfig"; path = "Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B2BE65A504C187B295416C3D /* libPods-Coingrig-CoingrigTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Coingrig-CoingrigTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5FEFDC753BE4DB9A5E9B522 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		CBAE19816AB34107BF1CE967 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		CC296406A1854F699C1A7295 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
@@ -112,6 +110,8 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EFEE5B6179DC4EBBBFCB511D /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		F20250E480104A3799A6A04E /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		FA32A8D91E45D1DE5ABC8B19 /* Pods-Coingrig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coingrig.debug.xcconfig"; path = "Target Support Files/Pods-Coingrig/Pods-Coingrig.debug.xcconfig"; sourceTree = "<group>"; };
+		FB695F2550D8010AE57680A5 /* libPods-Coingrig.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Coingrig.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,7 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B74FE546EF460F39C063FDB6 /* libPods-Coingrig-CoingrigTests.a in Frameworks */,
+				690A3394BD96C49613E87968 /* libPods-Coingrig-CoingrigTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,7 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BBFAFBAD85CB9128AC703B4 /* libPods-Coingrig.a in Frameworks */,
+				1A9A811CD152812B5FB1285E /* libPods-Coingrig.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,8 +171,8 @@
 			children = (
 				A67F9FD626E7829D00CC9AD1 /* liblottie-ios.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				87AEA7FC882C6B7889BFB6C8 /* libPods-Coingrig.a */,
-				233248F8EBC736D4AA067C7D /* libPods-Coingrig-CoingrigTests.a */,
+				FB695F2550D8010AE57680A5 /* libPods-Coingrig.a */,
+				B2BE65A504C187B295416C3D /* libPods-Coingrig-CoingrigTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -204,10 +204,10 @@
 		51478C07FE8E345391B530BD /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A05B5316E83D7F83AC804D7B /* Pods-Coingrig.debug.xcconfig */,
-				12461A5DA3CE2FFCA4594F13 /* Pods-Coingrig.release.xcconfig */,
-				968B866E1160F5B82451E656 /* Pods-Coingrig-CoingrigTests.debug.xcconfig */,
-				212EE65988BEA698DF4683F3 /* Pods-Coingrig-CoingrigTests.release.xcconfig */,
+				FA32A8D91E45D1DE5ABC8B19 /* Pods-Coingrig.debug.xcconfig */,
+				5EAE51A9F6A8B307FAA5925F /* Pods-Coingrig.release.xcconfig */,
+				B271697B6380FDD48B0D0E92 /* Pods-Coingrig-CoingrigTests.debug.xcconfig */,
+				8AE5E47BEBE3FE23F3E1CB64 /* Pods-Coingrig-CoingrigTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -296,12 +296,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "CoingrigTests" */;
 			buildPhases = (
-				49246E18F91900362BBB0B33 /* [CP] Check Pods Manifest.lock */,
+				D78178BEEC10D19086E898D2 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				7D86DB0E7EA55C227E932909 /* [CP] Embed Pods Frameworks */,
-				F811524E07552643A31C2983 /* [CP] Copy Pods Resources */,
+				1FDD4D827678F21E427E2F66 /* [CP] Embed Pods Frameworks */,
+				ACCF15522E96BD7AF5A02A1B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -317,14 +317,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Coingrig" */;
 			buildPhases = (
-				493772A7A2E4C6D141D03CCB /* [CP] Check Pods Manifest.lock */,
+				6A9B239B0FB02AD93CFB2B9C /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				720695C266C38D0B6A5DC20D /* [CP] Embed Pods Frameworks */,
-				585ED25C63D587AC88F0039D /* [CP] Copy Pods Resources */,
+				56530D12024DB8C0F1076D0B /* [CP] Embed Pods Frameworks */,
+				9D0BFEE3A7686C7F01BE0DB8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -416,29 +416,41 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		49246E18F91900362BBB0B33 /* [CP] Check Pods Manifest.lock */ = {
+		1FDD4D827678F21E427E2F66 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Coingrig-CoingrigTests-checkManifestLockResult.txt",
+				"${PODS_ROOT}/Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		493772A7A2E4C6D141D03CCB /* [CP] Check Pods Manifest.lock */ = {
+		56530D12024DB8C0F1076D0B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Coingrig/Pods-Coingrig-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Coingrig/Pods-Coingrig-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Coingrig/Pods-Coingrig-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6A9B239B0FB02AD93CFB2B9C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -460,7 +472,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		585ED25C63D587AC88F0039D /* [CP] Copy Pods Resources */ = {
+		9D0BFEE3A7686C7F01BE0DB8 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -477,41 +489,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Coingrig/Pods-Coingrig-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		720695C266C38D0B6A5DC20D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Coingrig/Pods-Coingrig-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Coingrig/Pods-Coingrig-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Coingrig/Pods-Coingrig-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7D86DB0E7EA55C227E932909 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F811524E07552643A31C2983 /* [CP] Copy Pods Resources */ = {
+		ACCF15522E96BD7AF5A02A1B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -526,6 +504,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Coingrig-CoingrigTests/Pods-Coingrig-CoingrigTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D78178BEEC10D19086E898D2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Coingrig-CoingrigTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -581,7 +581,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 968B866E1160F5B82451E656 /* Pods-Coingrig-CoingrigTests.debug.xcconfig */;
+			baseConfigurationReference = B271697B6380FDD48B0D0E92 /* Pods-Coingrig-CoingrigTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -609,7 +609,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 212EE65988BEA698DF4683F3 /* Pods-Coingrig-CoingrigTests.release.xcconfig */;
+			baseConfigurationReference = 8AE5E47BEBE3FE23F3E1CB64 /* Pods-Coingrig-CoingrigTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -634,7 +634,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A05B5316E83D7F83AC804D7B /* Pods-Coingrig.debug.xcconfig */;
+			baseConfigurationReference = FA32A8D91E45D1DE5ABC8B19 /* Pods-Coingrig.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -736,7 +736,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 12461A5DA3CE2FFCA4594F13 /* Pods-Coingrig.release.xcconfig */;
+			baseConfigurationReference = 5EAE51A9F6A8B307FAA5925F /* Pods-Coingrig.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
