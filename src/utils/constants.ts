@@ -92,3 +92,71 @@ export const COINS_MAX: number = 30;
 export const COINS_MIN: number = 10;
 export const UA: string =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_5_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36';
+
+export const SYNTH_LIST = [
+  {
+    cid: 'mirrored-tesla',
+    title: 'Tesla',
+    img: 'https://assets.coingrig.com/images/synth/tesla.png',
+  },
+  {
+    cid: 'mirrored-google',
+    title: 'Google',
+    img: 'https://assets.coingrig.com/images/synth/google.png',
+  },
+  {
+    cid: 'mirrored-microsoft',
+    title: 'Microsoft',
+    img: 'https://assets.coingrig.com/images/synth/microsoft.png',
+  },
+  {
+    cid: 'mirrored-apple',
+    title: 'Apple',
+    img: 'https://assets.coingrig.com/images/synth/apple.png',
+  },
+  {
+    cid: 'mirrored-ishares-silver-trust',
+    title: 'iShares Silver',
+    img: 'https://assets.coingrig.com/images/synth/silver.png',
+  },
+  {
+    cid: 'mirrored-amazon',
+    title: 'Amazon',
+    img: 'https://assets.coingrig.com/images/synth/amazon.png',
+  },
+  {
+    cid: 'mirrored-netflix',
+    title: 'Netflix',
+    img: 'https://assets.coingrig.com/images/synth/netflix.png',
+  },
+  {
+    cid: 'mirrored-united-states-oil-fund',
+    title: 'US OIL Fund',
+    img: 'https://assets.coingrig.com/images/synth/oil.png',
+  },
+  {
+    cid: 'mirrored-twitter',
+    title: 'Twitter',
+    img: 'https://assets.coingrig.com/images/synth/twitter.png',
+  },
+  {
+    cid: 'mirrored-alibaba',
+    title: 'Alibaba',
+    img: 'https://assets.coingrig.com/images/synth/alibaba.png',
+  },
+  {
+    cid: 'mirrored-ishares-gold-trust',
+    title: 'iShares Gold',
+    img: 'https://assets.coingrig.com/images/synth/gold.png',
+  },
+  {
+    cid: 'mirrored-facebook',
+    title: 'Facebook',
+    img: 'https://assets.coingrig.com/images/synth/fb.png',
+  },
+  {
+    cid: 'mirrored-invesco-qqq-trust',
+    title: 'Invesco QQQ',
+    img: 'https://assets.coingrig.com/images/synth/q.png',
+  },
+];

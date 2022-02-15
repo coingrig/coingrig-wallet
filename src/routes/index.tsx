@@ -38,6 +38,7 @@ import NFTScreen from 'screens/Portfolio/NFTDetails';
 import {Colors} from 'utils/colors';
 import CONFIG from 'config';
 import styles from './styles';
+import SyntheticScreen from 'screens/Synthetic';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -313,6 +314,31 @@ function NavigationStack({t}) {
         options={{
           headerShown: true,
           headerTitle: t('title.news'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="SyntheticScreen"
+        component={SyntheticScreen}
+        options={{
+          headerShown: true,
+          headerTitle: t('hub.synthetics'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios

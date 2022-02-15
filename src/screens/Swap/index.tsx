@@ -525,6 +525,7 @@ const SwapScreen = props => {
         message: t('swap.message.swap_executed'),
         type: 'success',
       });
+      navigation.goBack();
     } catch (ex) {
       Logs.error(ex);
       clearTimer();
@@ -686,7 +687,9 @@ const SwapScreen = props => {
           text={t('swap.preview')}
           backgroundColor={Colors.foreground}
           color={Colors.background}
-          disabled={false}
+          disabled={
+            sellAmmount && buyTokenSymbol !== t('swap.select') ? false : true
+          }
           onPress={() => checkPreview(false)}
         />
       );
