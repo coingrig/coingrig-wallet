@@ -33,7 +33,7 @@ const HubScreen = () => {
         }}>
         <Text
           style={{
-            fontSize: 13,
+            fontSize: 14,
             color:
               screen.title === item.title
                 ? Colors.background

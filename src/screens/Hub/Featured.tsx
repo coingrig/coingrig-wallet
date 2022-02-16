@@ -17,7 +17,7 @@ export default function Featured() {
   const {t} = useTranslation();
 
   return (
-    <ScrollView contentContainerStyle={{marginTop: 15, marginHorizontal: 16}}>
+    <ScrollView contentContainerStyle={{marginTop: 10, marginHorizontal: 16}}>
       <TouchableOpacity
         onPress={() => null}
         style={{

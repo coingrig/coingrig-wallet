@@ -10,7 +10,7 @@ export default function MarketTab() {
   const {t} = useTranslation();
 
   return (
-    <ScrollView contentContainerStyle={{marginTop: 15, marginHorizontal: 16}}>
+    <ScrollView contentContainerStyle={{marginTop: 10, marginHorizontal: 16}}>
       <CardList
         data={marketData.filter(app => app.module)}
         title={t('Trends, news and market data')}
