@@ -26,6 +26,7 @@ let theme = {
   door: '#262424',
   waveborder: '#c4bba7',
   splash: '#fff',
+  external: 'white', //#f5f2eb',
 };
 if (colorScheme === 'dark') {
   theme = {
@@ -53,6 +54,7 @@ if (colorScheme === 'dark') {
     door: '#262424',
     waveborder: '#1c1b1b',
     splash: '#000',
+    external: '#2e2c2c',
   };
 }
 

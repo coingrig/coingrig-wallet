@@ -13,7 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {showMessage} from 'react-native-flash-message';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
-import apps from './apps';
+import apps from '../../data/apps';
 import {styles} from './styles';
 import {Colors} from 'utils/colors';
 import InAppBrowser from 'react-native-inappbrowser-reborn';

@@ -2,15 +2,14 @@
 import React, {useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
-import apps from './apps';
+import apps from '../../data/apps';
 import {styles} from './styles';
 import {Colors} from 'utils/colors';
 import {ScrollView} from 'react-native-gesture-handler';
-import HubCatgories from './categories';
+import HubCatgories from '../../data/categories';
 
 const HubScreen = () => {
   const {t} = useTranslation();
-  // const [selected, setSelected] = useState('Featured');
   const [screen, setScreen] = useState(HubCatgories[0]);
 
   const bubble = item => {
@@ -65,7 +64,7 @@ const HubScreen = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{paddingRight: 20}}
-          style={{paddingTop: 10, paddingHorizontal: 11, paddingBottom: 5}}>
+          style={{paddingTop: 15, paddingHorizontal: 11, paddingBottom: 5}}>
           {HubCatgories.map(item => bubble(item))}
         </ScrollView>
       </View>

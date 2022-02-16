@@ -1,6 +1,26 @@
+import apps from 'data/apps';
 import React from 'react';
-import MarketScreen from 'screens/Market';
+import {useTranslation} from 'react-i18next';
+import {ScrollView} from 'react-native-gesture-handler';
+import CardList from 'components/CardList';
 
-export default function Market() {
-  return <MarketScreen />;
+const marketData = apps.filter(app => app.categories?.includes('market'));
+
+export default function MarketTab() {
+  const {t} = useTranslation();
+
+  return (
+    <ScrollView contentContainerStyle={{marginTop: 15, marginHorizontal: 16}}>
+      <CardList
+        data={marketData.filter(app => app.module)}
+        title={t('Trends, news and market data')}
+        categorie={t('MARKET')}
+      />
+      <CardList
+        data={marketData.filter(app => !app.module)}
+        categorie={null}
+        title={null}
+      />
+    </ScrollView>
+  );
 }

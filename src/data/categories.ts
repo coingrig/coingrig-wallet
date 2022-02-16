@@ -1,5 +1,5 @@
-import Featured from './Featured';
-import Market from './Market';
+import Featured from '../screens/Hub/Featured';
+import MarketTab from '../screens/Hub/Market';
 
 const HubCatgories = [
   {
@@ -9,7 +9,7 @@ const HubCatgories = [
   },
   {
     title: 'Market',
-    component: Market,
+    component: MarketTab,
     enable: true,
   },
   {
