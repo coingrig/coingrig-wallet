@@ -93,7 +93,7 @@ export default function Featured() {
     );
   };
   return (
-    <ScrollView contentContainerStyle={{marginTop: 15}}>
+    <ScrollView contentContainerStyle={{marginTop: 10}}>
       <TouchableOpacity
         onPress={() => null}
         style={{
