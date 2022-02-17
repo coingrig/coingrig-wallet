@@ -36,6 +36,7 @@ export default function Games() {
             textAlign: 'center',
             fontWeight: 'bold',
             opacity: 0.5,
+            marginTop: 50,
           }}>
           {t('dashboard.coming_soon').toUpperCase()}
         </Text>
