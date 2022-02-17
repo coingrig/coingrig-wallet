@@ -69,7 +69,7 @@ export const COIN_LIST: IWallet[] = [
   },
   {
     symbol: 'MATIC',
-    name: 'MATIC',
+    name: 'Matic',
     cid: 'matic-network',
     chain: 'POLYGON',
     type: ASSET_TYPE_COIN,
