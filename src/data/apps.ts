@@ -94,7 +94,7 @@ const apps = [
     screen: '',
     backgroundImage: require('../assets/hub/track.png'),
     keywords: 'portfolio, portofoliu, tracker',
-    categories: ['defi'],
+    categories: ['defi', 'tools'],
     enable: false,
     module: true,
   },

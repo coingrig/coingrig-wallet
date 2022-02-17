@@ -4,20 +4,27 @@ import apps from '../../data/apps';
 import {useTranslation} from 'react-i18next';
 import CardList from 'components/CardList';
 import CardImage from 'components/CardImage';
+import {styles} from './styles';
+import {useNavigation} from '@react-navigation/native';
 
 export default function Featured() {
   const {t} = useTranslation();
+  const navigation = useNavigation();
 
   return (
-    <ScrollView contentContainerStyle={{marginTop: 10, marginHorizontal: 16}}>
+    <ScrollView contentContainerStyle={styles.scrollview}>
       <CardImage
-        imageURI={
-          'https://cdn.pixabay.com/photo/2020/12/06/16/16/cosmos-5809271_1280.png'
-        }
+        //@ts-ignore
+        onClick={() => navigation.navigate('SwapScreen')}
+        imageURI={'https://coingrig.com/images/assets/coinsi.png'}
         category={'INFO'}
-        title={'Some news'}
+        title={'Connected to 30 DEXs'}
+        //Conectat la 30 DEX-uri
+        //Connecté à 30 DEXs
         desc={
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+          'Coingrig Swap can query and use multiple DEXs to find the swap with the best price for you.'
+          // Coingrig Swap peut interroger et utiliser plusieurs DEX pour trouver le swap avec le meilleur prix pour vous.
+          // Coingrig Swap poate interoga și utiliza mai multe DEX-uri pentru a găsi schimbul cu cel mai bun preț pentru tine.
         }
       />
       <CardList
@@ -28,3 +35,7 @@ export default function Featured() {
     </ScrollView>
   );
 }
+
+// Shortcuts for your needs
+// Des raccourcis adaptés à vos besoins
+// Comenzi rapide pentru nevoile dvs

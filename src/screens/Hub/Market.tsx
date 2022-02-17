@@ -3,6 +3,7 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {ScrollView} from 'react-native-gesture-handler';
 import CardList from 'components/CardList';
+import {styles} from './styles';
 
 const marketData = apps.filter(app => app.categories?.includes('market'));
 
@@ -10,7 +11,7 @@ export default function MarketTab() {
   const {t} = useTranslation();
 
   return (
-    <ScrollView contentContainerStyle={{marginTop: 10, marginHorizontal: 16}}>
+    <ScrollView contentContainerStyle={styles.scrollview}>
       <CardList
         data={marketData.filter(app => app.module)}
         title={t('Trends, news and market data')}

@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     overflow: 'hidden',
   },
+  scrollview: {marginTop: 10, marginHorizontal: 16},
   title: {
     fontSize: 35,
     fontFamily: 'RobotoSlab-Bold',

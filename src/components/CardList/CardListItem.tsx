@@ -1,9 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
 import {View, Text, TouchableOpacity, Image, Linking} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/Feather';
 import {styles} from './styles';
-import {Colors} from 'utils/colors';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
@@ -57,17 +57,7 @@ export default function CardListItem(item, isLast) {
         return <Icon2 name="external-link" size={20} color="gray" />;
       }
     } else {
-      return (
-        <Text
-          style={{
-            color: 'gray',
-            fontSize: 11,
-            width: 60,
-            textAlign: 'right',
-          }}>
-          {t('dashboard.coming_soon')}
-        </Text>
-      );
+      return <Text style={styles.soon}>{t('dashboard.coming_soon')}</Text>;
     }
   };
 
@@ -79,27 +69,11 @@ export default function CardListItem(item, isLast) {
       <Image
         source={item.backgroundImage}
         resizeMode="contain"
-        style={{
-          width: 45,
-          height: 45,
-          justifyContent: 'center',
-          borderRadius: 100,
-          marginRight: 16,
-        }}
+        style={styles.ico}
       />
       <View style={{flex: 1}}>
-        <Text
-          style={{
-            fontSize: 16,
-            color: Colors.foreground,
-            fontWeight: 'bold',
-            marginBottom: 3,
-          }}>
-          {t(item.title)}
-        </Text>
-        <Text style={{fontSize: 13, color: Colors.lighter}}>
-          {t(item.title)}
-        </Text>
+        <Text style={styles.itemTitle}>{t(item.title)}</Text>
+        <Text style={styles.desc}>{t(item.title)}</Text>
       </View>
       {renderType()}
     </TouchableOpacity>

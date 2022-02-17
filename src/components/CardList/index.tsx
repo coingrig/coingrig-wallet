@@ -1,17 +1,17 @@
+/* eslint-disable react-native/no-inline-styles */
 import {View, Text} from 'react-native';
 import React from 'react';
 import {Colors} from 'utils/colors';
 import CardListItem from './CardListItem';
+import {styles} from './styles';
 
 const CardList = ({data, category, title}) => {
   return (
     <View
-      style={{
-        backgroundColor: category ? Colors.card : Colors.external,
-        borderRadius: 10,
-        paddingHorizontal: 15,
-        marginBottom: 16,
-      }}>
+      style={[
+        styles.list,
+        {backgroundColor: category ? Colors.card : Colors.external},
+      ]}>
       <View style={{paddingVertical: category ? 16 : 0}}>
         {category ? (
           <Text style={{color: Colors.lighter, marginBottom: 5}}>
@@ -20,11 +20,13 @@ const CardList = ({data, category, title}) => {
         ) : null}
         {title ? (
           <Text
-            style={{
-              fontSize: category ? 22 : 19,
-              fontWeight: 'bold',
-              color: category ? Colors.foreground : Colors.lighter,
-            }}>
+            style={[
+              styles.listTitle,
+              {
+                color: category ? Colors.foreground : Colors.lighter,
+                fontSize: category ? 22 : 19,
+              },
+            ]}>
             {title}
           </Text>
         ) : null}

@@ -30,11 +30,11 @@ const HubScreen = () => {
           justifyContent: 'center',
           alignContent: 'center',
           alignItems: 'center',
+          minWidth: 70,
         }}>
         <Text
           style={{
             fontSize: 14,
-            fontWeight: screen.title === item.title ? 'bold' : 'normal',
             color:
               screen.title === item.title
                 ? Colors.background
