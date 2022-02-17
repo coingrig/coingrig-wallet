@@ -35,5 +35,6 @@ export const styles = StyleSheet.create({
     color: Colors.lighter,
     fontSize: 12,
     marginTop: 4,
+    lineHeight: 18,
   },
 });

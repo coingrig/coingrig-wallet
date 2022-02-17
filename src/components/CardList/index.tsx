@@ -14,7 +14,7 @@ const CardList = ({data, category, title}) => {
       ]}>
       <View style={{paddingVertical: category ? 16 : 0}}>
         {category ? (
-          <Text style={{color: Colors.lighter, marginBottom: 5}}>
+          <Text style={{color: Colors.lighter, marginBottom: 5, fontSize: 14}}>
             {category.toUpperCase()}
           </Text>
         ) : null}
