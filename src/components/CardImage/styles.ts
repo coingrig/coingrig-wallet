@@ -3,7 +3,7 @@ import {Colors} from 'utils/colors';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.card,
+    backgroundColor: Colors.darker,
     borderRadius: 10,
     minHeight: 20,
     marginBottom: 20,
