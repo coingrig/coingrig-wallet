@@ -22,7 +22,7 @@ export default function Games() {
           source={require('../../assets/hub/games.png')}
           resizeMode="contain"
           style={{
-            height: 250,
+            height: 200,
             width: '100%',
             justifyContent: 'center',
             alignSelf: 'center',

@@ -22,7 +22,7 @@ export default function Card() {
           source={require('../../assets/hub/card2.png')}
           resizeMode="contain"
           style={{
-            height: 300,
+            height: 200,
             width: '100%',
             justifyContent: 'center',
             alignSelf: 'center',
@@ -37,6 +37,7 @@ export default function Card() {
             textAlign: 'center',
             fontWeight: 'bold',
             opacity: 0.5,
+            marginTop: 50,
           }}>
           {t('dashboard.coming_soon').toUpperCase()}
         </Text>
