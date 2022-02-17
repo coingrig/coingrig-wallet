@@ -26,7 +26,7 @@ const HubScreen = () => {
           padding: 5,
           paddingHorizontal: 15,
           borderRadius: 15,
-          marginHorizontal: 5,
+          marginHorizontal: 3,
           justifyContent: 'center',
           alignContent: 'center',
           alignItems: 'center',
@@ -34,6 +34,7 @@ const HubScreen = () => {
         <Text
           style={{
             fontSize: 14,
+            fontWeight: screen.title === item.title ? 'bold' : 'normal',
             color:
               screen.title === item.title
                 ? Colors.background

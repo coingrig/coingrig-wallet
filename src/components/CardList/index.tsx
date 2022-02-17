@@ -3,34 +3,34 @@ import React from 'react';
 import {Colors} from 'utils/colors';
 import CardListItem from './CardListItem';
 
-const CardList = ({data, categorie, title}) => {
+const CardList = ({data, category, title}) => {
   return (
     <View
       style={{
-        backgroundColor: categorie ? Colors.card : Colors.external,
+        backgroundColor: category ? Colors.card : Colors.external,
         borderRadius: 10,
         paddingHorizontal: 15,
         marginBottom: 16,
       }}>
-      <View style={{paddingVertical: categorie ? 16 : 0}}>
-        {categorie ? (
+      <View style={{paddingVertical: category ? 16 : 0}}>
+        {category ? (
           <Text style={{color: Colors.lighter, marginBottom: 5}}>
-            {categorie.toUpperCase()}
+            {category.toUpperCase()}
           </Text>
         ) : null}
         {title ? (
           <Text
             style={{
-              fontSize: categorie ? 22 : 19,
+              fontSize: category ? 22 : 19,
               fontWeight: 'bold',
-              color: categorie ? Colors.foreground : Colors.lighter,
+              color: category ? Colors.foreground : Colors.lighter,
             }}>
             {title}
           </Text>
         ) : null}
       </View>
-      {data.map(item => {
-        return CardListItem(item);
+      {data.map((item, index) => {
+        return CardListItem(item, index === data.length - 1);
       })}
     </View>
   );

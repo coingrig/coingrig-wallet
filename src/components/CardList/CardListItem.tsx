@@ -8,10 +8,18 @@ import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import {Logs} from 'services/logs';
+import {showMessage} from 'react-native-flash-message';
 
-export default function CardListItem(item) {
+export default function CardListItem(item, isLast) {
   const {t} = useTranslation();
   const navigation = useNavigation();
+
+  const soon = () => {
+    showMessage({
+      message: t('dashboard.coming_soon'),
+      type: 'warning',
+    });
+  };
 
   const onClick = async item => {
     if (item.module) {
@@ -40,11 +48,34 @@ export default function CardListItem(item) {
       }
     }
   };
+
+  const renderType = () => {
+    if (item.enable) {
+      if (item.module) {
+        return <Icon name="arrow-forward" size={20} color="gray" />;
+      } else {
+        return <Icon2 name="external-link" size={20} color="gray" />;
+      }
+    } else {
+      return (
+        <Text
+          style={{
+            color: 'gray',
+            fontSize: 11,
+            width: 60,
+            textAlign: 'right',
+          }}>
+          {t('dashboard.coming_soon')}
+        </Text>
+      );
+    }
+  };
+
   return (
     <TouchableOpacity
-      key={item.screen}
-      onPress={() => (item.enable ? onClick(item) : null)}
-      style={[styles.brick]}>
+      key={item.title}
+      onPress={() => (item.enable ? onClick(item) : soon())}
+      style={[styles.brick, {borderBottomWidth: isLast ? 0 : 1}]}>
       <Image
         source={item.backgroundImage}
         resizeMode="contain"
@@ -70,11 +101,7 @@ export default function CardListItem(item) {
           {t(item.title)}
         </Text>
       </View>
-      {item.module ? (
-        <Icon name="arrow-forward" size={20} color="gray" />
-      ) : (
-        <Icon2 name="external-link" size={20} color="gray" />
-      )}
+      {renderType()}
     </TouchableOpacity>
   );
 }
