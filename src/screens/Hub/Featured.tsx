@@ -17,25 +17,15 @@ export default function Featured() {
         //@ts-ignore
         onClick={() => navigation.navigate('SwapScreen')}
         imageURI={'https://coingrig.com/images/assets/coinsi.png'}
-        category={'FEATURED'}
-        title={'Connected to 30 DEXs'}
-        //Conectat la 30 DEX-uri
-        //Connecté à 30 DEXs
-        desc={
-          'Coingrig Swap can query and use multiple DEXs to find the swap with the best price for you.'
-          // Coingrig Swap peut interroger et utiliser plusieurs DEX pour trouver le swap avec le meilleur prix pour vous.
-          // Coingrig Swap poate interoga și utiliza mai multe DEX-uri pentru a găsi schimbul cu cel mai bun preț pentru tine.
-        }
+        category={t('hub.featured').toUpperCase()}
+        title={t('hub.featured.title')}
+        desc={t('hub.featured.description')}
       />
       <CardList
         data={apps.filter(app => app.categories?.includes('featured'))}
-        title={t('Shortcuts for your needs')}
-        category={t('SHORTCUTS')}
+        title={t('hub.shortcuts.description')}
+        category={t('hub.shortcuts').toUpperCase()}
       />
     </ScrollView>
   );
 }
-
-// Shortcuts for your needs
-// Des raccourcis adaptés à vos besoins
-// Comenzi rapide pentru nevoile dvs

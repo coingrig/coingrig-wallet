@@ -13,13 +13,13 @@ export default function Defi() {
 
   return (
     <ScrollView contentContainerStyle={styles.scrollview}>
-      <Separator title={'MODULES'} />
+      <Separator title={t('hub.modules').toUpperCase()} />
       <CardList
         data={data.filter(app => app.module)}
         title={null}
         category={null}
       />
-      <Separator title={'EXTERNAL LINKS'} />
+      <Separator title={t('hub.external_links').toUpperCase()} />
       <CardList
         data={data.filter(app => !app.module)}
         category={null}

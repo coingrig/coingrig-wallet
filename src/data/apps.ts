@@ -191,7 +191,7 @@ const apps = [
   },
   {
     title: 'AAVE',
-    screen: 'https://www.aave.com/',
+    screen: 'https://app.aave.com/',
     backgroundImage: require('../assets/hub/aave.png'),
     keywords: 'ceva',
     categories: ['defi'],
