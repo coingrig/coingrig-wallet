@@ -1,6 +1,26 @@
 PODS:
+  - appcenter-analytics (4.4.3):
+    - AppCenter/Analytics (~> 4.0)
+    - AppCenterReactNativeShared (~> 4.0)
+    - React-Core
+  - appcenter-core (4.4.3):
+    - AppCenterReactNativeShared (~> 4.0)
+    - React-Core
+  - appcenter-crashes (4.4.3):
+    - AppCenter/Crashes (~> 4.0)
+    - AppCenterReactNativeShared (~> 4.0)
+    - React-Core
+  - AppCenter/Analytics (4.4.1):
+    - AppCenter/Core
+  - AppCenter/Core (4.4.1)
+  - AppCenter/Crashes (4.4.1):
+    - AppCenter/Core
+  - AppCenterReactNativeShared (4.4.3):
+    - AppCenter/Core (= 4.4.1)
   - boost-for-react-native (1.63.0)
   - CocoaAsyncSocket (7.6.5)
+  - coingrig-wallet-generator (0.1.7):
+    - React-Core
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.64.2)
   - FBReactNativeSpec (0.64.2):
@@ -71,6 +91,7 @@ PODS:
   - lottie-react-native (4.0.3):
     - lottie-ios (~> 3.2.3)
     - React-Core
+  - OneSignalXCFramework (3.10.0)
   - OpenSSL-Universal (1.1.180)
   - Permission-Camera (3.0.5):
     - RNPermissions
@@ -277,6 +298,9 @@ PODS:
     - React-Core
   - react-native-encrypted-storage (4.0.2):
     - React-Core
+  - react-native-onesignal (4.3.4):
+    - OneSignalXCFramework (= 3.10.0)
+    - React (< 1.0.0, >= 0.13.0)
   - react-native-pager-view (5.4.1):
     - React-Core
   - react-native-randombytes (3.6.1):
@@ -414,9 +438,9 @@ PODS:
     - React
   - RNVectorIcons (7.1.0):
     - React
-  - SDWebImage (5.12.1):
-    - SDWebImage/Core (= 5.12.1)
-  - SDWebImage/Core (5.12.1)
+  - SDWebImage (5.12.3):
+    - SDWebImage/Core (= 5.12.3)
+  - SDWebImage/Core (5.12.3)
   - SDWebImageWebPCoder (0.6.1):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.7)
@@ -427,6 +451,10 @@ PODS:
     - Yoga (~> 1.14)
 
 DEPENDENCIES:
+  - appcenter-analytics (from `../node_modules/appcenter-analytics/ios`)
+  - appcenter-core (from `../node_modules/appcenter/ios`)
+  - appcenter-crashes (from `../node_modules/appcenter-crashes/ios`)
+  - "coingrig-wallet-generator (from `../node_modules/@coingrig/wallet-generator`)"
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
@@ -468,6 +496,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-encrypted-storage (from `../node_modules/react-native-encrypted-storage`)
+  - react-native-onesignal (from `../node_modules/react-native-onesignal`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-randombytes (from `../node_modules/react-native-randombytes`)
   - react-native-restart (from `../node_modules/react-native-restart`)
@@ -506,6 +535,8 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AppCenter
+    - AppCenterReactNativeShared
     - boost-for-react-native
     - CocoaAsyncSocket
     - Flipper
@@ -517,12 +548,21 @@ SPEC REPOS:
     - FlipperKit
     - libevent
     - libwebp
+    - OneSignalXCFramework
     - OpenSSL-Universal
     - SDWebImage
     - SDWebImageWebPCoder
     - YogaKit
 
 EXTERNAL SOURCES:
+  appcenter-analytics:
+    :path: "../node_modules/appcenter-analytics/ios"
+  appcenter-core:
+    :path: "../node_modules/appcenter/ios"
+  appcenter-crashes:
+    :path: "../node_modules/appcenter-crashes/ios"
+  coingrig-wallet-generator:
+    :path: "../node_modules/@coingrig/wallet-generator"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
@@ -563,6 +603,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-camera"
   react-native-encrypted-storage:
     :path: "../node_modules/react-native-encrypted-storage"
+  react-native-onesignal:
+    :path: "../node_modules/react-native-onesignal"
   react-native-pager-view:
     :path: "../node_modules/react-native-pager-view"
   react-native-randombytes:
@@ -635,11 +677,17 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  AppCenter: b0b6f1190215b5f983c42934db718f3b46fff3c0
+  appcenter-analytics: 1b32062da2e250c5e1396c678df8c6011ccbcf5a
+  appcenter-core: 6ea4754df4a3d8917a5803e2681a58179d7f7a21
+  appcenter-crashes: b079913ac0f0059e6cf39b7a805135223e508666
+  AppCenterReactNativeShared: ac6961204492735ce2507df0a14ce59b13e9c1c5
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
+  coingrig-wallet-generator: 6720d1049ffcd4d2e1fa28b01bb4f8884acb4c26
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: e686045572151edef46010a6f819ade377dfeb4b
-  FBReactNativeSpec: 5a6b75a68b0b65cdcb7a94b7880e0b0f866bfd50
+  FBReactNativeSpec: 37de99801d270ffdb015ceab8cf244ed6ac0cdc2
   Flipper: d3da1aa199aad94455ae725e9f3aa43f3ec17021
   Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
   Flipper-Folly: 755929a4f851b2fb2c347d533a23f191b008554c
@@ -652,6 +700,7 @@ SPEC CHECKSUMS:
   libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
   lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
   lottie-react-native: 96361a9891cf651534ea35c4f85f33d4cf14ed13
+  OneSignalXCFramework: 10648e60ff3d335fbffa62d9b44b700b56d49b51
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
   Permission-Camera: ac603073e4128e51e6ca3c39129778f05b4082fa
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
@@ -667,6 +716,7 @@ SPEC CHECKSUMS:
   React-jsinspector: cc614ec18a9ca96fd275100c16d74d62ee11f0ae
   react-native-camera: fdfefd4139bbbb53f69e8b6fde1ee549b524eb88
   react-native-encrypted-storage: e78d848ce0fb663c2ce306e37921d026809322e6
+  react-native-onesignal: 9e10487bcba41ebcb4655b45d9bdd0b63f5e220f
   react-native-pager-view: 43f51f45f37ec9715f6c188e4af46ccdf79872e8
   react-native-randombytes: 421f1c7d48c0af8dbcd471b0324393ebf8fe7846
   react-native-restart: 733a51ad137f15b0f8dc34c4082e55af7da00979
@@ -700,12 +750,12 @@ SPEC CHECKSUMS:
   RNSmartCode: b7410d659677d180a640e850e15eb4980d744d70
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   RNVectorIcons: bc69e6a278b14842063605de32bec61f0b251a59
-  SDWebImage: 4dc3e42d9ec0c1028b960a33ac6b637bb432207b
+  SDWebImage: 53179a2dba77246efa8a9b85f5c5b21f8f43e38f
   SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
   TouchID: ba4c656d849cceabc2e4eef722dea5e55959ecf4
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 2379ffdef8f392d2f93fd5d042782d221483ca02
+PODFILE CHECKSUM: 3295e359a00159b60fc6246c0c0c910c7114c6fb
 
 COCOAPODS: 1.11.2

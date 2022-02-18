@@ -28,13 +28,17 @@ import WalletScreen from 'screens/Wallet';
 import MarketScreen from 'screens/Market';
 import PortfolioScreen from 'screens/Portfolio';
 import NewsScreen from 'screens/News';
-import CoinDetailScreen from './screens/CoinDetails';
-import OnBoardingScreen from './screens/Onboarding';
-import WalletconnectScreen from './screens/Walletconnect';
-import CustomTokenScreen from './screens/CustomToken';
+import CoinDetailScreen from 'screens/CoinDetails';
+import OnBoardingScreen from 'screens/Onboarding';
+import WalletconnectScreen from 'screens/Walletconnect';
+import CustomTokenScreen from 'screens/CustomToken';
+import TokenConnectScreen from 'screens/TokenConnect';
+import NFTScreen from 'screens/Portfolio/NFTDetails';
 
 import {Colors} from 'utils/colors';
 import CONFIG from 'config';
+import styles from './styles';
+import SyntheticScreen from 'screens/Synthetic';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -70,12 +74,12 @@ const TabLogo = (inverse = false) => {
         alignItems: 'center',
       }}>
       <Image
-        source={require('./assets/logo_small.png')}
+        source={require('../assets/logo_small.png')}
         style={{
           height: 280 / 13,
           width: 279 / 13,
           tintColor: inverse ? Colors.foreground : Colors.background,
-          marginLeft: 3,
+          // marginLeft: 3,
         }}
       />
     </View>
@@ -91,7 +95,7 @@ const SmallLogo = () => {
         alignItems: 'center',
       }}>
       <Image
-        source={require('./assets/logo_small.png')}
+        source={require('../assets/logo_small.png')}
         style={{
           height: 280 / 13,
           width: 279 / 13,
@@ -108,8 +112,8 @@ function BottomTabs() {
   return (
     <Tab.Navigator
       initialRouteName="Dashboard"
-      headerMode="screen"
       //@ts-ignore
+      headerMode="screen"
       screenOptions={({route}) => ({
         tabBarShowLabel: false,
         tabBarActiveTintColor: '#FFFFFF',
@@ -131,9 +135,9 @@ function BottomTabs() {
             return focused ? TabLogo(false) : TabLogo(true);
           } else if (route.name === 'PortfolioScreen') {
             return focused ? (
-              <Icon name="wallet" size={24} color={Colors.inverse} />
+              <Icon name="wallet" size={25} color={Colors.inverse} />
             ) : (
-              <Icon name="wallet" size={24} color={Colors.foreground} />
+              <Icon name="wallet" size={25} color={Colors.foreground} />
             );
           } else if (route.name === 'HubScreen') {
             return focused ? (
@@ -220,34 +224,22 @@ function NavigationStack({t}) {
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
-        options={{
-          headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
-        }}
+        options={styles.noAnim}
       />
       <Stack.Screen
         name="OnBoardingScreen"
         component={OnBoardingScreen}
-        options={{
-          headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
-        }}
+        options={styles.noAnim}
       />
       <Stack.Screen
         name="StartScreen"
         component={StartScreen}
-        options={{
-          headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
-        }}
+        options={styles.noAnim}
       />
       <Stack.Screen
         name="SetPinScreen"
         component={SetPinScreen}
-        options={{
-          headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
-        }}
+        options={styles.noAnim}
       />
       <Stack.Screen
         name="ReEnterPinScreen"
@@ -261,10 +253,7 @@ function NavigationStack({t}) {
       <Stack.Screen
         name="EnterPinScreen"
         component={EnterPinScreen}
-        options={{
-          headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
-        }}
+        options={styles.noAnim}
       />
       <Stack.Screen
         name="GenerateWalletScreen"
@@ -302,65 +291,29 @@ function NavigationStack({t}) {
       <Stack.Screen
         name="ValidateWalletScreen"
         component={ValidateWalletScreen}
-        options={{
-          headerShown: false,
-          title: '',
-          headerStyle: {
-            shadowColor: 'transparent', // ios
-            elevation: 0, // android
-          },
-          headerTintColor: Colors.foreground,
-          headerBackTitleVisible: false,
-          headerBackTitleStyle: {
-            fontFamily: 'RobotoSlab-Regular',
-          },
-          headerTitleStyle: {
-            fontWeight: '400',
-
-            fontFamily: 'RobotoSlab-Regular',
-            fontSize: 19,
-            justifyContent: 'center',
-          },
-        }}
+        options={styles.importWallet}
       />
       <Stack.Screen
         name="ImportWalletScreen"
         component={ImportWalletScreen}
-        options={{
-          headerShown: false,
-          title: '',
-          headerStyle: {
-            shadowColor: 'transparent', // ios
-            elevation: 0, // android
-          },
-          headerTintColor: Colors.foreground,
-          headerBackTitleVisible: false,
-          headerBackTitleStyle: {
-            fontFamily: 'RobotoSlab-Regular',
-          },
-          headerTitleStyle: {
-            fontWeight: '400',
-
-            fontFamily: 'RobotoSlab-Regular',
-            fontSize: 19,
-            justifyContent: 'center',
-          },
-        }}
+        options={styles.importWallet}
       />
       <Stack.Screen
         name="HomeScreens"
         component={BottomTabs}
-        options={{
-          headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
-        }}
+        options={styles.noAnim}
       />
       <Stack.Screen
         name="WalletScreen"
         component={WalletScreen}
+        options={styles.walletscreen}
+      />
+      <Stack.Screen
+        name="NewsScreen"
+        component={NewsScreen}
         options={{
           headerShown: true,
-          headerTitle: '',
+          headerTitle: t('title.news'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
@@ -381,11 +334,11 @@ function NavigationStack({t}) {
         }}
       />
       <Stack.Screen
-        name="NewsScreen"
-        component={NewsScreen}
+        name="SyntheticScreen"
+        component={SyntheticScreen}
         options={{
           headerShown: true,
-          headerTitle: t('title.news'),
+          headerTitle: t('hub.synthetics'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
@@ -474,6 +427,40 @@ function NavigationStack({t}) {
         }}
       />
       <Stack.Screen
+        name="TokenConnectScreen"
+        component={TokenConnectScreen}
+        options={{
+          presentation: 'modal',
+          headerBackImage: () => (
+            <Icon
+              name="close"
+              size={30}
+              color={Colors.foreground}
+              style={{paddingLeft: 10}}
+            />
+          ),
+          headerShown: true,
+          headerTitle: t('token_connect.title'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
         name="CustomTokenScreen"
         component={CustomTokenScreen}
         options={{
@@ -511,7 +498,17 @@ function NavigationStack({t}) {
         name="SwapScreen"
         component={SwapScreen}
         options={{
-          headerShown: true,
+          // animationEnabled: Platform.OS === 'ios' ? true : false,
+          headerShown: false,
+          presentation: Platform.OS === 'ios' ? 'modal' : 'card',
+        }}
+      />
+      <Stack.Screen
+        name="NFTScreen"
+        component={NFTScreen}
+        options={{
+          headerShown: false,
+          presentation: 'modal',
           headerTitle: t('title.swap'),
           headerStyle: {
             backgroundColor: Colors.darker,

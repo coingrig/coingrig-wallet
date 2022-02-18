@@ -24,6 +24,16 @@ export const styles = StyleSheet.create({
     marginTop: 5,
     color: Colors.lighter,
   },
+  badge: {
+    position: 'absolute',
+    width: 8,
+    height: 8,
+    backgroundColor: 'red',
+    zIndex: 10,
+    borderRadius: 10,
+    top: 20,
+    left: 15,
+  },
   textItem: {marginLeft: 10, color: Colors.foreground, flex: 3},
   title: {
     fontSize: 35,
@@ -33,10 +43,11 @@ export const styles = StyleSheet.create({
     marginLeft: 20,
   },
   subtitle: {
-    fontSize: 16,
-    fontFamily: 'RobotoSlab-Bold',
+    fontSize: 13,
+    marginLeft: 10,
+    // fontFamily: 'RobotoSlab-Bold',
     color: Colors.lighter,
-    marginVertical: 10,
+    marginVertical: 5,
   },
   item: {
     backgroundColor: Colors.card,

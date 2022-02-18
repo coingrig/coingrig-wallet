@@ -35,6 +35,16 @@ export const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 10,
   },
+  manual_note: {
+    textAlign: 'center',
+    color: Colors.lighter,
+    width: '80%',
+    alignSelf: 'center',
+    fontSize: 13,
+    marginTop: 0,
+    marginBottom: 10,
+    lineHeight: 18,
+  },
   title: {
     fontSize: 25,
     fontFamily: 'RobotoSlab-Bold',
@@ -123,7 +133,7 @@ export const styles = StyleSheet.create({
   subTitle: {
     flex: 1,
     fontSize: 18,
-    fontFamily: 'RobotoSlab-Bold',
+    fontWeight: 'bold',
     color: Colors.foreground,
     marginLeft: 20,
   },

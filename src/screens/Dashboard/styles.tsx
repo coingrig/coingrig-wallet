@@ -19,6 +19,14 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     marginTop: 20,
   },
+  badge: {
+    position: 'absolute',
+    width: 10,
+    height: 10,
+    backgroundColor: 'red',
+    zIndex: 10,
+    borderRadius: 10,
+  },
   bottomContainer: {
     flex: 1,
   },
@@ -29,7 +37,7 @@ export const styles = StyleSheet.create({
   },
   icons: {marginTop: 15, marginLeft: 25},
   subtitle: {
-    fontSize: 16,
+    fontSize: 15,
     fontFamily: 'RobotoSlab-Regular',
     color: Colors.lighter,
     marginLeft: 10,

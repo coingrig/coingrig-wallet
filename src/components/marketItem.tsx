@@ -68,15 +68,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   coinSymbol: {
-    fontSize: 13,
+    fontSize: 12,
     marginBottom: 5,
-    fontFamily: 'RobotoSlab-Regular',
     color: Colors.lighter,
-  },
-  chart: {
-    paddingRight: 0,
-    paddingBottom: 20,
-    paddingTop: 20,
   },
   mcontainer: {
     flexDirection: 'column',
@@ -84,16 +78,10 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     flex: 1.5,
   },
-  chartContainer: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    marginLeft: 0,
-    flex: 1,
-  },
   coinName: {
     fontSize: 15,
     marginBottom: 2,
-    fontFamily: 'RobotoSlab-Bold',
+    fontWeight: 'bold',
     color: Colors.foreground,
   },
   price: {

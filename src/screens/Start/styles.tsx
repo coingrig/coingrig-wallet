@@ -14,21 +14,29 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: -5,
   },
+  waves2: {
+    height: '69%',
+    width: '160%',
+    margin: 0,
+    bottom: 0,
+    position: 'absolute',
+    zIndex: -5,
+  },
   logo: {
-    fontFamily: 'RobotoSlab-Bold',
-    fontSize: 45,
+    // fontFamily: 'RobotoSlab-Light',
+    fontSize: 19,
     letterSpacing: 1,
     marginTop: 20,
   },
   topContainer: {
-    flex: 4,
+    flex: 3,
     alignItems: 'center',
     justifyContent: 'center',
   },
   bottomContainer: {
     flex: 2,
     justifyContent: 'flex-end',
-    marginBottom: 50,
+    marginBottom: 40,
   },
   subtitle: {
     fontFamily: 'RobotoSlab-Regular',

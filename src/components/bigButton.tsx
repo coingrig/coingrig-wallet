@@ -22,17 +22,17 @@ export function BigButton(props) {
 
 const styles = StyleSheet.create({
   bigBtn: {
-    borderWidth: 1,
+    borderWidth: 0.5,
     padding: 15,
     borderRadius: 30,
     paddingHorizontal: 20,
     alignSelf: 'center',
     margin: 5,
-    minWidth: 280,
+    minWidth: 250,
     borderColor: Colors.foreground,
   },
   bigBtnText: {
-    fontSize: 22,
+    fontSize: 20,
     fontFamily: 'RobotoSlab-Bold',
     textAlign: 'center',
   },

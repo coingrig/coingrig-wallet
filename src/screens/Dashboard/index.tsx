@@ -2,14 +2,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useCallback, useEffect, useState} from 'react';
 import {
+  DeviceEventEmitter,
   RefreshControl,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-// import {useNavigation} from '@react-navigation/native';
-
 import {WalletStore} from 'stores/wallet';
 import {CryptoService} from 'services/crypto';
 import DeepLinkService from 'services/deeplink';
@@ -19,16 +18,18 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon2 from 'react-native-vector-icons/Entypo';
 import Icon3 from 'react-native-vector-icons/Ionicons';
 import {ListPrices} from 'components/widgets/listPrices';
-import {formatPrice} from '../../utils';
+import {formatPrice, sleep} from '../../utils';
 import {observer} from 'mobx-react-lite';
 import {Loader} from 'components/loader';
-import {LoadingModal} from 'services/loading';
+import NotificationService from 'services/notifications';
 import {styles} from './styles';
 import {Colors} from 'utils/colors';
 import {showMessage} from 'react-native-flash-message';
 import {CONFIG_MODULES, CONFIG_PROPERTIES, ConfigStore} from 'stores/config';
 import AppsStateService from 'services/appStates';
 import {useNavigation} from '@react-navigation/native';
+import {SettingsStore} from 'stores/settings';
+// import CustomModal from 'components/Modal';
 
 const DashboardScreen = observer(() => {
   const {t} = useTranslation();
@@ -38,6 +39,7 @@ const DashboardScreen = observer(() => {
 
   useEffect(() => {
     AppsStateService.coldStart = false;
+    // LoadingModal.door.current?.count = 2;
     if (DeepLinkService.data) {
       DeepLinkService.handleDeepLink(DeepLinkService.data);
     }
@@ -46,6 +48,7 @@ const DashboardScreen = observer(() => {
         <TouchableOpacity
           onPress={() => navigation.navigate('SettingScreen')}
           style={styles.moreBtn}>
+          {SettingsStore.mnemonicBackupDone ? null : badge()}
           <Icon3 name="settings-sharp" size={23} color={Colors.foreground} />
         </TouchableOpacity>
       ),
@@ -58,7 +61,9 @@ const DashboardScreen = observer(() => {
         false,
       ),
     );
-  }, []);
+  }, [SettingsStore.mnemonicBackupDone]);
+
+  const badge = () => <View style={styles.badge} />;
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
@@ -74,8 +79,9 @@ const DashboardScreen = observer(() => {
       });
     }
     setRefreshing(false);
-    //@ts-ignore
-    LoadingModal.instance.current?.hide();
+    DeviceEventEmitter.emit('hideDoor');
+    await sleep(2000);
+    NotificationService.askForPermission();
   }, []);
 
   const Marketing = () => {
@@ -177,6 +183,7 @@ const DashboardScreen = observer(() => {
         />
       }>
       {preRender()}
+      {/* <CustomModal show={true} /> */}
     </ScrollView>
   );
 });

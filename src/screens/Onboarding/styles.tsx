@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 12,
+    paddingVertical: 10,
     paddingHorizontal: 32,
     borderRadius: 20,
     elevation: 3,
