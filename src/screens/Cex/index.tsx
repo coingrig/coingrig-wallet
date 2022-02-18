@@ -9,7 +9,8 @@ export default function CEXScreen() {
   }, []);
 
   const test = async () => {
-    const balance = await CexService.getBalance('binance');
+    // console.log(CexService.exchanges);
+    const balance = await CexService.getBalance('coinbase');
     Logs.info(balance);
   };
 
