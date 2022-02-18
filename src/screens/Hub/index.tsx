@@ -65,7 +65,7 @@ const HubScreen = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{paddingRight: 20}}
-          style={{paddingTop: 15, paddingHorizontal: 11, paddingBottom: 5}}>
+          style={{paddingTop: 15, paddingHorizontal: 10, paddingBottom: 10}}>
           {HubCatgories.map(item => bubble(item))}
         </ScrollView>
       </View>
