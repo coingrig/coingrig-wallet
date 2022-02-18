@@ -39,6 +39,7 @@ import {Colors} from 'utils/colors';
 import CONFIG from 'config';
 import styles from './styles';
 import SyntheticScreen from 'screens/Synthetic';
+import CEXScreen from 'screens/Cex';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -314,6 +315,31 @@ function NavigationStack({t}) {
         options={{
           headerShown: true,
           headerTitle: t('title.news'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="CEXScreen"
+        component={CEXScreen}
+        options={{
+          headerShown: true,
+          headerTitle: t('title.cex'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios

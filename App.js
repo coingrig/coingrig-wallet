@@ -7,6 +7,8 @@ import AppsStateService from './src/services/appStates';
 import NotificationServices from './src/services/notifications';
 // eslint-disable-next-line no-unused-vars
 import DeepLinkService from './src/services/deeplink';
+// eslint-disable-next-line no-unused-vars
+import CexService from 'services/cex';
 import {MenuProvider} from 'react-native-popup-menu';
 import {NavigationScreens} from './src/routes';
 import {SafeAreaProvider} from 'react-native-safe-area-context';

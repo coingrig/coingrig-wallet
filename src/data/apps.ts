@@ -81,12 +81,12 @@ const apps = [
   },
   {
     title: 'hub.cexconnector',
-    screen: 'ConnectorCEXScreen',
+    screen: 'CEXScreen',
     backgroundImage: require('../assets/hub/cex.png'),
     keywords: 'connector, cex, binance',
     categories: ['connectors'],
     description: 'hub.cexconnector.description',
-    enable: false,
+    enable: true,
     module: true,
   },
   {
