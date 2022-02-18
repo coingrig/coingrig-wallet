@@ -1,7 +1,9 @@
 
 # 🅒🅖🅦 Coingrig Mobile Wallet
-Next-Gen Crypto Wallet. A powerful crypto wallet for everyone,
-unique features and open source
+Next-Gen Crypto Wallet. A powerful crypto wallet for everyone with unique features.
+
+You are granted a limited non-exclusive license to inspect and study the code in this repository.  
+You may not use this code in a commercial scope, please read our licence.  
 
 ### Building Locally
 
@@ -61,7 +63,7 @@ This library has adopted a Code of Conduct that we expect project participants t
 
 The Coingrig Wallet is licensed under the [License](LICENSE).
 
-
+If you are interested in a commercial starter kit please contact us.  
 
 Follow us on [Twitter](https://twitter.com/coingrig)
 

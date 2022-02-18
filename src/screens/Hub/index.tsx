@@ -54,7 +54,7 @@ const HubScreen = () => {
     <View style={styles.container}>
       <View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={styles.title}>{t('Hub')} </Text>
+          <Text style={styles.title}>{t('hub.title')} </Text>
           <Text style={styles.subtitle}>
             {apps.length + ' ' + t('hub.modules')}
           </Text>
@@ -65,7 +65,7 @@ const HubScreen = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{paddingRight: 20}}
-          style={{paddingTop: 15, paddingHorizontal: 11, paddingBottom: 5}}>
+          style={{paddingTop: 15, paddingHorizontal: 10, paddingBottom: 10}}>
           {HubCatgories.map(item => bubble(item))}
         </ScrollView>
       </View>

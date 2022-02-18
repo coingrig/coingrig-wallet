@@ -13,7 +13,7 @@ export default function Connectors() {
 
   return (
     <ScrollView contentContainerStyle={styles.scrollview}>
-      <Separator title={'MODULES'} />
+      <Separator title={t('hub.modules').toUpperCase()} />
       <CardList
         data={data.filter(app => app.module)}
         title={null}
