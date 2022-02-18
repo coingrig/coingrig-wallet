@@ -133,7 +133,7 @@ export const styles = StyleSheet.create({
   subTitle: {
     flex: 1,
     fontSize: 18,
-    fontFamily: 'RobotoSlab-Bold',
+    fontWeight: 'bold',
     color: Colors.foreground,
     marginLeft: 20,
   },

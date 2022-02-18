@@ -43,10 +43,11 @@ export const styles = StyleSheet.create({
     marginLeft: 20,
   },
   subtitle: {
-    fontSize: 16,
-    fontFamily: 'RobotoSlab-Bold',
+    fontSize: 13,
+    marginLeft: 10,
+    // fontFamily: 'RobotoSlab-Bold',
     color: Colors.lighter,
-    marginVertical: 10,
+    marginVertical: 5,
   },
   item: {
     backgroundColor: Colors.card,

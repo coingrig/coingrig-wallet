@@ -96,7 +96,9 @@ const SettingScreen = observer(() => {
         contentContainerStyle={styles.scrollview}
         showsVerticalScrollIndicator={false}>
         <View>
-          <Text style={styles.subtitle}>{t('settings.wallet')}</Text>
+          <Text style={styles.subtitle}>
+            {t('settings.wallet').toUpperCase()}
+          </Text>
           <TouchableOpacity
             style={styles.item}
             onPress={() => {
@@ -147,7 +149,9 @@ const SettingScreen = observer(() => {
           </Text>
         </View>
         <View>
-          <Text style={styles.subtitle}>{t('settings.about')}</Text>
+          <Text style={styles.subtitle}>
+            {t('settings.about').toUpperCase()}
+          </Text>
           <TouchableOpacity
             style={styles.item}
             onPress={() => openLink('https://coingrig.com/privacy')}>

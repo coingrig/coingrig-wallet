@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     overflow: 'hidden',
   },
+  scrollview: {marginTop: 10, marginHorizontal: 16},
   title: {
     fontSize: 35,
     fontFamily: 'RobotoSlab-Bold',
@@ -75,21 +76,12 @@ export const styles = StyleSheet.create({
   },
   brick: {
     flex: 1,
-    flexDirection: 'column',
-    margin: 7,
-    height: 130,
-    backgroundColor: Colors.card,
-    borderRadius: 10,
-    borderWidth: 0.5,
-    borderColor: Colors.border,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-
-    elevation: 2,
+    flexDirection: 'row',
+    alignContent: 'center',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.border,
+    height: 70,
+    justifyContent: 'space-between',
   },
 });
