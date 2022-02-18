@@ -256,7 +256,7 @@
       "swap.error.swap_not_found": "Pas de swap disponible maintenant pour cette paire!",
       "swap.error.not_enough_balance": "Pas assez de solde pour le swap ou pour les frais!",
       "swap.error.swap_chain_not_supported": "La reseaux que vous demandez n'est pas prise en charge!",
-      "swap.coingrig_fee": "Coingrig charge",
+      "swap.coingrig_fee": "Commission Coingrig",
 
       "nft.description": "Description",
       "nft.no_description": "Pas de description",
