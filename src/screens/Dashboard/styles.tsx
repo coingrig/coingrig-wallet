@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
   },
   icons: {marginTop: 15, marginLeft: 25},
   subtitle: {
-    fontSize: 16,
+    fontSize: 15,
     fontFamily: 'RobotoSlab-Regular',
     color: Colors.lighter,
     marginLeft: 10,

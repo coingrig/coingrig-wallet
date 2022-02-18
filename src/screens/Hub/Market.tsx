@@ -4,7 +4,7 @@ import {useTranslation} from 'react-i18next';
 import {ScrollView} from 'react-native-gesture-handler';
 import CardList from 'components/CardList';
 import {styles} from './styles';
-import External from 'components/CardList/External';
+import Separator from 'components/CardList/Separator';
 
 const marketData = apps.filter(app => app.categories?.includes('market'));
 
@@ -13,12 +13,13 @@ export default function MarketTab() {
 
   return (
     <ScrollView contentContainerStyle={styles.scrollview}>
+      <Separator title={'MODULES'} />
       <CardList
         data={marketData.filter(app => app.module)}
-        title={t('Trends, news and market data')}
-        category={t('MARKET')}
+        title={null}
+        category={null}
       />
-      <External />
+      <Separator title={'EXTERNAL LINKS'} />
       <CardList
         data={marketData.filter(app => !app.module)}
         category={null}

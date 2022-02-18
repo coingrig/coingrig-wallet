@@ -27,7 +27,7 @@ export default function Games() {
             justifyContent: 'center',
             alignSelf: 'center',
             opacity: 0.5,
-            marginTop: -100,
+            marginTop: -50,
           }}
         />
         <Text

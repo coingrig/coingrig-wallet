@@ -11,7 +11,7 @@ const apps = [
   {
     title: 'market.market',
     screen: 'MarketScreen',
-    backgroundImage: require('../assets/hub/share.png'),
+    backgroundImage: require('../assets/hub/chart.png'),
     keywords: 'market, piata, marche',
     categories: ['market', 'featured'],
     enable: true,
@@ -29,7 +29,7 @@ const apps = [
   {
     title: 'settings.walletconnect',
     screen: 'WalletconnectScreen',
-    backgroundImage: require('../assets/wc.png'),
+    backgroundImage: require('../assets/hub/wc.png'),
     keywords: 'walletconnect',
     categories: ['tools', 'defi', 'featured'],
     enable: true,
@@ -38,7 +38,7 @@ const apps = [
   {
     title: 'hub.synthetics',
     screen: 'SyntheticScreen',
-    backgroundImage: require('../assets/hub/paper_large.png'),
+    backgroundImage: require('../assets/hub/paper.png'),
     keywords: 'swap, schimb, exchange',
     categories: ['defi'],
     enable: true,
@@ -101,7 +101,7 @@ const apps = [
   {
     title: 'hub.portfolio_tracker',
     screen: '',
-    backgroundImage: require('../assets/hub/pointer.png'),
+    backgroundImage: require('../assets/hub/portfolio.png'),
     keywords: 'portfolio, portofoliu, tracker',
     categories: ['defi', 'tools'],
     enable: false,

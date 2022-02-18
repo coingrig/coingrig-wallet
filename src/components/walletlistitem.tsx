@@ -135,9 +135,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   coinName: {
-    fontSize: 16,
+    fontSize: 15,
     marginBottom: 0,
-    fontFamily: 'RobotoSlab-Bold',
+    // fontFamily: 'RobotoSlab-Bold',
+    fontWeight: 'bold',
     color: Colors.foreground,
   },
   balance: {

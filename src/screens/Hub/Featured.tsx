@@ -17,7 +17,7 @@ export default function Featured() {
         //@ts-ignore
         onClick={() => navigation.navigate('SwapScreen')}
         imageURI={'https://coingrig.com/images/assets/coinsi.png'}
-        category={'INFO'}
+        category={'FEATURED'}
         title={'Connected to 30 DEXs'}
         //Conectat la 30 DEX-uri
         //Connecté à 30 DEXs

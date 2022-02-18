@@ -4,6 +4,7 @@ import {useTranslation} from 'react-i18next';
 import {ScrollView} from 'react-native-gesture-handler';
 import CardList from 'components/CardList';
 import {styles} from './styles';
+import Separator from 'components/CardList/Separator';
 
 const data = apps.filter(app => app.categories?.includes('connectors'));
 
@@ -12,10 +13,11 @@ export default function Connectors() {
 
   return (
     <ScrollView contentContainerStyle={styles.scrollview}>
+      <Separator title={'MODULES'} />
       <CardList
         data={data.filter(app => app.module)}
-        title={t('Trends, news and market data')}
-        category={t('CONNECTORS')}
+        title={null}
+        category={null}
       />
       <CardList
         data={data.filter(app => !app.module)}

@@ -3,16 +3,16 @@ import {Text} from 'react-native';
 import React from 'react';
 import {Colors} from 'utils/colors';
 
-export default function External() {
+export default function Separator({title}) {
   return (
     <Text
       style={{
         color: Colors.lighter,
         margin: 10,
         marginLeft: 16,
-        fontSize: 14,
+        fontSize: 13,
       }}>
-      EXTERNAL
+      {title}
     </Text>
   );
 }
