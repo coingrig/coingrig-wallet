@@ -7,8 +7,8 @@ import {showMessage} from 'react-native-flash-message';
 import {useNavigation} from '@react-navigation/core';
 import {SmallButton} from 'components/smallButton';
 import {BigButton} from 'components/bigButton';
-import {WalletGenerator} from '@coingrig/core';
 import {Colors} from 'utils/colors';
+import {generateMnemonic} from '@coingrig/wallet-generator';
 
 const GenerateWalletScreen = () => {
   const {t} = useTranslation();
@@ -21,7 +21,8 @@ const GenerateWalletScreen = () => {
   }, []);
 
   const generateWallet = async () => {
-    let newMnemonic = WalletGenerator.generateMnemonic();
+    const words = 12; // or 24
+    const newMnemonic = await generateMnemonic(words);
     setMnemonic(newMnemonic);
   };
 

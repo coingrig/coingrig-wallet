@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
     elevation: 2,
   },
   brickTitle: {
-    fontSize: 15,
+    fontSize: 14,
     paddingHorizontal: 10,
     color: Colors.lighter,
     fontFamily: 'RobotoSlab-Medium',

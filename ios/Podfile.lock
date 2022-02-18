@@ -19,6 +19,8 @@ PODS:
     - AppCenter/Core (= 4.4.1)
   - boost-for-react-native (1.63.0)
   - CocoaAsyncSocket (7.6.5)
+  - coingrig-wallet-generator (0.1.7):
+    - React-Core
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.64.2)
   - FBReactNativeSpec (0.64.2):
@@ -452,6 +454,7 @@ DEPENDENCIES:
   - appcenter-analytics (from `../node_modules/appcenter-analytics/ios`)
   - appcenter-core (from `../node_modules/appcenter/ios`)
   - appcenter-crashes (from `../node_modules/appcenter-crashes/ios`)
+  - "coingrig-wallet-generator (from `../node_modules/@coingrig/wallet-generator`)"
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
@@ -558,6 +561,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/appcenter/ios"
   appcenter-crashes:
     :path: "../node_modules/appcenter-crashes/ios"
+  coingrig-wallet-generator:
+    :path: "../node_modules/@coingrig/wallet-generator"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
@@ -679,9 +684,10 @@ SPEC CHECKSUMS:
   AppCenterReactNativeShared: ac6961204492735ce2507df0a14ce59b13e9c1c5
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
+  coingrig-wallet-generator: 6720d1049ffcd4d2e1fa28b01bb4f8884acb4c26
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: e686045572151edef46010a6f819ade377dfeb4b
-  FBReactNativeSpec: 6f4010c716a5b029c606cb6dc9ec523cdaeaa72c
+  FBReactNativeSpec: 5a6b75a68b0b65cdcb7a94b7880e0b0f866bfd50
   Flipper: d3da1aa199aad94455ae725e9f3aa43f3ec17021
   Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
   Flipper-Folly: 755929a4f851b2fb2c347d533a23f191b008554c
@@ -750,6 +756,6 @@ SPEC CHECKSUMS:
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 261d72b3fd2a751cdf1a044c1de16e08f8187fc1
+PODFILE CHECKSUM: 3295e359a00159b60fc6246c0c0c910c7114c6fb
 
 COCOAPODS: 1.11.2

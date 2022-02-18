@@ -364,6 +364,7 @@ class CryptoService {
         );
       }
     }
+    console.log(wallet);
     WalletStore.addWallet(wallet);
     this.getAccountBalance();
   };

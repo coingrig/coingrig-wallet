@@ -18,7 +18,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon2 from 'react-native-vector-icons/Entypo';
 import Icon3 from 'react-native-vector-icons/Ionicons';
 import {ListPrices} from 'components/widgets/listPrices';
-import {formatPrice} from '../../utils';
+import {formatPrice, sleep} from '../../utils';
 import {observer} from 'mobx-react-lite';
 import {Loader} from 'components/loader';
 import NotificationService from 'services/notifications';
@@ -61,7 +61,6 @@ const DashboardScreen = observer(() => {
         false,
       ),
     );
-    DeviceEventEmitter.emit('hideDoor');
   }, [SettingsStore.mnemonicBackupDone]);
 
   const badge = () => <View style={styles.badge} />;
@@ -80,6 +79,8 @@ const DashboardScreen = observer(() => {
       });
     }
     setRefreshing(false);
+    DeviceEventEmitter.emit('hideDoor');
+    await sleep(2000);
     NotificationService.askForPermission();
   }, []);
 

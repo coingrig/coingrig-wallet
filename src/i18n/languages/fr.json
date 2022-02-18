@@ -191,6 +191,7 @@
       "hub.create_nft": "Créer NFT",
       "hub.card": "Coingrig Card",
       "hub.connector": "Connectors",
+      "hub.synthetics": "Synthetics",
 
       "swap.you_pay": "Vous payez",
       "swap.you_get": "Vous recevez",
@@ -213,7 +214,7 @@
       "swap.message.swap_approved": "Autorisation d'échange confirmée!",
       "swap.message.swap_executed": "Swap exécuté!",
       "swap.error.swap_failed": "Le Swap n'a pas pu être effectué!",
-      "swap.error.swap_not_found": "Pas de swap disponible pour cette paire!",
+      "swap.error.swap_not_found": "Pas de swap disponible maintenant pour cette paire!",
       "swap.error.not_enough_balance": "Pas assez de solde pour le swap ou pour les frais!",
       "swap.error.swap_chain_not_supported": "La reseaux que vous demandez n'est pas prise en charge!",
       "swap.coingrig_fee": "Coingrig charge",
@@ -230,6 +231,8 @@
       "token_connect.swapintro_one": "Pour le swap souhaité, le token suivant doit être ajouté dans votre portefeuille",
       "token_connect.swapintro_other": "Pour le swap souhaité, les jetons suivants doivent être ajoutés dans votre portefeuille",
       "token_connect.add_asset_one": "Ajoutez token",
-      "token_connect.add_asset_other": "Ajoutez tokens"
+      "token_connect.add_asset_other": "Ajoutez tokens",
+
+      "synthetic.description": "Des tokens qui imitent le comportement des prix des actifs du monde réel."
   }
 }

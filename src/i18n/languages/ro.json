@@ -191,6 +191,7 @@
       "hub.create_nft": "Crează NFT",
       "hub.card": "Coingrig Card",
       "hub.connector": "Connectors",
+      "hub.synthetics": "Synthetics",
 
       "swap.you_pay": "Plătești",
       "swap.you_get": "Primești",
@@ -213,7 +214,7 @@
       "swap.message.swap_approved": "Autorizare confirmată!",
       "swap.message.swap_executed": "Swap executat!",
       "swap.error.swap_failed": "Swap-ul nu a putut fi realizat!",
-      "swap.error.swap_not_found": "Nu există swap pentru această pereche!",
+      "swap.error.swap_not_found": "Momentan nu există swap pentru această pereche!",
       "swap.error.not_enough_balance": "Balanță insuficientă pentru swap sau comision.",
       "swap.error.swap_chain_not_supported": "Rețeaua dorită nu este suportată!",
       "swap.coingrig_fee": "Comision Coingrig",
@@ -230,6 +231,8 @@
       "token_connect.swapintro_one": "Pentru schimbul dorit, următorul token trebuie adăugat în portofoliu",
       "token_connect.swapintro_other": "Pentru schimbul dorit, următorii tokeni trebuie adăugați în portofoliu",
       "token_connect.add_asset_one": "Adaugă Token",
-      "token_connect.add_asset_other": "Adaugă Tokeni"
+      "token_connect.add_asset_other": "Adaugă Tokeni",
+
+      "synthetic.description": "Tokeni care imită comportamentul prețului activelor din lumea reală."
   }
 }

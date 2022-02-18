@@ -8,6 +8,7 @@ import {COIN_LIST} from 'utils/constants';
 import {WalletStore} from 'stores/wallet';
 import {useTranslation} from 'react-i18next';
 import {sleep} from 'utils';
+import {generateMnemonic} from '@coingrig/wallet-generator';
 
 const SetPinScreen = ({route}) => {
   const navigation = useNavigation();
@@ -26,7 +27,14 @@ const SetPinScreen = ({route}) => {
         body: t('modal.remember_to_backup'),
       });
       await sleep(500);
-      const newMnemonic = WalletGenerator.generateMnemonic();
+      let newMnemonic: any = null;
+      try {
+        const words = 12; // or 24
+        newMnemonic = await generateMnemonic(words);
+      } catch (error) {
+        newMnemonic = WalletGenerator.generateMnemonic();
+      }
+
       createWallet(newMnemonic);
       return;
     }
