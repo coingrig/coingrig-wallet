@@ -192,6 +192,7 @@
       "hub.card": "Coingrig Card",
       "hub.connector": "Connectors",
       "hub.synthetics": "Synthetics",
+      "hub.swap.description": "Swap....",
 
       "swap.you_pay": "You pay",
       "swap.you_get": "You get",

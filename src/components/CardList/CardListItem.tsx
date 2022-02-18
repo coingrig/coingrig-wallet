@@ -73,7 +73,7 @@ export default function CardListItem(item, isLast) {
       />
       <View style={{flex: 1}}>
         <Text style={styles.itemTitle}>{t(item.title)}</Text>
-        <Text style={styles.desc}>{t(item.title)}</Text>
+        <Text style={styles.desc}>{t(item.description)}</Text>
       </View>
       {renderType()}
     </TouchableOpacity>
