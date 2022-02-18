@@ -40,7 +40,7 @@ const HubScreen = () => {
                 ? Colors.background
                 : Colors.foreground,
           }}>
-          {item.title}
+          {t(item.title)}
         </Text>
       </TouchableOpacity>
     );

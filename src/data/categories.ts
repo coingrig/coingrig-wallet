@@ -10,47 +10,47 @@ import MarketTab from '../screens/Hub/Market';
 
 const HubCatgories = [
   {
-    title: 'Featured',
+    title: 'hub.category.featured',
     component: Featured,
     enable: true,
   },
   {
-    title: 'Market',
+    title: 'hub.category.market',
     component: MarketTab,
     enable: true,
   },
   {
-    title: 'Defi',
+    title: 'hub.category.defi',
     component: Defi,
     enable: true,
   },
   {
-    title: 'Tools',
+    title: 'hub.category.tools',
     component: Tools,
     enable: true,
   },
   {
-    title: 'Connectors',
+    title: 'hub.category.connectors',
     component: Connectors,
     enable: true,
   },
   {
-    title: 'Card',
+    title: 'hub.category.card',
     component: Card,
     enable: true,
   },
   {
-    title: 'Shops',
+    title: 'hub.category.shops',
     component: Shops,
     enable: true,
   },
   {
-    title: 'DApps',
+    title: 'hub.category.dapps',
     component: DApps,
     enable: true,
   },
   {
-    title: 'Games',
+    title: 'hub.category.games',
     component: Games,
     enable: true,
   },
