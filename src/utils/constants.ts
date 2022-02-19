@@ -160,8 +160,3 @@ export const SYNTH_LIST = [
     img: 'https://assets.coingrig.com/images/synth/q.png',
   },
 ];
-
-export const CEX_LIST = {
-  binance: 'binance',
-  ftx: 'ftx',
-};

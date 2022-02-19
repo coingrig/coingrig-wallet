@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import apps from '../../data/apps';
@@ -10,14 +10,19 @@ import HubCatgories from '../../data/categories';
 
 const HubScreen = () => {
   const {t} = useTranslation();
+  const scrollRef: any = useRef();
   const [screen, setScreen] = useState(HubCatgories[0]);
 
-  const bubble = item => {
+  const bubble = (item, index) => {
     return (
       <TouchableOpacity
         key={item.title}
         onPress={() => {
           setScreen(item);
+          scrollRef.current?.scrollTo({
+            x: index * 70,
+            animated: true,
+          });
         }}
         style={{
           backgroundColor:
@@ -55,20 +60,21 @@ const HubScreen = () => {
       <View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text style={styles.title}>{t('hub.title')} </Text>
-          <Text style={styles.subtitle}>
-            {apps.length + ' ' + t('hub.modules')}
-          </Text>
+          <ScrollView
+            ref={scrollRef}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{paddingRight: 25}}
+            style={{
+              paddingTop: 10,
+              paddingHorizontal: 10,
+              paddingBottom: 10,
+            }}>
+            {HubCatgories.map((item, index) => bubble(item, index))}
+          </ScrollView>
         </View>
       </View>
-      <View>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{paddingRight: 20}}
-          style={{paddingTop: 15, paddingHorizontal: 10, paddingBottom: 10}}>
-          {HubCatgories.map(item => bubble(item))}
-        </ScrollView>
-      </View>
+
       <RenderScreen />
     </View>
   );

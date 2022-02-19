@@ -21,7 +21,7 @@ class CexService {
     }
     const b = await this.cex[cexID].fetchBalance();
     const balance: any = [];
-    console.log(b.total);
+    // console.log(b.total);
     for (const [key, v] of Object.entries(b.total)) {
       if (v > 0) {
         const {ask} = await this.cex[cexID].fetchTicker(key + '/USDT');
@@ -55,7 +55,7 @@ class CexService {
       keys = JSON.parse(keys);
       return [keys.apiKey, keys.secret];
     } else {
-      return [CONFIG.COINBASE.apiKey, CONFIG.COINBASE.secret];
+      return [CONFIG.BINANCE.apiKey, CONFIG.BINANCE.secret];
       //return null;
     }
   }
