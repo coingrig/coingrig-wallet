@@ -10,7 +10,7 @@ import InAppBrowser from 'react-native-inappbrowser-reborn';
 import {Logs} from 'services/logs';
 import {showMessage} from 'react-native-flash-message';
 
-export default function CardListItem(item, isLast) {
+export default function CardListItem(item, index, isLast) {
   const {t} = useTranslation();
   const navigation = useNavigation();
 
@@ -21,13 +21,17 @@ export default function CardListItem(item, isLast) {
     });
   };
 
-  const onClick = async item => {
-    if (item.module) {
-      navigation.navigate(item.screen);
+  const onClick = async itemData => {
+    if (itemData.module) {
+      if (itemData.params) {
+        navigation.navigate(itemData.screen, {data: index});
+      } else {
+        navigation.navigate(itemData.screen);
+      }
     } else {
       try {
         if (await InAppBrowser.isAvailable()) {
-          await InAppBrowser.open(item.screen, {
+          await InAppBrowser.open(itemData.screen, {
             dismissButtonStyle: 'cancel',
             readerMode: false,
             animated: true,
@@ -41,7 +45,7 @@ export default function CardListItem(item, isLast) {
             forceCloseOnRedirection: false,
           });
         } else {
-          Linking.openURL(item.screen);
+          Linking.openURL(itemData.screen);
         }
       } catch (error) {
         Logs.error(error);
@@ -66,11 +70,7 @@ export default function CardListItem(item, isLast) {
       key={item.title}
       onPress={() => (item.enable ? onClick(item) : soon())}
       style={[styles.brick, {borderBottomWidth: isLast ? 0 : 1}]}>
-      <Image
-        source={item.backgroundImage}
-        resizeMode="contain"
-        style={styles.ico}
-      />
+      <Image source={item.image} resizeMode="contain" style={styles.ico} />
       <View style={{flex: 1}}>
         <Text style={styles.itemTitle}>{t(item.title)}</Text>
         <Text style={styles.desc}>{t(item.description)}</Text>

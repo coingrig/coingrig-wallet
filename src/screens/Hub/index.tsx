@@ -29,6 +29,7 @@ const HubScreen = () => {
             screen.title === item.title ? Colors.foreground : Colors.darker,
           flex: 1,
           padding: 5,
+          height: 25,
           paddingHorizontal: 15,
           borderRadius: 15,
           marginHorizontal: 3,
@@ -60,19 +61,20 @@ const HubScreen = () => {
       <View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text style={styles.title}>{t('hub.title')} </Text>
-          <ScrollView
-            ref={scrollRef}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{paddingRight: 25}}
-            style={{
-              paddingTop: 10,
-              paddingHorizontal: 10,
-              paddingBottom: 10,
-            }}>
-            {HubCatgories.map((item, index) => bubble(item, index))}
-          </ScrollView>
+          <Text style={styles.subtitle}>
+            {apps.length + ' ' + t('hub.modules')}
+          </Text>
         </View>
+      </View>
+      <View>
+        <ScrollView
+          ref={scrollRef}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{paddingRight: 20}}
+          style={{paddingTop: 10, paddingHorizontal: 10, paddingBottom: 5}}>
+          {HubCatgories.map((item, index) => bubble(item, index))}
+        </ScrollView>
       </View>
 
       <RenderScreen />

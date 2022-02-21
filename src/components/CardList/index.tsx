@@ -32,7 +32,7 @@ const CardList = ({data, category, title}) => {
         ) : null}
       </View>
       {data.map((item, index) => {
-        return CardListItem(item, index === data.length - 1);
+        return CardListItem(item, index, index === data.length - 1);
       })}
     </View>
   );

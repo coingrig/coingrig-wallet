@@ -2,8 +2,11 @@ const CEX_LIST = [
   {
     id: 'binance',
     title: 'Binance',
-    screen: 'MarketScreen',
-    backgroundImage: require('../assets/hub/chart.png'),
+    screen: 'CexDetails',
+    params: true,
+    image: require('../assets/hub/chart.png'),
+    headerImage:
+      'https://public.bnbstatic.com/image/cms/blog/20220215/7dfbd14a-0f4f-4251-a3a3-74f7d5d832ce.png',
     description: 'hub.market.description',
     enable: true,
     module: true,
@@ -11,9 +14,11 @@ const CEX_LIST = [
   {
     id: 'ftx',
     title: 'FTX',
-    screen: 'MarketScreen',
-    backgroundImage: require('../assets/hub/chart.png'),
+    screen: 'CexDetails',
+    image: require('../assets/hub/chart.png'),
     description: 'hub.market.description',
+    headerImage: 'https://financialit.net/sites/default/files/binance_2.png',
+    params: true,
     enable: true,
     module: true,
   },

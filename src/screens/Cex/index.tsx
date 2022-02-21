@@ -25,9 +25,7 @@ export default function CEXScreen() {
   };
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.scrollview}
-      stickyHeaderIndices={[0]}>
+    <ScrollView contentContainerStyle={styles.scrollview}>
       {/* <CardImage
         //@ts-ignore
         onClick={null}

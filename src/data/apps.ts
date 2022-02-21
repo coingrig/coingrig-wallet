@@ -2,7 +2,7 @@ const apps = [
   {
     title: 'hub.swap',
     screen: 'SwapScreen',
-    backgroundImage: require('../assets/hub/swap.png'),
+    image: require('../assets/hub/swap.png'),
     keywords: 'swap, schimb, exchange',
     categories: ['defi', 'featured'],
     description: 'hub.swap.description',
@@ -12,7 +12,7 @@ const apps = [
   {
     title: 'market.market',
     screen: 'MarketScreen',
-    backgroundImage: require('../assets/hub/chart.png'),
+    image: require('../assets/hub/chart.png'),
     keywords: 'market, piata, marche',
     categories: ['market', 'featured'],
     description: 'hub.market.description',
@@ -22,7 +22,7 @@ const apps = [
   {
     title: 'title.news',
     screen: 'NewsScreen',
-    backgroundImage: require('../assets/hub/newspaper.png'),
+    image: require('../assets/hub/newspaper.png'),
     keywords: 'stiri, news, nouvelles',
     categories: ['market', 'featured'],
     description: 'hub.news.description',
@@ -32,7 +32,7 @@ const apps = [
   {
     title: 'settings.walletconnect',
     screen: 'WalletconnectScreen',
-    backgroundImage: require('../assets/hub/wc.png'),
+    image: require('../assets/hub/wc.png'),
     keywords: 'walletconnect',
     categories: ['tools', 'defi', 'featured'],
     description: 'hub.wc.description',
@@ -42,7 +42,7 @@ const apps = [
   {
     title: 'hub.synthetics',
     screen: 'SyntheticScreen',
-    backgroundImage: require('../assets/hub/paper.png'),
+    image: require('../assets/hub/paper.png'),
     keywords: 'swap, schimb, exchange',
     categories: ['defi'],
     description: 'hub.synthetics.description',
@@ -52,7 +52,7 @@ const apps = [
   {
     title: 'hub.card',
     screen: 'CardScreen',
-    backgroundImage: require('../assets/hub/card.png'),
+    image: require('../assets/hub/card.png'),
     keywords: 'card, debit',
     categories: ['card'],
     description: 'hub.card.description',
@@ -62,7 +62,7 @@ const apps = [
   {
     title: 'hub.index',
     screen: 'IndexScreen',
-    backgroundImage: require('../assets/hub/etf.png'),
+    image: require('../assets/hub/etf.png'),
     keywords: 'index, etf, invest',
     categories: ['defi'],
     description: 'hub.index.description',
@@ -72,7 +72,7 @@ const apps = [
   {
     title: 'hub.earn',
     screen: 'IndexScreen',
-    backgroundImage: require('../assets/hub/savings.png'),
+    image: require('../assets/hub/savings.png'),
     keywords: 'index, etf, invest, dobanda',
     categories: ['defi'],
     description: 'hub.earn.description',
@@ -82,7 +82,7 @@ const apps = [
   {
     title: 'hub.cexconnector',
     screen: 'CEXScreen',
-    backgroundImage: require('../assets/hub/cex.png'),
+    image: require('../assets/hub/cex.png'),
     keywords: 'connector, cex, binance',
     categories: ['connectors'],
     description: 'hub.cexconnector.description',
@@ -92,7 +92,7 @@ const apps = [
   {
     title: 'hub.bankconnector',
     screen: 'ConnectorBankScreen',
-    backgroundImage: require('../assets/hub/bank.png'),
+    image: require('../assets/hub/bank.png'),
     keywords: 'connector, cex, binance, bank, psd2',
     categories: ['connectors'],
     description: 'hub.bankconnector.description',
@@ -102,7 +102,7 @@ const apps = [
   {
     title: 'hub.web3browser',
     screen: '',
-    backgroundImage: require('../assets/hub/browser.png'),
+    image: require('../assets/hub/browser.png'),
     keywords: 'web',
     categories: ['defi', 'tools'],
     description: 'hub.browser.description',
@@ -112,7 +112,7 @@ const apps = [
   {
     title: 'hub.portfolio_tracker',
     screen: '',
-    backgroundImage: require('../assets/hub/portfolio.png'),
+    image: require('../assets/hub/portfolio.png'),
     keywords: 'portfolio, portofoliu, tracker',
     categories: ['defi', 'tools'],
     description: 'hub.portfolio_tracker.description',
@@ -122,7 +122,7 @@ const apps = [
   {
     title: 'hub.create_token',
     screen: 'NewsScreen',
-    backgroundImage: require('../assets/hub/lego.png'),
+    image: require('../assets/hub/lego.png'),
     keywords: 'token, create, erc20',
     categories: ['tools'],
     description: 'hub.create_token.description',
@@ -132,7 +132,7 @@ const apps = [
   {
     title: 'hub.create_nft',
     screen: 'NewsScreen',
-    backgroundImage: require('../assets/hub/nft.png'),
+    image: require('../assets/hub/nft.png'),
     keywords: 'create, nft',
     categories: ['tools'],
     description: 'hub.create_nft.description',
@@ -142,7 +142,7 @@ const apps = [
   {
     title: 'Coingecko',
     screen: 'https://coingecko.com',
-    backgroundImage: require('../assets/hub/coingecko.png'),
+    image: require('../assets/hub/coingecko.png'),
     keywords: 'ceva',
     categories: ['market'],
     description: 'hub.coingecko.description',
@@ -152,7 +152,7 @@ const apps = [
   {
     title: 'CoinMarketCap',
     screen: 'https://coinmarketcap.com/',
-    backgroundImage: require('../assets/hub/coinmarketcap.png'),
+    image: require('../assets/hub/coinmarketcap.png'),
     keywords: 'ceva',
     categories: ['market'],
     description: 'hub.coinmarketcap.description',
@@ -162,7 +162,7 @@ const apps = [
   {
     title: 'Zapper',
     screen: 'https://zapper.fi/',
-    backgroundImage: require('../assets/hub/zapper.png'),
+    image: require('../assets/hub/zapper.png'),
     keywords: 'ceva',
     categories: ['defi', 'tools'],
     description: 'hub.zapper.description',
@@ -172,7 +172,7 @@ const apps = [
   {
     title: 'DeBank',
     screen: 'https://debank.com',
-    backgroundImage: require('../assets/hub/debank.png'),
+    image: require('../assets/hub/debank.png'),
     keywords: 'ceva',
     categories: ['defi', 'tools'],
     description: 'hub.debank.description',
@@ -182,7 +182,7 @@ const apps = [
   {
     title: 'Defistation',
     screen: 'https://www.defistation.io/',
-    backgroundImage: require('../assets/hub/defistation.png'),
+    image: require('../assets/hub/defistation.png'),
     keywords: 'ceva',
     categories: ['defi', 'tools'],
     description: 'hub.defistation.description',
@@ -192,7 +192,7 @@ const apps = [
   {
     title: 'AAVE',
     screen: 'https://app.aave.com/',
-    backgroundImage: require('../assets/hub/aave.png'),
+    image: require('../assets/hub/aave.png'),
     keywords: 'ceva',
     categories: ['defi'],
     description: 'hub.aave.description',
