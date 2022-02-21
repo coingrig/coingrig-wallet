@@ -9,6 +9,7 @@ export const clearAllAppData = async () => {
   await clearPersistedStore('MarketStore');
   await clearPersistedStore('WalletStore');
   await clearPersistedStore('SettingsStore');
+  await clearPersistedStore('CexStore');
   await StorageClearAll();
   await deleteUserPinCode();
   RNRestart.Restart();

@@ -24,7 +24,9 @@ export default function CexDetails({route}) {
   const item = CEX_LIST[route.params.data];
 
   useEffect(() => {
-    console.log(CexStore.cexs[0].data);
+    // try {
+    //   console.log(CexStore.cexs[0].data);
+    // } catch (error) {}
   }, []);
 
   const onSuccess = async e => {
