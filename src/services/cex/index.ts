@@ -1,6 +1,6 @@
-import CONFIG from 'config';
 import {Logs} from 'services/logs';
 import {StorageGetItem, StorageSetItem} from 'services/storage';
+import {CexStore} from 'stores/cexStore';
 
 var ccxt = require('ccxt');
 
@@ -13,6 +13,17 @@ class CexService {
       ftx: null,
     };
     this.exchanges = ccxt.exchanges;
+    this.start();
+  }
+
+  async start() {
+    try {
+      if (!CexStore.isHydrated) {
+        await CexStore.hydrateStore();
+      }
+    } catch (e) {
+      Logs.error(e);
+    }
   }
 
   async getBalance(cexID) {
@@ -33,7 +44,21 @@ class CexService {
         });
       }
     }
+    Logs.info(cexID, balance);
+    CexStore.addCexData(cexID, balance);
     return balance;
+  }
+
+  async getAllBalances() {
+    const cexList = CexStore.cexs;
+    if (cexList.length > 0) {
+      for (let index = 0; index < cexList.length; index++) {
+        const item = cexList[index];
+        await this.getBalance(item.id);
+      }
+    } else {
+      return null;
+    }
   }
 
   async connect(cexID) {
@@ -55,20 +80,23 @@ class CexService {
       keys = JSON.parse(keys);
       return [keys.apiKey, keys.secret];
     } else {
-      return [CONFIG.BINANCE.apiKey, CONFIG.BINANCE.secret];
-      //return null;
+      return null;
     }
   }
 
-  async saveCexKeys(cexID, apiKey, secret) {
-    let data: any = {apiKey, secret};
-    data = JSON.stringify(data);
-    const save = await StorageSetItem('@CEX_' + cexID, data, true);
-    if (save) {
-      return true;
-    } else {
-      return false;
+  async saveCexKeys(cexID, apiKey, secret, title) {
+    const newCex = CexStore.addCex(cexID, title);
+    if (newCex) {
+      let data: any = {apiKey, secret};
+      data = JSON.stringify(data);
+      const save = await StorageSetItem('@CEX_' + cexID, data, true);
+      if (save) {
+        return true;
+      } else {
+        return false;
+      }
     }
+    return false;
   }
 }
 

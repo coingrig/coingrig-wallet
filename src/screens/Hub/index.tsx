@@ -29,7 +29,6 @@ const HubScreen = () => {
             screen.title === item.title ? Colors.foreground : Colors.darker,
           flex: 1,
           padding: 5,
-          height: 25,
           paddingHorizontal: 15,
           borderRadius: 15,
           marginHorizontal: 3,
