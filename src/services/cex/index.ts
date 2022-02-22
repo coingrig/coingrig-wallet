@@ -1,5 +1,9 @@
 import {Logs} from 'services/logs';
-import {StorageGetItem, StorageSetItem} from 'services/storage';
+import {
+  StorageDeleteItem,
+  StorageGetItem,
+  StorageSetItem,
+} from 'services/storage';
 import {CexStore} from 'stores/cexStore';
 
 var ccxt = require('ccxt');
@@ -50,14 +54,18 @@ class CexService {
   }
 
   async getAllBalances() {
-    const cexList = CexStore.cexs;
-    if (cexList.length > 0) {
-      for (let index = 0; index < cexList.length; index++) {
-        const item = cexList[index];
-        await this.getBalance(item.id);
+    try {
+      const cexList = CexStore.cexs;
+      if (cexList.length > 0) {
+        for (let index = 0; index < cexList.length; index++) {
+          const item = cexList[index];
+          this.getBalance(item.id);
+        }
+      } else {
+        return null;
       }
-    } else {
-      return null;
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -97,6 +105,12 @@ class CexService {
       }
     }
     return false;
+  }
+
+  async deleteCex(cexID) {
+    CexStore.deleteCexById(cexID);
+    await StorageDeleteItem('@CEX_' + cexID, true);
+    this.cex[cexID] = null;
   }
 }
 

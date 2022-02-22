@@ -8,6 +8,7 @@ const CEX_LIST = [
     headerImage:
       'https://public.bnbstatic.com/image/cms/blog/20220215/7dfbd14a-0f4f-4251-a3a3-74f7d5d832ce.png',
     description: 'hub.market.description',
+    qr: true,
     enable: true,
     module: true,
   },
@@ -19,6 +20,7 @@ const CEX_LIST = [
     description: 'hub.market.description',
     headerImage: 'https://financialit.net/sites/default/files/binance_2.png',
     params: true,
+    qr: false,
     enable: true,
     module: true,
   },

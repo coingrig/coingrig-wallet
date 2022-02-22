@@ -9,6 +9,7 @@ import {StorageSetItem, StorageGetItem} from './storage';
 import endpoints from 'utils/endpoints';
 import CONFIG from 'config';
 import CexService from 'services/cex';
+import {showMessage} from 'react-native-flash-message';
 
 class CryptoService {
   lastFetchedBalance = 0;
@@ -134,7 +135,6 @@ class CryptoService {
   };
 
   getAccountBalance = async () => {
-    CexService.getAllBalances();
     const now = Date.now();
     if (now - this.lastFetchedBalance! < CONFIG.BALANCE_TIMEOUT * 1000) {
       return true;
@@ -217,10 +217,20 @@ class CryptoService {
           );
         }
       }
+      this.getCexBalance();
       return true;
     } catch (error) {
       Logs.error(error);
       return false;
+    }
+  };
+
+  getCexBalance = async () => {
+    try {
+      await CexService.getAllBalances();
+    } catch (error) {
+      // what happen if user delete the keys after a while ?
+      Logs.error(error);
     }
   };
 
