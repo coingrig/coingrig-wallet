@@ -18,6 +18,7 @@ import {RNCamera} from 'react-native-camera';
 import {Logs} from 'services/logs';
 import {CexStore} from 'stores/cexStore';
 import {showMessage} from 'react-native-flash-message';
+import {LoadingModal} from 'services/loading';
 
 const actionCamera: React.RefObject<any> = createRef();
 
@@ -64,6 +65,7 @@ export default function CexDetails({route}) {
   };
 
   const saveCex = async () => {
+    LoadingModal.instance.current?.show();
     try {
       const saved = await CexService.saveCexKeys(
         item.id,
@@ -78,9 +80,11 @@ export default function CexDetails({route}) {
           message: t('Done'),
           type: 'success',
         });
+        LoadingModal.instance.current?.hide();
         navigation.goBack();
       }
     } catch (error) {
+      LoadingModal.instance.current?.hide();
       deleteCex(true);
       Logs.error(error);
       showMessage({
