@@ -91,12 +91,12 @@ const apps = [
   },
   {
     title: 'hub.bankconnector',
-    screen: 'ConnectorBankScreen',
+    screen: 'BankingScreen',
     image: require('../assets/hub/bank.png'),
     keywords: 'connector, cex, binance, bank, psd2',
     categories: ['connectors'],
     description: 'hub.bankconnector.description',
-    enable: false,
+    enable: true,
     module: true,
   },
   {

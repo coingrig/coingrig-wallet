@@ -41,6 +41,7 @@ import styles from './styles';
 import SyntheticScreen from 'screens/Synthetic';
 import CEXScreen from 'screens/Cex';
 import CexDetails from 'screens/Cex/Details';
+import BankingScreen from 'screens/Banking';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -341,6 +342,31 @@ function NavigationStack({t}) {
         options={{
           headerShown: true,
           headerTitle: t('title.cex'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="BankingScreen"
+        component={BankingScreen}
+        options={{
+          headerShown: true,
+          headerTitle: t('title.banking'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
