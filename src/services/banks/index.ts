@@ -37,7 +37,7 @@ class BanksService {
   fetchAccountsList = async accountID => {
     const config = {
       method: 'get',
-      url: endpoints.nordigen + '/requisitions/' + accountID,
+      url: endpoints.nordigen + '/requisitions/' + accountID + '/',
     };
     try {
       const response = await this.request(config);
@@ -121,7 +121,7 @@ class BanksService {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + this.accessToken,
     };
-    console.log(config);
+    // console.log(config);
     return axios(config);
   };
 
