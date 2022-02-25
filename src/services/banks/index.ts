@@ -5,6 +5,7 @@ import {
   StorageGetItem,
   StorageSetItem,
 } from 'services/storage';
+import {BankStore, IBankAccount} from 'stores/bankStore';
 import endpoints from 'utils/endpoints';
 var axios = require('axios');
 
@@ -24,24 +25,24 @@ class BanksService {
     this.accessToken = CONFIG.BANK_TOKEN;
   };
 
-  getBalance = async () => {};
+  // getBalance = async () => {};
 
-  getAllBalances = async () => {};
+  // getAllBalances = async () => {};
 
-  getBankAccounts = async () => {};
+  // getBankAccounts = async () => {};
 
-  setBankAccounts = async () => {};
+  // setBankAccounts = async () => {};
 
-  setBalance = async () => {};
+  // setBalance = async () => {};
 
-  fetchAccountsList = async accountID => {
+  private getAccountDetails = async id => {
     const config = {
       method: 'get',
-      url: endpoints.nordigen + '/requisitions/' + accountID + '/',
+      url: endpoints.nordigen + '/accounts/' + id + '/details/',
     };
     try {
       const response = await this.request(config);
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (error) {
       Logs.error(error);
@@ -49,10 +50,78 @@ class BanksService {
     }
   };
 
-  createAuthLink = async (bankID, aggrementID) => {
+  private getAccountBalance = async id => {
+    const config = {
+      method: 'get',
+      url: endpoints.nordigen + '/accounts/' + id + '/balances/',
+    };
+    try {
+      const response = await this.request(config);
+      // console.log(response.data);
+      const data = response.data.balances;
+      let balance = data.find((o: any) => {
+        return o.balanceType === 'expected';
+      });
+      if (!balance) {
+        balance = data.find((o: any) => {
+          return o.balanceType === 'interimAvailable';
+        });
+      }
+      return balance;
+    } catch (error) {
+      Logs.error(error);
+      return null;
+    }
+  };
+
+  createAccount = async (accountID, accData) => {
+    try {
+      const {balance, details}: any = await this.getBankAccountData(accountID);
+      const bankAccount: IBankAccount = {
+        id: accountID,
+        iban: details.account.iban || null,
+        currency: balance.balanceAmount.currency || null,
+        name: details.account.name || null,
+        product: details.account.product || null,
+        amount: parseFloat(balance.balanceAmount.amount) || null,
+        balanceType: balance.balanceType || null,
+        bankName: accData.item.name || null,
+        bankLogo: accData.item.logo,
+        ownerName: details.account.ownerName || null,
+        bankID: accData.item.id || null,
+      };
+      BankStore.addAccount(bankAccount);
+    } catch (error) {
+      // TODO alert cannot create account
+      throw error;
+    }
+  };
+
+  getBankAccountData = async (accountID: string) => {
+    const details = await this.getAccountDetails(accountID);
+    const balance = await this.getAccountBalance(accountID);
+    return {details, balance};
+  };
+
+  fetchAccountsList = async (accountID: string) => {
+    const config = {
+      method: 'get',
+      url: endpoints.nordigen + '/requisitions/' + accountID + '/',
+    };
+    try {
+      const response = await this.request(config);
+      // console.log(response.data);
+      return response.data;
+    } catch (error) {
+      Logs.error(error);
+      return null;
+    }
+  };
+
+  createAuthLink = async (bankID: string, aggrementID: string) => {
     // will return accountID (id)
     const rid = this.getRandomID();
-    console.log(rid);
+    // console.log(rid);
     var data = JSON.stringify({
       redirect: endpoints.bank_redirect,
       institution_id: bankID,
@@ -67,17 +136,17 @@ class BanksService {
     };
     try {
       const response = await this.request(config);
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (error) {
-      Logs.error(error);
+      Logs.error('createAuthLink', error);
       return null;
     }
   };
 
-  getAggrement = async bankID => {
+  getAggrement = async (bankID: string) => {
     // "SANDBOXFINANCE_SFIN0000"
-    const data = JSON.stringify({
+    const data: string = JSON.stringify({
       institution_id: bankID,
     });
     const config = {
@@ -87,7 +156,7 @@ class BanksService {
     };
     try {
       const agreement = await this.request(config);
-      console.log(agreement.data);
+      // console.log(agreement.data);
       return agreement.data;
     } catch (error) {
       Logs.error(error);
@@ -95,7 +164,7 @@ class BanksService {
     }
   };
 
-  getBanks = async countryCode => {
+  getBanks = async (countryCode: string) => {
     const url =
       endpoints.nordigen +
       '/institutions/?country=' +
@@ -107,7 +176,7 @@ class BanksService {
     };
     try {
       const response = await this.request(config);
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (error) {
       Logs.error(error);

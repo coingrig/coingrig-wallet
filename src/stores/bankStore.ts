@@ -4,15 +4,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type IBankAccount = {
   id: string;
-  iban: string;
-  currency: string;
-  name: string;
-  product: string;
-  amount: string;
+  iban: string | null;
+  currency: string | null;
+  name: string | null;
+  product: string | null;
+  amount: number | null;
   balanceType: string;
-  lastChangeDateTime: string;
   bankName: string | null;
   bankLogo: string | null;
+  ownerName: string | null;
+  bankID: string | null;
 };
 
 class bankStore {
@@ -35,45 +36,39 @@ class bankStore {
     return isHydrated(this);
   }
 
-  // addCex = action((id, title) => {
-  //   const data = null;
-  //   const check = this.getCexById(id);
-  //   if (!check) {
-  //     this.cexs.push({id, title, data});
-  //     return true;
-  //   } else {
-  //     return null;
-  //   }
-  // });
+  updateAccount = action((id: string, data: IBankAccount) => {
+    let pos = this.getAccountPosition(id);
+    if (pos !== -1) {
+      this.bankAccounts[pos] = data;
+    }
+    this.bankAccounts = this.bankAccounts.splice(0);
+  });
 
-  // getCexById = (id: String) => {
-  //   return this.cexs.find((o: CexStoreType) => {
-  //     return o.id === id;
-  //   });
-  // };
+  addAccount = action((bankAccount: IBankAccount) => {
+    this.bankAccounts.push(bankAccount);
+    return true;
+  });
 
-  // addCexData = action((id, data) => {
-  //   let pos = this._getCexPosition(id);
-  //   if (pos !== -1) {
-  //     this.cexs[pos].data = data;
-  //   }
-  //   this.cexs = this.cexs.splice(0);
-  // });
+  getAccountById = (id: string) => {
+    return this.bankAccounts.find((o: IBankAccount) => {
+      return o.id === id;
+    });
+  };
 
-  // deleteCexById = action((id: string) => {
-  //   let index = this._getCexPosition(id);
-  //   if (index !== -1) {
-  //     this.cexs.splice(index, 1);
-  //     this.cexs = this.cexs.slice(0);
-  //   }
-  //   return index !== -1;
-  // });
+  deleteAccountById = action((id: string) => {
+    let index = this.getAccountPosition(id);
+    if (index !== -1) {
+      this.bankAccounts.splice(index, 1);
+      this.bankAccounts = this.bankAccounts.slice(0);
+    }
+    return index !== -1;
+  });
 
-  // _getCexPosition = (id: string) => {
-  //   return this.cexs.findIndex(o => {
-  //     return o.id === id;
-  //   });
-  // };
+  private getAccountPosition = (id: string) => {
+    return this.bankAccounts.findIndex(o => {
+      return o.id === id;
+    });
+  };
 }
 
 export const BankStore: bankStore = new bankStore();
