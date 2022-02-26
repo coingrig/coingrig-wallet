@@ -1,39 +1,36 @@
 import CONFIG from 'config';
 import {Logs} from 'services/logs';
-import {
-  StorageDeleteItem,
-  StorageGetItem,
-  StorageSetItem,
-} from 'services/storage';
 import {BankStore, IBankAccount} from 'stores/bankStore';
 import endpoints from 'utils/endpoints';
 var axios = require('axios');
 
 class BanksService {
   accessToken: string | null = null;
-  //   accessExpireTimestamp: number = 0;
-  //   refreshToken: string = '';
-  //   refresh_expires: number = 0;
+  generatedTime: any;
+  expireTime: any;
 
   constructor() {
-    this.getKeys();
-    // console.log(this.accessToken);
+    // this.getKeys();
   }
 
   getKeys = async () => {
-    // TODO get it from the encrypted storage OR generate a new one
-    this.accessToken = CONFIG.BANK_TOKEN;
+    try {
+      if (!this.accessToken) {
+        return await this.generateKey();
+      } else {
+        const now = Math.round(Date.now() / 1000);
+        if (now - this.generatedTime > this.expireTime) {
+          return await this.generateKey();
+        } else {
+          Logs.info('Token is valid');
+          return this.accessToken;
+        }
+      }
+    } catch (error) {
+      Logs.error(error);
+      return null;
+    }
   };
-
-  // getBalance = async () => {};
-
-  // getAllBalances = async () => {};
-
-  // getBankAccounts = async () => {};
-
-  // setBankAccounts = async () => {};
-
-  // setBalance = async () => {};
 
   private getAccountDetails = async id => {
     const config = {
@@ -185,13 +182,38 @@ class BanksService {
   };
 
   request = async config => {
+    const token = await this.getKeys();
+    if (!token) {
+      throw 'No token';
+    }
     config.headers = {
       accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + this.accessToken,
+      Authorization: 'Bearer ' + token,
     };
     // console.log(config);
     return axios(config);
+  };
+
+  generateKey = async () => {
+    try {
+      const config = {
+        method: 'post',
+        url: endpoints.psd,
+        headers: {
+          ApiKey: CONFIG.COINGRIG_KEY,
+        },
+      };
+      const response = await axios(config);
+      this.accessToken = response.data.access;
+      this.generatedTime = Math.round(Date.now() / 1000);
+      this.expireTime = response.data.access_expires;
+      Logs.info('Generate new token');
+      return this.accessToken;
+    } catch (error) {
+      Logs.error(error);
+      return null;
+    }
   };
 
   getRandomID = () => {
