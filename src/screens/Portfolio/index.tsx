@@ -97,7 +97,10 @@ const PortfolioScreen = observer(() => {
       <View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text style={styles.title} numberOfLines={1}>
-            {t('portfolio.portfolio')}{' '}
+            {t('portfolio.portfolio')}
+          </Text>
+          <Text style={styles.balance} numberOfLines={1}>
+            {formatPrice(WalletStore.totalBalance, true) || 0.0}
           </Text>
         </View>
         <ScrollView
