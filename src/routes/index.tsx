@@ -146,9 +146,9 @@ function BottomTabs() {
             );
           } else if (route.name === 'HubScreen') {
             return focused ? (
-              <Icon name="apps" size={24} color={Colors.inverse} />
+              <Icon name="layers" size={25} color={Colors.inverse} />
             ) : (
-              <Icon name="apps" size={24} color={Colors.foreground} />
+              <Icon name="layers" size={25} color={Colors.foreground} />
             );
           }
           return null;
