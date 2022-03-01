@@ -176,7 +176,7 @@ export const styles = StyleSheet.create({
     marginTop: 20,
   },
   nonft: {
-    flex: 0.9,
+    marginTop: -50,
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',

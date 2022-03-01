@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   Text,
   View,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   RefreshControl,
   Image,
+  ScrollView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
@@ -24,33 +25,17 @@ import {CryptoService} from 'services/crypto';
 import {formatPrice} from 'utils';
 import BigList from 'react-native-big-list';
 import endpoints from 'utils/endpoints';
+import Portfolios from 'data/portfolios';
 
 const PortfolioScreen = observer(() => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
-  const [showNFTs, setShowNFTs] = useState(false);
-  const [nfts, setNFTs] = useState<any[]>([]);
-  const [showHeader, setShowHeader] = useState(false);
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('SearchScreen', {onlySupported: true})
-          }
-          style={styles.moreBtn}>
-          <Icon name="add-circle" size={25} color={Colors.foreground} />
-        </TouchableOpacity>
-      ),
-    });
-    fetchNFTs();
-  }, []);
+  const scrollRef: any = useRef();
+  const [screen, setScreen] = useState(Portfolios[0]);
 
   const fetchCoins = async () => {
     const fetchedCoins = await CryptoService.getAccountBalance();
-    fetchNFTs();
     if (!fetchedCoins) {
       showMessage({
         message: t('message.error.remote_servers_not_available'),
@@ -60,162 +45,72 @@ const PortfolioScreen = observer(() => {
     setRefreshing(false);
   };
 
-  const fetchNFTs = async () => {
-    // eslint-disable-next-line no-shadow
-    const NFTList: any = await CryptoService.getNFTs();
-    setNFTs(NFTList);
-  };
-
-  const renderItem = ({item}: {item: IWallet}) => {
-    return (
-      <WalletListItem
-        key={item.cid}
-        coin={item}
-        onPress={() =>
-          //@ts-ignore
-          navigation.navigate('WalletScreen', {
-            coin: item.cid,
-            symbol: item.symbol,
-            chain: item.chain,
-          })
-        }
-      />
-    );
-  };
-
-  const listHeader = () => {
-    return (
-      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <Text style={styles.subLeft}>
-          {showNFTs ? t('portfolio.my_nfts') : t('portfolio.my_assets')}
-        </Text>
-        <Text style={styles.subRight}>
-          {showNFTs
-            ? t('Ethereum')
-            : formatPrice(WalletStore.totalBalance, true) || 0.0}
-        </Text>
-      </View>
-    );
-  };
-
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     fetchCoins();
   }, []);
 
-  const renderNFTs = ({item}) => {
-    // console.log(item.image_url);
-    if (
-      item.image_url === null ||
-      item.image_url === '' ||
-      item.image_url.includes('svg')
-    ) {
-      item.image_url = endpoints.assets + '/images/no-nft.png';
-    }
-    return <NFTCard item={item} />;
+  const bubble = (item, index) => {
+    return (
+      <TouchableOpacity
+        key={item.title}
+        onPress={() => {
+          setScreen(item);
+          scrollRef.current?.scrollTo({
+            x: index * 70,
+            animated: true,
+          });
+        }}
+        style={{
+          backgroundColor:
+            screen.title === item.title ? Colors.foreground : Colors.darker,
+          flex: 1,
+          padding: 5,
+          paddingHorizontal: 15,
+          borderRadius: 15,
+          marginHorizontal: 3,
+          justifyContent: 'center',
+          alignContent: 'center',
+          alignItems: 'center',
+          minWidth: 70,
+        }}>
+        <Text
+          style={{
+            fontSize: 14,
+            color:
+              screen.title === item.title
+                ? Colors.background
+                : Colors.foreground,
+          }}>
+          {t(item.title)}
+        </Text>
+      </TouchableOpacity>
+    );
   };
 
-  const changeTab = name => {
-    name === 'NFTs' ? setShowNFTs(true) : setShowNFTs(false);
-    if (name === 'NFTs' && nfts.length === 0) {
-      fetchNFTs();
-    }
-    setShowHeader(false);
-  };
-
-  const renderList = () => {
-    if (!showNFTs) {
-      return (
-        <FlatList
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-              tintColor={Colors.lighter}
-              colors={[Colors.lighter]}
-            />
-          }
-          data={WalletStore.wallets}
-          renderItem={renderItem}
-          keyExtractor={(item: any, index) =>
-            item.cid + item.chain + index.toString() ?? ''
-          }
-          maxToRenderPerBatch={10}
-          initialNumToRender={10}
-          showsVerticalScrollIndicator={false}
-          ListHeaderComponent={listHeader()}
-          style={{marginHorizontal: 10}}
-          scrollEventThrottle={100}
-          onScroll={e => onScroll(e.nativeEvent.contentOffset.y)}
-        />
-      );
-    } else {
-      if (nfts.length > 0) {
-        return (
-          <BigList
-            data={nfts}
-            renderItem={renderNFTs}
-            itemHeight={200}
-            insetBottom={30}
-            headerHeight={50}
-            renderHeader={listHeader}
-            numColumns={2}
-            style={{marginHorizontal: 10}}
-            keyboardDismissMode="on-drag"
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(item: any) => item.id.toString() ?? ''}
-            scrollEventThrottle={100}
-            onScroll={e => onScroll(e.nativeEvent.contentOffset.y)}
-          />
-        );
-      } else {
-        return (
-          <View style={styles.nonft}>
-            <Image
-              style={styles.noNftImg}
-              source={require('assets/nft.png')}
-              resizeMode="contain"
-            />
-          </View>
-        );
-      }
-    }
-  };
-
-  const onScroll = y => {
-    if (y > 15) {
-      if (!showHeader) {
-        setShowHeader(true);
-      }
-    } else if (y < 15) {
-      if (showHeader) {
-        setShowHeader(false);
-      }
-    }
-  };
+  // const RenderScreen = React.memo(() => {
+  //   return <screen.component />;
+  // });
 
   return (
     <View style={styles.container}>
-      <View style={showHeader ? styles.headerShadow : null}>
+      <View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text style={styles.title} numberOfLines={1}>
             {t('portfolio.portfolio')}{' '}
           </Text>
-          <View
-            style={{marginRight: 15, justifyContent: 'center', marginTop: 5}}>
-            <SegmentedControl
-              inactiveTintColor={Colors.lighter}
-              initialSelectedName="Tokens"
-              sliderStyle={{width: '47%'}}
-              style={{backgroundColor: Colors.darker, width: 140}}
-              onChangeValue={name => changeTab(name)}>
-              <Segment name="Tokens" content="Tokens" />
-              <Segment name="NFTs" content="NFTs" />
-            </SegmentedControl>
-          </View>
         </View>
+        <ScrollView
+          ref={scrollRef}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{paddingRight: 20}}
+          style={{paddingTop: 10, paddingHorizontal: 12, paddingBottom: 5}}>
+          {Portfolios.map((item, index) => bubble(item, index))}
+        </ScrollView>
       </View>
-      {renderList()}
+      {/* <RenderScreen /> */}
+      <screen.component />
     </View>
   );
 });
