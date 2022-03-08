@@ -11,6 +11,8 @@ import DeepLinkService from './src/services/deeplink';
 import CexService from 'services/cex';
 // eslint-disable-next-line no-unused-vars
 import BanksService from 'services/banks';
+// eslint-disable-next-line no-unused-vars
+import FxService from 'services/fx';
 import {MenuProvider} from 'react-native-popup-menu';
 import {NavigationScreens} from './src/routes';
 import {SafeAreaProvider} from 'react-native-safe-area-context';

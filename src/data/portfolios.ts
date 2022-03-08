@@ -30,6 +30,11 @@ const Portfolios = [
     component: Stocks,
     enable: true,
   },
+  {
+    title: 'Fiat',
+    component: Banking,
+    enable: true,
+  },
 ];
 
 export default Portfolios;

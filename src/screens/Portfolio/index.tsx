@@ -1,54 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-  RefreshControl,
-  Image,
-  ScrollView,
-} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import React, {useRef, useState} from 'react';
+import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
 import {useTranslation} from 'react-i18next';
-import Icon from 'react-native-vector-icons/Ionicons';
-import {SegmentedControl, Segment} from 'react-native-resegmented-control';
-import WalletListItem from 'components/walletlistitem';
-import NFTCard from 'components/NFT/Card';
 import {Colors} from 'utils/colors';
 import {observer} from 'mobx-react-lite';
 import {styles} from './styles';
-import {showMessage} from 'react-native-flash-message';
-import {IWallet, WalletStore} from 'stores/wallet';
-import {CryptoService} from 'services/crypto';
+import {WalletStore} from 'stores/wallet';
 import {formatPrice} from 'utils';
-import BigList from 'react-native-big-list';
-import endpoints from 'utils/endpoints';
 import Portfolios from 'data/portfolios';
 
 const PortfolioScreen = observer(() => {
-  const navigation = useNavigation();
   const {t} = useTranslation();
-  const [refreshing, setRefreshing] = useState(false);
   const scrollRef: any = useRef();
   const [screen, setScreen] = useState(Portfolios[0]);
-
-  const fetchCoins = async () => {
-    const fetchedCoins = await CryptoService.getAccountBalance();
-    if (!fetchedCoins) {
-      showMessage({
-        message: t('message.error.remote_servers_not_available'),
-        type: 'warning',
-      });
-    }
-    setRefreshing(false);
-  };
-
-  const onRefresh = useCallback(async () => {
-    setRefreshing(true);
-    fetchCoins();
-  }, []);
 
   const bubble = (item, index) => {
     return (
@@ -97,11 +62,11 @@ const PortfolioScreen = observer(() => {
       <View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text style={styles.title} numberOfLines={1}>
-            {t('portfolio.portfolio')}
-          </Text>
-          <Text style={styles.balance} numberOfLines={1}>
             {formatPrice(WalletStore.totalBalance, true) || 0.0}
           </Text>
+          {/* <Text style={styles.balance} numberOfLines={1}> */}
+          {/* {formatPrice(WalletStore.totalBalance, true) || 0.0} */}
+          {/* </Text> */}
         </View>
         <ScrollView
           ref={scrollRef}
