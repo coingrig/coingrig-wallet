@@ -124,7 +124,13 @@ export default function AddBank({route}) {
           alignItems: 'center',
         }}>
         <FastImage
-          style={{width: 45, height: 30}}
+          style={{
+            width: 30,
+            height: 30,
+            backgroundColor: 'white',
+            borderRadius: 100,
+            padding: 10,
+          }}
           resizeMode="contain"
           source={{
             uri: item.logo,
@@ -132,7 +138,9 @@ export default function AddBank({route}) {
             cache: FastImage.cacheControl.immutable,
           }}
         />
-        <Text style={{marginHorizontal: 10, flex: 1}}>{item.name}</Text>
+        <Text style={{marginHorizontal: 10, flex: 1, color: Colors.foreground}}>
+          {item.name}
+        </Text>
       </TouchableOpacity>
     );
   };

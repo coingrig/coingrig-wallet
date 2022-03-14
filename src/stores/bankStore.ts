@@ -18,12 +18,13 @@ export type IBankAccount = {
 
 class bankStore {
   bankAccounts: IBankAccount[] = [];
+  totalBalance: number = 0;
 
   constructor() {
     makeAutoObservable(this);
     makePersistable(this, {
       name: 'BankStore',
-      properties: ['bankAccounts'],
+      properties: ['bankAccounts', 'totalBalance'],
       storage: AsyncStorage,
     });
   }
@@ -35,6 +36,10 @@ class bankStore {
   get isHydrated() {
     return isHydrated(this);
   }
+
+  updateTotalBalance = action((balance: number) => {
+    this.totalBalance = balance;
+  });
 
   updateAccount = action((id: string, data: IBankAccount) => {
     let pos = this.getAccountPosition(id);

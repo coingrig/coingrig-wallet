@@ -9,8 +9,6 @@ import {StorageSetItem, StorageGetItem} from './storage';
 import endpoints from 'utils/endpoints';
 import CONFIG from 'config';
 import CexService from 'services/cex';
-import {showMessage} from 'react-native-flash-message';
-
 class CryptoService {
   lastFetchedBalance = 0;
   CHAIN_ID_MAP = {

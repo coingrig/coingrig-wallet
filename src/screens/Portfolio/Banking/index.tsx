@@ -1,47 +1,71 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import {useTranslation} from 'react-i18next';
-import {Text, View} from 'react-native';
-import FastImage from 'react-native-fast-image';
-import {ScrollView} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
+import {observer} from 'mobx-react-lite';
+import React, {useEffect} from 'react';
+import {FlatList, Text, TouchableOpacity, View} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import AccountItem from 'components/Account';
 import {Colors} from 'utils/colors';
+import {styles} from '../styles';
+import {formatPrice} from 'utils';
+import {BankStore, IBankAccount} from 'stores/bankStore';
 
-export default function Banking() {
-  const {t} = useTranslation();
+const Banking = observer(() => {
+  const navigation = useNavigation();
 
-  return (
-    <ScrollView
-      style={{flexGrow: 1}}
-      contentContainerStyle={{
-        marginTop: 10,
-        marginHorizontal: 16,
-        flexGrow: 1,
-      }}>
-      <View style={{justifyContent: 'center', flex: 1}}>
-        <FastImage
-          source={require('../../../assets/hub/games.png')}
-          resizeMode="contain"
-          style={{
-            height: 200,
-            width: '100%',
-            justifyContent: 'center',
-            alignSelf: 'center',
-            opacity: 0.5,
-            marginTop: -50,
-          }}
-        />
-        <Text
-          style={{
-            fontSize: 20,
-            color: Colors.lighter,
-            textAlign: 'center',
-            fontWeight: 'bold',
-            opacity: 0.5,
-            marginTop: 50,
-          }}>
-          {t('dashboard.coming_soon').toUpperCase()}
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('SelectCountryScreen')}
+          style={styles.moreBtn}>
+          <Icon name="add-circle" size={25} color={Colors.foreground} />
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
+
+  const renderItem = ({item}: {item: IBankAccount}) => (
+    <AccountItem
+      key={item.iban}
+      onPress={null}
+      title={item.bankName || ''}
+      img={item.bankLogo || ''}
+      subtitle={item.iban || ''}
+      value={item.amount + ' ' + item.currency || ''}
+      subvalue={item.name || ''}
+    />
+  );
+  const listHeader = () => {
+    return (
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <Text style={styles.subLeft}>{'Accounts'}</Text>
+        <Text style={styles.subRight}>
+          {formatPrice(BankStore.totalBalance, true) || 0.0}
         </Text>
       </View>
-    </ScrollView>
+    );
+  };
+
+  return (
+    <View style={{flexGrow: 1}}>
+      <View style={{justifyContent: 'center', flex: 1}}>
+        <FlatList
+          data={BankStore.bankAccounts || []}
+          renderItem={renderItem}
+          keyExtractor={(item: any, index) =>
+            item.cid + item.chain + index.toString() ?? ''
+          }
+          maxToRenderPerBatch={10}
+          initialNumToRender={10}
+          showsVerticalScrollIndicator={false}
+          ListHeaderComponent={listHeader()}
+          style={{marginHorizontal: 10}}
+          scrollEventThrottle={100}
+        />
+      </View>
+    </View>
   );
-}
+});
+
+export default Banking;
