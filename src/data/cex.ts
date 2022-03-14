@@ -24,6 +24,18 @@ const CEX_LIST = [
     enable: true,
     module: true,
   },
+  {
+    id: 'coinbase',
+    title: 'Coinbase',
+    screen: 'CexDetails',
+    image: require('../assets/hub/chart.png'),
+    description: 'hub.market.description',
+    headerImage: 'https://financialit.net/sites/default/files/binance_2.png',
+    params: true,
+    qr: false,
+    enable: true,
+    module: true,
+  },
 ];
 
 export default CEX_LIST;

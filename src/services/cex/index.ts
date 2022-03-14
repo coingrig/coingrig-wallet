@@ -15,6 +15,7 @@ class CexService {
     this.cex = {
       binance: null,
       ftx: null,
+      coinbase: null,
     };
     this.exchanges = ccxt.exchanges;
     this.start();
@@ -31,23 +32,96 @@ class CexService {
   }
 
   async getBalance(cexID) {
+    // if (cexID === 'coinbase') {
+    //   return;
+    // }
     if (!this.cex[cexID]) {
       await this.connect(cexID);
+    } else {
+      Logs.info(cexID, 'Connected');
     }
+    // let markets = await this.cex[cexID].load_markets();
+    // console.log(
+    //   cexID,
+    //   Object.keys(markets).filter(o => o.startsWith('BTC')),
+    // );
+
+    // console.log(markets['BAT/USD']);
     const b = await this.cex[cexID].fetchBalance();
+    // let json = JSON.stringify(this.cex[cexID].markets);
+    // console.log('json', json.length);
+    // console.log('json', json);
     const balance: any = [];
-    // console.log(b.total);
+    // // console.log(cexID, b.total);
+    // // console.log(cexID, b);
+
+    // // const b = await this.cex[cexID].fetchTickers();
+    // // console.log(cexID, b);
+    let tickers = [];
     for (const [key, v] of Object.entries(b.total)) {
       if (v > 0) {
-        const {ask} = await this.cex[cexID].fetchTicker(key + '/USDT');
-        balance.push({
-          symbol: key,
-          balance: v,
-          price: ask,
-          totalValue: ask * v,
-        });
+        if (cexID === 'coinbase') {
+          if (key === 'USD') {
+            continue;
+          }
+          tickers.push(key + '/USD');
+        } else {
+          if (key === 'USDT') {
+            continue;
+          }
+          tickers.push(key + '/USDT');
+        }
       }
     }
+    const priceTickers = await this.cex[cexID].fetchTickers(tickers);
+    // console.log(priceTickers);
+    for (const [key, v] of Object.entries(b.total)) {
+      if (v > 0) {
+        if (cexID === 'coinbase') {
+          if (key === 'USD') {
+            continue;
+          }
+          let price = priceTickers[key + '/USD'];
+          balance.push({
+            symbol: key.split('/')[0],
+            balance: v,
+            price: price.info,
+            totalValue: price.info * v,
+          });
+        } else {
+          if (key === 'USDT') {
+            continue;
+          }
+          let price = priceTickers[key + '/USDT'];
+          balance.push({
+            symbol: key.split('/')[0],
+            balance: v,
+            price: price.ask,
+            totalValue: price.ask * v,
+          });
+        }
+      }
+    }
+    // for (let i = 0; i < ask.length; i++) {
+    //   const value = ask[i];
+
+    // }
+
+    // let value = 0;
+    // try {
+    //   const {ask} = await this.cex[cexID].fetchTicker(key + '/USDT');
+    //   value = ask;
+    // } catch (e) {
+    //   const {ask} = await this.cex[cexID].fetchTicker(key + '/USD');
+    //   value = ask;
+    // }
+    //
+    // balance.push({
+    //   symbol: key,
+    //   balance: v,
+    //   price: value,
+    //   totalValue: value * v,
+    // });
     Logs.info(cexID, balance);
     CexStore.addCexData(cexID, balance);
     return balance;
