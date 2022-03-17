@@ -6,6 +6,7 @@ import FastImage from 'react-native-fast-image';
 
 const AccountItem = (props: {
   img: string;
+  disable: boolean;
   title: string;
   subtitle: string;
   value: string;
@@ -15,6 +16,7 @@ const AccountItem = (props: {
   return (
     <TouchableOpacity
       onPress={props.onPress ? props.onPress : null}
+      disabled={props.disable}
       style={{height: 80, marginVertical: 3}}>
       <View style={styles.container}>
         <View style={styles.card}>

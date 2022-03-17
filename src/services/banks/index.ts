@@ -1,4 +1,5 @@
 import CONFIG from 'config';
+import fx from 'services/fx';
 import {Logs} from 'services/logs';
 import {BankStore, IBankAccount} from 'stores/bankStore';
 import endpoints from 'utils/endpoints';
@@ -11,6 +12,17 @@ class BanksService {
 
   constructor() {
     // this.getKeys();
+    this.start();
+  }
+
+  async start() {
+    try {
+      if (!BankStore.isHydrated) {
+        await BankStore.hydrateStore();
+      }
+    } catch (e) {
+      Logs.error(e);
+    }
   }
 
   getKeys = async () => {
@@ -91,6 +103,33 @@ class BanksService {
     } catch (error) {
       // TODO alert cannot create account
       throw error;
+    }
+  };
+
+  updateAccountsBalance = async () => {
+    for (let index = 0; index < BankStore.bankAccounts.length; index++) {
+      const account = {...BankStore.bankAccounts[index]};
+      const {balance}: any = await this.getBankAccountData(account.id);
+      account.amount = parseFloat(balance.balanceAmount.amount) || null;
+      BankStore.updateAccount(account.id, account);
+    }
+    this.updateTotalBalance();
+  };
+
+  updateTotalBalance = async () => {
+    try {
+      let newBalance = 0;
+      for (let index = 0; index < BankStore.bankAccounts.length; index++) {
+        const account = {...BankStore.bankAccounts[index]};
+        const rate = fx.rates[account.currency!]
+          ? fx.rates[account.currency!]
+          : 1;
+        const convertedBalance = account.amount! / rate;
+        newBalance = convertedBalance + newBalance;
+      }
+      BankStore.updateTotalBalance(newBalance);
+    } catch (error) {
+      Logs.error(error);
     }
   };
 

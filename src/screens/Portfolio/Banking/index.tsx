@@ -28,6 +28,7 @@ const Banking = observer(() => {
   const renderItem = ({item}: {item: IBankAccount}) => (
     <AccountItem
       key={item.iban}
+      disable={true}
       onPress={null}
       title={item.bankName || ''}
       img={item.bankLogo || ''}
@@ -53,9 +54,7 @@ const Banking = observer(() => {
         <FlatList
           data={BankStore.bankAccounts || []}
           renderItem={renderItem}
-          keyExtractor={(item: any, index) =>
-            item.cid + item.chain + index.toString() ?? ''
-          }
+          keyExtractor={(item: any, index) => item.id + index.toString() ?? ''}
           maxToRenderPerBatch={10}
           initialNumToRender={10}
           showsVerticalScrollIndicator={false}
