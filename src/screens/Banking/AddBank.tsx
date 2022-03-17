@@ -102,6 +102,7 @@ export default function AddBank({route}) {
         }
 
         accData = null;
+        BanksService.updateTotalBalance();
         // show message
         navigation.goBack();
       } else {
