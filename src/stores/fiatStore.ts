@@ -68,7 +68,7 @@ class fiatStore {
     if (Object.entries(fx.rates).length > 0) {
       let _totalBalance = 0;
       this.fiatAccounts.forEach(item => {
-        item.usdBalance = item.balance * fx.rates[item.currency];
+        item.usdBalance = item.balance / fx.rates[item.currency];
         _totalBalance = _totalBalance + item.usdBalance;
       });
       this.fiatAccounts = this.fiatAccounts.splice(0);

@@ -103,11 +103,11 @@ export default function AddFiat() {
               balance: parseInt(accBalance),
               currency: selected || '',
               name: accName,
-              usdBalance: parseInt(accBalance) * fx.rates[selected!],
+              usdBalance: parseInt(accBalance) / fx.rates[selected!],
             });
             FiatStore.updateTotalBalance(
               FiatStore.totalBalance +
-                parseInt(accBalance) * fx.rates[selected!],
+                parseInt(accBalance) / fx.rates[selected!],
             );
             editSheet.current?.setModalVisible(false);
             navigation.goBack();
