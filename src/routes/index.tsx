@@ -419,7 +419,7 @@ function NavigationStack({t}) {
         component={AddFiat}
         options={{
           headerShown: true,
-          headerTitle: t('AddFiat'),
+          headerTitle: t('Select Currency'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios

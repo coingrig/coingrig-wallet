@@ -31,7 +31,7 @@ const Fiat = observer(() => {
       disable={true}
       onPress={null}
       title={item.name || ''}
-      img={'https://cdn-icons-png.flaticon.com/512/2933/2933116.png'}
+      img={'https://cdn-icons-png.flaticon.com/512/217/217853.png'}
       value={item.balance + ' ' + item.currency || ''}
       subvalue={formatPrice(item.usdBalance, true) || ''}
       subtitle={''}
