@@ -1,5 +1,4 @@
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useRef, useState} from 'react';
 import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
 import {useTranslation} from 'react-i18next';
@@ -54,10 +53,6 @@ const PortfolioScreen = observer(() => {
     );
   };
 
-  // const RenderScreen = React.memo(() => {
-  //   return <screen.component />;
-  // });
-
   return (
     <View style={styles.container}>
       <View>
@@ -81,7 +76,6 @@ const PortfolioScreen = observer(() => {
           {Portfolios.map((item, index) => bubble(item, index))}
         </ScrollView>
       </View>
-      {/* <RenderScreen /> */}
       <screen.component />
     </View>
   );
