@@ -23,7 +23,7 @@ const PortfolioScreen = observer(() => {
         onPress={() => {
           setScreen(item);
           scrollRef.current?.scrollTo({
-            x: index * 70,
+            x: index * 30,
             animated: true,
           });
         }}
