@@ -1,4 +1,5 @@
 import {Logs} from 'services/logs';
+import {FiatStore} from 'stores/fiatStore';
 import endpoints from 'utils/endpoints';
 var axios = require('axios');
 
@@ -17,6 +18,7 @@ class FXService {
     axios(config)
       .then(response => {
         this.rates = response.data.rates;
+        FiatStore.updateAllBalances();
       })
       .catch(function (error) {
         Logs.error(error);

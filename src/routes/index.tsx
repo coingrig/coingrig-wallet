@@ -44,6 +44,7 @@ import CexDetails from 'screens/Cex/Details';
 import BankingScreen from 'screens/Banking';
 import AddBank from 'screens/Banking/AddBank';
 import SelectCountry from 'screens/Banking/SelectCountry';
+import AddFiat from 'screens/Fiat';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -394,6 +395,31 @@ function NavigationStack({t}) {
         options={{
           headerShown: true,
           headerTitle: t('AddBank'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="AddFiat"
+        component={AddFiat}
+        options={{
+          headerShown: true,
+          headerTitle: t('AddFiat'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios

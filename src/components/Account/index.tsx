@@ -5,7 +5,7 @@ import {Colors} from 'utils/colors';
 import FastImage from 'react-native-fast-image';
 
 const AccountItem = (props: {
-  img: string;
+  img: string | null;
   disable: boolean;
   title: string;
   subtitle: string;
@@ -30,7 +30,7 @@ const AccountItem = (props: {
                 backgroundColor: Colors.darker,
               }}
               source={{
-                uri: props.img,
+                uri: props.img || '',
                 priority: FastImage.priority.normal,
                 cache: FastImage.cacheControl.immutable,
               }}
@@ -40,14 +40,19 @@ const AccountItem = (props: {
             <Text
               adjustsFontSizeToFit
               numberOfLines={2}
-              style={styles.coinName}>
+              style={[
+                styles.coinName,
+                {fontWeight: props.subtitle ? 'bold' : 'normal'},
+              ]}>
               {props.title}
             </Text>
-            <View>
-              <Text style={styles.coinSymbol} numberOfLines={1}>
-                {props.subtitle}
-              </Text>
-            </View>
+            {props.subtitle ? (
+              <View>
+                <Text style={styles.coinSymbol} numberOfLines={1}>
+                  {props.subtitle}
+                </Text>
+              </View>
+            ) : null}
           </View>
           <View style={styles.rcontainer}>
             <Text style={styles.balance} numberOfLines={1}>

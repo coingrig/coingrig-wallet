@@ -9,6 +9,7 @@ import {WalletStore} from 'stores/wallet';
 import {formatPrice} from 'utils';
 import Portfolios from 'data/portfolios';
 import {BankStore} from 'stores/bankStore';
+import {FiatStore} from 'stores/fiatStore';
 
 const PortfolioScreen = observer(() => {
   const {t} = useTranslation();
@@ -59,7 +60,9 @@ const PortfolioScreen = observer(() => {
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text style={styles.title} numberOfLines={1}>
             {formatPrice(
-              WalletStore.totalBalance + BankStore.totalBalance,
+              WalletStore.totalBalance +
+                BankStore.totalBalance +
+                FiatStore.totalBalance,
               true,
             ) || 0.0}
           </Text>

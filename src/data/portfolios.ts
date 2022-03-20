@@ -1,6 +1,7 @@
 import Banking from 'screens/Portfolio/Banking';
 import CEXs from 'screens/Portfolio/CEXs';
 import Crypto from 'screens/Portfolio/Crypto';
+import Fiat from 'screens/Portfolio/Fiat';
 import NFTs from 'screens/Portfolio/NFTs';
 import Stocks from 'screens/Portfolio/Stocks';
 
@@ -32,7 +33,7 @@ const Portfolios = [
   },
   {
     title: 'Fiat',
-    component: Banking,
+    component: Fiat,
     enable: true,
   },
 ];
