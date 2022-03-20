@@ -5,11 +5,10 @@ import React, {useEffect} from 'react';
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AccountItem from 'components/Account';
-import {WalletStore} from 'stores/wallet';
 import {Colors} from 'utils/colors';
 import {styles} from '../styles';
-import {formatPrice} from 'utils';
-import {BankStore, IBankAccount} from 'stores/bankStore';
+import {formatCoins, formatPrice} from 'utils';
+import {CexStore, CexStoreType} from 'stores/cexStore';
 
 const CEXs = observer(() => {
   const navigation = useNavigation();
@@ -26,15 +25,16 @@ const CEXs = observer(() => {
     });
   }, []);
 
-  const renderItem = ({item}: {item: IBankAccount}) => (
+  const renderItem = ({item}: {item: CexStoreType}) => (
     <AccountItem
-      key={item.iban}
+      key={item.id}
+      disable={true}
       onPress={null}
-      title={item.bankName || ''}
-      img={item.bankLogo || ''}
-      subtitle={item.iban || ''}
-      value={item.amount + ' ' + item.currency || ''}
-      subvalue={item.name || ''}
+      title={item.symbol || ''}
+      img={item.logo || ''}
+      subtitle={item.subtitle || ''}
+      value={item.balance + ' ' + item.symbol || ''}
+      subvalue={item.totalValue || ''}
     />
   );
   const listHeader = () => {
@@ -42,17 +42,34 @@ const CEXs = observer(() => {
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <Text style={styles.subLeft}>{'Accounts'}</Text>
         <Text style={styles.subRight}>
-          {formatPrice(WalletStore.totalBalance, true) || 0.0}
+          {formatPrice(CexStore.totalBalance, true) || 0.0}
         </Text>
       </View>
     );
+  };
+
+  const mapItems = () => {
+    let list = [];
+    CexStore.cexs.forEach(cex => {
+      cex.data.forEach(asset => {
+        list.push({
+          id: cex.id + '-' + asset.symbol,
+          symbol: asset.symbol,
+          subtitle: cex.title,
+          balance: formatCoins(asset.balance),
+          price: asset.price,
+          totalValue: formatPrice(asset.totalValue),
+        });
+      });
+    });
+    return list;
   };
 
   return (
     <View style={{flexGrow: 1}}>
       <View style={{justifyContent: 'center', flex: 1}}>
         <FlatList
-          data={BankStore.bankAccounts || []}
+          data={mapItems() || []}
           renderItem={renderItem}
           keyExtractor={(item: any, index) =>
             item.cid + item.chain + index.toString() ?? ''

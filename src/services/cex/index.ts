@@ -5,6 +5,7 @@ import {
   StorageSetItem,
 } from 'services/storage';
 import {CexStore} from 'stores/cexStore';
+import BigNumber from 'bignumber.js';
 
 var ccxt = require('ccxt');
 
@@ -62,11 +63,23 @@ class CexService {
       if (v > 0) {
         if (cexID === 'coinbase') {
           if (key === 'USD') {
+            balance.push({
+              symbol: 'USD',
+              balance: v,
+              price: 1,
+              totalValue: v,
+            });
             continue;
           }
           tickers.push(key + '/USD');
         } else {
           if (key === 'USDT') {
+            balance.push({
+              symbol: 'USDT',
+              balance: v,
+              price: 1,
+              totalValue: v,
+            });
             continue;
           }
           tickers.push(key + '/USDT');
@@ -74,7 +87,9 @@ class CexService {
       }
     }
     const priceTickers = await this.cex[cexID].fetchTickers(tickers);
-    // console.log(priceTickers);
+    // if (cexID === 'coinbase') {
+    //   console.log(priceTickers);
+    // }
     for (const [key, v] of Object.entries(b.total)) {
       if (v > 0) {
         if (cexID === 'coinbase') {
@@ -82,11 +97,16 @@ class CexService {
             continue;
           }
           let price = priceTickers[key + '/USD'];
+          // It returns actually 1 usd = xxx KEY asset
+          let assetPrice = new BigNumber(1).dividedBy(
+            new BigNumber(price.info),
+          );
+          let assetBalance = new BigNumber(v);
           balance.push({
             symbol: key.split('/')[0],
-            balance: v,
-            price: price.info,
-            totalValue: price.info * v,
+            balance: assetBalance,
+            price: assetPrice,
+            totalValue: assetPrice.times(assetBalance),
           });
         } else {
           if (key === 'USDT') {
@@ -95,33 +115,13 @@ class CexService {
           let price = priceTickers[key + '/USDT'];
           balance.push({
             symbol: key.split('/')[0],
-            balance: v,
-            price: price.ask,
-            totalValue: price.ask * v,
+            balance: new BigNumber(v),
+            price: new BigNumber(price.ask),
+            totalValue: new BigNumber(price.ask).times(v),
           });
         }
       }
     }
-    // for (let i = 0; i < ask.length; i++) {
-    //   const value = ask[i];
-
-    // }
-
-    // let value = 0;
-    // try {
-    //   const {ask} = await this.cex[cexID].fetchTicker(key + '/USDT');
-    //   value = ask;
-    // } catch (e) {
-    //   const {ask} = await this.cex[cexID].fetchTicker(key + '/USD');
-    //   value = ask;
-    // }
-    //
-    // balance.push({
-    //   symbol: key,
-    //   balance: v,
-    //   price: value,
-    //   totalValue: value * v,
-    // });
     Logs.info(cexID, balance);
     CexStore.addCexData(cexID, balance);
     return balance;
@@ -133,8 +133,10 @@ class CexService {
       if (cexList.length > 0) {
         for (let index = 0; index < cexList.length; index++) {
           const item = cexList[index];
-          this.getBalance(item.id);
+          await this.getBalance(item.id);
         }
+        Logs.info('Total CEX balance', CexStore.sumTotalBalance());
+        CexStore.updateTotalBalance(CexStore.sumTotalBalance());
       } else {
         return null;
       }
@@ -189,25 +191,3 @@ class CexService {
 }
 
 export default new CexService();
-
-// exchange.verbose = true;
-// const b = await exchange.fetchBalance();
-// // console.log(b);
-// for (const [key, v] of Object.entries(b.total)) {
-//   if (v > 0) {
-//     console.log(`${key}: ${v}`);
-//     // console.log('--', await exchange.fetchTicker(key + '/USDT'));
-//   }
-// }
-// console.log('--', await exchange.fetchTickers(['BTC/USDT', 'ICP/USDT']));
-// console.log(exchange.currency('BTC'));
-// console.log(await exchange.fetchDepositAddress('BTC'));
-// console.log('--', await exchange.fetchTicker('BTC/USDT'));
-// let sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-// if (exchange.has.fetchOHLCV) {
-//   for (exchange.symbol in exchange.markets) {
-//     await sleep(exchange.rateLimit); // milliseconds
-//     console.log(await exchange.fetchOHLCV(exchange.symbol, '1m')); // one minute
-//   }
-// }
-// return;

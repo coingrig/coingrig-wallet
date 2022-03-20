@@ -14,15 +14,7 @@ export default function CEXScreen() {
   const {t} = useTranslation();
   const navigation = useNavigation();
 
-  useEffect(() => {
-    // test();
-  }, []);
-
-  const test = async () => {
-    // console.log(CexService.exchanges);
-    const balance = await CexService.getBalance('binance');
-    Logs.info(balance);
-  };
+  useEffect(() => {}, []);
 
   return (
     <ScrollView contentContainerStyle={styles.scrollview}>

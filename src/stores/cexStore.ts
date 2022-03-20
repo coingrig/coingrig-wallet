@@ -1,6 +1,7 @@
 import {action, makeAutoObservable} from 'mobx';
 import {hydrateStore, isHydrated, makePersistable} from 'mobx-persist-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import BigNumber from 'bignumber.js';
 
 export type CexStoreType = {
   id: string;
@@ -10,6 +11,7 @@ export type CexStoreType = {
 
 class cexStore {
   cexs: CexStoreType[] = [];
+  totalBalance: Number = 0;
 
   constructor() {
     makeAutoObservable(this);
@@ -27,6 +29,26 @@ class cexStore {
   get isHydrated() {
     return isHydrated(this);
   }
+
+  sumTotalBalance() {
+    return this.cexs.reduce(
+      (total, cex) =>
+        new BigNumber(total).plus(
+          new BigNumber(
+            cex.data.reduce(
+              (subtotal, asset) =>
+                new BigNumber(subtotal).plus(new BigNumber(asset.totalValue)),
+              new BigNumber(0),
+            ),
+          ),
+        ),
+      new BigNumber(0),
+    );
+  }
+
+  updateTotalBalance = action((balance: number) => {
+    this.totalBalance = balance;
+  });
 
   addCex = action((id, title) => {
     const data = null;
