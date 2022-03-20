@@ -10,6 +10,8 @@ import {formatPrice} from 'utils';
 import Portfolios from 'data/portfolios';
 import {BankStore} from 'stores/bankStore';
 import {FiatStore} from 'stores/fiatStore';
+import BigNumber from 'bignumber.js';
+import {CexStore} from 'stores/cexStore';
 
 const PortfolioScreen = observer(() => {
   const {t} = useTranslation();
@@ -60,9 +62,10 @@ const PortfolioScreen = observer(() => {
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text style={styles.title} numberOfLines={1}>
             {formatPrice(
-              WalletStore.totalBalance +
-                BankStore.totalBalance +
-                FiatStore.totalBalance,
+              new BigNumber(WalletStore.totalBalance)
+                .plus(new BigNumber(BankStore.totalBalance))
+                .plus(new BigNumber(FiatStore.totalBalance))
+                .plus(new BigNumber(CexStore.totalBalance)),
               true,
             ) || 0.0}
           </Text>

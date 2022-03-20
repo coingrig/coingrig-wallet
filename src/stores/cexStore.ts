@@ -11,7 +11,7 @@ export type CexStoreType = {
 
 class cexStore {
   cexs: CexStoreType[] = [];
-  totalBalance: Number = 0;
+  totalBalance: number = 0;
 
   constructor() {
     makeAutoObservable(this);
