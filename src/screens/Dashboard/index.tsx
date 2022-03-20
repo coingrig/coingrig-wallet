@@ -13,7 +13,7 @@ import {WalletStore} from 'stores/wallet';
 import {CryptoService} from 'services/crypto';
 import DeepLinkService from 'services/deeplink';
 import {useTranslation} from 'react-i18next';
-import Brick from 'components/brick';
+import Brick from 'components/Bricks';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon2 from 'react-native-vector-icons/Entypo';
 import Icon3 from 'react-native-vector-icons/Ionicons';
@@ -29,6 +29,8 @@ import {CONFIG_MODULES, CONFIG_PROPERTIES, ConfigStore} from 'stores/config';
 import AppsStateService from 'services/appStates';
 import {useNavigation} from '@react-navigation/native';
 import {SettingsStore} from 'stores/settings';
+import {BankStore} from 'stores/bankStore';
+import {FiatStore} from 'stores/fiatStore';
 // import CustomModal from 'components/Modal';
 
 const DashboardScreen = observer(() => {
@@ -133,7 +135,12 @@ const DashboardScreen = observer(() => {
         <View style={styles.topContainer}>
           <Text style={styles.balance}>{t('dashboard.my_balance')}</Text>
           <Text style={styles.fiatValue} adjustsFontSizeToFit numberOfLines={1}>
-            {formatPrice(WalletStore.totalBalance, true) || 0.0}
+            {formatPrice(
+              WalletStore.totalBalance +
+                BankStore.totalBalance +
+                FiatStore.totalBalance,
+              true,
+            ) || 0.0}
           </Text>
           <View style={{marginTop: 20, width: '100%'}}>
             <View style={styles.subContainer}>
@@ -149,13 +156,30 @@ const DashboardScreen = observer(() => {
               horizontal
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={{paddingHorizontal: 10}}>
-              {WalletStore.wallets.slice(0, 2).map((v, i) => {
-                return <Brick coin={v.symbol} chain={v.chain} key={i} />;
-              })}
-              <Brick coin={'_END_'} key={'_END_'} />
+              <Brick
+                title={'Crypto'}
+                key={0}
+                value={WalletStore.totalBalance}
+                icon={'bitcoin'}
+                color={'orange'}
+              />
+              <Brick
+                title={'Bank'}
+                key={1}
+                value={BankStore.totalBalance}
+                icon={'bank'}
+                color={'#2c8af2'}
+              />
+              <Brick
+                title={'_END_'}
+                key={'_END_'}
+                icon={'menu'}
+                color={Colors.background}
+              />
             </ScrollView>
             {Marketing()}
-            <View style={[styles.subContainer, {marginTop: 10}]}>
+            <View
+              style={[styles.subContainer, {marginTop: 10, marginBottom: 5}]}>
               <Icon
                 name="list-ul"
                 size={15}

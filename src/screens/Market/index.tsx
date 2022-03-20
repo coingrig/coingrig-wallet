@@ -70,7 +70,7 @@ const MarketScreen = observer(() => {
           navigation.navigate('CoinDetailScreen', {
             coin: item.id,
             title: item.symbol,
-            showAdd: true,
+            showAdd: false,
           })
         }
       />

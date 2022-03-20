@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import {Linking} from 'react-native';
+import {DeviceEventEmitter, Linking} from 'react-native';
 import {WalletStore} from 'stores/wallet';
 import CONFIG from '../config';
 import appStates from './appStates';
@@ -38,6 +38,9 @@ class DeepLinkService {
 
   handleDeepLink = data => {
     switch (data[0]) {
+      case 'closebrowser':
+        this.closeBrowser();
+        break;
       case 'add':
         this.addNewToken(data);
         break;
@@ -126,6 +129,10 @@ class DeepLinkService {
     } catch (error) {
       Logs.error(error);
     }
+  }
+
+  closeBrowser() {
+    DeviceEventEmitter.emit('closeBrowser');
   }
 
   parseUrl = (urlToParse: any) => {

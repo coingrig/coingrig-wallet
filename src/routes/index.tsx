@@ -41,6 +41,10 @@ import styles from './styles';
 import SyntheticScreen from 'screens/Synthetic';
 import CEXScreen from 'screens/Cex';
 import CexDetails from 'screens/Cex/Details';
+import BankingScreen from 'screens/Banking';
+import AddBank from 'screens/Banking/AddBank';
+import SelectCountry from 'screens/Banking/SelectCountry';
+import AddFiat from 'screens/Fiat';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -143,9 +147,9 @@ function BottomTabs() {
             );
           } else if (route.name === 'HubScreen') {
             return focused ? (
-              <Icon name="apps" size={24} color={Colors.inverse} />
+              <Icon name="layers" size={25} color={Colors.inverse} />
             ) : (
-              <Icon name="apps" size={24} color={Colors.foreground} />
+              <Icon name="layers" size={25} color={Colors.foreground} />
             );
           }
           return null;
@@ -341,6 +345,106 @@ function NavigationStack({t}) {
         options={{
           headerShown: true,
           headerTitle: t('title.cex'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="BankingScreen"
+        component={BankingScreen}
+        options={{
+          headerShown: true,
+          headerTitle: t('title.banking'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="AddBankScreen"
+        component={AddBank}
+        options={{
+          headerShown: true,
+          headerTitle: t('AddBank'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="AddFiat"
+        component={AddFiat}
+        options={{
+          headerShown: true,
+          headerTitle: t('Select Currency'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="SelectCountryScreen"
+        component={SelectCountry}
+        options={{
+          headerShown: true,
+          headerTitle: t('SelectCountry'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios

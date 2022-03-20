@@ -9,8 +9,7 @@ import {StorageSetItem, StorageGetItem} from './storage';
 import endpoints from 'utils/endpoints';
 import CONFIG from 'config';
 import CexService from 'services/cex';
-import {showMessage} from 'react-native-flash-message';
-
+import BanksService from 'services/banks';
 class CryptoService {
   lastFetchedBalance = 0;
   CHAIN_ID_MAP = {
@@ -218,6 +217,7 @@ class CryptoService {
         }
       }
       this.getCexBalance();
+      BanksService.updateAccountsBalance();
       return true;
     } catch (error) {
       Logs.error(error);

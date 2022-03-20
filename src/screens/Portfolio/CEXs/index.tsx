@@ -1,0 +1,72 @@
+/* eslint-disable react-native/no-inline-styles */
+import {useNavigation} from '@react-navigation/native';
+import {observer} from 'mobx-react-lite';
+import React, {useEffect} from 'react';
+import {FlatList, Text, TouchableOpacity, View} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import AccountItem from 'components/Account';
+import {WalletStore} from 'stores/wallet';
+import {Colors} from 'utils/colors';
+import {styles} from '../styles';
+import {formatPrice} from 'utils';
+import {BankStore, IBankAccount} from 'stores/bankStore';
+
+const CEXs = observer(() => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('SelectCountryScreen')}
+          style={styles.moreBtn}>
+          <Icon name="add-circle" size={25} color={Colors.foreground} />
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
+
+  const renderItem = ({item}: {item: IBankAccount}) => (
+    <AccountItem
+      key={item.iban}
+      onPress={null}
+      title={item.bankName || ''}
+      img={item.bankLogo || ''}
+      subtitle={item.iban || ''}
+      value={item.amount + ' ' + item.currency || ''}
+      subvalue={item.name || ''}
+    />
+  );
+  const listHeader = () => {
+    return (
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <Text style={styles.subLeft}>{'Accounts'}</Text>
+        <Text style={styles.subRight}>
+          {formatPrice(WalletStore.totalBalance, true) || 0.0}
+        </Text>
+      </View>
+    );
+  };
+
+  return (
+    <View style={{flexGrow: 1}}>
+      <View style={{justifyContent: 'center', flex: 1}}>
+        <FlatList
+          data={BankStore.bankAccounts || []}
+          renderItem={renderItem}
+          keyExtractor={(item: any, index) =>
+            item.cid + item.chain + index.toString() ?? ''
+          }
+          maxToRenderPerBatch={10}
+          initialNumToRender={10}
+          showsVerticalScrollIndicator={false}
+          ListHeaderComponent={listHeader()}
+          style={{marginHorizontal: 10}}
+          scrollEventThrottle={100}
+        />
+      </View>
+    </View>
+  );
+});
+
+export default CEXs;

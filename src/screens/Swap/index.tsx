@@ -166,7 +166,7 @@ const SwapScreen = props => {
         } else {
           setBuyToken('-');
           setBuyTokenSymbol(t('swap.select'));
-          setBuyTokenLogo(endpoints.assets + 'images/plus.png');
+          setBuyTokenLogo(endpoints.assets + '/images/plus.png');
         }
         setBuyAmount('');
       }
@@ -299,7 +299,7 @@ const SwapScreen = props => {
     setBuyToken('-');
     setBuyTokenSymbol(t('swap.select'));
     setBuyAmount('');
-    setBuyTokenLogo(endpoints.assets + 'images/plus.png');
+    setBuyTokenLogo(endpoints.assets + '/images/plus.png');
   };
 
   const changeChain = newChain => {

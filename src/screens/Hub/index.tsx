@@ -60,9 +60,9 @@ const HubScreen = () => {
       <View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text style={styles.title}>{t('hub.title')} </Text>
-          <Text style={styles.subtitle}>
+          {/* <Text style={styles.subtitle}>
             {apps.length + ' ' + t('hub.modules')}
-          </Text>
+          </Text> */}
         </View>
       </View>
       <View>
