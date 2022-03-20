@@ -63,9 +63,6 @@ const PortfolioScreen = observer(() => {
               true,
             ) || 0.0}
           </Text>
-          {/* <Text style={styles.balance} numberOfLines={1}> */}
-          {/* {formatPrice(WalletStore.totalBalance, true) || 0.0} */}
-          {/* </Text> */}
         </View>
         <ScrollView
           ref={scrollRef}

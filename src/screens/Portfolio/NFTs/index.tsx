@@ -4,14 +4,8 @@ import {observer} from 'mobx-react-lite';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import NFTCard from 'components/NFT/Card';
-import {FlatList, Image, Text, View} from 'react-native';
-import FastImage from 'react-native-fast-image';
-import WalletListItem from 'components/walletlistitem';
-import {ScrollView} from 'react-native-gesture-handler';
-import {IWallet, WalletStore} from 'stores/wallet';
-import {Colors} from 'utils/colors';
+import {Image, Text, View} from 'react-native';
 import {styles} from '../styles';
-import {formatPrice} from 'utils';
 import BigList from 'react-native-big-list';
 import endpoints from 'utils/endpoints';
 import {CryptoService} from 'services/crypto';
@@ -69,7 +63,6 @@ const NFTs = observer(() => {
           keyboardDismissMode="on-drag"
           showsVerticalScrollIndicator={false}
           keyExtractor={(item: any) => item.id.toString() ?? ''}
-          scrollEventThrottle={100}
         />
       );
     } else {
