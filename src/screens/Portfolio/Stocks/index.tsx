@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Text, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -8,6 +9,13 @@ import {Colors} from 'utils/colors';
 
 export default function Stocks() {
   const {t} = useTranslation();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => null,
+    });
+  }, []);
 
   return (
     <ScrollView

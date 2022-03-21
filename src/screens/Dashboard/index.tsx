@@ -161,6 +161,7 @@ const DashboardScreen = observer(() => {
               <Brick
                 title={'Crypto'}
                 key={0}
+                size={32}
                 value={WalletStore.totalBalance + CexStore.totalBalance}
                 icon={'bitcoin'}
                 color={'orange'}
@@ -168,6 +169,7 @@ const DashboardScreen = observer(() => {
               <Brick
                 title={'Bank'}
                 key={1}
+                size={30}
                 value={BankStore.totalBalance}
                 icon={'bank'}
                 color={'#2c8af2'}
@@ -176,6 +178,7 @@ const DashboardScreen = observer(() => {
                 title={'_END_'}
                 key={'_END_'}
                 icon={'menu'}
+                size={32}
                 color={Colors.background}
               />
             </ScrollView>

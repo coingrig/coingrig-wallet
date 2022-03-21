@@ -5,7 +5,6 @@ import Svg, {Path} from 'react-native-svg';
 import {useNavigation} from '@react-navigation/native';
 import {formatPrice} from 'utils';
 import {Colors} from 'utils/colors';
-import FastImage from 'react-native-fast-image';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styles} from './styles';
 
@@ -65,7 +64,7 @@ const Brick = (props: any) => {
                   props.title === '_END_' ? Colors.brickEnd : Colors.background,
               },
             ]}>
-            <Icon name={props.icon} size={32} color={props.color} />
+            <Icon name={props.icon} size={props.size} color={props.color} />
           </View>
         </View>
         <View style={styles.bcontainer}>{renderBody()}</View>
