@@ -14,6 +14,7 @@ import {CryptoService} from 'services/crypto';
 import DeepLinkService from 'services/deeplink';
 import {useTranslation} from 'react-i18next';
 import Brick from 'components/Bricks';
+import Analytics from 'appcenter-analytics';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon2 from 'react-native-vector-icons/Entypo';
 import Icon3 from 'react-native-vector-icons/Ionicons';
@@ -64,6 +65,7 @@ const DashboardScreen = observer(() => {
         false,
       ),
     );
+    Analytics.trackEvent('AppStart');
   }, [SettingsStore.mnemonicBackupDone]);
 
   const badge = () => <View style={styles.badge} />;

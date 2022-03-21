@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import {useTranslation} from 'react-i18next';
+import Analytics from 'appcenter-analytics';
 import Svg, {Path} from 'react-native-svg';
 import {WalletStore} from 'stores/wallet';
 import {formatCoins, formatNoComma, formatPrice} from 'utils';
@@ -178,6 +179,7 @@ const WalletScreen = observer(({route}) => {
     const link =
       endpoints.ramper + '&userAddress=' + address + '&swapAsset=' + coin;
     // console.log(link);
+    Analytics.trackEvent('Click', {name: 'BuyCrypto'});
     openLink(link);
   };
 

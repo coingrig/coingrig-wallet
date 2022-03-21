@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
+import Analytics from 'appcenter-analytics';
 import React, {useEffect} from 'react';
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -23,6 +24,7 @@ const Banking = observer(() => {
         </TouchableOpacity>
       ),
     });
+    Analytics.trackEvent('Screen', {name: 'Portfolio/Banking'});
   }, []);
 
   const renderItem = ({item}: {item: IBankAccount}) => (

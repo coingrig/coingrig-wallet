@@ -22,6 +22,7 @@ import {
   MenuOption,
   MenuTrigger,
 } from 'react-native-popup-menu';
+import Analytics from 'appcenter-analytics';
 import {BigButton} from 'components/bigButton';
 import {CryptoService} from 'services/crypto';
 import {WalletStore} from 'stores/wallet';
@@ -41,6 +42,7 @@ export default function CustomTokenScreen({route}) {
       // coingrig://add/polygon/0x0c51f415cf478f8d08c246a6c6ee180c5dc3a012
       autoTokenData();
     }
+    Analytics.trackEvent('Screen', {name: 'CustomTokenScreen'});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

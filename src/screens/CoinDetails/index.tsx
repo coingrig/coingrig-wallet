@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import Analytics from 'appcenter-analytics';
 import Icon from 'react-native-vector-icons/Feather';
 import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
@@ -54,6 +55,7 @@ const CoinDetailScreen = observer(({route}) => {
         </TouchableOpacity>
       ),
     });
+    Analytics.trackEvent('Screen', {name: 'CoinDetailScreen'});
   }, []);
 
   useEffect(() => {

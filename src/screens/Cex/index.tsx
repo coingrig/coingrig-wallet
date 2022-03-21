@@ -5,6 +5,7 @@ import {useTranslation} from 'react-i18next';
 import CardList from 'components/CardList';
 import CardImage from 'components/CardImage';
 import {useNavigation} from '@react-navigation/native';
+import Analytics from 'appcenter-analytics';
 import {styles} from './styles';
 import CEX_LIST from 'data/cex';
 
@@ -12,7 +13,9 @@ export default function CEXScreen() {
   const {t} = useTranslation();
   const navigation = useNavigation();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    Analytics.trackEvent('Screen', {name: 'CEXScreen'});
+  }, []);
 
   return (
     <ScrollView contentContainerStyle={styles.scrollview}>
