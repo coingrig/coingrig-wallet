@@ -70,7 +70,15 @@ export default function CardListItem(item, index, isLast) {
       key={item.title}
       onPress={() => (item.enable ? onClick(item) : soon())}
       style={[styles.brick, {borderBottomWidth: isLast ? 0 : 1}]}>
-      <Image source={item.image} resizeMode="contain" style={styles.ico} />
+      {item.image ? (
+        <Image source={item.image} resizeMode="contain" style={styles.ico} />
+      ) : (
+        <Image
+          source={{uri: item.icon}}
+          resizeMode="contain"
+          style={styles.ico}
+        />
+      )}
       <View style={{flex: 1}}>
         <Text style={styles.itemTitle}>{t(item.title)}</Text>
         <Text style={styles.desc}>{t(item.description)}</Text>

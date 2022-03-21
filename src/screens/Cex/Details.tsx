@@ -72,6 +72,7 @@ export default function CexDetails({route}) {
         apiKeyText,
         secretText,
         item.title,
+        item.icon,
       );
       if (saved) {
         console.log('Done');

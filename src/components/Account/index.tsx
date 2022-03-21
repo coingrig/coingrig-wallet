@@ -13,6 +13,7 @@ const AccountItem = (props: {
   subvalue: string;
   onPress?: any;
 }) => {
+  console.log(props.img);
   return (
     <TouchableOpacity
       onPress={props.onPress ? props.onPress : null}

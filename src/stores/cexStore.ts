@@ -7,6 +7,7 @@ export type CexStoreType = {
   id: string;
   title: string;
   data: any;
+  logo: string;
 };
 
 class cexStore {
@@ -50,11 +51,11 @@ class cexStore {
     this.totalBalance = balance;
   });
 
-  addCex = action((id, title) => {
+  addCex = action((id, title, logo) => {
     const data = null;
     const check = this.getCexById(id);
     if (!check) {
-      this.cexs.push({id, title, data});
+      this.cexs.push({id, title, data, logo});
       return true;
     } else {
       return null;

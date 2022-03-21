@@ -168,8 +168,8 @@ class CexService {
     }
   }
 
-  async saveCexKeys(cexID, apiKey, secret, title) {
-    const newCex = CexStore.addCex(cexID, title);
+  async saveCexKeys(cexID, apiKey, secret, title, logo) {
+    const newCex = CexStore.addCex(cexID, title, logo);
     if (newCex) {
       let data: any = {apiKey, secret};
       data = JSON.stringify(data);

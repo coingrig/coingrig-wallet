@@ -62,10 +62,10 @@ const PortfolioScreen = observer(() => {
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text style={styles.title} numberOfLines={1}>
             {formatPrice(
-              new BigNumber(WalletStore.totalBalance)
-                .plus(new BigNumber(BankStore.totalBalance))
-                .plus(new BigNumber(FiatStore.totalBalance))
-                .plus(new BigNumber(CexStore.totalBalance)),
+              WalletStore.totalBalance +
+                BankStore.totalBalance +
+                FiatStore.totalBalance +
+                CexStore.totalBalance,
               true,
             ) || 0.0}
           </Text>

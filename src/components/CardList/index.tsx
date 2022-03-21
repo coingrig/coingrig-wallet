@@ -6,6 +6,7 @@ import CardListItem from './CardListItem';
 import {styles} from './styles';
 
 const CardList = ({data, category, title}) => {
+  console.log(data);
   return (
     <View
       style={[

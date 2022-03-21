@@ -8,7 +8,8 @@ import AccountItem from 'components/Account';
 import {Colors} from 'utils/colors';
 import {styles} from '../styles';
 import {formatCoins, formatPrice} from 'utils';
-import {CexStore, CexStoreType} from 'stores/cexStore';
+import {CexStore} from 'stores/cexStore';
+import {Logs} from 'services/logs';
 
 const CEXs = observer(() => {
   const navigation = useNavigation();
@@ -17,7 +18,7 @@ const CEXs = observer(() => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
-          onPress={() => navigation.navigate('SelectCountryScreen')}
+          onPress={() => navigation.navigate('CEXScreen')}
           style={styles.moreBtn}>
           <Icon name="add-circle" size={25} color={Colors.foreground} />
         </TouchableOpacity>
@@ -25,7 +26,7 @@ const CEXs = observer(() => {
     });
   }, []);
 
-  const renderItem = ({item}: {item: CexStoreType}) => (
+  const renderItem = ({item}: {item: any}) => (
     <AccountItem
       key={item.id}
       disable={true}
@@ -49,20 +50,26 @@ const CEXs = observer(() => {
   };
 
   const mapItems = () => {
-    let list = [];
-    CexStore.cexs.forEach(cex => {
-      cex.data.forEach(asset => {
-        list.push({
-          id: cex.id + '-' + asset.symbol,
-          symbol: asset.symbol,
-          subtitle: cex.title,
-          balance: formatCoins(asset.balance),
-          price: asset.price,
-          totalValue: formatPrice(asset.totalValue),
+    let list: any[] = [];
+    try {
+      CexStore.cexs.forEach(cex => {
+        cex.data.forEach(asset => {
+          list.push({
+            id: cex.id + '-' + asset.symbol,
+            symbol: asset.symbol,
+            subtitle: cex.title,
+            balance: formatCoins(asset.balance),
+            price: asset.price,
+            totalValue: formatPrice(asset.totalValue),
+            logo: cex.logo,
+          });
         });
       });
-    });
-    return list;
+      return list;
+    } catch (error) {
+      Logs.error(error);
+      return [];
+    }
   };
 
   return (

@@ -32,7 +32,6 @@ import {SettingsStore} from 'stores/settings';
 import {BankStore} from 'stores/bankStore';
 import {FiatStore} from 'stores/fiatStore';
 import {CexStore} from 'stores/cexStore';
-import BigNumber from 'bignumber.js';
 // import CustomModal from 'components/Modal';
 
 const DashboardScreen = observer(() => {
@@ -138,10 +137,10 @@ const DashboardScreen = observer(() => {
           <Text style={styles.balance}>{t('dashboard.my_balance')}</Text>
           <Text style={styles.fiatValue} adjustsFontSizeToFit numberOfLines={1}>
             {formatPrice(
-              new BigNumber(WalletStore.totalBalance)
-                .plus(new BigNumber(BankStore.totalBalance))
-                .plus(new BigNumber(FiatStore.totalBalance))
-                .plus(new BigNumber(CexStore.totalBalance)),
+              WalletStore.totalBalance +
+                BankStore.totalBalance +
+                FiatStore.totalBalance +
+                CexStore.totalBalance,
               true,
             ) || 0.0}
           </Text>
@@ -162,9 +161,7 @@ const DashboardScreen = observer(() => {
               <Brick
                 title={'Crypto'}
                 key={0}
-                value={new BigNumber(WalletStore.totalBalance).plus(
-                  new BigNumber(CexStore.totalBalance),
-                )}
+                value={WalletStore.totalBalance + CexStore.totalBalance}
                 icon={'bitcoin'}
                 color={'orange'}
               />
