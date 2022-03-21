@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
 import React, {useEffect} from 'react';
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AccountItem from 'components/Account';
 import {Colors} from 'utils/colors';
 import {styles} from '../styles';
@@ -19,7 +19,7 @@ const Banking = observer(() => {
         <TouchableOpacity
           onPress={() => navigation.navigate('SelectCountryScreen')}
           style={styles.moreBtn}>
-          <Icon name="add-circle" size={25} color={Colors.foreground} />
+          <Icon name="bank-plus" size={25} color={Colors.foreground} />
         </TouchableOpacity>
       ),
     });

@@ -20,7 +20,7 @@ const CEXs = observer(() => {
         <TouchableOpacity
           onPress={() => navigation.navigate('CEXScreen')}
           style={styles.moreBtn}>
-          <Icon name="add-circle" size={25} color={Colors.foreground} />
+          <Icon name="link" size={25} color={Colors.foreground} />
         </TouchableOpacity>
       ),
     });
