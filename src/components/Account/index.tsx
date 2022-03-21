@@ -3,6 +3,7 @@ import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {Colors} from 'utils/colors';
 import FastImage from 'react-native-fast-image';
+import UserAvatar from 'react-native-user-avatar';
 
 const AccountItem = (props: {
   img: string | null;
@@ -13,7 +14,6 @@ const AccountItem = (props: {
   subvalue: string;
   onPress?: any;
 }) => {
-  console.log(props.img);
   return (
     <TouchableOpacity
       onPress={props.onPress ? props.onPress : null}
@@ -22,20 +22,24 @@ const AccountItem = (props: {
       <View style={styles.container}>
         <View style={styles.card}>
           <View style={styles.logo}>
-            <FastImage
-              style={{
-                width: 35,
-                height: 35,
-                justifyContent: 'center',
-                borderRadius: 50,
-                backgroundColor: Colors.darker,
-              }}
-              source={{
-                uri: props.img || '',
-                priority: FastImage.priority.normal,
-                cache: FastImage.cacheControl.immutable,
-              }}
-            />
+            {props.img ? (
+              <FastImage
+                style={{
+                  width: 35,
+                  height: 35,
+                  justifyContent: 'center',
+                  borderRadius: 50,
+                  backgroundColor: Colors.darker,
+                }}
+                source={{
+                  uri: props.img || '',
+                  priority: FastImage.priority.normal,
+                  cache: FastImage.cacheControl.immutable,
+                }}
+              />
+            ) : (
+              <UserAvatar size={35} name={props.title} />
+            )}
           </View>
           <View style={styles.mcontainer}>
             <Text
