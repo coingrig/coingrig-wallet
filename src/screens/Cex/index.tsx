@@ -8,6 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 import Analytics from 'appcenter-analytics';
 import {styles} from './styles';
 import CEX_LIST from 'data/cex';
+import Separator from 'components/CardList/Separator';
 
 export default function CEXScreen() {
   const {t} = useTranslation();
@@ -20,7 +21,18 @@ export default function CEXScreen() {
   return (
     <ScrollView contentContainerStyle={styles.scrollview}>
       <View style={{marginHorizontal: 16}}>
-        <CardList data={CEX_LIST} title={null} category={null} />
+        <Separator title={t('ACCOUNTS').toUpperCase()} />
+        <CardList
+          data={CEX_LIST.filter(item => item.enable === true)}
+          title={null}
+          category={null}
+        />
+        <Separator title={t('dashboard.coming_soon').toUpperCase()} />
+        <CardList
+          data={CEX_LIST.filter(item => item.enable === false)}
+          title={null}
+          category={null}
+        />
       </View>
     </ScrollView>
   );
