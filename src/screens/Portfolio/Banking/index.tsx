@@ -74,7 +74,7 @@ const Banking = observer(() => {
     <View style={{flexGrow: 1}}>
       <View style={{justifyContent: 'center', flex: 1}}>
         <FlatList
-          data={BankStore.bankAccounts || []}
+          data={BankStore.bankAccounts}
           renderItem={renderItem}
           keyExtractor={(item: any, index) => item.id + index.toString() ?? ''}
           maxToRenderPerBatch={10}

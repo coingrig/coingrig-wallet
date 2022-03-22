@@ -14,6 +14,7 @@ import InAppBrowser from 'react-native-inappbrowser-reborn';
 import {Logs} from 'services/logs';
 import {useNavigation} from '@react-navigation/native';
 import {LoadingModal} from 'services/loading';
+import {sleep} from 'utils';
 
 let accData: any = null;
 
@@ -83,6 +84,7 @@ export default function AddBank({route}) {
       const aggrement = await BanksService.getAggrement(bankID);
       const buildLink = await BanksService.createAuthLink(bankID, aggrement.id);
       accData = {aggrement, buildLink, item};
+      await sleep(300);
       openLink(buildLink.link);
       setLoading(false);
     } catch (error) {

@@ -90,7 +90,7 @@ class BanksService {
   };
 
   createAccount = async (accountID, accData) => {
-    const exp = this.addDays(90);
+    const exp = this.addDays(accData.aggrement.access_valid_for_days || 90);
     try {
       const {balance, details}: any = await this.getBankAccountData(accountID);
       const bankAccount: IBankAccount = {
