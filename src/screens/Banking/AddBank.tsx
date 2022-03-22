@@ -13,6 +13,7 @@ import {Colors} from 'utils/colors';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import {Logs} from 'services/logs';
 import {useNavigation} from '@react-navigation/native';
+import {LoadingModal} from 'services/loading';
 
 let accData: any = null;
 
@@ -20,7 +21,6 @@ export default function AddBank({route}) {
   const navigation = useNavigation();
   const [banks, setBanks] = useState(null);
   const [loading, setLoading] = useState(false);
-  //   const [accData, setAccData] = useState<any>({});
 
   useEffect(() => {
     // get banks
@@ -40,7 +40,7 @@ export default function AddBank({route}) {
   const openLink = async url => {
     try {
       if (await InAppBrowser.isAvailable()) {
-        await InAppBrowser.open(url, {
+        const browser = await InAppBrowser.open(url, {
           dismissButtonStyle: 'cancel',
           readerMode: false,
           animated: true,
@@ -53,6 +53,9 @@ export default function AddBank({route}) {
           enableDefaultShare: false,
           forceCloseOnRedirection: false,
         });
+        if (browser.type === 'cancel') {
+          LoadingModal.instance.current?.hide();
+        }
       } else {
         Linking.openURL(url);
       }
@@ -71,17 +74,20 @@ export default function AddBank({route}) {
     if (loading) {
       return;
     }
+    LoadingModal.instance.current?.show();
     accData = null;
     setLoading(true);
     try {
-      const idtest = 'SANDBOXFINANCE_SFIN0000';
-      const aggrement = await BanksService.getAggrement(idtest);
-      const buildLink = await BanksService.createAuthLink(idtest, aggrement.id);
+      const bankID = 'SANDBOXFINANCE_SFIN0000';
+      // const bankID = item.id;
+      const aggrement = await BanksService.getAggrement(bankID);
+      const buildLink = await BanksService.createAuthLink(bankID, aggrement.id);
       accData = {aggrement, buildLink, item};
       openLink(buildLink.link);
       setLoading(false);
     } catch (error) {
       Logs.error(error);
+      LoadingModal.instance.current?.hide();
       setLoading(false);
     }
   };
@@ -103,15 +109,18 @@ export default function AddBank({route}) {
 
         accData = null;
         BanksService.updateTotalBalance();
+        LoadingModal.instance.current?.hide();
         // show message
         navigation.goBack();
       } else {
         // alert no accounts or no permissions
+        LoadingModal.instance.current?.hide();
       }
       //   console.log('----', accounts);
     } catch (error) {
       //alert error
       Logs.error(error);
+      LoadingModal.instance.current?.hide();
     }
   };
 

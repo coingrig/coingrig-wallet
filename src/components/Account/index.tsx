@@ -43,8 +43,7 @@ const AccountItem = (props: {
           </View>
           <View style={styles.mcontainer}>
             <Text
-              adjustsFontSizeToFit
-              numberOfLines={2}
+              numberOfLines={1}
               style={[
                 styles.coinName,
                 {fontWeight: props.subtitle ? 'bold' : 'normal'},

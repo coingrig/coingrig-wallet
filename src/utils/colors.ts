@@ -29,6 +29,8 @@ let theme = {
   splash: '#fff',
   external: 'white', //#f5f2eb',
   fade: '#D9CCB4',
+  red: '#d9534f',
+  green: '#5cb85c',
 };
 if (colorScheme === 'dark') {
   theme = {
@@ -59,6 +61,8 @@ if (colorScheme === 'dark') {
     splash: '#000',
     external: '#2e2c2c',
     fade: '#D9CCB4',
+    red: '#d9534f',
+    green: '#5cb85c',
   };
 }
 

@@ -14,6 +14,7 @@ export type IBankAccount = {
   bankLogo: string | null;
   ownerName: string | null;
   bankID: string | null;
+  expire: string | null;
 };
 
 class bankStore {

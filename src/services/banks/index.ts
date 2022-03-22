@@ -83,7 +83,14 @@ class BanksService {
     }
   };
 
+  addDays = days => {
+    var date = new Date();
+    date.setDate(date.getDate() + days);
+    return date.toDateString();
+  };
+
   createAccount = async (accountID, accData) => {
+    const exp = this.addDays(90);
     try {
       const {balance, details}: any = await this.getBankAccountData(accountID);
       const bankAccount: IBankAccount = {
@@ -98,6 +105,7 @@ class BanksService {
         bankLogo: accData.item.logo,
         ownerName: details.account.ownerName || null,
         bankID: accData.item.id || null,
+        expire: exp,
       };
       BankStore.addAccount(bankAccount);
     } catch (error) {

@@ -204,12 +204,17 @@ const SettingScreen = observer(() => {
           style={{marginVertical: 20, color: Colors.foreground}}>
           {t('settings.version')}: {CONFIG.APP_VERSION}
         </Text>
-        <TouchableOpacity
-          style={styles.itemDelete}
-          onPress={() => deleteWallets()}>
-          <Icon name="trash-bin" size={23} color="white" />
-          <Text style={styles.textDelete}>{t('settings.delete_wallets')}</Text>
-        </TouchableOpacity>
+        <SmallButton
+          text={t('settings.delete_wallets')}
+          onPress={() => deleteWallets()}
+          color="#f2eded"
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{
+            backgroundColor: Colors.red,
+            width: '100%',
+            borderColor: Colors.red,
+          }}
+        />
       </ScrollView>
       <ActionSheet
         //@ts-ignore
