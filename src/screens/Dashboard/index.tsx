@@ -163,7 +163,7 @@ const DashboardScreen = observer(() => {
               <Brick
                 title={'Crypto'}
                 key={0}
-                size={32}
+                size={35}
                 value={WalletStore.totalBalance + CexStore.totalBalance}
                 icon={'bitcoin'}
                 color={'orange'}

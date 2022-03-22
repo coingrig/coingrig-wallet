@@ -102,14 +102,14 @@ const Banking = observer(() => {
             fontFamily: 'RobotoSlab-Bold',
             color: Colors.foreground,
           }}>
-          {selected?.ownerName}
+          {selected?.ownerName || 'Bank Account'}
         </Text>
 
         <View style={{marginHorizontal: 16}}>
           <Text
             style={{
               textAlign: 'center',
-              fontSize: 17,
+              fontSize: 16,
               color: Colors.foreground,
             }}>
             {'Bank: ' + selected?.bankName}
@@ -117,7 +117,7 @@ const Banking = observer(() => {
           <Text
             style={{
               textAlign: 'center',
-              fontSize: 17,
+              fontSize: 16,
               marginVertical: 5,
               color: Colors.foreground,
             }}>
@@ -126,7 +126,7 @@ const Banking = observer(() => {
           <Text
             style={{
               textAlign: 'center',
-              fontSize: 17,
+              fontSize: 16,
               color: Colors.foreground,
             }}>
             {'Currency: ' + selected?.currency}
