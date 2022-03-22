@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import React from 'react';
 import COUNTRIES from 'data/countries';
@@ -11,6 +12,7 @@ export default function SelectCountry() {
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
+        //@ts-ignore
         onPress={() => navigation.replace('AddBankScreen', {item})}
         style={{
           flexDirection: 'row',
@@ -18,7 +20,7 @@ export default function SelectCountry() {
           alignItems: 'center',
         }}>
         <FastImage
-          style={{width: 36, height: 24}}
+          style={{width: 36, height: 24, borderRadius: 5}}
           source={{
             uri: endpoints.assets + '/images/flags/' + item.code + '.png',
             priority: FastImage.priority.normal,
