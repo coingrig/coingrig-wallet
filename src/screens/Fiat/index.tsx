@@ -97,17 +97,16 @@ export default function AddFiat() {
         <SmallButton
           text={t('wallet.add')}
           onPress={() => {
-            console.log(fx.rates[selected!]);
             FiatStore.addAccount({
               id: Date.now().toLocaleString(),
-              balance: parseInt(accBalance),
+              balance: parseFloat(accBalance),
               currency: selected || '',
               name: accName,
-              usdBalance: parseInt(accBalance) / fx.rates[selected!],
+              usdBalance: parseFloat(accBalance) / fx.rates[selected!],
             });
             FiatStore.updateTotalBalance(
               FiatStore.totalBalance +
-                parseInt(accBalance) / fx.rates[selected!],
+                parseFloat(accBalance) / fx.rates[selected!],
             );
             editSheet.current?.setModalVisible(false);
             navigation.goBack();
