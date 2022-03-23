@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     borderWidth: 1,
     borderColor: Colors.border,
-    fontSize: 20,
+    fontSize: 17,
     marginVertical: 3,
   },
 });
