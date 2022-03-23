@@ -10,7 +10,7 @@ import {styles} from '../styles';
 import {formatPrice} from 'utils';
 import {FiatStore, IFiatAccounts} from 'stores/fiatStore';
 
-const Fiat = observer(() => {
+const Fiat = observer(props => {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -60,7 +60,8 @@ const Fiat = observer(() => {
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={listHeader()}
           style={{marginHorizontal: 10}}
-          scrollEventThrottle={100}
+          scrollEventThrottle={300}
+          onScroll={e => props.onScroll(e.nativeEvent.contentOffset.y)}
         />
       </View>
     </View>

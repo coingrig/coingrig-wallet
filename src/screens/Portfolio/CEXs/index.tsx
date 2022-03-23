@@ -11,7 +11,7 @@ import {formatCoins, formatPrice} from 'utils';
 import {CexStore} from 'stores/cexStore';
 import {Logs} from 'services/logs';
 
-const CEXs = observer(() => {
+const CEXs = observer(props => {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -86,7 +86,8 @@ const CEXs = observer(() => {
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={listHeader()}
           style={{marginHorizontal: 10}}
-          scrollEventThrottle={100}
+          scrollEventThrottle={300}
+          onScroll={e => props.onScroll(e.nativeEvent.contentOffset.y)}
         />
       </View>
     </View>

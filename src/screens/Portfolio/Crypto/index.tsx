@@ -13,7 +13,7 @@ import {formatPrice} from 'utils';
 import {CryptoService} from 'services/crypto';
 import {showMessage} from 'react-native-flash-message';
 
-const Crypto = observer(() => {
+const Crypto = observer(props => {
   const {t} = useTranslation();
   const navigation = useNavigation();
 
@@ -86,8 +86,8 @@ const Crypto = observer(() => {
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={listHeader()}
           style={{marginHorizontal: 10}}
-          scrollEventThrottle={100}
-          // onScroll={e => onScroll(e.nativeEvent.contentOffset.y)}
+          scrollEventThrottle={300}
+          onScroll={e => props.onScroll(e.nativeEvent.contentOffset.y)}
         />
       </View>
     </View>

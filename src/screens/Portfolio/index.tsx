@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {Colors} from 'utils/colors';
@@ -10,13 +10,44 @@ import {formatPrice} from 'utils';
 import Portfolios from 'data/portfolios';
 import {BankStore} from 'stores/bankStore';
 import {FiatStore} from 'stores/fiatStore';
-import BigNumber from 'bignumber.js';
 import {CexStore} from 'stores/cexStore';
+import {useNavigation} from '@react-navigation/native';
+import {SmallLogo} from 'routes';
 
 const PortfolioScreen = observer(() => {
+  const navigation = useNavigation();
   const {t} = useTranslation();
   const scrollRef: any = useRef();
   const [screen, setScreen] = useState(Portfolios[0]);
+  const [shadowHeader, setShadowHeader] = useState(false);
+
+  useEffect(() => {
+    if (shadowHeader) {
+      navigation.setOptions({
+        headerTitle: () => (
+          <Text
+            style={{
+              fontSize: 23,
+              fontWeight: 'bold',
+              fontFamily: 'RobotoSlab-Bold',
+              color: Colors.foreground,
+            }}>
+            {formatPrice(
+              WalletStore.totalBalance +
+                BankStore.totalBalance +
+                FiatStore.totalBalance +
+                CexStore.totalBalance,
+              true,
+            ) || 0.0}
+          </Text>
+        ),
+      });
+    } else {
+      navigation.setOptions({
+        headerTitle: () => <SmallLogo />,
+      });
+    }
+  }, [shadowHeader]);
 
   const bubble = (item, index) => {
     return (
@@ -28,6 +59,7 @@ const PortfolioScreen = observer(() => {
             x: index * 30,
             animated: true,
           });
+          // setShadowHeader(false);
         }}
         style={{
           backgroundColor:
@@ -56,30 +88,48 @@ const PortfolioScreen = observer(() => {
     );
   };
 
+  const onScroll = y => {
+    if (y > 15) {
+      if (!shadowHeader) {
+        setShadowHeader(true);
+      }
+    } else if (y < 15) {
+      if (shadowHeader) {
+        setShadowHeader(false);
+      }
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={styles.title} numberOfLines={1}>
-            {formatPrice(
-              WalletStore.totalBalance +
-                BankStore.totalBalance +
-                FiatStore.totalBalance +
-                CexStore.totalBalance,
-              true,
-            ) || 0.0}
-          </Text>
-        </View>
+      <View style={shadowHeader ? styles.headerShadow : null}>
+        {!shadowHeader ? (
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Text style={styles.title} numberOfLines={1}>
+              {formatPrice(
+                WalletStore.totalBalance +
+                  BankStore.totalBalance +
+                  FiatStore.totalBalance +
+                  CexStore.totalBalance,
+                true,
+              ) || 0.0}
+            </Text>
+          </View>
+        ) : null}
         <ScrollView
           ref={scrollRef}
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{paddingRight: 20}}
-          style={{paddingTop: 10, paddingHorizontal: 12, paddingBottom: 5}}>
+          style={{
+            paddingTop: 10,
+            paddingHorizontal: 12,
+            paddingBottom: shadowHeader ? 10 : 5,
+          }}>
           {Portfolios.map((item, index) => bubble(item, index))}
         </ScrollView>
       </View>
-      <screen.component />
+      <screen.component onScroll={onScroll} />
     </View>
   );
 });

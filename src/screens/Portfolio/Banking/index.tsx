@@ -18,7 +18,7 @@ import {useTranslation} from 'react-i18next';
 
 const detailsSheet: React.RefObject<any> = createRef();
 
-const Banking = observer(() => {
+const Banking = observer(props => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [selected, setselected] = useState<IBankAccount | null>(null);
@@ -82,7 +82,8 @@ const Banking = observer(() => {
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={listHeader()}
           style={{marginHorizontal: 10}}
-          scrollEventThrottle={100}
+          scrollEventThrottle={300}
+          onScroll={e => props.onScroll(e.nativeEvent.contentOffset.y)}
         />
       </View>
       <ActionSheet

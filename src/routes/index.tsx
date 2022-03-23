@@ -92,7 +92,7 @@ const TabLogo = (inverse = false) => {
   );
 };
 
-const SmallLogo = () => {
+export const SmallLogo = () => {
   return (
     <View
       style={{

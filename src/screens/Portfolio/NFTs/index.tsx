@@ -10,7 +10,7 @@ import BigList from 'react-native-big-list';
 import endpoints from 'utils/endpoints';
 import {CryptoService} from 'services/crypto';
 
-const NFTs = observer(() => {
+const NFTs = observer(props => {
   const {t} = useTranslation();
   const navigation = useNavigation();
   const [nfts, setNFTs] = useState<any[]>([]);
@@ -63,6 +63,8 @@ const NFTs = observer(() => {
           keyboardDismissMode="on-drag"
           showsVerticalScrollIndicator={false}
           keyExtractor={(item: any) => item.id.toString() ?? ''}
+          scrollEventThrottle={300}
+          onScroll={e => props.onScroll(e.nativeEvent.contentOffset.y)}
         />
       );
     } else {
