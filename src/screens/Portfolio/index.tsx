@@ -1,6 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useRef, useState} from 'react';
-import {Text, View, TouchableOpacity, ScrollView, Platform} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  Platform,
+  FlatList,
+} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {Colors} from 'utils/colors';
 import {observer} from 'mobx-react-lite';
@@ -20,7 +27,7 @@ const PortfolioScreen = observer(() => {
   const scrollRef: any = useRef();
   const [screen, setScreen] = useState(Portfolios[0]);
   const [shadowHeader, setShadowHeader] = useState(false);
-  const [lastOffset, setLastOffset] = useState(0);
+  // const [lastOffset, setLastOffset] = useState(0);
 
   useEffect(() => {
     if (shadowHeader) {
@@ -60,7 +67,6 @@ const PortfolioScreen = observer(() => {
             x: index * 30,
             animated: true,
           });
-          // setShadowHeader(false);
         }}
         style={{
           backgroundColor:
@@ -89,38 +95,25 @@ const PortfolioScreen = observer(() => {
     );
   };
 
-  const onScroll = y => {
-    const top = Platform.OS === 'ios' ? 15 : 70;
-    if (y > top) {
-      if (!shadowHeader) {
-        setShadowHeader(true);
-        console.log('hide', y);
-      }
-    } else if (y < 10) {
-      if (shadowHeader) {
-        setShadowHeader(false);
-        console.log('show', y);
-      }
-    }
-    setLastOffset(y);
+  const header = () => {
+    return (
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <Text style={styles.title} numberOfLines={1}>
+          {formatPrice(
+            WalletStore.totalBalance +
+              BankStore.totalBalance +
+              FiatStore.totalBalance +
+              CexStore.totalBalance,
+            true,
+          ) || 0.0}
+        </Text>
+      </View>
+    );
   };
 
-  return (
-    <View style={styles.container}>
-      <View style={shadowHeader ? styles.headerShadow : null}>
-        {!shadowHeader ? (
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Text style={styles.title} numberOfLines={1}>
-              {formatPrice(
-                WalletStore.totalBalance +
-                  BankStore.totalBalance +
-                  FiatStore.totalBalance +
-                  CexStore.totalBalance,
-                true,
-              ) || 0.0}
-            </Text>
-          </View>
-        ) : null}
+  const menu = () => {
+    return (
+      <View style={shadowHeader ? styles.headerShadow : styles.headerNoShadow}>
         <ScrollView
           ref={scrollRef}
           horizontal
@@ -129,13 +122,38 @@ const PortfolioScreen = observer(() => {
           style={{
             paddingTop: 10,
             paddingHorizontal: 12,
-            paddingBottom: shadowHeader ? 10 : 5,
+            paddingBottom: 10,
           }}>
           {Portfolios.map((item, index) => bubble(item, index))}
         </ScrollView>
       </View>
-      <screen.component onScroll={onScroll} />
-    </View>
+    );
+  };
+
+  const onScroll = y => {
+    if (y > 50) {
+      if (!shadowHeader) {
+        setShadowHeader(true);
+        console.log('hide', y);
+      }
+    } else if (y < 50) {
+      if (shadowHeader) {
+        setShadowHeader(false);
+        console.log('show', y);
+      }
+    }
+  };
+
+  return (
+    <ScrollView
+      style={styles.container}
+      stickyHeaderIndices={[1]}
+      scrollEventThrottle={200}
+      onScroll={e => onScroll(e.nativeEvent.contentOffset.y)}>
+      {header()}
+      {menu()}
+      <screen.component />
+    </ScrollView>
   );
 });
 

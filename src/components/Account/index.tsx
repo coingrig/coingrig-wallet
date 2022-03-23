@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     color: Colors.foreground,
   },
   balance: {
-    fontSize: 13,
+    fontSize: 14,
     textAlign: 'right',
     fontWeight: 'bold',
     color: Colors.foreground,

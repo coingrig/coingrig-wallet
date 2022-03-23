@@ -4,7 +4,7 @@ import {Colors} from 'utils/colors';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    overflow: 'hidden',
+    // overflow: 'hidden',
   },
   change: {
     fontSize: 18,
@@ -23,6 +23,10 @@ export const styles = StyleSheet.create({
     shadowRadius: 1.41,
 
     elevation: 2,
+  },
+  headerNoShadow: {
+    backgroundColor: Colors.background,
+    zIndex: 10,
   },
   textInputStyle: {
     borderBottomWidth: 1,
@@ -94,7 +98,7 @@ export const styles = StyleSheet.create({
     color: Colors.lighter,
     marginBottom: 10,
     marginLeft: 10,
-    marginTop: 20,
+    marginTop: 10,
   },
   subRight: {
     fontSize: 15,
@@ -102,7 +106,7 @@ export const styles = StyleSheet.create({
     color: Colors.lighter,
     marginBottom: 10,
     marginRight: 10,
-    marginTop: 20,
+    marginTop: 10,
   },
   appButtonText: {
     fontSize: 11,

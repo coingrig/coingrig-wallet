@@ -9,6 +9,7 @@ import {styles} from '../styles';
 import BigList from 'react-native-big-list';
 import endpoints from 'utils/endpoints';
 import {CryptoService} from 'services/crypto';
+import {SIZE} from 'utils/constants';
 
 const NFTs = observer(props => {
   const {t} = useTranslation();
@@ -63,8 +64,6 @@ const NFTs = observer(props => {
           keyboardDismissMode="on-drag"
           showsVerticalScrollIndicator={false}
           keyExtractor={(item: any) => item.id.toString() ?? ''}
-          scrollEventThrottle={300}
-          onScroll={e => props.onScroll(e.nativeEvent.contentOffset.y)}
         />
       );
     } else {
@@ -82,7 +81,14 @@ const NFTs = observer(props => {
 
   return (
     <View style={{flexGrow: 1}}>
-      <View style={{justifyContent: 'center', flex: 1}}>{renderList()}</View>
+      <View
+        style={{
+          justifyContent: 'center',
+          flex: 1,
+          height: nfts.length > 0 ? 200 * nfts.length : SIZE.height / 2,
+        }}>
+        {renderList()}
+      </View>
     </View>
   );
 });

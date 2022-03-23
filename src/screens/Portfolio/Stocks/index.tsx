@@ -61,8 +61,6 @@ const Stocks = observer(props => {
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={listHeader()}
           style={{marginHorizontal: 10}}
-          scrollEventThrottle={300}
-          onScroll={e => props.onScroll(e.nativeEvent.contentOffset.y)}
         />
       </View>
     </View>
