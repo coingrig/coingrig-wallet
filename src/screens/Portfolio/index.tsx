@@ -134,26 +134,38 @@ const PortfolioScreen = observer(() => {
     if (y > 50) {
       if (!shadowHeader) {
         setShadowHeader(true);
-        console.log('hide', y);
       }
     } else if (y < 50) {
       if (shadowHeader) {
         setShadowHeader(false);
-        console.log('show', y);
       }
     }
   };
 
+  const renderItem = ({index}) => {
+    if (index === 0) {
+      return header();
+    }
+    if (index === 1) {
+      return menu();
+    }
+    if (index === 2) {
+      return <screen.component />;
+    }
+    return null;
+  };
+
   return (
-    <ScrollView
+    <FlatList
+      data={[1, 2, 3]}
+      renderItem={renderItem}
+      contentContainerStyle={{flexGrow: 1}}
       style={styles.container}
       stickyHeaderIndices={[1]}
       scrollEventThrottle={200}
-      onScroll={e => onScroll(e.nativeEvent.contentOffset.y)}>
-      {header()}
-      {menu()}
-      <screen.component />
-    </ScrollView>
+      keyExtractor={(item: any, index) => index.toString() ?? ''}
+      onScroll={e => onScroll(e.nativeEvent.contentOffset.y)}
+    />
   );
 });
 
