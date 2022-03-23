@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useRef, useState} from 'react';
-import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
+import {Text, View, TouchableOpacity, ScrollView, Platform} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {Colors} from 'utils/colors';
 import {observer} from 'mobx-react-lite';
@@ -20,6 +20,7 @@ const PortfolioScreen = observer(() => {
   const scrollRef: any = useRef();
   const [screen, setScreen] = useState(Portfolios[0]);
   const [shadowHeader, setShadowHeader] = useState(false);
+  const [lastOffset, setLastOffset] = useState(0);
 
   useEffect(() => {
     if (shadowHeader) {
@@ -89,15 +90,19 @@ const PortfolioScreen = observer(() => {
   };
 
   const onScroll = y => {
-    if (y > 15) {
+    const top = Platform.OS === 'ios' ? 15 : 70;
+    if (y > top) {
       if (!shadowHeader) {
         setShadowHeader(true);
+        console.log('hide', y);
       }
-    } else if (y < 15) {
+    } else if (y < 10) {
       if (shadowHeader) {
         setShadowHeader(false);
+        console.log('show', y);
       }
     }
+    setLastOffset(y);
   };
 
   return (

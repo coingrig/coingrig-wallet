@@ -87,7 +87,10 @@ const Crypto = observer(props => {
           ListHeaderComponent={listHeader()}
           style={{marginHorizontal: 10}}
           scrollEventThrottle={300}
-          onScroll={e => props.onScroll(e.nativeEvent.contentOffset.y)}
+          onScroll={e => {
+            // setOffset(e.nativeEvent.contentOffset.y);
+            props.onScroll(e.nativeEvent.contentOffset.y);
+          }}
         />
       </View>
     </View>
