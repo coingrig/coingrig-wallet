@@ -6,7 +6,6 @@ import {
 } from 'services/storage';
 import {CexStore} from 'stores/cexStore';
 import BigNumber from 'bignumber.js';
-import {MigrationService} from 'services/migrations';
 
 var ccxt = require('ccxt');
 

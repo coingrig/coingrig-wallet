@@ -18,7 +18,7 @@ class cexStore {
     makeAutoObservable(this);
     makePersistable(this, {
       name: 'CexStore',
-      properties: ['cexs'],
+      properties: ['cexs', 'totalBalance'],
       storage: AsyncStorage,
     });
   }
