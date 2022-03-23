@@ -82,6 +82,7 @@ export default function AddFiat() {
         <TextInput
           placeholder="Account name"
           placeholderTextColor={'gray'}
+          autoCorrect={false}
           style={styles.editInput}
           value={accName}
           onChangeText={t => setAccName(t)}
