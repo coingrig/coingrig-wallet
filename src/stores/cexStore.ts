@@ -32,19 +32,21 @@ class cexStore {
   }
 
   sumTotalBalance() {
-    return this.cexs.reduce(
-      (total, cex) =>
-        new BigNumber(total).plus(
-          new BigNumber(
-            cex.data.reduce(
-              (subtotal, asset) =>
-                new BigNumber(subtotal).plus(new BigNumber(asset.totalValue)),
-              new BigNumber(0),
+    return this.cexs
+      .reduce(
+        (total, cex) =>
+          new BigNumber(total).plus(
+            new BigNumber(
+              cex.data.reduce(
+                (subtotal, asset) =>
+                  new BigNumber(subtotal).plus(new BigNumber(asset.totalValue)),
+                new BigNumber(0),
+              ),
             ),
           ),
-        ),
-      new BigNumber(0),
-    );
+        new BigNumber(0),
+      )
+      .toNumber();
   }
 
   updateTotalBalance = action((balance: number) => {
@@ -52,7 +54,7 @@ class cexStore {
   });
 
   addCex = action((id, title, logo) => {
-    const data = null;
+    const data = [];
     const check = this.getCexById(id);
     if (!check) {
       this.cexs.push({id, title, data, logo});
@@ -73,7 +75,7 @@ class cexStore {
     if (pos !== -1) {
       this.cexs[pos].data = data;
     }
-    this.cexs = this.cexs.splice(0);
+    this.cexs = this.cexs.slice(0);
   });
 
   deleteCexById = action((id: string) => {

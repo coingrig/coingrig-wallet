@@ -47,7 +47,7 @@ class bankStore {
     if (pos !== -1) {
       this.bankAccounts[pos] = data;
     }
-    this.bankAccounts = this.bankAccounts.splice(0);
+    this.bankAccounts = this.bankAccounts.slice(0);
   });
 
   addAccount = action((bankAccount: IBankAccount) => {

@@ -118,6 +118,7 @@ export default function CexDetails({route}) {
 
   const deleteCex = async reload => {
     CexService.deleteCex(item.id);
+    CexService.getAllBalances();
     if (!reload) {
       showMessage({
         message: t('CEX Deleted'),

@@ -6,6 +6,7 @@ import {
 } from 'services/storage';
 import {CexStore} from 'stores/cexStore';
 import BigNumber from 'bignumber.js';
+import {MigrationService} from 'services/migrations';
 
 var ccxt = require('ccxt');
 
@@ -104,9 +105,9 @@ class CexService {
           let assetBalance = new BigNumber(v);
           balance.push({
             symbol: key.split('/')[0],
-            balance: assetBalance,
-            price: assetPrice,
-            totalValue: assetPrice.times(assetBalance),
+            balance: assetBalance.toNumber(),
+            price: assetPrice.toNumber(),
+            totalValue: assetPrice.times(assetBalance).toNumber(),
           });
         } else {
           if (key === 'USDT') {
@@ -115,9 +116,9 @@ class CexService {
           let price = priceTickers[key + '/USDT'];
           balance.push({
             symbol: key.split('/')[0],
-            balance: new BigNumber(v),
-            price: new BigNumber(price.ask),
-            totalValue: new BigNumber(price.ask).times(v),
+            balance: new BigNumber(v).toNumber(),
+            price: new BigNumber(price.ask).toNumber(),
+            totalValue: new BigNumber(price.ask).times(v).toNumber(),
           });
         }
       }

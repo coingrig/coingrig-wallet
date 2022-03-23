@@ -41,7 +41,7 @@ class fiatStore {
     if (pos !== -1) {
       this.fiatAccounts[pos] = data;
     }
-    this.fiatAccounts = this.fiatAccounts.splice(0);
+    this.fiatAccounts = this.fiatAccounts.slice(0);
   });
 
   addAccount = action((bankAccount: IFiatAccounts) => {
@@ -71,7 +71,7 @@ class fiatStore {
         item.usdBalance = item.balance / fx.rates[item.currency];
         _totalBalance = _totalBalance + item.usdBalance;
       });
-      this.fiatAccounts = this.fiatAccounts.splice(0);
+      this.fiatAccounts = this.fiatAccounts.slice(0);
     }
   });
 

@@ -137,7 +137,7 @@ class WalletStoreModule {
     if (pos !== -1) {
       this.wallets[pos].name = name;
     }
-    this.wallets = this.wallets.splice(0);
+    this.wallets = this.wallets.slice(0);
   });
 
   setBalance = action((symbol: string, chain: String, balance: number) => {
@@ -147,7 +147,7 @@ class WalletStoreModule {
       this.wallets[pos].value =
         this.wallets[pos].balance * this.wallets[pos].price;
     }
-    this.wallets = this.wallets.splice(0);
+    this.wallets = this.wallets.slice(0);
   });
 
   setUnconfirmedBalance = action(
@@ -156,7 +156,7 @@ class WalletStoreModule {
       if (pos !== -1) {
         this.wallets[pos].unconfirmedBalance = balance;
       }
-      this.wallets = this.wallets.splice(0);
+      this.wallets = this.wallets.slice(0);
     },
   );
 
@@ -167,7 +167,7 @@ class WalletStoreModule {
       this.wallets[pos].value =
         this.wallets[pos].balance * this.wallets[pos].price;
     }
-    this.wallets = this.wallets.splice(0);
+    this.wallets = this.wallets.slice(0);
   });
 
   get totalBalance() {
