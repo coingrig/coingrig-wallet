@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
 import Analytics from 'appcenter-analytics';
 import React, {createRef, useEffect, useState} from 'react';
-import {FlatList, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, FlatList, Text, TouchableOpacity, View} from 'react-native';
 import Share from 'react-native-share';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AccountItem from 'components/Account';
@@ -67,6 +67,28 @@ const Banking = observer(props => {
           {formatPrice(BankStore.totalBalance, true) || 0.0}
         </Text>
       </View>
+    );
+  };
+
+  const deleteAccount = async acc => {
+    Alert.alert(
+      t('Remove account'),
+      t('Are you sure you want to remove this account'),
+      [
+        {
+          text: t('settings.cancel'),
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: t('settings.yes'),
+          onPress: async () => {
+            BankStore.deleteAccountById(acc);
+            BanksService.updateTotalBalance();
+            detailsSheet.current?.setModalVisible(false);
+          },
+        },
+      ],
     );
   };
 
@@ -148,9 +170,7 @@ const Banking = observer(props => {
         <SmallButton
           text={t('Remove account')}
           onPress={() => {
-            BankStore.deleteAccountById(selected?.id!);
-            BanksService.updateTotalBalance();
-            detailsSheet.current?.setModalVisible(false);
+            deleteAccount(selected?.id!);
           }}
           color="#f2eded"
           // eslint-disable-next-line react-native/no-inline-styles

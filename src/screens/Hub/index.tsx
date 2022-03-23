@@ -2,7 +2,6 @@
 import React, {useRef, useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
-import apps from '../../data/apps';
 import {styles} from './styles';
 import {Colors} from 'utils/colors';
 import {ScrollView} from 'react-native-gesture-handler';

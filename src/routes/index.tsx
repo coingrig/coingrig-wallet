@@ -45,6 +45,7 @@ import BankingScreen from 'screens/Banking';
 import AddBank from 'screens/Banking/AddBank';
 import SelectCountry from 'screens/Banking/SelectCountry';
 import AddFiat from 'screens/Fiat';
+import SearchStocks from 'screens/SearchStocks';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -289,6 +290,14 @@ function NavigationStack({t}) {
       <Stack.Screen
         name="SearchScreen"
         component={SearchScreen}
+        options={{
+          headerShown: false,
+          animationEnabled: false,
+        }}
+      />
+      <Stack.Screen
+        name="SearchStocks"
+        component={SearchStocks}
         options={{
           headerShown: false,
           animationEnabled: false,

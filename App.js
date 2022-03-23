@@ -13,6 +13,8 @@ import CexService from 'services/cex';
 import BanksService from 'services/banks';
 // eslint-disable-next-line no-unused-vars
 import FxService from 'services/fx';
+// eslint-disable-next-line no-unused-vars
+import StockService from 'services/stocks';
 import {MenuProvider} from 'react-native-popup-menu';
 import {NavigationScreens} from './src/routes';
 import {SafeAreaProvider} from 'react-native-safe-area-context';

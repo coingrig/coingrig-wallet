@@ -13,8 +13,6 @@ class SwapService {
 
   getQuote = async (chain, params) => {
     let url = `${APP_URI[chain]}/quote`;
-    console.log(url);
-    console.log(params);
     let response = null;
     try {
       response = await axios.get(url, {
