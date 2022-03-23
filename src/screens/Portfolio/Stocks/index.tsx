@@ -6,10 +6,8 @@ import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AccountItem from 'components/Account';
 import {Colors} from 'utils/colors';
-import StockService from 'services/stocks';
 import {styles} from '../styles';
 import {formatPrice} from 'utils';
-import {FiatStore, IFiatAccounts} from 'stores/fiatStore';
 import {IStocks, StockStore} from 'stores/StockStore';
 
 const Stocks = observer(props => {
@@ -45,7 +43,7 @@ const Stocks = observer(props => {
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <Text style={styles.subLeft}>{'Stocks'}</Text>
         <Text style={styles.subRight}>
-          {formatPrice(FiatStore.totalBalance, true) || 0.0}
+          {formatPrice(StockStore.totalBalance, true) || 0.0}
         </Text>
       </View>
     );
