@@ -96,7 +96,7 @@ export default function AddFiat() {
           onChangeText={t => setAccBalance(t)}
         />
         <SmallButton
-          text={t('wallet.add')}
+          text={t('swap.slippage_save')}
           onPress={() => {
             FiatStore.addAccount({
               id: Date.now().toLocaleString(),
