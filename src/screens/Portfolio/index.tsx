@@ -1,13 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useRef, useState} from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  Platform,
-  FlatList,
-} from 'react-native';
+import {Text, View, TouchableOpacity, ScrollView, FlatList} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {Colors} from 'utils/colors';
 import {observer} from 'mobx-react-lite';
@@ -163,6 +156,7 @@ const PortfolioScreen = observer(() => {
       style={styles.container}
       stickyHeaderIndices={[1]}
       scrollEventThrottle={200}
+      showsVerticalScrollIndicator={false}
       keyExtractor={(item: any, index) => index.toString() ?? ''}
       onScroll={e => onScroll(e.nativeEvent.contentOffset.y)}
     />
