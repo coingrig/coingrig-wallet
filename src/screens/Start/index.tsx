@@ -15,7 +15,7 @@ const StartScreen = () => {
   return (
     <ImageBackground
       style={styles.container}
-      imageStyle={{zIndex: -10}}
+      imageStyle={{zIndex: -10, opacity: 0.5}}
       source={require('../../assets/bg.png')}
       resizeMode="cover">
       <View style={styles.topContainer}>
