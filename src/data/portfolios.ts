@@ -32,7 +32,7 @@ const Portfolios = [
     enable: true,
   },
   {
-    title: 'Other',
+    title: 'Cash',
     component: Fiat,
     enable: true,
   },
