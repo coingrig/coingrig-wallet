@@ -6,6 +6,7 @@ import {
 } from 'services/storage';
 import {CexStore} from 'stores/cexStore';
 import BigNumber from 'bignumber.js';
+var axios = require('axios');
 
 var ccxt = require('ccxt');
 
@@ -20,6 +21,27 @@ class CexService {
     };
     this.exchanges = ccxt.exchanges;
     this.start();
+    // this.getMarketData();
+  }
+
+  async getMarketData(cexID) {
+    try {
+      Logs.info('-----start-----');
+      const url = 'https://assets.coingrig.com/data/' + cexID + '.json';
+      const config = {
+        method: 'get',
+        url: url,
+        headers: {
+          // ApiKey: CONFIG.COINGRIG_KEY,
+        },
+      };
+      const response = await axios(config);
+      // console.log(Object.keys(response.data).length);
+      Logs.info('-----end-----');
+      return response.data;
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async start() {
@@ -154,7 +176,9 @@ class CexService {
       this.cex[cexID] = new exchangeClass({
         apiKey: apiKey,
         secret: secret,
+        // markets: await this.getMarketData(cexID),
       });
+      // this.cex[cexID].markets = await this.getMarketData(cexID);
     }
   }
 
