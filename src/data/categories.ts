@@ -30,11 +30,6 @@ const HubCatgories = [
     enable: true,
   },
   {
-    title: 'hub.category.connectors',
-    component: Connectors,
-    enable: true,
-  },
-  {
     title: 'hub.category.card',
     component: Card,
     enable: true,

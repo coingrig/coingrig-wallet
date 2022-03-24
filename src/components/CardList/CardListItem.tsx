@@ -9,6 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import {Logs} from 'services/logs';
 import {showMessage} from 'react-native-flash-message';
+import FastImage from 'react-native-fast-image';
 
 export default function CardListItem(item, index, isLast) {
   const {t} = useTranslation();
@@ -79,7 +80,7 @@ export default function CardListItem(item, index, isLast) {
       {item.image ? (
         <Image source={item.image} resizeMode="contain" style={styles.ico} />
       ) : (
-        <Image
+        <FastImage
           source={{uri: item.icon}}
           resizeMode="contain"
           style={[styles.ico]}

@@ -12,10 +12,10 @@ import Portfolios from 'data/portfolios';
 import {BankStore} from 'stores/bankStore';
 import {FiatStore} from 'stores/fiatStore';
 import {CexStore} from 'stores/cexStore';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {SmallLogo} from 'routes';
 
-const PortfolioScreen = observer(() => {
+const PortfolioScreen = observer(({route}) => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const scrollRef: any = useRef();
@@ -23,13 +23,33 @@ const PortfolioScreen = observer(() => {
   const [shadowHeader, setShadowHeader] = useState(false);
   const flatListRef = React.useRef();
 
+  useFocusEffect(
+    React.useCallback(() => {
+      if (route.params.tab === 'Bank') {
+        setScreen(Portfolios[3]);
+        scrollRef.current?.scrollTo({
+          x: 90,
+          animated: true,
+        });
+      }
+      if (route.params.tab === 'Crypto') {
+        setScreen(Portfolios[0]);
+        scrollRef.current?.scrollTo({
+          x: 0,
+          animated: true,
+        });
+      }
+      route.params.tab = null;
+    }, [route.params]),
+  );
+
   useEffect(() => {
     if (shadowHeader) {
       navigation.setOptions({
         headerTitle: () => (
           <Text
             style={{
-              fontSize: 23,
+              fontSize: 24,
               fontWeight: 'bold',
               fontFamily: 'RobotoSlab-Bold',
               color: Colors.foreground,

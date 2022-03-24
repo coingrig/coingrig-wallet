@@ -5,6 +5,7 @@ import {Text, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Colors} from 'utils/colors';
+import {SIZE} from 'utils/constants';
 
 export default function Card() {
   const {t} = useTranslation();
@@ -16,6 +17,7 @@ export default function Card() {
         marginTop: 10,
         marginHorizontal: 16,
         flexGrow: 1,
+        height: SIZE.height / 2,
       }}>
       <View style={{justifyContent: 'center', flex: 1}}>
         <FastImage

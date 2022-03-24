@@ -50,6 +50,10 @@ export const styles = StyleSheet.create({
 
     elevation: 2,
   },
+  headerNoShadow: {
+    backgroundColor: Colors.background,
+    zIndex: 10,
+  },
   brickTitle: {
     fontSize: 14,
     paddingHorizontal: 10,

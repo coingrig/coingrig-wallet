@@ -53,7 +53,9 @@ const Brick = (props: any) => {
           backgroundColor: props.title === '_END_' ? Colors.brickEnd : color,
         },
       ]}
-      onPress={() => navigation.navigate('PortfolioScreen')}>
+      onPress={() =>
+        navigation.navigate('PortfolioScreen', {tab: props.title})
+      }>
       <View style={styles.container}>
         <View style={styles.tcontainer}>
           <View
