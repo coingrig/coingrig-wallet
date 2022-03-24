@@ -1,8 +1,9 @@
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, ImageBackground, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {BigButton} from '../../components/bigButton';
 import {useTranslation} from 'react-i18next';
+import * as Animatable from 'react-native-animatable';
 import {Colors} from 'utils/colors';
 import {styles} from './styles';
 import Svg, {Path} from 'react-native-svg';
@@ -12,20 +13,21 @@ const StartScreen = () => {
   const {t} = useTranslation();
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      style={styles.container}
+      imageStyle={{zIndex: -10}}
+      source={require('../../assets/bg.png')}
+      resizeMode="cover">
       <View style={styles.topContainer}>
-        <View>
+        <Animatable.View animation="pulse" iterationCount="infinite">
           <Image
             // eslint-disable-next-line react-native/no-inline-styles
             style={{height: 75, tintColor: Colors.foreground}}
             resizeMode="contain"
             source={require('../../assets/logo.png')}
           />
-        </View>
+        </Animatable.View>
         <Text style={[styles.logo, {color: Colors.foreground}]}>coingrig</Text>
-        {/* <Text style={[styles.subtitle, {color: Colors.lighter}]}>
-          {t('brand.message')}
-        </Text> */}
       </View>
       <View style={styles.bottomContainer}>
         <BigButton
@@ -63,7 +65,7 @@ const StartScreen = () => {
           // opacity="0.7"
         />
       </Svg>
-    </View>
+    </ImageBackground>
   );
 };
 

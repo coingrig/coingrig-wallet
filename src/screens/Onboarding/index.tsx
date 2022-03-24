@@ -41,16 +41,16 @@ const OnBoardingScreen = () => {
         showPageIndicator
         onPageSelected={e => pageSelected(e)}>
         <View key="1" style={styles.pagerView}>
+          <Finance width={230} height={350} />
+          <Text style={styles.desc}>{t('onboarding.text3')}</Text>
+        </View>
+        <View key="2" style={styles.pagerView}>
           <Privacy width={280} height={350} />
           <Text style={styles.desc}>{t('onboarding.text1')}</Text>
         </View>
-        <View key="2" style={styles.pagerView}>
+        <View key="3" style={styles.pagerView}>
           <Rocket width={280} height={350} />
           <Text style={styles.desc}>{t('onboarding.text2')}</Text>
-        </View>
-        <View key="3" style={styles.pagerView}>
-          <Finance width={230} height={350} />
-          <Text style={styles.desc}>{t('onboarding.text3')}</Text>
         </View>
       </PagerView>
       <View style={styles.footer}>
