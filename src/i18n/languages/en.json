@@ -126,9 +126,9 @@
       "language.french": "French",
       "language.romanian": "Romanian",
 
-      "onboarding.text1": "Private, Non-custodial.\nYour keys, your coins.",
-      "onboarding.text2": "Buy crypto with card.\nSend and Receive any asset.",
-      "onboarding.text3": "Trade crypto and track Stocks, bank accounts and more",
+      "onboarding.text1": "Private, Non-custodial\nYour data stays on your phone",
+      "onboarding.text2": "Buy crypto with card, trade 1M+ assets through 30+ DEXs",
+      "onboarding.text3": "Track your assets held in CEXs, Stocks, Banks and more",
       "onboarding.next": "Next",
 
       "tx.destination_address": "Destination Address",
