@@ -85,6 +85,7 @@ const SearchScreen = ({route}) => {
           })
         }
         style={styles.item}>
+        {item.supported ? badge(true) : null}
         <FastImage
           style={styles.img}
           source={{
@@ -102,6 +103,23 @@ const SearchScreen = ({route}) => {
           </Text>
         </View>
       </TouchableOpacity>
+    );
+  };
+
+  const badge = inItem => {
+    return (
+      <View
+        style={{
+          width: 8,
+          height: 8,
+          backgroundColor: 'deeppink',
+          position: 'absolute',
+          borderRadius: 10,
+          top: inItem ? 13 : 5,
+          zIndex: 10,
+          left: inItem ? 15 : 0,
+        }}
+      />
     );
   };
 
@@ -128,24 +146,38 @@ const SearchScreen = ({route}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.search}
-          // autoFocus
-          autoCorrect={false}
-          placeholderTextColor={'gray'}
-          onChangeText={text => searchCoin(text)}
-          placeholder={t('search.search_assets')}
-        />
+      <View style={styles.header}>
+        <View style={styles.searchContainer}>
+          <TextInput
+            style={styles.search}
+            // autoFocus
+            autoCorrect={false}
+            placeholderTextColor={'gray'}
+            onChangeText={text => searchCoin(text)}
+            placeholder={t('search.search_assets')}
+          />
 
-        <TouchableOpacity
-          style={styles.close}
-          onPress={() => navigation.goBack()}>
-          <Text style={{color: Colors.foreground, fontWeight: 'bold'}}>
-            {t('settings.cancel')}
+          <TouchableOpacity
+            style={styles.close}
+            onPress={() => navigation.goBack()}>
+            <Text style={{color: Colors.foreground, fontWeight: 'bold'}}>
+              {t('settings.cancel')}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{marginHorizontal: 20, marginVertical: 10}}>
+          {badge(false)}
+          <Text
+            style={{
+              fontSize: 12,
+              color: Colors.lighter,
+              marginLeft: 14,
+            }}>
+            Tradeable assets
           </Text>
-        </TouchableOpacity>
+        </View>
       </View>
+
       <View style={{flex: 1, marginHorizontal: 15}}>{renderList()}</View>
     </SafeAreaView>
   );

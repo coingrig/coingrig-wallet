@@ -50,12 +50,14 @@ export const styles = StyleSheet.create({
     fontSize: 13,
     textAlign: 'right',
   },
+  header: {
+    borderBottomColor: Colors.brick,
+    borderBottomWidth: 1,
+    // paddingBottom: 10,
+  },
   searchContainer: {
     flexDirection: 'row',
     paddingTop: 10,
-    paddingBottom: 20,
-    borderBottomColor: Colors.brick,
-    borderBottomWidth: 1,
     paddingHorizontal: 15,
   },
   search: {

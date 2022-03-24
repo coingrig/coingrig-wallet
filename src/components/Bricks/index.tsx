@@ -30,16 +30,12 @@ const Brick = (props: any) => {
         <>
           <Text
             adjustsFontSizeToFit
-            numberOfLines={1}
-            style={[
-              styles.coinName,
-              // eslint-disable-next-line react-native/no-inline-styles
-              {color: Colors.background, marginBottom: 10},
-            ]}>
-            {t('bricks.all_wallets')}
+            numberOfLines={2}
+            style={[styles.coinName, {color: Colors.background}]}>
+            {t('Others')}
           </Text>
-          <Text adjustsFontSizeToFit numberOfLines={2} style={styles.endBrick}>
-            {t('bricks.check_portfolio')}
+          <Text adjustsFontSizeToFit numberOfLines={1} style={styles.endBrick}>
+            {formatPrice(props.value, true) || 0}
           </Text>
         </>
       );

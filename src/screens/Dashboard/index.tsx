@@ -33,6 +33,7 @@ import {SettingsStore} from 'stores/settings';
 import {BankStore} from 'stores/bankStore';
 import {FiatStore} from 'stores/fiatStore';
 import {CexStore} from 'stores/cexStore';
+import {StockStore} from 'stores/StockStore';
 // import CustomModal from 'components/Modal';
 
 const DashboardScreen = observer(() => {
@@ -142,7 +143,8 @@ const DashboardScreen = observer(() => {
               WalletStore.totalBalance +
                 BankStore.totalBalance +
                 FiatStore.totalBalance +
-                CexStore.totalBalance,
+                CexStore.totalBalance +
+                StockStore.totalBalance,
               true,
             ) || 0.0}
           </Text>
@@ -179,6 +181,7 @@ const DashboardScreen = observer(() => {
               <Brick
                 title={'_END_'}
                 key={'_END_'}
+                value={StockStore.totalBalance + FiatStore.totalBalance}
                 icon={'menu'}
                 size={32}
                 color={Colors.background}

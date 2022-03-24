@@ -28,8 +28,8 @@ export const styles = StyleSheet.create({
     fontFamily: 'RobotoSlab-Regular',
   },
   endBrick: {
-    fontSize: 12,
-    marginBottom: 15,
+    fontSize: 18,
+    marginBottom: 10,
     color: Colors.background,
     fontFamily: 'RobotoSlab-Regular',
   },

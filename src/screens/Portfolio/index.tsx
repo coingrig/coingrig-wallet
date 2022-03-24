@@ -14,6 +14,7 @@ import {FiatStore} from 'stores/fiatStore';
 import {CexStore} from 'stores/cexStore';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {SmallLogo} from 'routes';
+import {StockStore} from 'stores/StockStore';
 
 const PortfolioScreen = observer(({route}) => {
   const navigation = useNavigation();
@@ -58,7 +59,8 @@ const PortfolioScreen = observer(({route}) => {
               WalletStore.totalBalance +
                 BankStore.totalBalance +
                 FiatStore.totalBalance +
-                CexStore.totalBalance,
+                CexStore.totalBalance +
+                StockStore.totalBalance,
               true,
             ) || 0.0}
           </Text>
@@ -76,6 +78,7 @@ const PortfolioScreen = observer(({route}) => {
     BankStore.totalBalance,
     FiatStore.totalBalance,
     CexStore.totalBalance,
+    StockStore.totalBalance,
   ]);
 
   const bubble = (item, index) => {
