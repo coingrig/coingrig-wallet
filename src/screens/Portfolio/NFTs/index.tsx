@@ -57,7 +57,7 @@ const NFTs = observer(props => {
           renderItem={renderNFTs}
           itemHeight={200}
           insetBottom={30}
-          headerHeight={50}
+          headerHeight={40}
           renderHeader={listHeader}
           numColumns={2}
           style={{marginHorizontal: 10}}
@@ -85,7 +85,8 @@ const NFTs = observer(props => {
         style={{
           justifyContent: 'center',
           flex: 1,
-          height: nfts.length > 0 ? 200 * nfts.length : SIZE.height / 2,
+          flexGrow: 1,
+          height: nfts.length > 0 ? 100 * nfts.length + 70 : SIZE.height / 2,
         }}>
         {renderList()}
       </View>

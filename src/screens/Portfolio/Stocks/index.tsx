@@ -23,7 +23,6 @@ const Stocks = observer(props => {
         </TouchableOpacity>
       ),
     });
-    console.log(StockStore.stocks);
   }, []);
 
   const renderItem = ({item}: {item: IStocks}) => (

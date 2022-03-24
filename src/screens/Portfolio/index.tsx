@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useRef, useState} from 'react';
 import {Text, View, TouchableOpacity, ScrollView, FlatList} from 'react-native';
@@ -20,7 +21,7 @@ const PortfolioScreen = observer(() => {
   const scrollRef: any = useRef();
   const [screen, setScreen] = useState(Portfolios[0]);
   const [shadowHeader, setShadowHeader] = useState(false);
-  // const [lastOffset, setLastOffset] = useState(0);
+  const flatListRef = React.useRef();
 
   useEffect(() => {
     if (shadowHeader) {
@@ -48,7 +49,14 @@ const PortfolioScreen = observer(() => {
         headerTitle: () => <SmallLogo />,
       });
     }
-  }, [shadowHeader]);
+  }, [
+    navigation,
+    shadowHeader,
+    WalletStore.totalBalance,
+    BankStore.totalBalance,
+    FiatStore.totalBalance,
+    CexStore.totalBalance,
+  ]);
 
   const bubble = (item, index) => {
     return (
@@ -60,6 +68,13 @@ const PortfolioScreen = observer(() => {
             x: index * 30,
             animated: true,
           });
+          try {
+            if (shadowHeader) {
+              flatListRef.current?.scrollToIndex({animated: true, index: 1});
+            } else {
+              flatListRef.current?.scrollToIndex({animated: true, index: 0});
+            }
+          } catch (error) {}
         }}
         style={{
           backgroundColor:
@@ -124,11 +139,11 @@ const PortfolioScreen = observer(() => {
   };
 
   const onScroll = y => {
-    if (y > 50) {
+    if (y > 45) {
       if (!shadowHeader) {
         setShadowHeader(true);
       }
-    } else if (y < 50) {
+    } else if (y < 45) {
       if (shadowHeader) {
         setShadowHeader(false);
       }
@@ -151,6 +166,7 @@ const PortfolioScreen = observer(() => {
   return (
     <FlatList
       data={[1, 2, 3]}
+      ref={flatListRef}
       renderItem={renderItem}
       contentContainerStyle={{flexGrow: 1}}
       style={styles.container}

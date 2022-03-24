@@ -138,7 +138,7 @@ class CexService {
         Logs.info('Total CEX balance', CexStore.sumTotalBalance());
         CexStore.updateTotalBalance(CexStore.sumTotalBalance());
       } else {
-        return null;
+        CexStore.updateTotalBalance(0);
       }
     } catch (error) {
       throw error;
