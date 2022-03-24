@@ -26,6 +26,9 @@ const PortfolioScreen = observer(({route}) => {
 
   useFocusEffect(
     React.useCallback(() => {
+      if (!route.params) {
+        return;
+      }
       if (route.params.tab === 'Bank') {
         setScreen(Portfolios[3]);
         scrollRef.current?.scrollTo({
