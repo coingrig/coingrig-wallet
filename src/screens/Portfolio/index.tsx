@@ -166,11 +166,11 @@ const PortfolioScreen = observer(({route}) => {
   };
 
   const onScroll = y => {
-    if (y > 45) {
+    if (y > 55) {
       if (!shadowHeader) {
         setShadowHeader(true);
       }
-    } else if (y < 45) {
+    } else if (y < 55) {
       if (shadowHeader) {
         setShadowHeader(false);
       }
