@@ -34,7 +34,6 @@ class BanksService {
         if (now - this.generatedTime > this.expireTime) {
           return await this.generateKey();
         } else {
-          Logs.info('Token is valid');
           return this.accessToken;
         }
       }

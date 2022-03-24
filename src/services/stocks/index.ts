@@ -1,4 +1,4 @@
-import {Logs} from 'services/logs';
+import CONFIG from 'config';
 import {IStocks, StockStore} from 'stores/StockStore';
 import endpoints from 'utils/endpoints';
 var axios = require('axios');
@@ -9,7 +9,14 @@ class StockService {
   getStocks = async query => {
     try {
       const url = endpoints.stocks + 'quote/quote?symbols=' + query;
-      const response = await axios.get(url);
+      const config = {
+        method: 'get',
+        url: url,
+        headers: {
+          ApiKey: CONFIG.COINGRIG_KEY,
+        },
+      };
+      const response = await axios(config);
       return response.data;
     } catch (err) {
       console.log(err);
@@ -19,7 +26,14 @@ class StockService {
   search = async query => {
     try {
       const url = endpoints.stocks + 'search/search?q=' + query;
-      const response = await axios.get(url);
+      const config = {
+        method: 'get',
+        url: url,
+        headers: {
+          ApiKey: CONFIG.COINGRIG_KEY,
+        },
+      };
+      const response = await axios(config);
       return response.data;
     } catch (err) {
       console.log(err);
