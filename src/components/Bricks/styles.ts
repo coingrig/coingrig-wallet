@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
   },
   dollar: {
     fontSize: 18,
-    marginBottom: 10,
+    marginBottom: 15,
     color: Colors.foreground,
     fontFamily: 'RobotoSlab-Regular',
   },
@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
   },
   endBrick: {
     fontSize: 18,
-    marginBottom: 10,
+    marginBottom: 15,
     color: Colors.background,
     fontFamily: 'RobotoSlab-Regular',
   },

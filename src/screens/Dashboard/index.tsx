@@ -41,6 +41,7 @@ const DashboardScreen = observer(() => {
   const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation();
   const [showMarketing, setShowMarketing] = useState(false);
+  const [shadowHeader, setShadowHeader] = useState(false);
 
   useEffect(() => {
     AppsStateService.coldStart = false;
@@ -68,6 +69,33 @@ const DashboardScreen = observer(() => {
     );
     Analytics.trackEvent('AppStart');
   }, [SettingsStore.mnemonicBackupDone]);
+
+  useEffect(() => {
+    if (shadowHeader) {
+      navigation.setOptions({
+        headerStyle: {
+          backgroundColor: Colors.background,
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 0,
+            height: 1,
+          },
+          shadowOpacity: 0.1,
+          shadowRadius: 1.41,
+
+          elevation: 2,
+        },
+      });
+    } else {
+      navigation.setOptions({
+        headerStyle: {
+          shadowColor: 'transparent', // ios
+          elevation: 0, // android
+          backgroundColor: Colors.background,
+        },
+      });
+    }
+  }, [shadowHeader]);
 
   const badge = () => <View style={styles.badge} />;
 
@@ -128,6 +156,18 @@ const DashboardScreen = observer(() => {
         </View>
       </View>
     );
+  };
+
+  const onScroll = y => {
+    if (y > 25) {
+      if (!shadowHeader) {
+        setShadowHeader(true);
+      }
+    } else if (y < 25) {
+      if (shadowHeader) {
+        setShadowHeader(false);
+      }
+    }
   };
 
   const preRender = () => {
@@ -208,6 +248,8 @@ const DashboardScreen = observer(() => {
     <ScrollView
       contentContainerStyle={{flexGrow: 1}}
       showsVerticalScrollIndicator={false}
+      scrollEventThrottle={200}
+      onScroll={e => onScroll(e.nativeEvent.contentOffset.y)}
       refreshControl={
         <RefreshControl
           refreshing={refreshing}

@@ -126,10 +126,12 @@ function BottomTabs() {
         tabBarActiveTintColor: '#FFFFFF',
         tabBarActiveBackgroundColor: Colors.foreground,
         tabBarStyle: {
-          borderTopWidth: 0,
+          borderTopWidth: 1,
           elevation: 0,
-          height: Platform.OS === 'android' ? 55 : 75,
-          marginTop: 3,
+          height: Platform.OS === 'android' ? 60 : 80,
+          backgroundColor: Colors.background,
+          borderTopColor: Colors.darker,
+          paddingTop: 5,
         },
         tabBarItemStyle: {
           marginHorizontal: 20,
@@ -188,7 +190,7 @@ function BottomTabs() {
           headerStyle: {
             shadowColor: 'transparent', // ios
             elevation: 0, // android
-            // backgroundColor: '#f5f1e4'
+            backgroundColor: Colors.background,
           },
           headerTintColor: Colors.foreground,
           headerTitleStyle: {
