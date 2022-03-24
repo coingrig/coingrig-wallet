@@ -137,7 +137,8 @@ const PortfolioScreen = observer(({route}) => {
             WalletStore.totalBalance +
               BankStore.totalBalance +
               FiatStore.totalBalance +
-              CexStore.totalBalance,
+              CexStore.totalBalance +
+              StockStore.totalBalance,
             true,
           ) || 0.0}
         </Text>
