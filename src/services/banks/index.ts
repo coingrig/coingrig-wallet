@@ -92,13 +92,15 @@ class BanksService {
     const exp = this.addDays(accData.aggrement.access_valid_for_days || 90);
     try {
       const {balance, details}: any = await this.getBankAccountData(accountID);
+      // console.log('balance', balance);
+      // console.log('details', details);
       const bankAccount: IBankAccount = {
         id: accountID,
         iban: details.account.iban || null,
         currency: balance.balanceAmount.currency || null,
         name: details.account.name || null,
         product: details.account.product || null,
-        amount: parseFloat(balance.balanceAmount.amount) || null,
+        amount: parseFloat(balance.balanceAmount.amount) || 0,
         balanceType: balance.balanceType || null,
         bankName: accData.item.name || null,
         bankLogo: accData.item.logo,
@@ -117,7 +119,7 @@ class BanksService {
     for (let index = 0; index < BankStore.bankAccounts.length; index++) {
       const account = {...BankStore.bankAccounts[index]};
       const {balance}: any = await this.getBankAccountData(account.id);
-      account.amount = parseFloat(balance.balanceAmount.amount) || null;
+      account.amount = parseFloat(balance.balanceAmount.amount) || 0;
       BankStore.updateAccount(account.id, account);
     }
     this.updateTotalBalance();
