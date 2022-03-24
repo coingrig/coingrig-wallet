@@ -38,7 +38,7 @@ const AccountItem = (props: {
                 }}
               />
             ) : (
-              <UserAvatar size={35} name={props.title} />
+              <UserAvatar size={30} name={props.title} />
             )}
           </View>
           <View style={styles.mcontainer}>
