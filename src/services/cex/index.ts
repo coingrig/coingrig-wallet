@@ -123,7 +123,7 @@ class CexService {
   }
 
   async connect(cexID) {
-    Logs.error('Connect to ', cexID);
+    Logs.info('Connect to ', cexID);
     // const exchangeId = 'ftx';
     const exchangeClass = ccxt[cexID];
     const [apiKey, secret]: any = await this.getCexKeys(cexID);
