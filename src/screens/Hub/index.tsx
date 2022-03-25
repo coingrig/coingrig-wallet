@@ -24,7 +24,6 @@ const HubScreen = () => {
           <Text
             style={{
               fontSize: 24,
-              fontWeight: 'bold',
               fontFamily: 'RobotoSlab-Bold',
               color: Colors.foreground,
             }}>
@@ -80,7 +79,11 @@ const HubScreen = () => {
 
   const header = () => {
     return (
-      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}>
         <Text style={styles.title}>{t('hub.title')} </Text>
       </View>
     );
@@ -106,11 +109,11 @@ const HubScreen = () => {
   };
 
   const onScroll = y => {
-    if (y > 45) {
+    if (y > 55) {
       if (!shadowHeader) {
         setShadowHeader(true);
       }
-    } else if (y < 45) {
+    } else if (y < 55) {
       if (shadowHeader) {
         setShadowHeader(false);
       }
