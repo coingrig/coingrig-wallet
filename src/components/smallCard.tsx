@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logoimg: {
-    width: 30,
-    height: 30,
+    width: 35,
+    height: 35,
     justifyContent: 'center',
   },
   coinSymbol: {
@@ -162,12 +162,12 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     flex: 1,
-    height: 90,
+    height: 80,
     borderRadius: 10,
     padding: 10,
-    backgroundColor: Colors.card,
+    // backgroundColor: Colors.card,
     justifyContent: 'center',
-    marginHorizontal: 15,
+    marginHorizontal: 5,
     marginVertical: 3,
   },
 });

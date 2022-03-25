@@ -43,7 +43,12 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
   },
   tcontainer: {flex: 1},
-  bcontainer: {justifyContent: 'flex-end', margin: 10, marginBottom: 30},
+  bcontainer: {
+    justifyContent: 'center',
+    marginHorizontal: 10,
+    marginBottom: 35,
+    // backgroundColor: 'red',
+  },
   logo: {
     width: 45,
     height: 45,
@@ -55,7 +60,7 @@ export const styles = StyleSheet.create({
   },
   coinName: {
     fontSize: 17,
-    fontWeight: 'bold',
+    fontWeight: '600',
     marginBottom: 5,
     color: Colors.yellow,
   },

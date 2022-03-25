@@ -16,7 +16,6 @@ import {useTranslation} from 'react-i18next';
 import Brick from 'components/Bricks';
 import Analytics from 'appcenter-analytics';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import Icon2 from 'react-native-vector-icons/Entypo';
 import Icon3 from 'react-native-vector-icons/Ionicons';
 import {ListPrices} from 'components/widgets/listPrices';
 import {formatPrice, sleep} from '../../utils';
@@ -26,7 +25,6 @@ import NotificationService from 'services/notifications';
 import {styles} from './styles';
 import {Colors} from 'utils/colors';
 import {showMessage} from 'react-native-flash-message';
-import {CONFIG_MODULES, CONFIG_PROPERTIES, ConfigStore} from 'stores/config';
 import AppsStateService from 'services/appStates';
 import {useNavigation} from '@react-navigation/native';
 import {SettingsStore} from 'stores/settings';
@@ -34,13 +32,16 @@ import {BankStore} from 'stores/bankStore';
 import {FiatStore} from 'stores/fiatStore';
 import {CexStore} from 'stores/cexStore';
 import {StockStore} from 'stores/StockStore';
+import CardList from 'components/CardList';
+import apps from 'data/apps';
 // import CustomModal from 'components/Modal';
+
+const marketData = apps.filter(app => app.categories?.includes('home'));
 
 const DashboardScreen = observer(() => {
   const {t} = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation();
-  const [showMarketing, setShowMarketing] = useState(false);
   const [shadowHeader, setShadowHeader] = useState(false);
 
   useEffect(() => {
@@ -60,13 +61,6 @@ const DashboardScreen = observer(() => {
       ),
     });
     fetchBalance();
-    setShowMarketing(
-      ConfigStore.getModuleProperty(
-        CONFIG_MODULES.MARKETING_HOME,
-        CONFIG_PROPERTIES.MARKETING_HOME.DISPLAY_NEWS,
-        false,
-      ),
-    );
     Analytics.trackEvent('AppStart');
   }, [SettingsStore.mnemonicBackupDone]);
 
@@ -118,42 +112,27 @@ const DashboardScreen = observer(() => {
     NotificationService.askForPermission();
   }, []);
 
-  const Marketing = () => {
-    if (!showMarketing) {
-      return null;
-    }
+  const QuickAction = () => {
     return (
-      <View>
-        <View style={styles.subContainer}>
+      <View style={{flex: 1, marginHorizontal: 16, marginTop: 5}}>
+        <View
+          style={[
+            styles.subContainer,
+            {marginTop: 0, marginBottom: 5, marginLeft: -15},
+          ]}>
           <Icon
-            name="info-circle"
+            name="newspaper"
             size={15}
             color={Colors.lighter}
             style={styles.icons}
           />
-          <Text style={styles.subtitle}>{t('dashboard.coming_soon')}</Text>
+          <Text style={styles.subtitle}>{t('title.Quick Action')}</Text>
         </View>
-        <View style={styles.infoCard}>
-          <View style={styles.infoContainer}>
-            <Icon2 name="network" size={19} color={Colors.lighter} />
-            <Text
-              style={styles.infoText}
-              numberOfLines={1}
-              adjustsFontSizeToFit>
-              {t('dashboard.info1')}
-            </Text>
-          </View>
-          <View style={styles.vLine} />
-          <View style={styles.infoContainer}>
-            <Icon2 name="network" size={19} color={Colors.lighter} />
-            <Text
-              style={styles.infoText}
-              numberOfLines={1}
-              adjustsFontSizeToFit>
-              {t('dashboard.info2')}
-            </Text>
-          </View>
-        </View>
+        <CardList
+          data={marketData.filter(app => app.module)}
+          title={null}
+          category={null}
+        />
       </View>
     );
   };
@@ -227,9 +206,8 @@ const DashboardScreen = observer(() => {
                 color={Colors.background}
               />
             </ScrollView>
-            {Marketing()}
             <View
-              style={[styles.subContainer, {marginTop: 10, marginBottom: 5}]}>
+              style={[styles.subContainer, {marginTop: 0, marginBottom: 5}]}>
               <Icon
                 name="list-ul"
                 size={15}
@@ -239,6 +217,7 @@ const DashboardScreen = observer(() => {
               <Text style={styles.subtitle}>{t('dashboard.top_3_coins')}</Text>
             </View>
             <ListPrices />
+            {QuickAction()}
           </View>
         </View>
       </View>

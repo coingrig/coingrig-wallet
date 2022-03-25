@@ -16,6 +16,8 @@ import {MigrationService} from 'services/migrations';
 import {ConfigStore} from 'stores/config';
 import CONFIG from 'config';
 import {Logs} from 'services/logs';
+import {MarketStore} from 'stores/market';
+import {COINS_MIN} from 'utils/constants';
 
 const SplashScreen: FC = () => {
   const navigation = useNavigation();
@@ -45,6 +47,7 @@ const SplashScreen: FC = () => {
         i18n.changeLanguage(local[0].languageCode);
       }
     }
+    MarketStore.getTopCoins(COINS_MIN);
     await checkPin();
     SS.hide();
   };

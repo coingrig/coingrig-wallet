@@ -5,12 +5,19 @@ import {observer} from 'mobx-react-lite';
 import SmallCard from '../smallCard';
 import {MarketStore} from 'stores/market';
 import {useNavigation} from '@react-navigation/native';
+import {Colors} from 'utils/colors';
 export const ListPrices = observer(() => {
   const navigation = useNavigation();
   return (
-    <View style={{flex: 1}}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: Colors.card,
+        marginHorizontal: 16,
+        borderRadius: 10,
+      }}>
       {MarketStore.coins.length > 0
-        ? MarketStore.coins.slice(0, 3).map(i => (
+        ? MarketStore.coins.slice(0, 5).map(i => (
             <SmallCard
               coin={i.symbol}
               key={i.id}
