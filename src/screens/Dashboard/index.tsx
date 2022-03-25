@@ -126,7 +126,7 @@ const DashboardScreen = observer(() => {
             color={Colors.lighter}
             style={styles.icons}
           />
-          <Text style={styles.subtitle}>{t('title.Quick Action')}</Text>
+          <Text style={styles.subtitle}>{t('Quick Action')}</Text>
         </View>
         <CardList
           data={marketData.filter(app => app.module)}

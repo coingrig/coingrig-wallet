@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import {Colors} from 'utils/colors';
 
 export const styles = StyleSheet.create({
@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
   },
   coinName: {
     fontSize: 17,
-    fontWeight: '600',
+    fontWeight: Platform.OS === 'android' ? 'bold' : '600',
     marginBottom: 5,
     color: Colors.yellow,
   },
