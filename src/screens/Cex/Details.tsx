@@ -76,7 +76,8 @@ export default function CexDetails({route}) {
       );
       if (saved) {
         console.log('Done');
-        await CexService.getAllBalances();
+        await CexService.getBalance(item.id);
+        CexStore.updateTotalBalance(CexStore.sumTotalBalance());
         showMessage({
           message: t('Done'),
           type: 'success',
