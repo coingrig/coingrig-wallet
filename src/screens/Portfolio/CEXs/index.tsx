@@ -32,7 +32,8 @@ const CEXs = observer(props => {
       disable={true}
       onPress={null}
       title={item.symbol || ''}
-      img={item.image || ''}
+      img={item.logo || ''}
+      subimg={item.image || null}
       subtitle={item.subtitle || ''}
       value={item.balance + ' ' + item.symbol || ''}
       subvalue={item.totalValue || ''}

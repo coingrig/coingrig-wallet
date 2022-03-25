@@ -13,11 +13,7 @@ const StartScreen = () => {
   const {t} = useTranslation();
 
   return (
-    <ImageBackground
-      style={styles.container}
-      imageStyle={{zIndex: -10, opacity: 0.5}}
-      source={require('../../assets/bg.png')}
-      resizeMode="cover">
+    <View style={styles.container}>
       <View style={styles.topContainer}>
         <Animatable.View animation="pulse" iterationCount="infinite">
           <Image
@@ -65,7 +61,7 @@ const StartScreen = () => {
           // opacity="0.7"
         />
       </Svg>
-    </ImageBackground>
+    </View>
   );
 };
 

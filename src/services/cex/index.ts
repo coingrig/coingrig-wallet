@@ -78,7 +78,7 @@ class CexService {
         const coin = coins.filter(
           item => item.symbol.toLowerCase() === key.toLowerCase(),
         );
-        console.log(coin[0]);
+        // console.log(coin[0]);
         if (coin.length === 0) {
           if (key.toLowerCase() === 'usd' || key.toLowerCase() === 'usdt') {
             balance.push({

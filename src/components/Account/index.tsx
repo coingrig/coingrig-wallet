@@ -12,8 +12,69 @@ const AccountItem = (props: {
   subtitle: string;
   value: string;
   subvalue: string;
+  subimg: string | null;
   onPress?: any;
 }) => {
+  const renderImg = () => {
+    if (props.subimg) {
+      return (
+        <>
+          <FastImage
+            style={{
+              width: 20,
+              height: 20,
+              justifyContent: 'center',
+              borderRadius: 50,
+              backgroundColor: 'white',
+              position: 'absolute',
+              zIndex: 10,
+              top: -3,
+              left: 0,
+              borderWidth: 1,
+              borderColor: Colors.darker,
+            }}
+            source={{
+              uri: props.subimg || '',
+              priority: FastImage.priority.normal,
+              cache: FastImage.cacheControl.immutable,
+            }}
+          />
+          <FastImage
+            style={{
+              width: 30,
+              height: 30,
+              justifyContent: 'center',
+              borderRadius: 50,
+              backgroundColor: Colors.darker,
+            }}
+            source={{
+              uri: props.img || '',
+              priority: FastImage.priority.normal,
+              cache: FastImage.cacheControl.immutable,
+            }}
+          />
+        </>
+      );
+    } else {
+      return (
+        <FastImage
+          style={{
+            width: 30,
+            height: 30,
+            justifyContent: 'center',
+            borderRadius: 50,
+            backgroundColor: Colors.darker,
+          }}
+          source={{
+            uri: props.img || '',
+            priority: FastImage.priority.normal,
+            cache: FastImage.cacheControl.immutable,
+          }}
+        />
+      );
+    }
+  };
+
   return (
     <TouchableOpacity
       onPress={props.onPress ? props.onPress : null}
@@ -23,20 +84,7 @@ const AccountItem = (props: {
         <View style={styles.card}>
           <View style={styles.logo}>
             {props.img ? (
-              <FastImage
-                style={{
-                  width: 30,
-                  height: 30,
-                  justifyContent: 'center',
-                  borderRadius: 50,
-                  backgroundColor: Colors.darker,
-                }}
-                source={{
-                  uri: props.img || '',
-                  priority: FastImage.priority.normal,
-                  cache: FastImage.cacheControl.immutable,
-                }}
-              />
+              renderImg()
             ) : (
               <UserAvatar size={30} name={props.title} />
             )}
