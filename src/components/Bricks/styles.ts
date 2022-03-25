@@ -70,5 +70,14 @@ export const styles = StyleSheet.create({
     margin: 7,
     borderRadius: 15,
     padding: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+
+    elevation: 2,
   },
 });

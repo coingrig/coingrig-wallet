@@ -14,6 +14,7 @@ export const ListPrices = observer(() => {
         flex: 1,
         backgroundColor: Colors.card,
         marginHorizontal: 16,
+        paddingVertical: 5,
         borderRadius: 10,
       }}>
       {MarketStore.coins.length > 0

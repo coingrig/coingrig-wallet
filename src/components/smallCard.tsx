@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logoimg: {
-    width: 35,
-    height: 35,
+    width: 30,
+    height: 30,
     justifyContent: 'center',
   },
   coinSymbol: {
@@ -107,14 +107,15 @@ const styles = StyleSheet.create({
   },
   chart: {
     paddingRight: 0,
-    paddingBottom: 20,
-    paddingTop: 20,
+    paddingBottom: 10,
+    paddingTop: 5,
+    marginTop: 10,
   },
   mcontainer: {
     flexDirection: 'column',
     justifyContent: 'center',
     marginLeft: 10,
-    flex: 1,
+    flex: 2,
   },
   chartContainer: {
     flexDirection: 'column',
@@ -130,9 +131,9 @@ const styles = StyleSheet.create({
     color: Colors.foreground,
   },
   price: {
-    fontSize: 13,
-    textAlign: 'center',
-    fontWeight: 'bold',
+    fontSize: 14,
+    textAlign: 'right',
+    // fontWeight: '500',
     color: Colors.foreground,
     marginVertical: 3,
   },
@@ -147,28 +148,30 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   bgprice: {
-    padding: 2,
-    backgroundColor: Colors.background,
+    // padding: 2,
+    // backgroundColor: Colors.background,
     justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
+
+    // alignItems: 'right',
+    // borderRadius: 5,
   },
   rcontainer: {
     flexDirection: 'column',
     justifyContent: 'center',
     marginLeft: 15,
-    flex: 0.9,
+    paddingRight: 5,
+    flex: 1,
   },
   card: {
     flexDirection: 'row',
     flex: 1,
-    height: 80,
+    height: 50,
     borderRadius: 10,
     padding: 10,
     // backgroundColor: Colors.card,
     justifyContent: 'center',
-    marginHorizontal: 5,
-    marginVertical: 3,
+    marginHorizontal: 0,
+    marginVertical: 10,
   },
 });
 

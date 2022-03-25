@@ -70,8 +70,8 @@ const Brick = (props: any) => {
       <Svg viewBox="0 0 400 150" preserveAspectRatio="none" style={styles.svg}>
         <Path
           d="M0 49.98c149.99 100.02 349.2-99.96 500 0V150H0z"
-          fill={Colors.wave}
-          opacity="0.5"
+          fill={Colors.background}
+          opacity={props.title === '_END_' ? 0.05 : 0.3}
         />
       </Svg>
     </TouchableOpacity>
