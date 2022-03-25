@@ -12,7 +12,7 @@ export default function Featured() {
   const navigation = useNavigation();
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollview}>
+    <ScrollView contentContainerStyle={[styles.scrollview, {paddingTop: 10}]}>
       <CardImage
         //@ts-ignore
         onClick={() => navigation.navigate('SwapScreen')}
