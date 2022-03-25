@@ -7,7 +7,6 @@ import {
 import {CexStore} from 'stores/cexStore';
 import {MarketStore} from 'stores/market';
 import fx from 'services/fx';
-var axios = require('axios');
 const coins = require('../../assets/tokens.json');
 
 var ccxt = require('ccxt');
@@ -27,27 +26,6 @@ class CexService {
     this.cb = null;
     this.bin = null;
     this.start();
-    // this.getMarketData();
-  }
-
-  async getMarketData(cexID) {
-    try {
-      Logs.info('-----start-----');
-      const url = 'https://assets.coingrig.com/data/' + cexID + '.json';
-      const config = {
-        method: 'get',
-        url: url,
-        headers: {
-          // ApiKey: CONFIG.COINGRIG_KEY,
-        },
-      };
-      const response = await axios(config);
-      // console.log(Object.keys(response.data).length);
-      Logs.info('-----end-----');
-      return response.data;
-    } catch (err) {
-      console.log(err);
-    }
   }
 
   async start() {
@@ -58,8 +36,6 @@ class CexService {
     } catch (e) {
       Logs.error(e);
     }
-    // this.cb = await this.getMarketData('coinbase');
-    // this.bin = await this.getMarketData('binance');
   }
 
   async getBalance(cexID) {
@@ -78,7 +54,6 @@ class CexService {
         const coin = coins.filter(
           item => item.symbol.toLowerCase() === key.toLowerCase(),
         );
-        // console.log(coin[0]);
         if (coin.length === 0) {
           if (key.toLowerCase() === 'usd' || key.toLowerCase() === 'usdt') {
             balance.push({
@@ -126,7 +101,6 @@ class CexService {
 
     Logs.info(cexID, balance);
     CexStore.addCexData(cexID, balance);
-    Logs.error('END --- ', cexID);
     return balance;
   }
 
@@ -149,7 +123,7 @@ class CexService {
   }
 
   async connect(cexID) {
-    Logs.error('Connect to --- ', cexID);
+    Logs.error('Connect to ', cexID);
     // const exchangeId = 'ftx';
     const exchangeClass = ccxt[cexID];
     const [apiKey, secret]: any = await this.getCexKeys(cexID);
