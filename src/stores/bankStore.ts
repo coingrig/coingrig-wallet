@@ -52,6 +52,7 @@ class bankStore {
 
   addAccount = action((bankAccount: IBankAccount) => {
     this.bankAccounts.push(bankAccount);
+    this.bankAccounts = this.bankAccounts.slice(0);
     return true;
   });
 
