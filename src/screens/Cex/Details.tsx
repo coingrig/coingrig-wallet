@@ -26,8 +26,12 @@ export default function CexDetails({route}) {
   const {t} = useTranslation();
   const navigation = useNavigation();
   const item = CEX_LIST[route.params.data];
-  const [apiKeyText, setApiKeyText] = useState('apiKey');
-  const [secretText, setSecretText] = useState('secret');
+  const [apiKeyText, setApiKeyText] = useState(
+    'vu2LcTXYJmtlZVNLyZUeFFRBKUVMuwdDXpunxWYRKog51QQRQiWxDG4ujJoJK510',
+  );
+  const [secretText, setSecretText] = useState(
+    'kI73KyMG9XWmDa3xZlGLbdhhfgSLo94CQ4c4NkJ4VdT31ImuEm988eFCPB2DC5Ky',
+  );
   const [exists, setExists] = useState(false);
 
   useEffect(() => {

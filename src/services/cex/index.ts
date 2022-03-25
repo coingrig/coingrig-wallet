@@ -5,14 +5,18 @@ import {
   StorageSetItem,
 } from 'services/storage';
 import {CexStore} from 'stores/cexStore';
-import BigNumber from 'bignumber.js';
+import {MarketStore} from 'stores/market';
+import fx from 'services/fx';
 var axios = require('axios');
+const coins = require('../../assets/tokens.json');
 
 var ccxt = require('ccxt');
 
 class CexService {
   cex: any;
   exchanges: string[];
+  cb: any;
+  bin: any;
   constructor() {
     this.cex = {
       binance: null,
@@ -20,6 +24,8 @@ class CexService {
       coinbase: null,
     };
     this.exchanges = ccxt.exchanges;
+    this.cb = null;
+    this.bin = null;
     this.start();
     // this.getMarketData();
   }
@@ -52,6 +58,8 @@ class CexService {
     } catch (e) {
       Logs.error(e);
     }
+    // this.cb = await this.getMarketData('coinbase');
+    // this.bin = await this.getMarketData('binance');
   }
 
   async getBalance(cexID) {
@@ -63,89 +71,62 @@ class CexService {
     } else {
       Logs.info(cexID, 'Connected');
     }
-    // let markets = await this.cex[cexID].load_markets();
-    // console.log(
-    //   cexID,
-    //   Object.keys(markets).filter(o => o.startsWith('BTC')),
-    // );
-
-    // console.log(markets['BAT/USD']);
     const b = await this.cex[cexID].fetchBalance();
-    // let json = JSON.stringify(this.cex[cexID].markets);
-    // console.log('json', json.length);
-    // console.log('json', json);
     const balance: any = [];
-    // // console.log(cexID, b.total);
-    // // console.log(cexID, b);
+    for (const [key, v] of Object.entries(b.total)) {
+      if (v > 0) {
+        const coin = coins.filter(
+          item => item.symbol.toLowerCase() === key.toLowerCase(),
+        );
+        console.log(coin[0]);
+        if (coin.length === 0) {
+          if (key.toLowerCase() === 'usd' || key.toLowerCase() === 'usdt') {
+            balance.push({
+              id: null,
+              symbol: key,
+              balance: v,
+              price: 1,
+              totalValue: v,
+              image: null,
+            });
+          } else if (key.toLowerCase() === 'eur') {
+            balance.push({
+              id: null,
+              symbol: key,
+              balance: v,
+              price: fx.rates.EUR,
+              totalValue: v / fx.rates.EUR,
+              image: null,
+            });
+          } else {
+            continue;
+          }
+        } else {
+          balance.push({
+            id: coin[0].id || null,
+            symbol: key,
+            balance: v,
+            price: null,
+            totalValue: null,
+            image: coin[0].thumb || null,
+          });
+        }
+      }
+    }
+    const map = balance.map(o => {
+      return o.id;
+    });
+    const prices = await MarketStore.getCoinsByList(map);
+    balance.forEach(b => {
+      if (b.id && prices[b.id]) {
+        b.price = prices[b.id].usd;
+        b.totalValue = b.balance * prices[b.id].usd;
+      }
+    });
 
-    // // const b = await this.cex[cexID].fetchTickers();
-    // // console.log(cexID, b);
-    let tickers = [];
-    for (const [key, v] of Object.entries(b.total)) {
-      if (v > 0) {
-        if (cexID === 'coinbase') {
-          if (key === 'USD') {
-            balance.push({
-              symbol: 'USD',
-              balance: v,
-              price: 1,
-              totalValue: v,
-            });
-            continue;
-          }
-          tickers.push(key + '/USD');
-        } else {
-          if (key === 'USDT') {
-            balance.push({
-              symbol: 'USDT',
-              balance: v,
-              price: 1,
-              totalValue: v,
-            });
-            continue;
-          }
-          tickers.push(key + '/USDT');
-        }
-      }
-    }
-    const priceTickers = await this.cex[cexID].fetchTickers(tickers);
-    // if (cexID === 'coinbase') {
-    //   console.log(priceTickers);
-    // }
-    for (const [key, v] of Object.entries(b.total)) {
-      if (v > 0) {
-        if (cexID === 'coinbase') {
-          if (key === 'USD') {
-            continue;
-          }
-          let price = priceTickers[key + '/USD'];
-          // It returns actually 1 usd = xxx KEY asset
-          let assetPrice = new BigNumber(1).dividedBy(
-            new BigNumber(price.info),
-          );
-          let assetBalance = new BigNumber(v);
-          balance.push({
-            symbol: key.split('/')[0],
-            balance: assetBalance.toNumber(),
-            price: assetPrice.toNumber(),
-            totalValue: assetPrice.times(assetBalance).toNumber(),
-          });
-        } else {
-          if (key === 'USDT') {
-            continue;
-          }
-          let price = priceTickers[key + '/USDT'];
-          balance.push({
-            symbol: key.split('/')[0],
-            balance: new BigNumber(v).toNumber(),
-            price: new BigNumber(price.ask).toNumber(),
-            totalValue: new BigNumber(price.ask).times(v).toNumber(),
-          });
-        }
-      }
-    }
     Logs.info(cexID, balance);
     CexStore.addCexData(cexID, balance);
+    Logs.error('END --- ', cexID);
     return balance;
   }
 
@@ -168,7 +149,7 @@ class CexService {
   }
 
   async connect(cexID) {
-    Logs.info('Connect to ', cexID);
+    Logs.error('Connect to --- ', cexID);
     // const exchangeId = 'ftx';
     const exchangeClass = ccxt[cexID];
     const [apiKey, secret]: any = await this.getCexKeys(cexID);
@@ -176,7 +157,7 @@ class CexService {
       this.cex[cexID] = new exchangeClass({
         apiKey: apiKey,
         secret: secret,
-        // markets: await this.getMarketData(cexID),
+        markets: [],
       });
       // this.cex[cexID].markets = await this.getMarketData(cexID);
     }

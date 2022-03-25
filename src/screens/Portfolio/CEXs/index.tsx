@@ -32,7 +32,7 @@ const CEXs = observer(props => {
       disable={true}
       onPress={null}
       title={item.symbol || ''}
-      img={item.logo || ''}
+      img={item.image || ''}
       subtitle={item.subtitle || ''}
       value={item.balance + ' ' + item.symbol || ''}
       subvalue={item.totalValue || ''}
@@ -62,6 +62,7 @@ const CEXs = observer(props => {
             price: asset.price,
             totalValue: formatPrice(asset.totalValue),
             logo: cex.logo,
+            image: asset.image,
           });
         });
       });
