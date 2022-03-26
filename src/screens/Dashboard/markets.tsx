@@ -20,7 +20,7 @@ export const OtherMarkets = observer(() => {
           {marginTop: 0, marginBottom: 5, marginLeft: -15},
         ]}>
         <Icon
-          name="newspaper"
+          name="globe-americas"
           size={15}
           color={Colors.lighter}
           style={styles.icons}
@@ -89,7 +89,7 @@ export const USMarkets = observer(() => {
           {marginTop: 0, marginBottom: 5, marginLeft: -15},
         ]}>
         <Icon
-          name="newspaper"
+          name="chart-line"
           size={15}
           color={Colors.lighter}
           style={styles.icons}

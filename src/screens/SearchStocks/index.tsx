@@ -23,7 +23,6 @@ const SearchStocks = ({route}) => {
       return;
     }
     const query = await StockService.search(text);
-    console.log(query);
     setData(query);
   }, 500);
 
