@@ -28,5 +28,5 @@ endpoints.opensea = 'https://api.opensea.io/api/v1';
 endpoints.fx = 'https://api.coingrig.com/fx/';
 endpoints.assets = 'https://assets.coingrig.com';
 endpoints.stocks = 'https://api.coingrig.com/stocks/';
-
+endpoints.yahoofinance = 'https://finance.yahoo.com/quote/';
 export default endpoints;

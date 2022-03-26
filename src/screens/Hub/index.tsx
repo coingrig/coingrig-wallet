@@ -52,7 +52,7 @@ const HubScreen = () => {
         }}
         style={{
           backgroundColor:
-            screen.title === item.title ? Colors.foreground : Colors.darker,
+            screen.title === item.title ? Colors.foreground : Colors.bubble,
           flex: 1,
           padding: 5,
           paddingHorizontal: 15,

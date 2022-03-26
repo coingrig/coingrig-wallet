@@ -34,6 +34,7 @@ import {CexStore} from 'stores/cexStore';
 import {StockStore} from 'stores/StockStore';
 import CardList from 'components/CardList';
 import apps from 'data/apps';
+import {OtherMarkets, USMarkets} from './markets';
 // import CustomModal from 'components/Modal';
 
 const marketData = apps.filter(app => app.categories?.includes('home'));
@@ -206,6 +207,7 @@ const DashboardScreen = observer(() => {
                 color={Colors.background}
               />
             </ScrollView>
+            <USMarkets />
             <View
               style={[styles.subContainer, {marginTop: 0, marginBottom: 5}]}>
               <Icon
@@ -217,6 +219,7 @@ const DashboardScreen = observer(() => {
               <Text style={styles.subtitle}>{t('dashboard.top_3_coins')}</Text>
             </View>
             <ListPrices />
+            <OtherMarkets />
             {QuickAction()}
           </View>
         </View>

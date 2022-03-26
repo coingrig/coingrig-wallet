@@ -16,6 +16,7 @@ import {MigrationService} from 'services/migrations';
 import {ConfigStore} from 'stores/config';
 import CONFIG from 'config';
 import {Logs} from 'services/logs';
+import StockService from 'services/stocks';
 import {MarketStore} from 'stores/market';
 import {COINS_MIN} from 'utils/constants';
 
@@ -48,6 +49,7 @@ const SplashScreen: FC = () => {
       }
     }
     MarketStore.getTopCoins(COINS_MIN);
+    StockService.getMarkets();
     await checkPin();
     SS.hide();
   };

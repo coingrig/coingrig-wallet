@@ -130,7 +130,7 @@ function BottomTabs() {
           elevation: 0,
           height: Platform.OS === 'android' ? 60 : 80,
           backgroundColor: Colors.background,
-          borderTopColor: Colors.darker,
+          borderTopColor: Colors.tabborder,
           paddingTop: 5,
         },
         tabBarItemStyle: {

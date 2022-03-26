@@ -75,7 +75,7 @@ export const styles = StyleSheet.create({
     maxWidth: '40%',
   },
   balance: {
-    fontSize: 20,
+    fontSize: 19,
     fontFamily: 'RobotoSlab-Regular',
     textAlign: 'center',
     color: Colors.lighter,
