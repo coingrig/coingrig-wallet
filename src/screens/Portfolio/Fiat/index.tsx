@@ -49,6 +49,7 @@ const Fiat = observer(props => {
       subvalue={formatPrice(item.usdBalance, true) || ''}
       subtitle={''}
       img={null}
+      subimg={null}
     />
   );
   const listHeader = () => {

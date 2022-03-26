@@ -195,6 +195,7 @@ const PortfolioScreen = observer(({route}) => {
       data={[1, 2, 3]}
       ref={flatListRef}
       renderItem={renderItem}
+      keyboardShouldPersistTaps
       contentContainerStyle={{flexGrow: 1}}
       style={styles.container}
       stickyHeaderIndices={[1]}
