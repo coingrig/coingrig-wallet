@@ -116,7 +116,7 @@ export default function TwoBricks({
           flexGrow: 1,
           borderRadius: 10,
           justifyContent: 'center',
-          padding: 10,
+          padding: 15,
           marginHorizontal: 5,
           flex: 1,
         }}>
