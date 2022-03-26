@@ -46,7 +46,7 @@ export const OtherMarkets = observer(() => {
       <TwoBricks
         symbol1="%5EGDAXI"
         title1={'DAX'}
-        image1={endpoints.assets + 'images/flags/de.png'}
+        image1={endpoints.assets + '/images/flags/de.png'}
         value1={MarketStore.markets['^GDAXI'].price || '-'}
         subValue1={
           MarketStore.markets['^GDAXI'].changePercentage.toFixed(2) + '%' || '-'
