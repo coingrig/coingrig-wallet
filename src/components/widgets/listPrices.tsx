@@ -18,7 +18,7 @@ export const ListPrices = observer(() => {
         borderRadius: 10,
       }}>
       {MarketStore.coins.length > 0
-        ? MarketStore.coins.slice(0, 5).map(i => (
+        ? MarketStore.coins.slice(0, 3).map(i => (
             <SmallCard
               coin={i.symbol}
               key={i.id}

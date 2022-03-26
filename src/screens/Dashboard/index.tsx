@@ -34,6 +34,7 @@ import {CexStore} from 'stores/cexStore';
 import {StockStore} from 'stores/StockStore';
 import CardList from 'components/CardList';
 import apps from 'data/apps';
+import {OtherMarkets, USMarkets} from './markets';
 // import CustomModal from 'components/Modal';
 
 const marketData = apps.filter(app => app.categories?.includes('home'));
@@ -137,66 +138,6 @@ const DashboardScreen = observer(() => {
     );
   };
 
-  const Markets = () => {
-    return (
-      <View style={{flex: 1, marginHorizontal: 16, marginTop: 5}}>
-        <View
-          style={[
-            styles.subContainer,
-            {marginTop: 0, marginBottom: 5, marginLeft: -15},
-          ]}>
-          <Icon
-            name="newspaper"
-            size={15}
-            color={Colors.lighter}
-            style={styles.icons}
-          />
-          <Text style={styles.subtitle}>{t('Global Markets')}</Text>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            borderRadius: 10,
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            marginBottom: 5,
-          }}>
-          <View
-            style={{
-              backgroundColor: Colors.darker,
-              flexGrow: 1,
-              borderRadius: 5,
-            }}>
-            <Text>daa</Text>
-            <Text>32</Text>
-            <Text>fgg</Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: Colors.darker,
-              flexGrow: 1,
-              borderRadius: 5,
-              marginHorizontal: 5,
-            }}>
-            <Text>ola</Text>
-            <Text>ola</Text>
-            <Text>ola</Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: Colors.darker,
-              flexGrow: 1,
-              borderRadius: 5,
-            }}>
-            <Text>ola</Text>
-            <Text>ola</Text>
-            <Text>ola</Text>
-          </View>
-        </View>
-      </View>
-    );
-  };
-
   const onScroll = y => {
     if (y > 25) {
       if (!shadowHeader) {
@@ -266,7 +207,7 @@ const DashboardScreen = observer(() => {
                 color={Colors.background}
               />
             </ScrollView>
-            {/* {Markets()} */}
+            <USMarkets />
             <View
               style={[styles.subContainer, {marginTop: 0, marginBottom: 5}]}>
               <Icon
@@ -278,6 +219,7 @@ const DashboardScreen = observer(() => {
               <Text style={styles.subtitle}>{t('dashboard.top_3_coins')}</Text>
             </View>
             <ListPrices />
+            <OtherMarkets />
             {QuickAction()}
           </View>
         </View>
