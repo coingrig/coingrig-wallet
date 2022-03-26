@@ -54,7 +54,7 @@
     "events": "^3.3.0",
     "https-browserify": "0.0.1",
     "i18next": "20.4.0",
-    "lodash": "4.17.21",
+    "lodash.debounce": "4.0.8",
     "lottie-ios": "3.2.3",
     "lottie-react-native": "4.0.3",
     "md5": "2.3.0",

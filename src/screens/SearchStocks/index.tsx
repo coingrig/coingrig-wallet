@@ -10,19 +10,21 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import StockService from 'services/stocks';
 import {useTranslation} from 'react-i18next';
 import {styles} from './styles';
+import debounce from 'lodash.debounce';
 
 const SearchStocks = ({route}) => {
   const navigation = useNavigation();
   const [data, setData] = useState([]);
   const {t} = useTranslation();
 
-  const searchStock = async text => {
-    if (text.length < 2) {
-      setData([]);
-      return;
-    }
+  const debouncedSearch = debounce(async text => {
     const query = await StockService.search(text);
+    console.log(query);
     setData(query);
+  }, 250);
+
+  const searchStock = async text => {
+    debouncedSearch(text);
   };
 
   const getData = () => {
