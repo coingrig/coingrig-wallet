@@ -38,6 +38,13 @@ class stockStore {
     });
   };
 
+  sumTotalBalance() {
+    return this.stocks.reduce(
+      (total, stock) => total + stock.qty * stock.price,
+      0.0,
+    );
+  }
+
   updateTotalBalance = action((balance: number) => {
     this.totalBalance = balance;
   });
@@ -71,12 +78,7 @@ class stockStore {
   });
 
   updateAllBalances = action(() => {
-    // let _totalBalance = 0;
-    // this.stocks.forEach(item => {
-    //   item.usdBalance = item.balance / fx.rates[item.currency];
-    //   _totalBalance = _totalBalance + item.usdBalance;
-    // });
-    // this.stocks = this.stocks.splice(0);
+    this.updateTotalBalance(this.sumTotalBalance());
   });
 
   private getStockPosition = (id: string) => {
