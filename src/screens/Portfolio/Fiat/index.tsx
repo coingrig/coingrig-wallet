@@ -19,6 +19,7 @@ const Fiat = observer(props => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [selected, setselected] = useState<IFiatAccounts | null>(null);
+  const [accBalance, setAccBalance] = useState('');
 
   useEffect(() => {
     navigation.setOptions({
@@ -38,6 +39,7 @@ const Fiat = observer(props => {
       disable={false}
       onPress={() => {
         setselected(item);
+        setAccBalance((item?.balance ?? '').toString());
         editSheet.current?.setModalVisible(true);
       }}
       title={item.name || ''}
@@ -85,13 +87,21 @@ const Fiat = observer(props => {
           keyboardType="numeric"
           placeholderTextColor={'gray'}
           style={styles.editInput}
-          value={null}
-          onChangeText={t => null}
+          value={accBalance}
+          onChangeText={t => setAccBalance(t)}
         />
         <SmallButton
           text={t('swap.slippage_save')}
           onPress={() => {
-            null;
+            let balance = parseFloat(accBalance);
+            if (!balance) {
+              balance = 0;
+            }
+            let acc = Object.assign({}, selected);
+            acc.balance = balance;
+            FiatStore.updateAccount(acc.id, acc);
+            FiatStore.updateAllBalances();
+            editSheet.current?.setModalVisible(false);
           }}
           color="#f2eded"
           // eslint-disable-next-line react-native/no-inline-styles

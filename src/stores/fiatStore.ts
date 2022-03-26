@@ -32,6 +32,13 @@ class fiatStore {
     return isHydrated(this);
   }
 
+  sumTotalBalance() {
+    return this.fiatAccounts.reduce(
+      (total, acc) => total + acc.usdBalance,
+      0.0,
+    );
+  }
+
   updateTotalBalance = action((balance: number) => {
     this.totalBalance = balance;
   });
@@ -72,6 +79,7 @@ class fiatStore {
         _totalBalance = _totalBalance + item.usdBalance;
       });
       this.fiatAccounts = this.fiatAccounts.slice(0);
+      this.updateTotalBalance(_totalBalance);
     }
   });
 

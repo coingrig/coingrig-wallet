@@ -98,16 +98,19 @@ export default function AddFiat() {
         <SmallButton
           text={t('swap.slippage_save')}
           onPress={() => {
+            let balance = parseFloat(accBalance);
+            if (!balance) {
+              balance = 0;
+            }
             FiatStore.addAccount({
               id: Date.now().toLocaleString(),
-              balance: parseFloat(accBalance),
+              balance: balance,
               currency: selected || '',
               name: accName,
-              usdBalance: parseFloat(accBalance) / fx.rates[selected!],
+              usdBalance: balance / fx.rates[selected!],
             });
             FiatStore.updateTotalBalance(
-              FiatStore.totalBalance +
-                parseFloat(accBalance) / fx.rates[selected!],
+              FiatStore.totalBalance + balance / fx.rates[selected!],
             );
             editSheet.current?.setModalVisible(false);
             navigation.goBack();
