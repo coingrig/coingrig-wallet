@@ -18,10 +18,14 @@ const SearchStocks = ({route}) => {
   const {t} = useTranslation();
 
   const debouncedSearch = debounce(async text => {
+    if (text.length === 0) {
+      setData([]);
+      return;
+    }
     const query = await StockService.search(text);
     console.log(query);
     setData(query);
-  }, 250);
+  }, 500);
 
   const searchStock = async text => {
     debouncedSearch(text);
