@@ -10,6 +10,8 @@ import BigList from 'react-native-big-list';
 import endpoints from 'utils/endpoints';
 import {CryptoService} from 'services/crypto';
 import {SIZE} from 'utils/constants';
+import FastImage from 'react-native-fast-image';
+import {Colors} from 'utils/colors';
 
 const NFTs = observer(props => {
   const {t} = useTranslation();
@@ -68,12 +70,36 @@ const NFTs = observer(props => {
       );
     } else {
       return (
-        <View style={styles.nonft}>
-          <Image
-            style={styles.noNftImg}
-            source={require('assets/nft.png')}
+        <View
+          style={{
+            marginTop: 20,
+            marginHorizontal: 16,
+            flexGrow: 1,
+            // height: SIZE.height / 1.5,
+            justifyContent: 'center',
+          }}>
+          <FastImage
+            source={require('../../../assets/nft.png')}
             resizeMode="contain"
+            style={{
+              height: 150,
+              width: '100%',
+              justifyContent: 'center',
+              alignSelf: 'center',
+              opacity: 0.5,
+            }}
           />
+          <Text
+            style={{
+              fontSize: 20,
+              color: Colors.lighter,
+              textAlign: 'center',
+              fontWeight: 'bold',
+              opacity: 0.5,
+              marginTop: 50,
+            }}>
+            {t('dashboard.coming_soon').toUpperCase()}
+          </Text>
         </View>
       );
     }
@@ -86,7 +112,7 @@ const NFTs = observer(props => {
           justifyContent: 'center',
           flex: 1,
           flexGrow: 1,
-          height: nfts.length > 0 ? 100 * nfts.length + 70 : SIZE.height / 2,
+          height: nfts.length > 0 ? 100 * nfts.length + 70 : SIZE.height / 1.5,
         }}>
         {renderList()}
       </View>
