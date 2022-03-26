@@ -89,7 +89,7 @@ export default function TwoBricks({
         </View>
         <View style={{flexDirection: 'row'}}>
           <Text
-            style={{fontSize: 15, marginTop: 5, color: Colors.lighter}}
+            style={{fontSize: 14, marginTop: 5, color: Colors.lighter}}
             numberOfLines={1}
             allowFontScaling
             adjustsFontSizeToFit>
@@ -97,7 +97,7 @@ export default function TwoBricks({
           </Text>
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 14,
               marginTop: 5,
               color: subValue1.startsWith('-') ? Colors.red : Colors.green,
               marginLeft: 10,
@@ -146,7 +146,7 @@ export default function TwoBricks({
         </View>
         <View style={{flexDirection: 'row'}}>
           <Text
-            style={{fontSize: 15, marginTop: 5, color: Colors.lighter}}
+            style={{fontSize: 14, marginTop: 5, color: Colors.lighter}}
             numberOfLines={1}
             allowFontScaling
             adjustsFontSizeToFit>
@@ -154,7 +154,7 @@ export default function TwoBricks({
           </Text>
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 14,
               marginTop: 5,
               color: subValue2.startsWith('-') ? Colors.red : Colors.green,
               marginLeft: 10,
