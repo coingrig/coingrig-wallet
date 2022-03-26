@@ -9,10 +9,13 @@ import {Colors} from 'utils/colors';
 import {styles} from '../styles';
 import {formatPrice} from 'utils';
 import {IStocks, StockStore} from 'stores/StockStore';
+import {SIZE} from 'utils/constants';
+import FastImage from 'react-native-fast-image';
+import {useTranslation} from 'react-i18next';
 
 const Stocks = observer(props => {
   const navigation = useNavigation();
-
+  const {t} = useTranslation();
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -35,6 +38,7 @@ const Stocks = observer(props => {
       subvalue={formatPrice(item.price, true) || ''}
       subtitle={item.name || ''}
       img={null}
+      subimg={null}
     />
   );
   const listHeader = () => {
@@ -51,16 +55,52 @@ const Stocks = observer(props => {
   return (
     <View style={{flexGrow: 1}}>
       <View style={{justifyContent: 'center', flex: 1}}>
-        <FlatList
-          data={StockStore.stocks.slice()}
-          renderItem={renderItem}
-          keyExtractor={(item: any, index) => item.id + index.toString() ?? ''}
-          maxToRenderPerBatch={10}
-          initialNumToRender={10}
-          showsVerticalScrollIndicator={false}
-          ListHeaderComponent={listHeader()}
-          style={{marginHorizontal: 10}}
-        />
+        {StockStore.stocks.length > 0 ? (
+          <FlatList
+            data={StockStore.stocks.slice()}
+            renderItem={renderItem}
+            keyExtractor={(item: any, index) =>
+              item.id + index.toString() ?? ''
+            }
+            maxToRenderPerBatch={10}
+            initialNumToRender={10}
+            showsVerticalScrollIndicator={false}
+            ListHeaderComponent={listHeader()}
+            style={{marginHorizontal: 10}}
+          />
+        ) : (
+          <View
+            style={{
+              marginTop: 10,
+              marginHorizontal: 16,
+              flexGrow: 1,
+              height: SIZE.height / 1.5,
+              justifyContent: 'center',
+            }}>
+            <FastImage
+              source={require('../../../assets/nft.png')}
+              resizeMode="contain"
+              style={{
+                height: 150,
+                width: '100%',
+                justifyContent: 'center',
+                alignSelf: 'center',
+                opacity: 0.5,
+              }}
+            />
+            <Text
+              style={{
+                fontSize: 20,
+                color: Colors.lighter,
+                textAlign: 'center',
+                fontWeight: 'bold',
+                opacity: 0.5,
+                marginTop: 50,
+              }}>
+              {t('dashboard.coming_soon').toUpperCase()}
+            </Text>
+          </View>
+        )}
       </View>
     </View>
   );

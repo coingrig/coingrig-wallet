@@ -15,6 +15,8 @@ import BanksService from 'services/banks';
 import ActionSheet from 'react-native-actions-sheet';
 import {SmallButton} from 'components/smallButton';
 import {useTranslation} from 'react-i18next';
+import {SIZE} from 'utils/constants';
+import FastImage from 'react-native-fast-image';
 
 const detailsSheet: React.RefObject<any> = createRef();
 
@@ -57,6 +59,7 @@ const Banking = observer(props => {
       subtitle={item.iban || ''}
       value={item.amount + ' ' + item.currency || ''}
       subvalue={item.name || ''}
+      subimg={null}
     />
   );
   const listHeader = () => {
@@ -95,16 +98,52 @@ const Banking = observer(props => {
   return (
     <View style={{flexGrow: 1}}>
       <View style={{justifyContent: 'center', flex: 1}}>
-        <FlatList
-          data={BankStore.bankAccounts}
-          renderItem={renderItem}
-          keyExtractor={(item: any, index) => item.id + index.toString() ?? ''}
-          maxToRenderPerBatch={10}
-          initialNumToRender={10}
-          showsVerticalScrollIndicator={false}
-          ListHeaderComponent={listHeader()}
-          style={{marginHorizontal: 10}}
-        />
+        {BankStore.bankAccounts.length > 0 ? (
+          <FlatList
+            data={BankStore.bankAccounts}
+            renderItem={renderItem}
+            keyExtractor={(item: any, index) =>
+              item.id + index.toString() ?? ''
+            }
+            maxToRenderPerBatch={10}
+            initialNumToRender={10}
+            showsVerticalScrollIndicator={false}
+            ListHeaderComponent={listHeader()}
+            style={{marginHorizontal: 10}}
+          />
+        ) : (
+          <View
+            style={{
+              marginTop: 10,
+              marginHorizontal: 16,
+              flexGrow: 1,
+              height: SIZE.height / 1.5,
+              justifyContent: 'center',
+            }}>
+            <FastImage
+              source={require('../../../assets/nft.png')}
+              resizeMode="contain"
+              style={{
+                height: 150,
+                width: '100%',
+                justifyContent: 'center',
+                alignSelf: 'center',
+                opacity: 0.5,
+              }}
+            />
+            <Text
+              style={{
+                fontSize: 20,
+                color: Colors.lighter,
+                textAlign: 'center',
+                fontWeight: 'bold',
+                opacity: 0.5,
+                marginTop: 50,
+              }}>
+              {t('dashboard.coming_soon').toUpperCase()}
+            </Text>
+          </View>
+        )}
       </View>
       <ActionSheet
         //@ts-ignore

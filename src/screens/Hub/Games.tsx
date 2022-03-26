@@ -17,19 +17,18 @@ export default function Games() {
         marginTop: 10,
         marginHorizontal: 16,
         flexGrow: 1,
-        height: SIZE.height / 2,
+        height: SIZE.height / 1.5,
       }}>
       <View style={{justifyContent: 'center', flex: 1}}>
         <FastImage
           source={require('../../assets/hub/games.png')}
           resizeMode="contain"
           style={{
-            height: 200,
+            height: 150,
             width: '100%',
             justifyContent: 'center',
             alignSelf: 'center',
             opacity: 0.5,
-            marginTop: -50,
           }}
         />
         <Text
