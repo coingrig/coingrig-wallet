@@ -14,17 +14,15 @@ var ccxt = require('ccxt');
 class CexService {
   cex: any;
   exchanges: string[];
-  cb: any;
-  bin: any;
   constructor() {
     this.cex = {
       binance: null,
       ftx: null,
       coinbase: null,
+      gateio: null,
+      cryptocom: null,
     };
     this.exchanges = ccxt.exchanges;
-    this.cb = null;
-    this.bin = null;
     this.start();
   }
 
