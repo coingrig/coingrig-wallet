@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import AccountItem from 'components/Account';
 import {Colors} from 'utils/colors';
 import {styles} from '../styles';
-import {formatPrice} from 'utils';
+import {formatPrice, formatNoComma} from 'utils';
 import ActionSheet from 'react-native-actions-sheet';
 import {SmallButton} from 'components/smallButton';
 import {IStocks, StockStore} from 'stores/StockStore';
@@ -132,12 +132,12 @@ const Stocks = observer(props => {
         <SmallButton
           text={t('swap.slippage_save')}
           onPress={() => {
-            let balance = parseFloat(accBalance);
+            let balance = formatNoComma(accBalance);
             if (!balance) {
-              balance = 0;
+              balance = '0';
             }
             let acc = Object.assign({}, selected);
-            acc.qty = balance;
+            acc.qty = parseFloat(balance);
             StockStore.updateStock(acc.id, acc);
             StockStore.updateAllBalances();
             editSheet.current?.setModalVisible(false);
