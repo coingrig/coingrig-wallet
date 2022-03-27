@@ -8,6 +8,7 @@ import ActionSheet from 'react-native-actions-sheet';
 import {styles} from './styles';
 import {useTranslation} from 'react-i18next';
 import {FiatStore} from 'stores/fiatStore';
+import {formatNoComma} from 'utils';
 
 const editSheet: React.RefObject<any> = createRef();
 
@@ -98,10 +99,11 @@ export default function AddFiat() {
         <SmallButton
           text={t('swap.slippage_save')}
           onPress={() => {
-            let balance = parseFloat(accBalance);
-            if (!balance) {
-              balance = 0;
+            let balanceValue = formatNoComma(accBalance);
+            if (!balanceValue) {
+              balanceValue = '0';
             }
+            let balance = parseFloat(balanceValue);
             FiatStore.addAccount({
               id: Date.now().toLocaleString(),
               balance: balance,
