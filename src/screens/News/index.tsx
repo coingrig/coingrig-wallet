@@ -99,7 +99,7 @@ export default function NewsScreen() {
           initialNumToRender={10}
           showsVerticalScrollIndicator={false}
           style={{paddingTop: 0}}
-          ListHeaderComponent={listHeader()}
+          // ListHeaderComponent={listHeader()}
         />
       );
     }
