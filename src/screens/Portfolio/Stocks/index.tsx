@@ -117,10 +117,13 @@ const Stocks = observer(props => {
         //@ts-ignore
         ref={editSheet}
         keyboardShouldPersistTaps="always"
-        // gestureEnabled={true}
-        // headerAlwaysVisible
         containerStyle={styles.editContainer}>
-        <Text style={styles.editTitle}>{t('wallet.edit')}</Text>
+        <Text style={styles.editTitle}>
+          {t('wallet.edit') + ' ' + selected?.symbol}
+        </Text>
+        <Text style={styles.modalsubtitle}>
+          {t('Enter the number of shares')}
+        </Text>
         <TextInput
           placeholder={'ceva'}
           keyboardType="numeric"
@@ -150,6 +153,13 @@ const Stocks = observer(props => {
             marginTop: 20,
           }}
         />
+        <TouchableOpacity
+          onPress={() => {
+            StockStore.deleteStockById(selected.id);
+            editSheet.current?.setModalVisible(false);
+          }}>
+          <Text style={styles.modaldelete}>{t('Delete')}</Text>
+        </TouchableOpacity>
       </ActionSheet>
     </View>
   );

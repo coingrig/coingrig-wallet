@@ -120,7 +120,12 @@ const Fiat = observer(props => {
         // gestureEnabled={true}
         // headerAlwaysVisible
         containerStyle={styles.editContainer}>
-        <Text style={styles.editTitle}>{t('wallet.edit')}</Text>
+        <Text style={styles.editTitle}>
+          {t('wallet.edit') + ' ' + selected?.currency}
+        </Text>
+        <Text style={styles.modalsubtitle}>
+          {t('Update the amount in') + ' ' + selected?.currency}
+        </Text>
         <TextInput
           placeholder={'ceva'}
           keyboardType="numeric"
@@ -150,6 +155,13 @@ const Fiat = observer(props => {
             marginTop: 20,
           }}
         />
+        <TouchableOpacity
+          onPress={() => {
+            FiatStore.deleteAccountById(selected?.id);
+            editSheet.current?.setModalVisible(false);
+          }}>
+          <Text style={styles.modaldelete}>{t('Delete')}</Text>
+        </TouchableOpacity>
       </ActionSheet>
     </View>
   );

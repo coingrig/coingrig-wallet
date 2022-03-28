@@ -213,7 +213,6 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     marginTop: 25,
-    marginBottom: 30,
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.foreground,
   },
@@ -229,5 +228,19 @@ export const styles = StyleSheet.create({
     borderColor: Colors.border,
     fontSize: 17,
     marginVertical: 3,
+  },
+  modalsubtitle: {
+    textAlign: 'center',
+    fontSize: 14,
+    color: Colors.lighter,
+    marginBottom: 20,
+    marginTop: 10,
+  },
+  modaldelete: {
+    textAlign: 'center',
+    fontSize: 13,
+    color: Colors.red,
+    marginBottom: 10,
+    marginTop: 10,
   },
 });
