@@ -155,7 +155,7 @@ const Fiat = observer(props => {
           <Icon name="trash" size={20} color={Colors.red} />
         </TouchableOpacity>
         <Text style={styles.editTitle}>
-          {t('wallet.edit') + ' ' + selected?.currency}
+          {t('wallet.edit') + ' ' + selected?.name}
         </Text>
         <Text style={styles.modalsubtitle}>
           {t('Update the amount in') + ' ' + selected?.currency}

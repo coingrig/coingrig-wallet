@@ -355,7 +355,7 @@ function NavigationStack({t}) {
         component={CEXScreen}
         options={{
           headerShown: true,
-          headerTitle: t('title.cex'),
+          headerTitle: t('CEXs'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
@@ -455,7 +455,7 @@ function NavigationStack({t}) {
         component={SelectCountry}
         options={{
           headerShown: true,
-          headerTitle: t('SelectCountry'),
+          headerTitle: t('Select Country'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
