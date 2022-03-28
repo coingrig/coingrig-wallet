@@ -11,6 +11,7 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import AccountItem from 'components/Account';
 import {Colors} from 'utils/colors';
 import {styles} from '../styles';
@@ -36,7 +37,7 @@ const Fiat = observer(props => {
         <TouchableOpacity
           onPress={() => navigation.navigate('AddFiat')}
           style={styles.moreBtn}>
-          <Icon name="add-circle" size={25} color={Colors.foreground} />
+          <Icon2 name="cash-plus" size={30} color={Colors.foreground} />
         </TouchableOpacity>
       ),
     });
