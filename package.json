@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "dep:license": "npx license-extractor --mode merge --source node_modules/ --target DepLicense.txt --overwrite",
     "clean": "rm -rf node_modules/ && yarn && cd ios && pod update && cd .. && cd android && ./gradlew clean",
-    "postinstall": "rn-nodeify --install http,https,path,crypto,fs,stream,os --hack"
+    "postinstall": "rn-nodeify --install http,https,path,crypto,fs,stream,os --hack && patch-package"
   },
   "keywords": [
     "crypto",
@@ -49,7 +49,7 @@
     "bignumber.js": "^9.0.1",
     "browserify-sign": "^4.2.1",
     "browserify-zlib": "^0.2.0",
-    "ccxt": "1.77.5",
+    "ccxt": "1.77.36",
     "decimal.js": "10.3.1",
     "events": "^3.3.0",
     "https-browserify": "0.0.1",
@@ -63,7 +63,9 @@
     "mobx-react-lite": "3.2.0",
     "node-libs-react-native": "^1.2.1",
     "numeral": "2.0.6",
+    "patch-package": "^6.4.7",
     "path-browserify": "0.0.0",
+    "postinstall-postinstall": "^2.1.0",
     "react": "17.0.1",
     "react-i18next": "11.11.4",
     "react-native": "0.64.2",
