@@ -98,6 +98,7 @@ class StockService {
         stock.changePercentage,
       );
       Logs.info(stock);
+      StockStore.updateAllBalances();
     });
   };
 }
