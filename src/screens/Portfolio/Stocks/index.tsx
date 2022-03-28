@@ -16,6 +16,7 @@ import {Colors} from 'utils/colors';
 import {styles} from '../styles';
 import {formatPrice, formatNoComma} from 'utils';
 import ActionSheet from 'react-native-actions-sheet';
+import StockService from 'services/stocks';
 import {SmallButton} from 'components/smallButton';
 import {IStocks, StockStore} from 'stores/StockStore';
 import {SIZE} from 'utils/constants';
@@ -40,6 +41,7 @@ const Stocks = observer(props => {
         </TouchableOpacity>
       ),
     });
+    StockService.updateAllStocks();
   }, []);
 
   const renderItem = ({item}: {item: IStocks}) => (

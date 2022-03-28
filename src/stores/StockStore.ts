@@ -57,6 +57,15 @@ class stockStore {
     this.stocks = this.stocks.splice(0);
   });
 
+  updatePrices = action((id: string, price: number, change: number) => {
+    let pos = this.getStockPosition(id);
+    if (pos !== -1) {
+      this.stocks[pos].change = change;
+      this.stocks[pos].price = price;
+    }
+    this.stocks = this.stocks.splice(0);
+  });
+
   addStock = action((stock: IStocks) => {
     this.stocks.push(stock);
     return true;

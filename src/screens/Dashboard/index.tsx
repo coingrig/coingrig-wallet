@@ -26,6 +26,9 @@ import {styles} from './styles';
 import {Colors} from 'utils/colors';
 import {showMessage} from 'react-native-flash-message';
 import AppsStateService from 'services/appStates';
+import CexService from 'services/cex';
+import BanksService from 'services/banks';
+import StockService from 'services/stocks';
 import {useNavigation} from '@react-navigation/native';
 import {SettingsStore} from 'stores/settings';
 import {BankStore} from 'stores/bankStore';
@@ -101,6 +104,9 @@ const DashboardScreen = observer(() => {
 
   const fetchBalance = useCallback(async () => {
     let success = await CryptoService.getAccountBalance();
+    CexService.getAllBalances();
+    BanksService.updateAccountsBalance();
+    StockService.updateAllStocks();
     if (!success) {
       showMessage({
         message: t('message.error.remote_servers_not_available'),

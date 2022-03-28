@@ -44,6 +44,7 @@ const Banking = observer(props => {
         </TouchableOpacity>
       ),
     });
+    // BanksService.updateAccountsBalance();
     Analytics.trackEvent('Screen', {name: 'Portfolio/Banking'});
   }, []);
 

@@ -215,8 +215,6 @@ class CryptoService {
           );
         }
       }
-      this.getCexBalance();
-      BanksService.updateAccountsBalance();
       return true;
     } catch (error) {
       Logs.error(error);
@@ -224,14 +222,14 @@ class CryptoService {
     }
   };
 
-  getCexBalance = async () => {
-    try {
-      await CexService.getAllBalances();
-    } catch (error) {
-      // what happen if user delete the keys after a while ?
-      Logs.error(error);
-    }
-  };
+  // getCexBalance = async () => {
+  //   try {
+  //     await CexService.getAllBalances();
+  //   } catch (error) {
+  //     // what happen if user delete the keys after a while ?
+  //     Logs.error(error);
+  //   }
+  // };
 
   getCoinDetails = symbol => {
     var config = {

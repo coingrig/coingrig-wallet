@@ -8,6 +8,7 @@ import AccountItem from 'components/Account';
 import {Colors} from 'utils/colors';
 import {styles} from '../styles';
 import {formatCoins, formatPrice} from 'utils';
+import CexService from 'services/cex';
 import {CexStore} from 'stores/cexStore';
 import {Logs} from 'services/logs';
 import FastImage from 'react-native-fast-image';
@@ -28,6 +29,7 @@ const CEXs = observer(props => {
         </TouchableOpacity>
       ),
     });
+    CexService.getAllBalances();
   }, []);
 
   const renderItem = ({item}: {item: any}) => (

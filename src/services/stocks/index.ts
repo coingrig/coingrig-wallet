@@ -1,4 +1,5 @@
 import CONFIG from 'config';
+import {Logs} from 'services/logs';
 import {MarketStore} from 'stores/market';
 import {IStocks, StockStore} from 'stores/StockStore';
 import endpoints from 'utils/endpoints';
@@ -82,6 +83,22 @@ class StockService {
 
   updateBalance = async (stockID: string, stock: IStocks) => {
     StockStore.updateStock(stockID, stock);
+  };
+
+  updateAllStocks = async () => {
+    const symbolList = StockStore.getSymbolList();
+    if (symbolList.length === 0) {
+      return;
+    }
+    const newStockData = await this.getStocks(symbolList);
+    newStockData.forEach(stock => {
+      StockStore.updatePrices(
+        stock.symbol,
+        stock.price,
+        stock.changePercentage,
+      );
+      Logs.info(stock);
+    });
   };
 }
 // @ts-ignore
