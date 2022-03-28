@@ -34,6 +34,7 @@ import WalletconnectScreen from 'screens/Walletconnect';
 import CustomTokenScreen from 'screens/CustomToken';
 import TokenConnectScreen from 'screens/TokenConnect';
 import NFTScreen from 'screens/Portfolio/NFTDetails';
+import FeedbackScreen from 'screens/Feedback';
 
 import {Colors} from 'utils/colors';
 import CONFIG from 'config';
@@ -597,6 +598,39 @@ function NavigationStack({t}) {
           headerTitleStyle: {
             fontWeight: '400',
 
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="FeedbackScreen"
+        component={FeedbackScreen}
+        options={{
+          presentation: 'modal',
+          headerBackImage: () => (
+            <Icon
+              name="close"
+              size={30}
+              color={Colors.foreground}
+              style={{paddingLeft: 10}}
+            />
+          ),
+          headerShown: true,
+          headerTitle: t('settings.feedback'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
             fontFamily: 'RobotoSlab-Regular',
             fontSize: 19,
             justifyContent: 'center',

@@ -172,6 +172,17 @@ const SettingScreen = observer(() => {
             <Text style={styles.textItem}>{t('settings.credits')}</Text>
             <Icon name="arrow-forward" size={20} color="gray" />
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => navigation.navigate('FeedbackScreen')}>
+            <Icon
+              name="chatbubbles-outline"
+              size={23}
+              color={Colors.foreground}
+            />
+            <Text style={styles.textItem}>{t('settings.feedback')}</Text>
+            <Icon name="arrow-forward" size={20} color="gray" />
+          </TouchableOpacity>
         </View>
         <Text
           // eslint-disable-next-line react-native/no-inline-styles

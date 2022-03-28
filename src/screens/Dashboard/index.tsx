@@ -56,12 +56,23 @@ const DashboardScreen = observer(() => {
     }
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity
-          onPress={() => navigation.navigate('SettingScreen')}
-          style={styles.moreBtn}>
-          {SettingsStore.mnemonicBackupDone ? null : badge()}
-          <Icon3 name="settings-sharp" size={23} color={Colors.foreground} />
-        </TouchableOpacity>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('FeedbackScreen')}
+            style={styles.moreBtn}>
+            <Icon3
+              name="chatbubbles-outline"
+              size={23}
+              color={Colors.foreground}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('SettingScreen')}
+            style={styles.moreBtn}>
+            {SettingsStore.mnemonicBackupDone ? null : badge()}
+            <Icon3 name="settings-sharp" size={23} color={Colors.foreground} />
+          </TouchableOpacity>
+        </View>
       ),
     });
     fetchBalance();
