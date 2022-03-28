@@ -2,7 +2,14 @@
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
 import React, {useEffect, createRef, useState} from 'react';
-import {FlatList, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+  Alert,
+  FlatList,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AccountItem from 'components/Account';
 import {Colors} from 'utils/colors';
@@ -118,6 +125,33 @@ const Stocks = observer(props => {
         ref={editSheet}
         keyboardShouldPersistTaps="always"
         containerStyle={styles.editContainer}>
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            zIndex: 10,
+            paddingRight: 15,
+            paddingTop: 15,
+          }}
+          onPress={() => {
+            Alert.alert('Delete', t('Are you sure you want to delete ?'), [
+              {
+                text: t('settings.cancel'),
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+              },
+              {
+                text: t('settings.yes'),
+                onPress: async () => {
+                  StockStore.deleteStockById(selected.id);
+                  editSheet.current?.setModalVisible(false);
+                },
+              },
+            ]);
+          }}>
+          <Icon name="trash" size={20} color={Colors.red} />
+        </TouchableOpacity>
         <Text style={styles.editTitle}>
           {t('wallet.edit') + ' ' + selected?.symbol}
         </Text>
@@ -151,15 +185,9 @@ const Stocks = observer(props => {
             backgroundColor: '#2e2c2c',
             width: '70%',
             marginTop: 20,
+            marginBottom: 20,
           }}
         />
-        <TouchableOpacity
-          onPress={() => {
-            StockStore.deleteStockById(selected.id);
-            editSheet.current?.setModalVisible(false);
-          }}>
-          <Text style={styles.modaldelete}>{t('Delete')}</Text>
-        </TouchableOpacity>
       </ActionSheet>
     </View>
   );

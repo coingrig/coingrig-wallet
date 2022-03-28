@@ -153,7 +153,7 @@ const Banking = observer(props => {
             top: 0,
             zIndex: 10,
             paddingRight: 15,
-            paddingTop: 20,
+            paddingTop: 15,
           }}
           onPress={() => setShowOffset(true)}>
           <Icon
