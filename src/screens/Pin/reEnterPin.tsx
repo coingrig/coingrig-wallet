@@ -1,6 +1,9 @@
 import React, {useEffect} from 'react';
 import {useNavigation, CommonActions} from '@react-navigation/native';
 import {StorageGetItem} from 'services/storage';
+import CexService from 'services/cex';
+import BanksService from 'services/banks';
+import StockService from 'services/stocks';
 import {STORED_MNEMONIC} from 'utils/constants';
 import {clearAllAppData} from 'utils';
 import CONFIG from '../../config';
@@ -20,6 +23,9 @@ const ReEnterPinScreen = () => {
         }
         navigation.dispatch(e.data.action);
         CryptoService.getAccountBalance();
+        CexService.getAllBalances();
+        BanksService.updateAccountsBalance();
+        StockService.updateAllStocks();
       }),
     [navigation, unlock],
   );
