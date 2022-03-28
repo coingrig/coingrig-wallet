@@ -14,6 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
+import Icon3 from 'react-native-vector-icons/MaterialCommunityIcons';
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import {useTranslation} from 'react-i18next';
 import Analytics from 'appcenter-analytics';
@@ -269,11 +270,10 @@ const WalletScreen = observer(({route}) => {
                 editSheet.current?.setModalVisible(true);
               }}
               style={styles.roundBtn}>
-              <Icon2
-                name="edit"
-                size={20}
+              <Icon3
+                name="circle-edit-outline"
+                size={23}
                 color={Colors.background}
-                style={{marginLeft: 3}}
               />
             </TouchableOpacity>
             <Text style={styles.roundb}>{t('wallet.edit')}</Text>
@@ -442,6 +442,7 @@ const WalletScreen = observer(({route}) => {
               backgroundColor: '#2e2c2c',
               width: '70%',
               marginTop: 20,
+              marginBottom: 20,
             }}
           />
         </ActionSheet>
