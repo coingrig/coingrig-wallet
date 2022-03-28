@@ -4,6 +4,7 @@ import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {Colors} from 'utils/colors';
 import FastImage from 'react-native-fast-image';
 import UserAvatar from 'react-native-user-avatar';
+import {capitalizeFirstLetter} from 'utils';
 
 const AccountItem = (props: {
   img: string | null;
@@ -107,11 +108,11 @@ const AccountItem = (props: {
             ) : null}
           </View>
           <View style={styles.rcontainer}>
-            <Text style={styles.balance} numberOfLines={1}>
+            <Text style={styles.balance} numberOfLines={1} adjustsFontSizeToFit>
               {props.value}
             </Text>
-            <Text style={styles.value} numberOfLines={1}>
-              {props.subvalue}
+            <Text style={styles.value} numberOfLines={1} adjustsFontSizeToFit>
+              {capitalizeFirstLetter(props.subvalue.toLowerCase())}
             </Text>
           </View>
         </View>
@@ -178,7 +179,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   value: {
-    fontSize: 13,
+    fontSize: 12,
     textAlign: 'right',
     color: Colors.lighter,
     marginTop: 5,

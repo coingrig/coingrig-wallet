@@ -94,14 +94,11 @@ class WalletConnectService {
       if (error) {
         throw error;
       }
-      console.log(payload);
       try {
         const sessionData = {
           ...payload.params[0],
           autosign: false,
         };
-        console.log('WC:', sessionData);
-        console.log('peer', sessionData.peerMeta);
         WalletconnectStore.setPeerMeta(sessionData.peerMeta);
         WalletconnectStore.setChainId(sessionData.chainId);
         WalletconnectStore.setStatus(WALLETCONNECT_STATUS.SESSION_REQUEST);
@@ -114,24 +111,19 @@ class WalletConnectService {
       if (error) {
         throw error;
       }
-      console.log(payload);
 
       if (payload.method) {
         WalletconnectStore.setTransactionData(payload);
         if (payload.method === 'eth_sendTransaction') {
-          console.log('-----eth_sendTransaction----');
           WalletconnectStore.setStatus(WALLETCONNECT_STATUS.SEND_TRANSACTION);
         } else if (payload.method === 'eth_sign') {
           WalletconnectStore.setStatus(WALLETCONNECT_STATUS.SIGN_TRANSACTION);
-          console.log('-----ETH SIGN----');
         } else if (payload.method === 'personal_sign') {
           WalletconnectStore.setStatus(
             WALLETCONNECT_STATUS.SIGN_PERSONAL_MESSAGE,
           );
-          console.log('-----personal_sign----');
         } else if (payload.method && payload.method === 'eth_signTypedData') {
           WalletconnectStore.setStatus(WALLETCONNECT_STATUS.SIGN_TYPED_DATA);
-          console.log('-----eth_signTypedData----');
         }
       }
     });
@@ -140,12 +132,10 @@ class WalletConnectService {
         throw error;
       }
       this.walletConnector = null;
-      console.log('-----DISCONNECT------');
       this.onDisconnect();
     });
 
     this.walletConnector.on('session_update', (error, payload) => {
-      console.log('WC: Session update', payload);
       if (error) {
         throw error;
       }

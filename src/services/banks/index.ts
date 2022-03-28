@@ -65,17 +65,19 @@ class BanksService {
     };
     try {
       const response = await this.request(config);
-      // console.log(response.data);
+      Logs.info('Account Balance : ', JSON.stringify(response.data));
       const data = response.data.balances;
       let balance = data.find((o: any) => {
-        return o.balanceType === 'expected';
+        return (
+          o.balanceType === 'expected' && Math.sign(o.balanceAmount.amount) >= 0
+        );
       });
       if (!balance) {
         balance = data.find((o: any) => {
           return o.balanceType === 'interimAvailable';
         });
       }
-      return balance;
+      return balance || 0;
     } catch (error) {
       Logs.error(error);
       return null;
@@ -107,6 +109,7 @@ class BanksService {
         ownerName: details.account.ownerName || null,
         bankID: accData.item.id || null,
         expire: exp,
+        offset: 0,
       };
       BankStore.addAccount(bankAccount);
     } catch (error) {
@@ -119,10 +122,30 @@ class BanksService {
     for (let index = 0; index < BankStore.bankAccounts.length; index++) {
       const account = {...BankStore.bankAccounts[index]};
       const {balance}: any = await this.getBankAccountData(account.id);
-      account.amount = parseFloat(balance.balanceAmount.amount) || 0;
+      account.amount =
+        parseFloat(balance.balanceAmount.amount) + account.offset! || 0;
       BankStore.updateAccount(account.id, account);
     }
     this.updateTotalBalance();
+  };
+
+  updateAccountsOffset = async (id, offset) => {
+    const fOffset = parseFloat(offset);
+    const account = {...BankStore.getAccountById(id)};
+    const {balance}: any = await this.getBankAccountData(id);
+    try {
+      if (account) {
+        account.offset = fOffset ?? 0;
+        account.amount =
+          parseFloat(balance.balanceAmount.amount) + account.offset;
+        account.amount = parseFloat(account.amount.toFixed(2));
+        BankStore.updateAccount(id, account);
+        console.log(account);
+        this.updateTotalBalance();
+      }
+    } catch (error) {
+      Logs.error(error);
+    }
   };
 
   updateTotalBalance = async () => {

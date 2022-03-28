@@ -4,6 +4,9 @@ import {clearPersistedStore} from 'mobx-persist-store';
 import RNRestart from 'react-native-restart';
 import i18next from 'i18next';
 import BigNumber from 'bignumber.js';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
+import {Linking} from 'react-native';
+import {Logs} from 'services/logs';
 
 export const clearAllAppData = async () => {
   await clearPersistedStore('MarketStore');
@@ -77,4 +80,28 @@ export const toEth = (amount, decimals) => {
 
 export const calcFee = (gas, gasPrice) => {
   return Number(new BigNumber(gas).multipliedBy(gasPrice));
+};
+
+export const openLink = async url => {
+  try {
+    if (await InAppBrowser.isAvailable()) {
+      await InAppBrowser.open(url, {
+        dismissButtonStyle: 'cancel',
+        readerMode: false,
+        animated: true,
+        modalPresentationStyle: 'automatic',
+        modalTransitionStyle: 'coverVertical',
+        modalEnabled: true,
+        enableBarCollapsing: false,
+        showTitle: true,
+        enableUrlBarHiding: true,
+        enableDefaultShare: true,
+        forceCloseOnRedirection: false,
+      });
+    } else {
+      Linking.openURL(url);
+    }
+  } catch (error) {
+    Logs.error(error);
+  }
 };

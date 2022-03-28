@@ -125,7 +125,7 @@ const Stocks = observer(props => {
           {t('Enter the number of shares')}
         </Text>
         <TextInput
-          placeholder={'ceva'}
+          placeholder={'0'}
           keyboardType="numeric"
           placeholderTextColor={'gray'}
           style={styles.editInput}

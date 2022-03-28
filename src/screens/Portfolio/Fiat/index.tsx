@@ -127,7 +127,7 @@ const Fiat = observer(props => {
           {t('Update the amount in') + ' ' + selected?.currency}
         </Text>
         <TextInput
-          placeholder={'ceva'}
+          placeholder={'0'}
           keyboardType="numeric"
           placeholderTextColor={'gray'}
           style={styles.editInput}

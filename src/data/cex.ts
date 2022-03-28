@@ -11,6 +11,7 @@ const CEX_LIST = [
     enable: true,
     module: true,
     icon: 'https://assets.coingrig.com/images/binance-logo.png',
+    link: 'https://docs.coingrig.com/guides/cexs/binance',
   },
   {
     id: 'ftx',
@@ -24,6 +25,7 @@ const CEX_LIST = [
     enable: true,
     module: true,
     icon: 'https://assets.coingrig.com/images/ftx.png',
+    link: 'https://docs.coingrig.com/guides/cexs/ftx',
   },
   {
     id: 'coinbase',
@@ -37,6 +39,7 @@ const CEX_LIST = [
     enable: true,
     module: true,
     icon: 'https://assets.coingrig.com/images/coinbase.jpeg',
+    link: 'https://docs.coingrig.com/guides/cexs/coinbase',
   },
   {
     id: 'gateio',
@@ -50,6 +53,7 @@ const CEX_LIST = [
     enable: true,
     module: true,
     icon: 'https://assets.coingrig.com/images/gate.jpg',
+    link: 'https://docs.coingrig.com/guides/cexs/gate.io',
   },
   {
     id: 'cryptocom',
@@ -63,6 +67,7 @@ const CEX_LIST = [
     enable: true,
     module: true,
     icon: 'https://assets.coingrig.com/images/cryptocom.png',
+    link: 'https://docs.coingrig.com/guides/cexs/crypto.com',
   },
   {
     id: 'okx',
@@ -76,6 +81,7 @@ const CEX_LIST = [
     enable: false,
     module: true,
     icon: 'https://assets.coingrig.com/images/okx.png',
+    link: 'https://docs.coingrig.com/guides/cexs/crypto.com',
   },
   {
     id: 'bitmart',
@@ -89,6 +95,7 @@ const CEX_LIST = [
     enable: false,
     module: true,
     icon: 'https://assets.coingrig.com/images/bitmart.png',
+    link: 'https://docs.coingrig.com/guides/cexs/crypto.com',
   },
   {
     id: 'huobi',
@@ -102,6 +109,7 @@ const CEX_LIST = [
     enable: false,
     module: true,
     icon: 'https://assets.coingrig.com/images/huobi.jpeg',
+    link: 'https://docs.coingrig.com/guides/cexs/crypto.com',
   },
 ];
 

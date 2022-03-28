@@ -148,17 +148,12 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   bgprice: {
-    // padding: 2,
-    // backgroundColor: Colors.background,
     justifyContent: 'center',
-
-    // alignItems: 'right',
-    // borderRadius: 5,
   },
   rcontainer: {
     flexDirection: 'column',
     justifyContent: 'center',
-    marginLeft: 15,
+    marginLeft: 10,
     paddingRight: 5,
     flex: 1,
   },

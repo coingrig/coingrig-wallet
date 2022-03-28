@@ -8,9 +8,6 @@ import FastImage from 'react-native-fast-image';
 
 const BankingScreen = observer(({route}) => {
   const navigation = useNavigation();
-
-  console.log(BankStore.bankAccounts);
-
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity

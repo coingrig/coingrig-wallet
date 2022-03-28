@@ -1,4 +1,5 @@
-import {View, Text, TouchableOpacity, Platform} from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import {View, Text, TouchableOpacity} from 'react-native';
 import React, {createRef, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -19,6 +20,7 @@ import {Logs} from 'services/logs';
 import {CexStore} from 'stores/cexStore';
 import {showMessage} from 'react-native-flash-message';
 import {LoadingModal} from 'services/loading';
+import {openLink} from 'utils';
 
 const actionCamera: React.RefObject<any> = createRef();
 
@@ -33,7 +35,6 @@ export default function CexDetails({route}) {
   useEffect(() => {
     try {
       if (CexStore.cexs.length > 0) {
-        console.log(CexStore.cexs);
         const cexExists = CexStore.getCexById(item.id);
         if (cexExists) {
           setExists(true);
@@ -146,19 +147,7 @@ export default function CexDetails({route}) {
       contentContainerStyle={{flexGrow: 1}}>
       <View style={styles.header}>
         <TouchableOpacity
-          style={{
-            position: 'absolute',
-            top: Platform.OS === 'android' ? 15 : 50,
-            zIndex: 2,
-            backgroundColor: Colors.background,
-            marginLeft: 12,
-            borderRadius: 50,
-            padding: 5,
-            width: 35,
-            height: 35,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
+          style={styles.back}
           onPress={() => navigation.goBack()}>
           <Icon name="close" size={25} color={Colors.foreground} />
         </TouchableOpacity>
@@ -176,33 +165,11 @@ export default function CexDetails({route}) {
         </View>
       </View>
       <View>
-        <Text
-          style={{
-            color: Colors.lighter,
-            marginHorizontal: 30,
-            marginBottom: 10,
-            fontSize: 13,
-          }}>
-          Paste the Keys or Scan the QR Code
+        <Text style={styles.pastedesc}>
+          {t('Paste the Keys or Scan the QR Code')}
         </Text>
-        <View
-          style={{
-            backgroundColor: Colors.card,
-            marginHorizontal: 15,
-            paddingHorizontal: 15,
-            borderRadius: 10,
-            marginBottom: 5,
-            justifyContent: 'center',
-          }}>
-          <View
-            style={{
-              height: 55,
-              borderBottomWidth: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              borderBottomColor: Colors.border,
-            }}>
+        <View style={styles.containercard}>
+          <View style={styles.key}>
             <Text
               style={{flex: 1, color: Colors.foreground, marginRight: 25}}
               numberOfLines={1}>
@@ -214,13 +181,7 @@ export default function CexDetails({route}) {
               </TouchableOpacity>
             ) : null}
           </View>
-          <View
-            style={{
-              height: 55,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
+          <View style={styles.secret}>
             <Text
               style={{flex: 1, color: Colors.foreground, marginRight: 25}}
               numberOfLines={1}>
@@ -234,19 +195,10 @@ export default function CexDetails({route}) {
           </View>
         </View>
         <TouchableOpacity
-          style={{
-            backgroundColor: Colors.card,
-            marginHorizontal: 15,
-            paddingHorizontal: 15,
-            height: 55,
-            borderRadius: 10,
-            marginVertical: 15,
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexDirection: 'row',
-          }}>
+          onPress={() => openLink(item.link)}
+          style={styles.externalLink}>
           <Text style={{color: Colors.foreground}}>
-            Where I find the API Keys ?
+            {t('Where I find the API Keys ?')}
           </Text>
           <Icon2 name="external-link" size={20} color="gray" />
         </TouchableOpacity>

@@ -15,6 +15,7 @@ export type IBankAccount = {
   ownerName: string | null;
   bankID: string | null;
   expire: string | null;
+  offset: number | null;
 };
 
 class bankStore {
@@ -46,6 +47,14 @@ class bankStore {
     let pos = this.getAccountPosition(id);
     if (pos !== -1) {
       this.bankAccounts[pos] = data;
+    }
+    this.bankAccounts = this.bankAccounts.slice(0);
+  });
+
+  updateAccountOffset = action((id: string, _offset: number) => {
+    let pos = this.getAccountPosition(id);
+    if (pos !== -1) {
+      this.bankAccounts[pos].offset = _offset;
     }
     this.bankAccounts = this.bankAccounts.slice(0);
   });

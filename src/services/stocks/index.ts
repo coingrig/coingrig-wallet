@@ -32,7 +32,6 @@ class StockService {
       response.data.forEach(item => {
         markets[item.symbol] = item;
       });
-      console.log(markets);
       MarketStore.setMarkets(markets);
     } catch (err) {
       console.log(err);

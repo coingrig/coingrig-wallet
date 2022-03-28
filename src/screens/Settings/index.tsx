@@ -17,7 +17,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 import {Colors} from 'utils/colors';
-import {clearAllAppData} from 'utils';
+import {clearAllAppData, openLink} from 'utils';
 import {SmallButton} from 'components/smallButton';
 import CONFIG from 'config';
 import {styles} from './styles';
@@ -60,32 +60,6 @@ const SettingScreen = observer(() => {
         },
       ],
     );
-  };
-
-  const openLink = async url => {
-    try {
-      if (await InAppBrowser.isAvailable()) {
-        await InAppBrowser.open(url, {
-          // iOS Properties
-          dismissButtonStyle: 'cancel',
-          readerMode: false,
-          animated: true,
-          modalPresentationStyle: 'automatic',
-          modalTransitionStyle: 'coverVertical',
-          modalEnabled: true,
-          enableBarCollapsing: false,
-          // Android Properties
-          showTitle: true,
-          enableUrlBarHiding: true,
-          enableDefaultShare: true,
-          forceCloseOnRedirection: false,
-        });
-      } else {
-        Linking.openURL(url);
-      }
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const badge = () => <View style={styles.badge} />;

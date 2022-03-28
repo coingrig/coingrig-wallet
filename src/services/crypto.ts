@@ -169,7 +169,6 @@ class CryptoService {
           walletAddress: WalletStore.getWalletAddressByChain(chain),
         });
         //
-        console.log(chain, WalletStore.getWalletAddressByChain(chain));
         let cryptoWallet = WalletFactory.getWallet(wallet);
         // Check if it's a token
         let token = tokenBalances.find(o => o.contract === contract);
@@ -375,7 +374,6 @@ class CryptoService {
         );
       }
     }
-    console.log(wallet);
     WalletStore.addWallet(wallet);
     this.getAccountBalance();
   };

@@ -3,13 +3,20 @@ import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
 import Analytics from 'appcenter-analytics';
 import React, {createRef, useEffect, useState} from 'react';
-import {Alert, FlatList, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Alert,
+  FlatList,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Share from 'react-native-share';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AccountItem from 'components/Account';
 import {Colors} from 'utils/colors';
 import {styles} from '../styles';
-import {formatPrice} from 'utils';
+import {formatNoComma, formatPrice} from 'utils';
 import {BankStore, IBankAccount} from 'stores/bankStore';
 import BanksService from 'services/banks';
 import ActionSheet from 'react-native-actions-sheet';
@@ -24,6 +31,8 @@ const Banking = observer(props => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [selected, setselected] = useState<IBankAccount | null>(null);
+  const [showOffset, setShowOffset] = useState<boolean>(false);
+  const [offset, setOffset] = useState<string>('0');
 
   useEffect(() => {
     navigation.setOptions({
@@ -50,8 +59,9 @@ const Banking = observer(props => {
       key={item.iban || item.ownerName}
       disable={false}
       onPress={() => {
+        setShowOffset(false);
+        setOffset(item.offset?.toString());
         setselected(item);
-        console.log(item);
         detailsSheet.current?.setModalVisible(true);
       }}
       title={item.bankName || ''}
@@ -95,64 +105,63 @@ const Banking = observer(props => {
     );
   };
 
-  return (
-    <View style={{flexGrow: 1}}>
-      <View style={{justifyContent: 'center', flex: 1}}>
-        {BankStore.bankAccounts.length > 0 ? (
-          <FlatList
-            data={BankStore.bankAccounts}
-            renderItem={renderItem}
-            keyExtractor={(item: any, index) =>
-              item.id + index.toString() ?? ''
+  const renderOffset = () => {
+    return (
+      <>
+        <Text style={styles.editTitle}>{t('wallet.edit') + ' offset'}</Text>
+        <Text style={styles.modalsubtitle}>
+          {t('Offset your account balance')}
+        </Text>
+        <TextInput
+          placeholder={'0'}
+          keyboardType="numeric"
+          placeholderTextColor={'gray'}
+          style={styles.editInput}
+          value={offset.toString()}
+          onChangeText={t => setOffset(t)}
+        />
+        <SmallButton
+          text={t('swap.slippage_save')}
+          onPress={() => {
+            let fOffset = formatNoComma(offset);
+            if (!fOffset || offset.length === 0) {
+              fOffset = '0';
             }
-            maxToRenderPerBatch={10}
-            initialNumToRender={10}
-            showsVerticalScrollIndicator={false}
-            ListHeaderComponent={listHeader()}
-            style={{marginHorizontal: 10}}
+            BanksService.updateAccountsOffset(selected.id, offset);
+            detailsSheet.current?.setModalVisible(false);
+          }}
+          color="#f2eded"
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{
+            backgroundColor: '#2e2c2c',
+            width: '70%',
+            marginTop: 20,
+            marginBottom: 20,
+          }}
+        />
+      </>
+    );
+  };
+
+  const renderModalData = () => {
+    return (
+      <>
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            zIndex: 10,
+            paddingRight: 15,
+            paddingTop: 20,
+          }}
+          onPress={() => setShowOffset(true)}>
+          <Icon
+            name="circle-edit-outline"
+            size={20}
+            color={Colors.foreground}
           />
-        ) : (
-          <View
-            style={{
-              marginTop: 10,
-              marginHorizontal: 16,
-              flexGrow: 1,
-              height: SIZE.height / 1.5,
-              justifyContent: 'center',
-            }}>
-            <FastImage
-              source={require('../../../assets/nft.png')}
-              resizeMode="contain"
-              style={{
-                height: 150,
-                width: '100%',
-                justifyContent: 'center',
-                alignSelf: 'center',
-                opacity: 0.5,
-              }}
-            />
-            <Text
-              style={{
-                fontSize: 20,
-                color: Colors.lighter,
-                textAlign: 'center',
-                fontWeight: 'bold',
-                opacity: 0.5,
-                marginTop: 50,
-              }}>
-              {t('dashboard.coming_soon').toUpperCase()}
-            </Text>
-          </View>
-        )}
-      </View>
-      <ActionSheet
-        //@ts-ignore
-        ref={detailsSheet}
-        keyboardShouldPersistTaps="always"
-        containerStyle={{backgroundColor: Colors.card}}
-        // gestureEnabled={true}
-        // headerAlwaysVisible
-      >
+        </TouchableOpacity>
         <Text
           style={{
             fontSize: 20,
@@ -236,6 +245,69 @@ const Banking = observer(props => {
           }}>
           {'Access type: Read Only'}
         </Text>
+      </>
+    );
+  };
+
+  return (
+    <View style={{flexGrow: 1}}>
+      <View style={{justifyContent: 'center', flex: 1}}>
+        {BankStore.bankAccounts.length > 0 ? (
+          <FlatList
+            data={BankStore.bankAccounts}
+            renderItem={renderItem}
+            keyExtractor={(item: any, index) =>
+              item.id + index.toString() ?? ''
+            }
+            maxToRenderPerBatch={10}
+            initialNumToRender={10}
+            showsVerticalScrollIndicator={false}
+            ListHeaderComponent={listHeader()}
+            style={{marginHorizontal: 10}}
+          />
+        ) : (
+          <View
+            style={{
+              marginTop: 10,
+              marginHorizontal: 16,
+              flexGrow: 1,
+              height: SIZE.height / 1.5,
+              justifyContent: 'center',
+            }}>
+            <FastImage
+              source={require('../../../assets/nft.png')}
+              resizeMode="contain"
+              style={{
+                height: 150,
+                width: '100%',
+                justifyContent: 'center',
+                alignSelf: 'center',
+                opacity: 0.5,
+              }}
+            />
+            <Text
+              style={{
+                fontSize: 20,
+                color: Colors.lighter,
+                textAlign: 'center',
+                fontWeight: 'bold',
+                opacity: 0.5,
+                marginTop: 50,
+              }}>
+              {t('dashboard.coming_soon').toUpperCase()}
+            </Text>
+          </View>
+        )}
+      </View>
+      <ActionSheet
+        //@ts-ignore
+        ref={detailsSheet}
+        keyboardShouldPersistTaps="always"
+        containerStyle={{backgroundColor: Colors.background}}
+        // gestureEnabled={true}
+        // headerAlwaysVisible
+      >
+        {showOffset ? renderOffset() : renderModalData()}
       </ActionSheet>
     </View>
   );
