@@ -22,6 +22,7 @@ import {CexStore} from 'stores/cexStore';
 import {showMessage} from 'react-native-flash-message';
 import {LoadingModal} from 'services/loading';
 import {openLink} from 'utils';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const actionCamera: React.RefObject<any> = createRef();
 
@@ -85,6 +86,7 @@ export default function CexDetails({route}) {
           type: 'success',
         });
         LoadingModal.instance.current?.hide();
+        LogEvents(ILogEvents.ACTION, 'AddCex');
         navigation.goBack();
       }
     } catch (error) {
