@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   View,
@@ -30,10 +30,14 @@ export default function LanguageScreen() {
   const [feedbackType, setFeedbackType] = useState('');
   const [message, setMessage] = useState('');
 
-  useEffect(() => {}, []);
-
   let getColor = mode => {
     if (feedbackType === mode) {
+      if (feedbackType === FBCK_TYPE_POSITIVE) {
+        return Colors.green;
+      }
+      if (feedbackType === FBCK_TYPE_IDEA) {
+        return 'deeppink';
+      }
       return Colors.red;
     }
     return Colors.foreground;
@@ -88,6 +92,7 @@ export default function LanguageScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView
         contentContainerStyle={styles.scrollview}
+        keyboardShouldPersistTaps="always"
         showsVerticalScrollIndicator={false}>
         <View style={styles.row}>
           <Text style={styles.subtitle}>{t('feedback.write_to_us')}</Text>
@@ -98,18 +103,20 @@ export default function LanguageScreen() {
             onPress={() => setFeedbackType(FBCK_TYPE_POSITIVE)}>
             <Icon2
               name="thumbs-up"
-              size={30}
+              size={27}
               style={styles.image}
               color={getColor(FBCK_TYPE_POSITIVE)}
             />
-            <Text style={styles.textItem}>{t('feedback.i_like')}</Text>
+            <Text style={styles.textItem} adjustsFontSizeToFit>
+              {t('feedback.i_like')}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.item}
             onPress={() => setFeedbackType(FBCK_TYPE_NEGATIVE)}>
             <Icon2
               name="thumbs-down"
-              size={30}
+              size={27}
               style={styles.image}
               color={getColor(FBCK_TYPE_NEGATIVE)}
             />
@@ -120,7 +127,7 @@ export default function LanguageScreen() {
             onPress={() => setFeedbackType(FBCK_TYPE_IDEA)}>
             <Icon2
               name="flag"
-              size={30}
+              size={27}
               style={styles.image}
               color={getColor(FBCK_TYPE_IDEA)}
             />
@@ -133,7 +140,8 @@ export default function LanguageScreen() {
             editable={true}
             placeholder={t('feedback.your_feedback_here')}
             numberOfLines={4}
-            returnKeyType="done"
+            scrollEnabled
+            // returnKeyType="done"
             placeholderTextColor="gray"
             multiline
             value={message}
