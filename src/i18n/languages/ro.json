@@ -121,6 +121,7 @@
       "settings.unconfirmed": "Afișează tranzacțiile neconfirmate",
       "settings.unconfirmed_txt": "Balanța ta totală include și valoarea tranzacțiilor neconfirmate independent de această setare.",
       "settings.change_language": "Schimbă limba",
+      "settings.feedback": "Trimite Feedback",
 
       "language.choose_language": "Selectează limba",
       "language.english": "Engleză",
@@ -274,6 +275,17 @@
       "token_connect.add_asset_one": "Adaugă Token",
       "token_connect.add_asset_other": "Adaugă Tokeni",
 
-      "synthetic.description": "Tokeni care imită comportamentul prețului activelor din lumea reală."
+      "synthetic.description": "Tokeni care imită comportamentul prețului activelor din lumea reală.",
+
+      "feedback.write_to_us": "Ne-ar plăcea să vă auzim părerile!",
+      "feedback.i_like": "Îmi place ceva",
+      "feedback.i_hate": "NU-mi place ceva",
+      "feedback.i_want": "Am o sugestie",
+      "feedback.your_feedback_here": "Introduceți-ne mesajul dvs. aici.",
+      "feedback.submit": "Trimite feedback",
+      "feedback.disclaimer": "Feedback-ul dvs. este anonim, nu distribuiți informații sensibile despre dvs. sau despre contul dvs.!",
+      "feedback.message.empty_form": "Vă rugăm să selectați un tip de feedback și să introduceți un mesaj!",
+      "feedback.message.sent": "Mesajul de a fost trimis!",
+      "feedback.message.failed_send": "Nu se poate trimite mesajul, încercați din nou mai târziu!"
   }
 }

@@ -173,11 +173,7 @@ const SettingScreen = observer(() => {
           <TouchableOpacity
             style={styles.item}
             onPress={() => navigation.navigate('FeedbackScreen')}>
-            <Icon
-              name="chatbubbles-outline"
-              size={23}
-              color={Colors.foreground}
-            />
+            <Icon name="chatbubbles" size={23} color={Colors.foreground} />
             <Text style={styles.textItem}>{t('settings.feedback')}</Text>
             <Icon name="arrow-forward" size={20} color="gray" />
           </TouchableOpacity>

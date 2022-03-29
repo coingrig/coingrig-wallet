@@ -59,11 +59,7 @@ const DashboardScreen = observer(() => {
           <TouchableOpacity
             onPress={() => navigation.navigate('FeedbackScreen')}
             style={styles.moreBtn}>
-            <Icon3
-              name="chatbubbles-outline"
-              size={23}
-              color={Colors.foreground}
-            />
+            <Icon3 name="chatbubbles" size={23} color={Colors.foreground} />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate('SettingScreen')}

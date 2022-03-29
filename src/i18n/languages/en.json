@@ -121,6 +121,7 @@
       "settings.unconfirmed": "Display unconfirmed transactions",
       "settings.unconfirmed_txt": "Your total balance will always include unconfirmed transactions value independently of this setting.",
       "settings.change_language": "Change language",
+      "settings.feedback": "Send Feedback",
 
       "language.choose_language": "Choose language",
       "language.english": "English",
@@ -274,6 +275,17 @@
       "token_connect.add_asset_one": "Add Token",
       "token_connect.add_asset_other": "Add Tokens",
 
-      "synthetic.description": "Custom tokens that mimic the price behavior of real world assets."
+      "synthetic.description": "Custom tokens that mimic the price behavior of real world assets.",
+
+      "feedback.write_to_us": "We'd love to hear your thoughts!",
+      "feedback.i_like": "I like something",
+      "feedback.i_hate": "I do NOT like something",
+      "feedback.i_want": "I have a suggestion",
+      "feedback.your_feedback_here": "Type in your message to us here.",
+      "feedback.submit": "Send feedback",
+      "feedback.disclaimer": "Your feedback is anonymous, do not share sensitive information about yourself or your account!",
+      "feedback.message.empty_form": "Please select a feedback type and type in a message!",
+      "feedback.message.sent": "Feedback message sent!",
+      "feedback.message.failed_send": "Unable to send message, try again later!"
   }
 }

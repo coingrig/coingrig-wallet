@@ -16,20 +16,29 @@ export const styles = StyleSheet.create({
   scrollview: {
     flexGrow: 1,
     marginHorizontal: 15,
-    paddingTop: 20,
+    paddingTop: 0,
   },
-  textItem: {marginLeft: 0, marginTop: 20, color: Colors.foreground, flex: 3},
+  textItem: {
+    marginLeft: 0,
+    marginTop: 20,
+    color: Colors.foreground,
+    textAlign: 'center',
+  },
   title: {
     fontSize: 35,
-    fontFamily: 'RobotoSlab-Bold',
     color: Colors.foreground,
     marginTop: 20,
   },
   subtitle: {
     fontSize: 16,
-    fontFamily: 'RobotoSlab-Bold',
     color: Colors.lighter,
     marginVertical: 10,
+  },
+  warningText: {
+    color: Colors.lighter,
+    marginHorizontal: 20,
+    fontSize: 13,
+    textAlign: 'center',
   },
   image: {height: 30, width: 30},
   item: {
@@ -50,11 +59,12 @@ export const styles = StyleSheet.create({
     borderStyle: 'solid',
     minHeight: 130,
     marginHorizontal: 0,
-    justifyContent: 'center',
     flex: 1,
+    textAlignVertical: 'top',
   },
   submitButton: {
     backgroundColor: '#2e2c2c',
+    fontFamily: 'RobotoSlab-Bold',
     width: '70%',
     marginTop: 20,
     marginBottom: 20,

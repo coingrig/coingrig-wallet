@@ -5,6 +5,8 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
@@ -13,6 +15,14 @@ import {SmallButton} from 'components/smallButton';
 import Icon2 from 'react-native-vector-icons/Feather';
 import {Colors} from 'utils/colors';
 import {showMessage} from 'react-native-flash-message';
+import endpoints from 'utils/endpoints';
+import CONFIG from 'config';
+import {Logs} from 'services/logs';
+var axios = require('axios');
+
+const FBCK_TYPE_POSITIVE = 'Positive';
+const FBCK_TYPE_NEGATIVE = 'Negative';
+const FBCK_TYPE_IDEA = 'Idea';
 
 export default function LanguageScreen() {
   const {t} = useTranslation();
@@ -23,24 +33,59 @@ export default function LanguageScreen() {
   useEffect(() => {}, []);
 
   let getColor = mode => {
-    console.log(feedbackType);
     if (feedbackType === mode) {
-      return 'blue';
+      return Colors.red;
     }
     return Colors.foreground;
   };
 
-  let sendFeedback = () => {
+  let sendFeedback = async () => {
+    if (feedbackType === '' || message === '') {
+      return showMessage({
+        message: t('feedback.message.empty_form'),
+        type: 'warning',
+      });
+    }
     navigation.goBack();
-    showMessage({
-      message: t('feedback.message.sent'),
-      type: 'success',
+    const config = {
+      method: 'post',
+      url: endpoints.forms.feedback,
+      headers: {
+        Authorization: CONFIG.COINGRIG_KEY,
+      },
+      data: {
+        type: feedbackType,
+        message: message,
+      },
+    };
+    let result = false;
+    try {
+      const response = await axios(config);
+      result = response.data === 'OK';
+    } catch (e) {
+      Logs.info('Feedback form error', e);
+    }
+    if (result) {
+      return showMessage({
+        message: t('feedback.message.sent'),
+        type: 'success',
+      });
+    }
+    return showMessage({
+      message: t('feedback.message.failed_send'),
+      type: 'warning',
     });
-    return;
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      //@ts-ignore
+      keyboardVerticalOffset={Platform.select({
+        ios: () => 50,
+        android: () => 10,
+      })()}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView
         contentContainerStyle={styles.scrollview}
         showsVerticalScrollIndicator={false}>
@@ -50,34 +95,34 @@ export default function LanguageScreen() {
         <View style={styles.row}>
           <TouchableOpacity
             style={styles.item}
-            onPress={() => setFeedbackType('up')}>
+            onPress={() => setFeedbackType(FBCK_TYPE_POSITIVE)}>
             <Icon2
               name="thumbs-up"
               size={30}
               style={styles.image}
-              color={getColor('up')}
+              color={getColor(FBCK_TYPE_POSITIVE)}
             />
             <Text style={styles.textItem}>{t('feedback.i_like')}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.item}
-            onPress={() => setFeedbackType('down')}>
+            onPress={() => setFeedbackType(FBCK_TYPE_NEGATIVE)}>
             <Icon2
               name="thumbs-down"
               size={30}
               style={styles.image}
-              color={getColor('down')}
+              color={getColor(FBCK_TYPE_NEGATIVE)}
             />
             <Text style={styles.textItem}>{t('feedback.i_hate')}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.item}
-            onPress={() => setFeedbackType('idea')}>
+            onPress={() => setFeedbackType(FBCK_TYPE_IDEA)}>
             <Icon2
               name="flag"
               size={30}
               style={styles.image}
-              color={getColor('idea')}
+              color={getColor(FBCK_TYPE_IDEA)}
             />
             <Text style={styles.textItem}>{t('feedback.i_want')}</Text>
           </TouchableOpacity>
@@ -105,7 +150,10 @@ export default function LanguageScreen() {
             style={styles.submitButton}
           />
         </View>
+        <View style={styles.centerRow}>
+          <Text style={styles.warningText}>{t('feedback.disclaimer')}</Text>
+        </View>
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 }

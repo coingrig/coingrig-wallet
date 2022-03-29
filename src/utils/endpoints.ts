@@ -31,4 +31,7 @@ endpoints.assets = 'https://assets.coingrig.com';
 endpoints.stocks = 'https://api.coingrig.com/stocks/';
 endpoints.yahoofinance = 'https://finance.yahoo.com/quote/';
 endpoints.googlefinance = 'https://www.google.com/finance/quote/';
+endpoints.forms = {
+  feedback: 'https://api.coingrig.com/forms/feedback',
+};
 export default endpoints;
