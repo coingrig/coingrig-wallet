@@ -37,7 +37,6 @@ import {StockStore} from 'stores/StockStore';
 import CardList from 'components/CardList';
 import apps from 'data/apps';
 import {OtherMarkets, USMarkets} from './markets';
-import {ILogEvents, LogEvents} from 'utils/analytics';
 // import CustomModal from 'components/Modal';
 
 const marketData = apps.filter(app => app.categories?.includes('home'));
