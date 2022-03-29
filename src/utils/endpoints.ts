@@ -30,4 +30,5 @@ endpoints.fx = 'https://api.coingrig.com/fx/';
 endpoints.assets = 'https://assets.coingrig.com';
 endpoints.stocks = 'https://api.coingrig.com/stocks/';
 endpoints.yahoofinance = 'https://finance.yahoo.com/quote/';
+endpoints.googlefinance = 'https://www.google.com/finance/quote/';
 export default endpoints;
