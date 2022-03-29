@@ -424,7 +424,7 @@ const WalletScreen = observer(({route}) => {
             placeholderTextColor={'gray'}
             style={styles.editInput}
             value={customBalance}
-            onChangeText={t => setCustomBalance(t)}
+            onChangeText={v => setCustomBalance(v)}
           />
           <SmallButton
             text={t('swap.slippage_save')}

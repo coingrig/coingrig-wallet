@@ -767,8 +767,8 @@ const SwapScreen = props => {
                   placeholder="0"
                   placeholderTextColor={Colors.lighter}
                   value={sellAmmount}
-                  onChangeText={t => {
-                    setSellAmount(t);
+                  onChangeText={v => {
+                    setSellAmount(v);
                     resetToPreview();
                   }}
                 />
@@ -819,7 +819,7 @@ const SwapScreen = props => {
           autoFocus
           defaultValue={String(slippage * 100)}
           value={slippageText.toString()}
-          onChangeText={t => setSlippageText(t)}
+          onChangeText={v => setSlippageText(v)}
         />
         <Dialog.Button
           label={t('swap.slippage_cancel')}
