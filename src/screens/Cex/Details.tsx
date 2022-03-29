@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import {View, Text, TouchableOpacity} from 'react-native';
 import React, {createRef, useEffect, useState} from 'react';
@@ -21,6 +22,7 @@ import {CexStore} from 'stores/cexStore';
 import {showMessage} from 'react-native-flash-message';
 import {LoadingModal} from 'services/loading';
 import {openLink} from 'utils';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const actionCamera: React.RefObject<any> = createRef();
 
@@ -84,6 +86,7 @@ export default function CexDetails({route}) {
           type: 'success',
         });
         LoadingModal.instance.current?.hide();
+        LogEvents(ILogEvents.ACTION, 'AddCex');
         navigation.goBack();
       }
     } catch (error) {

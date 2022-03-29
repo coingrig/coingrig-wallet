@@ -10,7 +10,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import Analytics from 'appcenter-analytics';
 import Icon from 'react-native-vector-icons/Feather';
 import {observer} from 'mobx-react-lite';
 import {useTranslation} from 'react-i18next';
@@ -29,6 +28,7 @@ import ActionSheet from 'react-native-actions-sheet';
 import {WalletStore} from 'stores/wallet';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import {Logs} from 'services/logs';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const actionSheetRef = createRef();
 
@@ -55,7 +55,7 @@ const CoinDetailScreen = observer(({route}) => {
         </TouchableOpacity>
       ),
     });
-    Analytics.trackEvent('Screen', {name: 'CoinDetailScreen'});
+    LogEvents(ILogEvents.SCREEN, 'CoinDetails');
   }, []);
 
   useEffect(() => {

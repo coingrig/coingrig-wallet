@@ -28,7 +28,13 @@ export default function TwoBricks({
         marginBottom: 5,
       }}>
       <TouchableOpacity
-        onPress={() => openLink(endpoints.yahoofinance + symbol1)}
+        onPress={() =>
+          openLink(
+            symbol1 === 'CL=F' || symbol1 === 'GC=F'
+              ? endpoints.yahoofinance + symbol1
+              : endpoints.googlefinance + symbol1,
+          )
+        }
         style={{
           backgroundColor: Colors.card,
           flexGrow: 1,
@@ -84,7 +90,13 @@ export default function TwoBricks({
         </View>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => openLink(endpoints.yahoofinance + symbol2)}
+        onPress={() =>
+          openLink(
+            symbol2 === 'CL=F' || symbol2 === 'GC=F'
+              ? endpoints.yahoofinance + symbol2
+              : endpoints.googlefinance + symbol2,
+          )
+        }
         style={{
           backgroundColor: Colors.card,
           flexGrow: 1,

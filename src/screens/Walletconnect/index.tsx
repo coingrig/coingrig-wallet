@@ -22,6 +22,7 @@ import {SmallButton} from 'components/smallButton';
 import FastImage from 'react-native-fast-image';
 import {Logs} from 'services/logs';
 import {BigButton} from 'components/bigButton';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const actionCamera: React.RefObject<any> = createRef();
 
@@ -38,6 +39,7 @@ const WalletconnectScreen = observer(({route}) => {
         // Display error message
       }
     }
+    LogEvents(ILogEvents.SCREEN, 'WalletConnect');
     return WalletConnectService.closeSession;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

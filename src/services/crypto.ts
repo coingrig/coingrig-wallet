@@ -8,8 +8,6 @@ import {WalletFactory} from '@coingrig/core';
 import {StorageSetItem, StorageGetItem} from './storage';
 import endpoints from 'utils/endpoints';
 import CONFIG from 'config';
-import CexService from 'services/cex';
-import BanksService from 'services/banks';
 class CryptoService {
   lastFetchedBalance = 0;
   CHAIN_ID_MAP = {

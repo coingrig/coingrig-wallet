@@ -10,7 +10,9 @@
     "lint": "eslint .",
     "dep:license": "npx license-extractor --mode merge --source node_modules/ --target DepLicense.txt --overwrite",
     "clean": "rm -rf node_modules/ && yarn && cd ios && pod update && cd .. && cd android && ./gradlew clean",
-    "postinstall": "rn-nodeify --install http,https,path,crypto,fs,stream,os --hack && patch-package"
+    "postinstall": "rn-nodeify --install http,https,path,crypto,fs,stream,os --hack && patch-package",
+    "prepare": "husky install",
+    "duplicate": "jscpd ./src"
   },
   "keywords": [
     "crypto",
@@ -126,7 +128,9 @@
     "babel-jest": "27.0.6",
     "babel-plugin-module-resolver": "4.1.0",
     "eslint": "7.32.0",
+    "husky": "^7.0.4",
     "jest": "27.0.6",
+    "jscpd": "^3.4.5",
     "metro-react-native-babel-preset": "0.66.2",
     "react-native-svg-transformer": "0.14.3",
     "react-test-renderer": "17.0.1",

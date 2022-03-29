@@ -14,7 +14,6 @@ import {CryptoService} from 'services/crypto';
 import DeepLinkService from 'services/deeplink';
 import {useTranslation} from 'react-i18next';
 import Brick from 'components/Bricks';
-import Analytics from 'appcenter-analytics';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon3 from 'react-native-vector-icons/Ionicons';
 import {ListPrices} from 'components/widgets/listPrices';
@@ -76,7 +75,6 @@ const DashboardScreen = observer(() => {
       ),
     });
     fetchBalance();
-    Analytics.trackEvent('AppStart');
   }, [SettingsStore.mnemonicBackupDone]);
 
   useEffect(() => {

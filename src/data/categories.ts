@@ -1,5 +1,4 @@
 import Card from 'screens/Hub/Card';
-import Connectors from 'screens/Hub/Connectors';
 import DApps from 'screens/Hub/DApps';
 import Defi from 'screens/Hub/Defi';
 import Games from 'screens/Hub/Games';

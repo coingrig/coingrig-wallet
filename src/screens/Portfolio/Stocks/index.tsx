@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
@@ -26,7 +27,7 @@ import {useTranslation} from 'react-i18next';
 
 const editSheet: React.RefObject<any> = createRef();
 
-const Stocks = observer(props => {
+const Stocks = observer(() => {
   const navigation = useNavigation();
   const [selected, setselected] = useState<IStocks | null>(null);
   const [accBalance, setAccBalance] = useState('');
@@ -38,7 +39,7 @@ const Stocks = observer(props => {
         <TouchableOpacity
           onPress={() => navigation.navigate('SearchStocks')}
           style={styles.moreBtn}>
-          <Icon2 name="addchart" size={25} color={Colors.foreground} />
+          <Icon2 name="addchart" size={24} color={Colors.foreground} />
         </TouchableOpacity>
       ),
     });

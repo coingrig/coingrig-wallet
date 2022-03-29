@@ -1,7 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
-import Analytics from 'appcenter-analytics';
 import React, {createRef, useEffect, useState} from 'react';
 import {
   Alert,
@@ -27,7 +27,7 @@ import FastImage from 'react-native-fast-image';
 
 const detailsSheet: React.RefObject<any> = createRef();
 
-const Banking = observer(props => {
+const Banking = observer(() => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [selected, setselected] = useState<IBankAccount | null>(null);
@@ -40,12 +40,11 @@ const Banking = observer(props => {
         <TouchableOpacity
           onPress={() => navigation.navigate('SelectCountryScreen')}
           style={styles.moreBtn}>
-          <Icon name="bank-plus" size={25} color={Colors.foreground} />
+          <Icon name="bank-plus" size={24} color={Colors.foreground} />
         </TouchableOpacity>
       ),
     });
     // BanksService.updateAccountsBalance();
-    Analytics.trackEvent('Screen', {name: 'Portfolio/Banking'});
   }, []);
 
   const shareIban = async iban => {

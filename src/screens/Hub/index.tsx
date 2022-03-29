@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useRef, useState} from 'react';
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
@@ -8,6 +9,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import HubCatgories from '../../data/categories';
 import {useNavigation} from '@react-navigation/native';
 import {SmallLogo} from 'routes';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const HubScreen = () => {
   const {t} = useTranslation();
@@ -16,6 +18,10 @@ const HubScreen = () => {
   const [screen, setScreen] = useState(HubCatgories[0]);
   const [shadowHeader, setShadowHeader] = useState(false);
   const flatListRef = React.useRef();
+
+  useEffect(() => {
+    LogEvents(ILogEvents.SCREEN, 'Hub/' + t(screen.title));
+  }, []);
 
   useEffect(() => {
     if (shadowHeader) {
@@ -36,7 +42,7 @@ const HubScreen = () => {
         headerTitle: () => <SmallLogo />,
       });
     }
-  }, [navigation, shadowHeader]);
+  }, [navigation, shadowHeader, t]);
 
   const bubble = (item, index) => {
     return (
@@ -49,6 +55,7 @@ const HubScreen = () => {
             animated: true,
           });
           flatListRef.current?.scrollToIndex({animated: false, index: 0});
+          LogEvents(ILogEvents.SCREEN, 'Hub/' + t(item.title));
         }}
         style={{
           backgroundColor:

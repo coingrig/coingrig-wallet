@@ -11,8 +11,9 @@ import StockService from 'services/stocks';
 import {useTranslation} from 'react-i18next';
 import {styles} from './styles';
 import debounce from 'lodash.debounce';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
-const SearchStocks = ({route}) => {
+const SearchStocks = () => {
   const navigation = useNavigation();
   const [data, setData] = useState([]);
   const {t} = useTranslation();
@@ -54,6 +55,7 @@ const SearchStocks = ({route}) => {
               qty: 0,
               change: stockData[0].changePercentage,
             });
+            LogEvents(ILogEvents.ACTION, 'AddStock');
             navigation.goBack();
           }
         },

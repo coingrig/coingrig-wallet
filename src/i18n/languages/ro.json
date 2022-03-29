@@ -2,7 +2,8 @@
   "translation" :{
       "brand.message": "The Next-Gen Crypto Wallet",
 
-      "title.news": "Știri",
+      "title.crypto_news": "Știri crypto",
+      "title.stock_news": "Știri",
       "title.add_custom_token": "Adaugă token custom",
       "title.settings": "Setări",
 
@@ -204,7 +205,8 @@
       "hub.synthetics": "Synthetics",
       "hub.swap.description": "Conectat la 30 DEXuri",
       "hub.market.description": "Top criptomonede",
-      "hub.news.description": "Știri crypto",
+      "hub.crypto_news.description": "Știri crypto",
+      "hub.stock_news.description": "Știri",
       "hub.wc.description": "Conectare la DApps",
       "hub.synthetics.description": "Active Mirror Protocol",
       "hub.card.description": "Coingrig Debit Card",

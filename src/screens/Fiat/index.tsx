@@ -9,6 +9,7 @@ import {styles} from './styles';
 import {useTranslation} from 'react-i18next';
 import {FiatStore} from 'stores/fiatStore';
 import {formatNoComma} from 'utils';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const editSheet: React.RefObject<any> = createRef();
 
@@ -115,6 +116,7 @@ export default function AddFiat() {
               FiatStore.totalBalance + balance / fx.rates[selected!],
             );
             editSheet.current?.setModalVisible(false);
+            LogEvents(ILogEvents.ACTION, 'AddCash');
             navigation.goBack();
           }}
           color="#f2eded"

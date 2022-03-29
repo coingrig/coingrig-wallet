@@ -27,7 +27,8 @@ import SendReceiveScreen from 'screens/SendReceive';
 import WalletScreen from 'screens/Wallet';
 import MarketScreen from 'screens/Market';
 import PortfolioScreen from 'screens/Portfolio';
-import NewsScreen from 'screens/News';
+import CryptoNewsScreen from 'screens/News/Crypto';
+import StockNewsScreen from 'screens/News/Stock';
 import CoinDetailScreen from 'screens/CoinDetails';
 import OnBoardingScreen from 'screens/Onboarding';
 import WalletconnectScreen from 'screens/Walletconnect';
@@ -327,8 +328,33 @@ function NavigationStack({t}) {
         options={styles.walletscreen}
       />
       <Stack.Screen
-        name="NewsScreen"
-        component={NewsScreen}
+        name="CryptoNewsScreen"
+        component={CryptoNewsScreen}
+        options={{
+          headerShown: true,
+          headerTitle: t('title.news'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="StockNewsScreen"
+        component={StockNewsScreen}
         options={{
           headerShown: true,
           headerTitle: t('title.news'),

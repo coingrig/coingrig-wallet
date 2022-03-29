@@ -4,11 +4,9 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
-  Linking,
   Alert,
   Switch,
 } from 'react-native';
-import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import ActionSheet from 'react-native-actions-sheet';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {showMessage} from 'react-native-flash-message';

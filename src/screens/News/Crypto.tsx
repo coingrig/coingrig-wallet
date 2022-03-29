@@ -1,24 +1,26 @@
+/* eslint-disable react-native/no-inline-styles */
 import {Loader} from 'components/loader';
 import * as React from 'react';
-import {View, Text, FlatList, TouchableOpacity, Linking} from 'react-native';
-import FastImage from 'react-native-fast-image';
-import InAppBrowser from 'react-native-inappbrowser-reborn';
+import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 var axios = require('axios');
 import * as rssParser from 'react-native-rss-parser';
+import {openLink} from 'utils';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 import endpoints from 'utils/endpoints';
 import {styles} from './styles';
 
-export default function NewsScreen() {
+export default function CryptoNewsScreen() {
   const [news, setNews] = React.useState([]);
   React.useEffect(() => {
     getTheNews();
+    LogEvents(ILogEvents.SCREEN, 'CryptoNews');
   }, []);
 
   const getTheNews = async () => {
     var config = {
       method: 'get',
       responseType: 'text',
-      url: endpoints.news,
+      url: endpoints.cryptoNews,
     };
     axios(config)
       .then(async response => {
@@ -32,32 +34,6 @@ export default function NewsScreen() {
       });
   };
 
-  const openLink = async url => {
-    try {
-      if (await InAppBrowser.isAvailable()) {
-        await InAppBrowser.open(url, {
-          // iOS Properties
-          dismissButtonStyle: 'cancel',
-          readerMode: true,
-          animated: true,
-          modalPresentationStyle: 'automatic',
-          modalTransitionStyle: 'coverVertical',
-          modalEnabled: true,
-          enableBarCollapsing: false,
-          // Android Properties
-          showTitle: true,
-          enableUrlBarHiding: true,
-          enableDefaultShare: true,
-          forceCloseOnRedirection: false,
-        });
-      } else {
-        Linking.openURL(url);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const renderItem = ({item}) => {
     const splitTitle = item.title.split('- ');
     return (
@@ -68,21 +44,6 @@ export default function NewsScreen() {
         <Text style={styles.title}>{splitTitle[splitTitle.length - 2]}</Text>
         <Text style={styles.published}>{item.published}</Text>
       </TouchableOpacity>
-    );
-  };
-
-  const listHeader = () => {
-    return (
-      <View style={{flex: 1, marginHorizontal: 0, marginBottom: 0}}>
-        <FastImage
-          source={require('../../assets/hub/news.png')}
-          resizeMode="contain"
-          style={{
-            height: 220,
-            width: '100%',
-          }}
-        />
-      </View>
     );
   };
 

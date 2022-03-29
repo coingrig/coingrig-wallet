@@ -28,14 +28,14 @@ export const OtherMarkets = observer(() => {
         <Text style={styles.subtitle}>{t('Other Markets')}</Text>
       </View>
       <TwoBricks
-        symbol1="%5EIXIC"
+        symbol1=".IXIC:INDEXNASDAQ"
         title1={'Nasdaq'}
         image1={endpoints.assets + '/images/flags/us.png'}
         value1={MarketStore.markets['^IXIC'].price || '-'}
         subValue1={
           MarketStore.markets['^IXIC'].changePercentage.toFixed(2) + '%' || '-'
         }
-        symbol2="%5EFTSE"
+        symbol2="UKX:INDEXFTSE"
         title2={'FTSE 100'}
         image2={endpoints.assets + '/images/flags/uk.png?new'}
         value2={MarketStore.markets['^FTSE'].price || '-'}
@@ -44,14 +44,14 @@ export const OtherMarkets = observer(() => {
         }
       />
       <TwoBricks
-        symbol1="%5EGDAXI"
+        symbol1="DAX:INDEXDB"
         title1={'DAX'}
         image1={endpoints.assets + '/images/flags/de.png'}
         value1={MarketStore.markets['^GDAXI'].price || '-'}
         subValue1={
           MarketStore.markets['^GDAXI'].changePercentage.toFixed(2) + '%' || '-'
         }
-        symbol2="%5EN225"
+        symbol2="NI225:INDEXNIKKEI"
         title2={'Nikkei 225'}
         image2={endpoints.assets + '/images/flags/japan.png?new'}
         value2={MarketStore.markets['^N225'].price || '-'}
@@ -97,14 +97,14 @@ export const USMarkets = observer(() => {
         <Text style={styles.subtitle}>{t('US Markets')}</Text>
       </View>
       <TwoBricks
-        symbol1="%5EGSPC"
+        symbol1=".INX:INDEXSP"
         title1={'S&P 500'}
         image1={endpoints.assets + '/images/flags/us.png'}
         value1={MarketStore.markets['^GSPC'].price || '-'}
         subValue1={
           MarketStore.markets['^GSPC'].changePercentage.toFixed(2) + '%' || '-'
         }
-        symbol2="%5EDJI"
+        symbol2=".DJI:INDEXDJX"
         title2={'DJI'}
         image2={endpoints.assets + '/images/flags/us.png'}
         value2={MarketStore.markets['^DJI'].price || '-'}

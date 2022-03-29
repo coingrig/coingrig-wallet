@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import NFTCard from 'components/NFT/Card';
-import {Image, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import {styles} from '../styles';
 import BigList from 'react-native-big-list';
 import endpoints from 'utils/endpoints';
@@ -13,7 +14,7 @@ import {SIZE} from 'utils/constants';
 import FastImage from 'react-native-fast-image';
 import {Colors} from 'utils/colors';
 
-const NFTs = observer(props => {
+const NFTs = observer(() => {
   const {t} = useTranslation();
   const navigation = useNavigation();
   const [nfts, setNFTs] = useState<any[]>([]);
