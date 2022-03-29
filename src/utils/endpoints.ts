@@ -19,7 +19,8 @@ endpoints.nordigen = 'https://ob.nordigen.com/api/v2';
 endpoints.bank_redirect = 'https://link.coingrig.com/closebrowser/';
 endpoints.psd = 'https://api.coingrig.com/psd/';
 endpoints.app = 'https://api.coingrig.com/app/';
-endpoints.news = 'https://api.coingrig.com/news/';
+endpoints.cryptoNews = 'https://api.coingrig.com/news/';
+endpoints.stockNews = 'https://api.coingrig.com/stocknews/';
 endpoints.ramper =
   'https://buy.ramp.network/?hostAppName=Coingrig&variant=mobile';
 endpoints.coingecko = 'https://api.coingecko.com/api/v3';

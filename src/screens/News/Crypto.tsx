@@ -1,15 +1,15 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Loader} from 'components/loader';
 import * as React from 'react';
-import {View, Text, FlatList, TouchableOpacity, Linking} from 'react-native';
-import InAppBrowser from 'react-native-inappbrowser-reborn';
+import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 var axios = require('axios');
 import * as rssParser from 'react-native-rss-parser';
+import {openLink} from 'utils';
 import {ILogEvents, LogEvents} from 'utils/analytics';
 import endpoints from 'utils/endpoints';
 import {styles} from './styles';
 
-export default function NewsScreen() {
+export default function CryptoNewsScreen() {
   const [news, setNews] = React.useState([]);
   React.useEffect(() => {
     getTheNews();
@@ -20,7 +20,7 @@ export default function NewsScreen() {
     var config = {
       method: 'get',
       responseType: 'text',
-      url: endpoints.news,
+      url: endpoints.cryptoNews,
     };
     axios(config)
       .then(async response => {
@@ -32,32 +32,6 @@ export default function NewsScreen() {
       .catch(function (error) {
         console.log(error);
       });
-  };
-
-  const openLink = async url => {
-    try {
-      if (await InAppBrowser.isAvailable()) {
-        await InAppBrowser.open(url, {
-          // iOS Properties
-          dismissButtonStyle: 'cancel',
-          readerMode: true,
-          animated: true,
-          modalPresentationStyle: 'automatic',
-          modalTransitionStyle: 'coverVertical',
-          modalEnabled: true,
-          enableBarCollapsing: false,
-          // Android Properties
-          showTitle: true,
-          enableUrlBarHiding: true,
-          enableDefaultShare: true,
-          forceCloseOnRedirection: false,
-        });
-      } else {
-        Linking.openURL(url);
-      }
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const renderItem = ({item}) => {

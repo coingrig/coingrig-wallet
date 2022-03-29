@@ -2,7 +2,8 @@
   "translation" :{
       "brand.message": "Le Crypto Wallet Next-Gen",
 
-      "title.news": "Nouvelles",
+      "title.crypto_news": "Nouvelles Crypto",
+      "title.stock_news": "Nouvelles",
       "title.add_custom_token": "Ajouter Token Personnalisé",
       "title.settings": "Réglages",
 
@@ -204,7 +205,8 @@
       "hub.synthetics": "Synthetics",
       "hub.swap.description": "Connecté à 30 DEXs",
       "hub.market.description": "Le top des cryptomonnaies",
-      "hub.news.description": "Actualités Crypto",
+      "hub.crypto_news.description": "Actualités Crypto",
+      "hub.stock_news.description": "Actualités",
       "hub.wc.description": "Connectez-vous aux DApps",
       "hub.synthetics.description": "Actifs du Protocole Mirror",
       "hub.card.description": "Coingrig Debit Card",
