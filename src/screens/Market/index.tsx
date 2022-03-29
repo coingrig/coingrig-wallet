@@ -18,6 +18,7 @@ import {COINS_MAX} from '../../utils/constants';
 import {styles} from './styles';
 import {showMessage} from 'react-native-flash-message';
 import FastImage from 'react-native-fast-image';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const MarketScreen = observer(() => {
   const FILTER_ALL = 'all';
@@ -43,6 +44,7 @@ const MarketScreen = observer(() => {
       ),
     });
     fetchCoins();
+    LogEvents(ILogEvents.SCREEN, 'Market');
   }, []);
 
   const fetchCoins = async () => {

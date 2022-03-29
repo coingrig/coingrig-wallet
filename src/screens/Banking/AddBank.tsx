@@ -16,6 +16,7 @@ import {Logs} from 'services/logs';
 import {useNavigation} from '@react-navigation/native';
 import {LoadingModal} from 'services/loading';
 import {sleep} from 'utils';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 let accData: any = null;
 
@@ -34,6 +35,7 @@ export default function AddBank({route}) {
       },
     );
     getBanks();
+    LogEvents(ILogEvents.SCREEN, 'AddBank');
     return () => {
       listenBrowserEvent.remove();
     };
@@ -114,6 +116,7 @@ export default function AddBank({route}) {
         BanksService.updateTotalBalance();
         LoadingModal.instance.current?.hide();
         // show message
+        LogEvents(ILogEvents.ACTION, 'AddBank');
         navigation.goBack();
       } else {
         // alert no accounts or no permissions

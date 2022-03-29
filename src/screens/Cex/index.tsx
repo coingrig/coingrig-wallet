@@ -2,16 +2,16 @@ import {ScrollView, View} from 'react-native';
 import React, {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import CardList from 'components/CardList';
-import Analytics from 'appcenter-analytics';
 import {styles} from './styles';
 import CEX_LIST from 'data/cex';
 import Separator from 'components/CardList/Separator';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 export default function CEXScreen() {
   const {t} = useTranslation();
 
   useEffect(() => {
-    Analytics.trackEvent('Screen', {name: 'CEXScreen'});
+    LogEvents(ILogEvents.SCREEN, 'CEXList');
   }, []);
 
   return (

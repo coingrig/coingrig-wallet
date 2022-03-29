@@ -14,7 +14,6 @@ import {CryptoService} from 'services/crypto';
 import DeepLinkService from 'services/deeplink';
 import {useTranslation} from 'react-i18next';
 import Brick from 'components/Bricks';
-import Analytics from 'appcenter-analytics';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon3 from 'react-native-vector-icons/Ionicons';
 import {ListPrices} from 'components/widgets/listPrices';
@@ -38,6 +37,7 @@ import {StockStore} from 'stores/StockStore';
 import CardList from 'components/CardList';
 import apps from 'data/apps';
 import {OtherMarkets, USMarkets} from './markets';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 // import CustomModal from 'components/Modal';
 
 const marketData = apps.filter(app => app.categories?.includes('home'));
@@ -65,7 +65,7 @@ const DashboardScreen = observer(() => {
       ),
     });
     fetchBalance();
-    Analytics.trackEvent('AppStart');
+    LogEvents(ILogEvents.APP_START, 'Start');
   }, [SettingsStore.mnemonicBackupDone]);
 
   useEffect(() => {

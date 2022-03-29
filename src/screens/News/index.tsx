@@ -5,6 +5,7 @@ import {View, Text, FlatList, TouchableOpacity, Linking} from 'react-native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 var axios = require('axios');
 import * as rssParser from 'react-native-rss-parser';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 import endpoints from 'utils/endpoints';
 import {styles} from './styles';
 
@@ -12,6 +13,7 @@ export default function NewsScreen() {
   const [news, setNews] = React.useState([]);
   React.useEffect(() => {
     getTheNews();
+    LogEvents(ILogEvents.SCREEN, 'News');
   }, []);
 
   const getTheNews = async () => {

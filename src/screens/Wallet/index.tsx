@@ -17,7 +17,6 @@ import Icon2 from 'react-native-vector-icons/FontAwesome';
 import Icon3 from 'react-native-vector-icons/MaterialCommunityIcons';
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import {useTranslation} from 'react-i18next';
-import Analytics from 'appcenter-analytics';
 import Svg, {Path} from 'react-native-svg';
 import {WalletStore} from 'stores/wallet';
 import {formatCoins, formatNoComma, formatPrice} from 'utils';
@@ -30,6 +29,7 @@ import {SettingsStore} from 'stores/settings';
 import endpoints from 'utils/endpoints';
 import ActionSheet from 'react-native-actions-sheet';
 import {SmallButton} from 'components/smallButton';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const editSheet: React.RefObject<any> = createRef();
 
@@ -79,6 +79,7 @@ const WalletScreen = observer(({route}) => {
         </View>
       ),
     });
+    LogEvents(ILogEvents.SCREEN, 'Wallet');
   }, []);
 
   // useEffect(() => {
@@ -179,8 +180,7 @@ const WalletScreen = observer(({route}) => {
     }
     const link =
       endpoints.ramper + '&userAddress=' + address + '&swapAsset=' + coin;
-    // console.log(link);
-    Analytics.trackEvent('Click', {name: 'BuyCrypto'});
+    LogEvents(ILogEvents.CLICK, 'BuyCrypto');
     openLink(link);
   };
 

@@ -8,6 +8,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import HubCatgories from '../../data/categories';
 import {useNavigation} from '@react-navigation/native';
 import {SmallLogo} from 'routes';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const HubScreen = () => {
   const {t} = useTranslation();
@@ -49,6 +50,7 @@ const HubScreen = () => {
             animated: true,
           });
           flatListRef.current?.scrollToIndex({animated: false, index: 0});
+          LogEvents(ILogEvents.SCREEN, 'Hub/' + t(item.title));
         }}
         style={{
           backgroundColor:

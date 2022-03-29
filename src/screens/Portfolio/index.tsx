@@ -15,6 +15,7 @@ import {CexStore} from 'stores/cexStore';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {SmallLogo} from 'routes';
 import {StockStore} from 'stores/StockStore';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const PortfolioScreen = observer(({route}) => {
   const navigation = useNavigation();
@@ -35,6 +36,7 @@ const PortfolioScreen = observer(({route}) => {
           x: 90,
           animated: true,
         });
+        LogEvents(ILogEvents.SCREEN, 'Portfolio/Banking');
       }
       if (route.params.tab === 'Crypto') {
         setScreen(Portfolios[0]);
@@ -42,6 +44,7 @@ const PortfolioScreen = observer(({route}) => {
           x: 0,
           animated: true,
         });
+        LogEvents(ILogEvents.SCREEN, 'Portfolio/Crypto');
       }
       route.params.tab = null;
     }, [route.params]),
@@ -101,6 +104,7 @@ const PortfolioScreen = observer(({route}) => {
               flatListRef.current?.scrollToIndex({animated: true, index: 0});
             }
           } catch (error) {}
+          LogEvents(ILogEvents.SCREEN, 'Portfolio/' + item.title);
         }}
         style={{
           backgroundColor:

@@ -34,6 +34,7 @@ import {Logs} from 'services/logs';
 import {useTransitionEnd} from 'utils/hooks/useTransitionEnd';
 import BigNumber from 'bignumber.js';
 import CONFIG from 'config';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const ERC20_ABI = [
   {
@@ -140,6 +141,8 @@ const SwapScreen = props => {
     const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
       setKeyboardEnabled(false);
     });
+
+    LogEvents(ILogEvents.SCREEN, 'Swap');
 
     return () => {
       showSubscription.remove();
@@ -538,6 +541,7 @@ const SwapScreen = props => {
       LoadingModal.instance.current?.hide();
       setStatus('preview');
       CryptoService.getAccountBalance();
+      LogEvents(ILogEvents.ACTION, 'Swap');
     }
   };
 

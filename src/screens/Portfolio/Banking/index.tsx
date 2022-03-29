@@ -2,7 +2,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
-import Analytics from 'appcenter-analytics';
 import React, {createRef, useEffect, useState} from 'react';
 import {
   Alert,
@@ -46,7 +45,6 @@ const Banking = observer(() => {
       ),
     });
     // BanksService.updateAccountsBalance();
-    Analytics.trackEvent('Screen', {name: 'Portfolio/Banking'});
   }, []);
 
   const shareIban = async iban => {
