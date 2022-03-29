@@ -6,7 +6,7 @@ import {BankStore} from 'stores/bankStore';
 import {observer} from 'mobx-react-lite';
 import FastImage from 'react-native-fast-image';
 
-const BankingScreen = observer(({route}) => {
+const BankingScreen = observer(({}) => {
   const navigation = useNavigation();
   const renderItem = ({item}) => {
     return (

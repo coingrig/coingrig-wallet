@@ -36,7 +36,7 @@ const HubScreen = () => {
         headerTitle: () => <SmallLogo />,
       });
     }
-  }, [navigation, shadowHeader]);
+  }, [navigation, shadowHeader, t]);
 
   const bubble = (item, index) => {
     return (

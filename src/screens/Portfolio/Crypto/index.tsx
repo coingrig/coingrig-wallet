@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
@@ -13,7 +14,7 @@ import {formatPrice} from 'utils';
 import {CryptoService} from 'services/crypto';
 import {showMessage} from 'react-native-flash-message';
 
-const Crypto = observer(props => {
+const Crypto = observer(() => {
   const {t} = useTranslation();
   const navigation = useNavigation();
 

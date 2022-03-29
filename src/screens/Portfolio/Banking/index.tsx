@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
@@ -27,7 +28,7 @@ import FastImage from 'react-native-fast-image';
 
 const detailsSheet: React.RefObject<any> = createRef();
 
-const Banking = observer(props => {
+const Banking = observer(() => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [selected, setselected] = useState<IBankAccount | null>(null);

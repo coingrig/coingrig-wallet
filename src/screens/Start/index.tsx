@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, ImageBackground, Text, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {BigButton} from '../../components/bigButton';
 import {useTranslation} from 'react-i18next';

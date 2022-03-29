@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
@@ -15,7 +16,7 @@ import FastImage from 'react-native-fast-image';
 import {useTranslation} from 'react-i18next';
 import {SIZE} from 'utils/constants';
 
-const CEXs = observer(props => {
+const CEXs = observer(() => {
   const navigation = useNavigation();
   const {t} = useTranslation();
 

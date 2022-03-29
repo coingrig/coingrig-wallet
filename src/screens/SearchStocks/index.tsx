@@ -12,7 +12,7 @@ import {useTranslation} from 'react-i18next';
 import {styles} from './styles';
 import debounce from 'lodash.debounce';
 
-const SearchStocks = ({route}) => {
+const SearchStocks = () => {
   const navigation = useNavigation();
   const [data, setData] = useState([]);
   const {t} = useTranslation();

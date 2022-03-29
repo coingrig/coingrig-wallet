@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
@@ -25,7 +26,7 @@ import {SIZE} from 'utils/constants';
 
 const editSheet: React.RefObject<any> = createRef();
 
-const Fiat = observer(props => {
+const Fiat = observer(() => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [selected, setselected] = useState<IFiatAccounts | null>(null);
