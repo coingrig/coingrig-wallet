@@ -13,7 +13,7 @@ export default function NewsScreen() {
   const [news, setNews] = React.useState([]);
   React.useEffect(() => {
     getTheNews();
-    LogEvents(ILogEvents.SCREEN, 'News');
+    LogEvents(ILogEvents.SCREEN, 'CryptoNews');
   }, []);
 
   const getTheNews = async () => {

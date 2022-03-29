@@ -44,7 +44,7 @@ const MarketScreen = observer(() => {
       ),
     });
     fetchCoins();
-    LogEvents(ILogEvents.SCREEN, 'Market');
+    LogEvents(ILogEvents.SCREEN, 'CryptoMarket');
   }, []);
 
   const fetchCoins = async () => {
