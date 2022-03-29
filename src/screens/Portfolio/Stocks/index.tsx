@@ -38,7 +38,7 @@ const Stocks = observer(props => {
         <TouchableOpacity
           onPress={() => navigation.navigate('SearchStocks')}
           style={styles.moreBtn}>
-          <Icon2 name="addchart" size={25} color={Colors.foreground} />
+          <Icon2 name="addchart" size={24} color={Colors.foreground} />
         </TouchableOpacity>
       ),
     });

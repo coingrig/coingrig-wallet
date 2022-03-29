@@ -40,7 +40,7 @@ const Banking = observer(props => {
         <TouchableOpacity
           onPress={() => navigation.navigate('SelectCountryScreen')}
           style={styles.moreBtn}>
-          <Icon name="bank-plus" size={25} color={Colors.foreground} />
+          <Icon name="bank-plus" size={24} color={Colors.foreground} />
         </TouchableOpacity>
       ),
     });

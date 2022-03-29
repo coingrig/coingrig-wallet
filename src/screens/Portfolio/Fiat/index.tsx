@@ -37,7 +37,7 @@ const Fiat = observer(props => {
         <TouchableOpacity
           onPress={() => navigation.navigate('AddFiat')}
           style={styles.moreBtn}>
-          <Icon2 name="cash-plus" size={30} color={Colors.foreground} />
+          <Icon2 name="cash-plus" size={28} color={Colors.foreground} />
         </TouchableOpacity>
       ),
     });
