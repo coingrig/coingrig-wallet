@@ -635,6 +635,7 @@ function NavigationStack({t}) {
         component={FeedbackScreen}
         options={{
           presentation: 'modal',
+          headerTitleAlign: 'center',
           headerBackImage: () => (
             <Icon
               name="close"
