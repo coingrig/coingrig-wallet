@@ -19,6 +19,10 @@ const HubScreen = () => {
   const flatListRef = React.useRef();
 
   useEffect(() => {
+    LogEvents(ILogEvents.SCREEN, 'Hub/' + t(screen.title));
+  }, []);
+
+  useEffect(() => {
     if (shadowHeader) {
       navigation.setOptions({
         headerTitle: () => (

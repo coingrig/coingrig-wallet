@@ -19,6 +19,7 @@ import {Logs} from 'services/logs';
 import StockService from 'services/stocks';
 import {MarketStore} from 'stores/market';
 import {COINS_MIN} from 'utils/constants';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const SplashScreen: FC = () => {
   const navigation = useNavigation();
@@ -52,6 +53,7 @@ const SplashScreen: FC = () => {
     StockService.getMarkets();
     await checkPin();
     SS.hide();
+    LogEvents(ILogEvents.APP_START, 'Start');
   };
 
   const checkPin = async () => {

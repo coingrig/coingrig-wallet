@@ -65,7 +65,6 @@ const DashboardScreen = observer(() => {
       ),
     });
     fetchBalance();
-    LogEvents(ILogEvents.APP_START, 'Start');
   }, [SettingsStore.mnemonicBackupDone]);
 
   useEffect(() => {

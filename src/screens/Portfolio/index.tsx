@@ -25,6 +25,10 @@ const PortfolioScreen = observer(({route}) => {
   const [shadowHeader, setShadowHeader] = useState(false);
   const flatListRef = React.useRef();
 
+  useEffect(() => {
+    LogEvents(ILogEvents.SCREEN, 'Portfolio/' + t(screen.title));
+  }, []);
+
   useFocusEffect(
     React.useCallback(() => {
       if (!route.params) {
@@ -104,7 +108,7 @@ const PortfolioScreen = observer(({route}) => {
               flatListRef.current?.scrollToIndex({animated: true, index: 0});
             }
           } catch (error) {}
-          LogEvents(ILogEvents.SCREEN, 'Portfolio/' + item.title);
+          LogEvents(ILogEvents.SCREEN, 'Portfolio/' + t(item.title));
         }}
         style={{
           backgroundColor:
