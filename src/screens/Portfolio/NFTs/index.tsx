@@ -100,7 +100,7 @@ const NFTs = observer(() => {
               alignItems: 'center',
               opacity: 0.2,
             }}>
-            <Icon name="images-outline" size={100} color={'gray'} />
+            <Icon name="images-outline" size={120} color={'gray'} />
           </View>
           <Text
             style={{

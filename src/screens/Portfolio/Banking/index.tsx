@@ -282,7 +282,7 @@ const Banking = observer(() => {
                 alignItems: 'center',
                 opacity: 0.2,
               }}>
-              <Icon name="bank-plus" size={100} color={'gray'} />
+              <Icon name="bank-plus" size={120} color={'gray'} />
             </View>
             <Text
               style={{

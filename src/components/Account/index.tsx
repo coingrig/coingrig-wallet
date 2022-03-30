@@ -111,7 +111,7 @@ const AccountItem = (props: {
             <Text style={styles.balance} numberOfLines={1} adjustsFontSizeToFit>
               {props.value}
             </Text>
-            <Text style={styles.value} numberOfLines={1} adjustsFontSizeToFit>
+            <Text style={styles.value} numberOfLines={1}>
               {capitalizeFirstLetter(props.subvalue.toLowerCase())}
             </Text>
           </View>

@@ -105,7 +105,7 @@ const Fiat = observer(() => {
                 alignItems: 'center',
                 opacity: 0.2,
               }}>
-              <Icon2 name="cash-plus" size={100} color={'gray'} />
+              <Icon2 name="cash-plus" size={120} color={'gray'} />
             </View>
             <Text
               style={{
