@@ -79,7 +79,7 @@ const MarketScreen = observer(() => {
     );
   };
 
-  let getCoinsData = (): MarketCapCoinType[] => {
+  const getCoinsData = (): MarketCapCoinType[] => {
     let list = MarketStore.coins ?? [];
     if (searchFilter !== FILTER_ALL) {
       list = MarketStore.coins.filter((o: MarketCapCoinType) => {
@@ -98,7 +98,7 @@ const MarketScreen = observer(() => {
     return list;
   };
 
-  let getCoinFilterStyle = type => {
+  const getCoinFilterStyle = type => {
     if (searchFilter === type) {
       return styles.appButtonContainerSelected;
     }
@@ -118,7 +118,7 @@ const MarketScreen = observer(() => {
           }}
         />
         <View style={styles.subtitleContainer}>
-          <Text style={styles.subtitle}>{t('market.assets')}</Text>
+          <Text style={styles.subtitle}>{t('portfolio.my_assets')}</Text>
           <View style={styles.pillsContainer}>
             <TouchableOpacity
               style={getCoinFilterStyle(FILTER_ALL)}

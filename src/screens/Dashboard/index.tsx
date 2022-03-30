@@ -108,7 +108,7 @@ const DashboardScreen = observer(() => {
   }, []);
 
   const fetchBalance = useCallback(async () => {
-    let success = await CryptoService.getAccountBalance();
+    const success = await CryptoService.getAccountBalance();
     CexService.getAllBalances();
     BanksService.updateAccountsBalance();
     StockService.updateAllStocks();

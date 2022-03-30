@@ -9,5 +9,6 @@ module.exports = {
         ignoreProps: true,
       },
     ],
+    'prefer-const': 'warn',
   },
 };

@@ -268,33 +268,33 @@ const Banking = observer(() => {
         ) : (
           <View
             style={{
-              marginTop: 10,
+              marginTop: 0,
               marginHorizontal: 16,
               flexGrow: 1,
               height: SIZE.height / 1.5,
               justifyContent: 'center',
             }}>
-            <FastImage
-              source={require('../../../assets/nft.png')}
-              resizeMode="contain"
+            <View
               style={{
                 height: 150,
                 width: '100%',
                 justifyContent: 'center',
                 alignSelf: 'center',
-                opacity: 0.5,
-              }}
-            />
+                alignItems: 'center',
+                opacity: 0.2,
+              }}>
+              <Icon name="bank-plus" size={100} color={'gray'} />
+            </View>
             <Text
               style={{
-                fontSize: 20,
-                color: Colors.lighter,
+                fontSize: 18,
+                color: 'gray',
                 textAlign: 'center',
                 fontWeight: 'bold',
-                opacity: 0.5,
-                marginTop: 50,
+                opacity: 0.2,
+                height: 50,
               }}>
-              {t('dashboard.coming_soon').toUpperCase()}
+              {t('Connect your Bank')}
             </Text>
           </View>
         )}
