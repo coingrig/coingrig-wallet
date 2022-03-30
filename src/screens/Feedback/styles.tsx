@@ -46,7 +46,8 @@ export const styles = StyleSheet.create({
   item: {
     backgroundColor: Colors.card,
     borderColor: Colors.border,
-    padding: 20,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
     borderRadius: 10,
     marginVertical: 5,
     borderWidth: 1,

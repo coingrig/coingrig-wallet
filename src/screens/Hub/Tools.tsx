@@ -19,12 +19,12 @@ export default function Tools() {
         title={null}
         category={null}
       />
-      {/* <Separator title={t('hub.external_links').toUpperCase()} />
+      <Separator title={t('hub.external_links').toUpperCase()} />
       <CardList
         data={data.filter(app => !app.module)}
         category={null}
         title={null}
-      /> */}
+      />
     </ScrollView>
   );
 }
