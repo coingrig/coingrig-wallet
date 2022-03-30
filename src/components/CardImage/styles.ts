@@ -26,6 +26,13 @@ export const styles = StyleSheet.create({
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
   },
+  imageSmall: {
+    height: 150,
+    width: '100%',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    borderRadius: 10,
+  },
   title: {
     color: Colors.foreground,
     fontSize: 22,

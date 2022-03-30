@@ -159,26 +159,6 @@ const apps = [
     enable: true,
     module: false,
   },
-  // {
-  //   title: 'Zapper',
-  //   screen: 'https://zapper.fi/',
-  //   image: require('../assets/hub/zapper.png'),
-  //   keywords: 'ceva',
-  //   categories: ['defi', 'tools'],
-  //   description: 'hub.zapper.description',
-  //   enable: true,
-  //   module: false,
-  // },
-  // {
-  //   title: 'DeBank',
-  //   screen: 'https://debank.com',
-  //   image: require('../assets/hub/debank.png'),
-  //   keywords: 'ceva',
-  //   categories: ['defi', 'tools'],
-  //   description: 'hub.debank.description',
-  //   enable: true,
-  //   module: false,
-  // },
   {
     title: 'Defistation',
     screen: 'https://www.defistation.io/',
@@ -189,16 +169,16 @@ const apps = [
     enable: true,
     module: false,
   },
-  // {
-  //   title: 'AAVE',
-  //   screen: 'https://app.aave.com/',
-  //   image: require('../assets/hub/aave.png'),
-  //   keywords: 'ceva',
-  //   categories: ['defi'],
-  //   description: 'hub.aave.description',
-  //   enable: true,
-  //   module: false,
-  // },
+  {
+    title: 'Donate to Ukraine',
+    screen: 'https://donate.thedigital.gov.ua/',
+    image: {uri: 'https://assets.coingrig.com/images/flags/ua.png'},
+    keywords: 'ukraine',
+    categories: ['home'],
+    description: 'Help Ukraine with Bitcoin',
+    enable: true,
+    module: false,
+  },
 ];
 
 export default apps;

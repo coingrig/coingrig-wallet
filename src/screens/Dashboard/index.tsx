@@ -140,11 +140,7 @@ const DashboardScreen = observer(() => {
           />
           <Text style={styles.subtitle}>{t('Quick Action')}</Text>
         </View>
-        <CardList
-          data={marketData.filter(app => app.module)}
-          title={null}
-          category={null}
-        />
+        <CardList data={marketData} title={null} category={null} />
       </View>
     );
   };
