@@ -6,14 +6,19 @@ import FastImage from 'react-native-fast-image';
 import endpoints from 'utils/endpoints';
 import {Colors} from 'utils/colors';
 import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 
 export default function SelectCountry() {
   const navigation = useNavigation();
+  const {t} = useTranslation();
+
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
         //@ts-ignore
-        onPress={() => navigation.replace('AddBankScreen', {item})}
+        onPress={() =>
+          item.enable ? navigation.replace('AddBankScreen', {item}) : null
+        }
         style={{
           flexDirection: 'row',
           paddingVertical: 20,
@@ -29,6 +34,13 @@ export default function SelectCountry() {
         />
         <Text style={{paddingLeft: 10, color: Colors.foreground}}>
           {item.name}
+        </Text>
+        <Text
+          style={{
+            color: Colors.lighter,
+            marginLeft: 10,
+          }}>
+          {!item.enable ? '(' + t('dashboard.coming_soon') + ')' : null}
         </Text>
       </TouchableOpacity>
     );
