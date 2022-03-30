@@ -25,6 +25,7 @@ export const styles = StyleSheet.create({
     height: 10,
     backgroundColor: 'red',
     zIndex: 10,
+    left: 5,
     borderRadius: 10,
   },
   bottomContainer: {

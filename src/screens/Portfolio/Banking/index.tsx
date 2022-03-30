@@ -23,7 +23,6 @@ import ActionSheet from 'react-native-actions-sheet';
 import {SmallButton} from 'components/smallButton';
 import {useTranslation} from 'react-i18next';
 import {SIZE} from 'utils/constants';
-import FastImage from 'react-native-fast-image';
 
 const detailsSheet: React.RefObject<any> = createRef();
 

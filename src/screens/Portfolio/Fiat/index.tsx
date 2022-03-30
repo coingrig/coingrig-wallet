@@ -21,7 +21,6 @@ import {FiatStore, IFiatAccounts} from 'stores/fiatStore';
 import ActionSheet from 'react-native-actions-sheet';
 import {SmallButton} from 'components/smallButton';
 import {useTranslation} from 'react-i18next';
-import FastImage from 'react-native-fast-image';
 import {SIZE} from 'utils/constants';
 
 const editSheet: React.RefObject<any> = createRef();
