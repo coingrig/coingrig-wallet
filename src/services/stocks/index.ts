@@ -3,7 +3,7 @@ import {Logs} from 'services/logs';
 import {MarketStore} from 'stores/market';
 import {IStocks, StockStore} from 'stores/StockStore';
 import endpoints from 'utils/endpoints';
-var axios = require('axios');
+import axios from 'axios';
 
 class StockService {
   lastFetch: number = 0;

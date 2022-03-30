@@ -3,7 +3,7 @@ import fx from 'services/fx';
 import {Logs} from 'services/logs';
 import {BankStore, IBankAccount} from 'stores/bankStore';
 import endpoints from 'utils/endpoints';
-var axios = require('axios');
+import axios from 'axios';
 
 class BanksService {
   accessToken: string | null = null;

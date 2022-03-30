@@ -18,7 +18,7 @@ import {showMessage} from 'react-native-flash-message';
 import endpoints from 'utils/endpoints';
 import CONFIG from 'config';
 import {Logs} from 'services/logs';
-var axios = require('axios');
+import axios from 'axios';
 
 const FBCK_TYPE_POSITIVE = 'Positive';
 const FBCK_TYPE_NEGATIVE = 'Negative';

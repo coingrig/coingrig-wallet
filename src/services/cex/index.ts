@@ -8,9 +8,8 @@ import {CexStore} from 'stores/cexStore';
 import {MarketStore} from 'stores/market';
 import fx from 'services/fx';
 import CONFIG from 'config';
+import ccxt from 'ccxt';
 const coins = require('../../assets/tokens.json');
-
-var ccxt = require('ccxt');
 
 class CexService {
   cex: any;

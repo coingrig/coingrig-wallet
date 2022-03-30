@@ -1,4 +1,4 @@
-var axios = require('axios');
+import axios from 'axios';
 import {COINS_MIN, STORED_CHAIN_KEYS} from 'utils/constants';
 import {MarketStore} from 'stores/market';
 import {IWallet, IWalletAddresses, WalletStore} from 'stores/wallet';

@@ -2,7 +2,7 @@
 import {Loader} from 'components/loader';
 import * as React from 'react';
 import {View, Text, FlatList, TouchableOpacity} from 'react-native';
-var axios = require('axios');
+import axios from 'axios';
 import * as rssParser from 'react-native-rss-parser';
 import {openLink} from 'utils';
 import {ILogEvents, LogEvents} from 'utils/analytics';

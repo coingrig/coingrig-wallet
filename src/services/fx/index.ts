@@ -1,7 +1,7 @@
 import {Logs} from 'services/logs';
 import {FiatStore} from 'stores/fiatStore';
 import endpoints from 'utils/endpoints';
-var axios = require('axios');
+import axios from 'axios';
 
 class FXService {
   rates: any;
