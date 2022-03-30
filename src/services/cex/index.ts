@@ -7,13 +7,15 @@ import {
 import {CexStore} from 'stores/cexStore';
 import {MarketStore} from 'stores/market';
 import fx from 'services/fx';
+import CONFIG from 'config';
 const coins = require('../../assets/tokens.json');
 
 var ccxt = require('ccxt');
 
 class CexService {
   cex: any;
-  exchanges: string[];
+  // exchanges: string[];
+  lastFetch: number = 0;
   constructor() {
     this.cex = {
       binance: null,
@@ -22,7 +24,7 @@ class CexService {
       gateio: null,
       cryptocom: null,
     };
-    this.exchanges = ccxt.exchanges;
+    // this.exchanges = ccxt.exchanges;
     this.start();
   }
 
@@ -103,6 +105,11 @@ class CexService {
   }
 
   async getAllBalances() {
+    const now = Date.now();
+    if (now - this.lastFetch! < CONFIG.BALANCE_TIMEOUT * 1000) {
+      return;
+    }
+    this.lastFetch = now;
     try {
       const cexList = CexStore.cexs;
       if (cexList.length > 0) {

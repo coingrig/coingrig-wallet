@@ -109,7 +109,7 @@ const Fiat = observer(() => {
             </View>
             <Text
               style={{
-                fontSize: 18,
+                fontSize: 21,
                 color: 'gray',
                 textAlign: 'center',
                 fontWeight: 'bold',

@@ -6,6 +6,7 @@ import endpoints from 'utils/endpoints';
 var axios = require('axios');
 
 class StockService {
+  lastFetch: number = 0;
   constructor() {}
 
   getMarkets = async () => {
@@ -86,6 +87,11 @@ class StockService {
   };
 
   updateAllStocks = async () => {
+    const now = Date.now();
+    if (now - this.lastFetch! < CONFIG.BALANCE_TIMEOUT * 1000) {
+      return;
+    }
+    this.lastFetch = now;
     const symbolList = StockStore.getSymbolList();
     if (symbolList.length === 0) {
       return;
