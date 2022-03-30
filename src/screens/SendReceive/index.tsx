@@ -53,6 +53,7 @@ const SendReceiveScreen = ({route}) => {
           coin={route.params.coin}
           chain={route.params.chain}
           address={address}
+          to={route.params.to ?? null}
           coinDescriptor={coinDescriptor}
         />
       ) : (

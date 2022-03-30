@@ -61,7 +61,7 @@ export const formatNoComma = (nr: string) => {
 };
 
 export const convertExponential = (n: string | number) => {
-  let newNr = new BigNumber(n);
+  const newNr = new BigNumber(n);
   return newNr.toFixed(9);
 };
 
@@ -103,5 +103,20 @@ export const openLink = async url => {
     }
   } catch (error) {
     Logs.error(error);
+  }
+};
+
+export const getChainByCoin = coin => {
+  switch (coin) {
+    case 'ETH':
+      return 'ETH';
+    case 'BNB':
+      return 'BSC';
+    case 'MATIC':
+      return 'POLYGON';
+    case 'BTC':
+      return 'BTC';
+    default:
+      return null;
   }
 };
