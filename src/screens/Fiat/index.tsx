@@ -49,7 +49,7 @@ export default function AddFiat() {
             fontSize: 13,
             textAlign: 'right',
           }}>
-          {item[1]} USD
+          {item[1].toFixed(2) + ' ' + item[0] + '/USD'}
         </Text>
       </TouchableOpacity>
     );
@@ -87,7 +87,7 @@ export default function AddFiat() {
           autoCorrect={false}
           style={styles.editInput}
           value={accName}
-          onChangeText={t => setAccName(t)}
+          onChangeText={v => setAccName(v)}
         />
         <TextInput
           placeholder={0 + ' ' + selected}
@@ -95,7 +95,7 @@ export default function AddFiat() {
           placeholderTextColor={'gray'}
           style={styles.editInput}
           value={accBalance}
-          onChangeText={t => setAccBalance(t)}
+          onChangeText={v => setAccBalance(v)}
         />
         <SmallButton
           text={t('swap.slippage_save')}
@@ -104,7 +104,7 @@ export default function AddFiat() {
             if (!balanceValue) {
               balanceValue = '0';
             }
-            let balance = parseFloat(balanceValue);
+            const balance = parseFloat(balanceValue);
             FiatStore.addAccount({
               id: Date.now().toLocaleString(),
               balance: balance,
