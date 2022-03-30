@@ -33,11 +33,11 @@ export default function DApps() {
         />
         <Text
           style={{
-            fontSize: 20,
+            fontSize: 19,
             color: Colors.lighter,
             textAlign: 'center',
             fontWeight: 'bold',
-            opacity: 0.5,
+            opacity: 0.3,
             marginTop: 50,
           }}>
           {t('dashboard.coming_soon').toUpperCase()}
