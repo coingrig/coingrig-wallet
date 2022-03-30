@@ -5,13 +5,14 @@ import {observer} from 'mobx-react-lite';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import NFTCard from 'components/NFT/Card';
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {styles} from '../styles';
 import BigList from 'react-native-big-list';
 import endpoints from 'utils/endpoints';
 import {CryptoService} from 'services/crypto';
 import {SIZE} from 'utils/constants';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {Colors} from 'utils/colors';
 
 const NFTs = observer(() => {
   const {t} = useTranslation();
@@ -20,7 +21,21 @@ const NFTs = observer(() => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => null,
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('SendReceiveScreen', {
+              coin: 'ETH',
+              chain: 'ETH',
+              name: 'Ethereum',
+              receive: true,
+              nft: true,
+            });
+          }}
+          style={styles.moreBtn}>
+          <Icon name="download" size={25} color={Colors.foreground} />
+        </TouchableOpacity>
+      ),
     });
     fetchNFTs();
   }, []);
