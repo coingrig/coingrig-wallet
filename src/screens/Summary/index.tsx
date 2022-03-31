@@ -46,7 +46,7 @@ export default function SummaryScreen() {
         legendFontSize: 15,
       },
     ];
-  }, null);
+  }, []);
 
   const calcPercentage = value => {
     const total =

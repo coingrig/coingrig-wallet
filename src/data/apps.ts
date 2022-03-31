@@ -170,16 +170,6 @@ const apps = [
     module: false,
   },
   {
-    title: 'Defistation',
-    screen: 'https://www.defistation.io/',
-    image: require('../assets/hub/defistation.png'),
-    keywords: 'ceva',
-    categories: ['tools'],
-    description: 'hub.defistation.description',
-    enable: true,
-    module: false,
-  },
-  {
     title: 'Donate to Ukraine',
     screen: 'https://donate.thedigital.gov.ua/',
     image: {uri: 'https://assets.coingrig.com/images/ua.png'},
