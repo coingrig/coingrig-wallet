@@ -1,14 +1,14 @@
 import {action, makeAutoObservable} from 'mobx';
 import {hydrateStore, isHydrated, makePersistable} from 'mobx-persist-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import fx from 'services/fx';
+import {FxStore} from './fxStore';
 
 export type IFiatAccounts = {
   id: string;
   name: string;
   balance: number;
   currency: string;
-  usdBalance: number;
+  usdBalance: number | undefined;
 };
 
 class fiatStore {
@@ -34,7 +34,7 @@ class fiatStore {
 
   sumTotalBalance() {
     return this.fiatAccounts.reduce(
-      (total, acc) => total + acc.usdBalance,
+      (total, acc) => total + (acc.usdBalance ?? 0),
       0.0,
     );
   }
@@ -44,7 +44,7 @@ class fiatStore {
   });
 
   updateAccount = action((id: string, data: IFiatAccounts) => {
-    let pos = this.getAccountPosition(id);
+    const pos = this.getAccountPosition(id);
     if (pos !== -1) {
       this.fiatAccounts[pos] = data;
     }
@@ -63,7 +63,7 @@ class fiatStore {
   };
 
   deleteAccountById = action((id: string) => {
-    let index = this.getAccountPosition(id);
+    const index = this.getAccountPosition(id);
     if (index !== -1) {
       this.fiatAccounts.splice(index, 1);
       this.fiatAccounts = this.fiatAccounts.slice(0);
@@ -72,14 +72,21 @@ class fiatStore {
   });
 
   updateAllBalances = action(() => {
-    if (Object.entries(fx.rates).length > 0) {
+    const updateAction = () => {
       let _totalBalance = 0;
       this.fiatAccounts.forEach(item => {
-        item.usdBalance = item.balance / fx.rates[item.currency];
-        _totalBalance = _totalBalance + item.usdBalance;
+        item.usdBalance = FxStore.toUsd(item.balance, item.currency);
+        if (item.usdBalance !== undefined) {
+          _totalBalance = _totalBalance + item.usdBalance;
+        }
       });
       this.fiatAccounts = this.fiatAccounts.slice(0);
       this.updateTotalBalance(_totalBalance);
+    };
+    if (FxStore.isHydrated) {
+      updateAction();
+    } else {
+      FxStore.hydrateStore().then(updateAction);
     }
   });
 

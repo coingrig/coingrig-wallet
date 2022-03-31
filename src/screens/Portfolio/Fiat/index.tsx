@@ -54,7 +54,11 @@ const Fiat = observer(() => {
       }}
       title={item.name || ''}
       value={item.balance + ' ' + item.currency || ''}
-      subvalue={formatPrice(item.usdBalance, true) || ''}
+      subvalue={
+        item.usdBalance === undefined
+          ? '-'
+          : formatPrice(item.usdBalance, true) || ''
+      }
       subtitle={''}
       img={null}
       subimg={null}
