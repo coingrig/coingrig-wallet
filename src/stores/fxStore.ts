@@ -8,7 +8,7 @@ class fxStore {
   constructor() {
     makeAutoObservable(this);
     makePersistable(this, {
-      name: 'FiatStore',
+      name: 'FxStore',
       properties: ['rates'],
       storage: AsyncStorage,
     });

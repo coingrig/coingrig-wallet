@@ -111,7 +111,7 @@ export default function AddFiat() {
               id: Date.now().toLocaleString(),
               balance: balance,
               currency: selected || '',
-              name: accName,
+              name: accName.length > 0 ? accName : selected!,
               usdBalance: usdBalance,
             });
             if (usdBalance !== undefined) {

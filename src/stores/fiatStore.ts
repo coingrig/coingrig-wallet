@@ -1,4 +1,4 @@
-import {action, makeAutoObservable} from 'mobx';
+import {action, runInAction, makeAutoObservable} from 'mobx';
 import {hydrateStore, isHydrated, makePersistable} from 'mobx-persist-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {FxStore} from './fxStore';
@@ -73,15 +73,18 @@ class fiatStore {
 
   updateAllBalances = action(() => {
     const updateAction = () => {
-      let _totalBalance = 0;
-      this.fiatAccounts.forEach(item => {
-        item.usdBalance = FxStore.toUsd(item.balance, item.currency);
-        if (item.usdBalance !== undefined) {
-          _totalBalance = _totalBalance + item.usdBalance;
+      runInAction(() => {
+        let _totalBalance = 0;
+        for (let i = 0; i < this.fiatAccounts.length; i++) {
+          const item = this.fiatAccounts[i];
+          item.usdBalance = FxStore.toUsd(item.balance, item.currency);
+          if (item.usdBalance !== undefined) {
+            _totalBalance = _totalBalance + item.usdBalance;
+          }
         }
+        this.fiatAccounts = this.fiatAccounts.slice(0);
+        this.updateTotalBalance(_totalBalance);
       });
-      this.fiatAccounts = this.fiatAccounts.slice(0);
-      this.updateTotalBalance(_totalBalance);
     };
     if (FxStore.isHydrated) {
       updateAction();
