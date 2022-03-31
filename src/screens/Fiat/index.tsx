@@ -2,7 +2,6 @@ import {View, Text, FlatList, TouchableOpacity, TextInput} from 'react-native';
 import React, {createRef, useState} from 'react';
 import {Colors} from 'utils/colors';
 import {useNavigation} from '@react-navigation/native';
-import fx from 'services/fx';
 import {SmallButton} from 'components/smallButton';
 import ActionSheet from 'react-native-actions-sheet';
 import {styles} from './styles';

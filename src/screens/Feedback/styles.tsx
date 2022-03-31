@@ -69,6 +69,7 @@ export const styles = StyleSheet.create({
     height: 130,
     flex: 1,
     backgroundColor: Colors.card,
+    textAlignVertical: 'top',
   },
   submitButton: {
     backgroundColor: '#2e2c2c',

@@ -1,5 +1,4 @@
 import CONFIG from 'config';
-import fx from 'services/fx';
 import {Logs} from 'services/logs';
 import {BankStore, IBankAccount} from 'stores/bankStore';
 import endpoints from 'utils/endpoints';
