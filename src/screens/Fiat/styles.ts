@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     marginTop: 25,
-    marginBottom: 30,
+    marginBottom: 20,
     fontFamily: 'RobotoSlab-Bold',
     color: Colors.foreground,
   },

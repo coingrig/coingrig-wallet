@@ -58,7 +58,7 @@ export default function CexDetails({route}) {
   };
 
   const onSuccess = async e => {
-    let data = e.data;
+    const data = e.data;
     const {apiKey, secretKey} = JSON.parse(data);
     actionCamera.current?.setModalVisible(false);
     if (apiKey && secretKey) {
@@ -161,10 +161,10 @@ export default function CexDetails({route}) {
         />
         <View style={{margin: 15}}>
           <Text style={{color: Colors.lighter, marginBottom: 3}}>
-            {'category'}
+            {'Connector'}
           </Text>
-          <Text style={styles.title}>{'title'}</Text>
-          <Text style={styles.desc}>{'desc'}</Text>
+          <Text style={styles.title}>{'Connect to' + ' ' + item.title}</Text>
+          {/* <Text style={styles.desc}>{'Track your assets'}</Text> */}
         </View>
       </View>
       <View>

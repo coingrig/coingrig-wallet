@@ -80,7 +80,7 @@ export default function AddFiat() {
         // gestureEnabled={true}
         // headerAlwaysVisible
         containerStyle={styles.editContainer}>
-        <Text style={styles.editTitle}>{t('wallet.add_fiat') + selected}</Text>
+        <Text style={styles.editTitle}>{t('Add Cash')}</Text>
         <TextInput
           placeholder="Account name"
           placeholderTextColor={'gray'}
