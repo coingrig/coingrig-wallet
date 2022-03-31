@@ -48,6 +48,7 @@ import AddBank from 'screens/Banking/AddBank';
 import SelectCountry from 'screens/Banking/SelectCountry';
 import AddFiat from 'screens/Fiat';
 import SearchStocks from 'screens/SearchStocks';
+import SummaryScreen from 'screens/Summary';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -333,6 +334,31 @@ function NavigationStack({t}) {
         options={{
           headerShown: true,
           headerTitle: t('title.news'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="SummaryScreen"
+        component={SummaryScreen}
+        options={{
+          headerShown: true,
+          headerTitle: t('Summary'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios

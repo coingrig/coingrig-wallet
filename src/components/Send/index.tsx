@@ -241,7 +241,7 @@ export function SendContainer(props: any) {
             </TouchableOpacity>
           </View>
 
-          <View style={styles.inputView}>
+          <View style={styles.inputViewsub}>
             <TextInput
               style={styles.input}
               onChangeText={v => setAmount(v)}

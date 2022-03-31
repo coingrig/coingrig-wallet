@@ -201,7 +201,7 @@ const WalletScreen = observer(({route}) => {
               styles.unconfValue,
               // eslint-disable-next-line react-native/no-inline-styles
               {
-                color: unconfTxValue! > 0 ? '#5cb85c' : '#d9534f',
+                color: unconfTxValue! >= 0 ? Colors.green : Colors.red,
               },
             ]}>
             {unconfTxValue || 0} {route.params.symbol}

@@ -12,6 +12,7 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import {showMessage} from 'react-native-flash-message';
 import {SettingsStore} from 'stores/settings';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 import {Colors} from 'utils/colors';
@@ -173,7 +174,7 @@ const SettingScreen = observer(() => {
           <TouchableOpacity
             style={styles.item}
             onPress={() => navigation.navigate('FeedbackScreen')}>
-            <Icon name="chatbubbles" size={23} color={Colors.foreground} />
+            <Icon2 name="star-half-alt" size={20} color={Colors.foreground} />
             <Text style={styles.textItem}>{t('settings.feedback')}</Text>
             <Icon name="arrow-forward" size={20} color="gray" />
           </TouchableOpacity>

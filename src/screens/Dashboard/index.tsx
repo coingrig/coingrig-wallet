@@ -59,13 +59,13 @@ const DashboardScreen = observer(() => {
           <TouchableOpacity
             onPress={() => navigation.navigate('FeedbackScreen')}
             style={styles.moreBtn}>
-            <Icon name="star-half-alt" size={21} color={Colors.foreground} />
+            <Icon name="star-half-alt" size={20} color={Colors.foreground} />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate('SettingScreen')}
             style={styles.moreBtn}>
             {SettingsStore.mnemonicBackupDone ? null : badge()}
-            <Icon3 name="settings-sharp" size={23} color={Colors.foreground} />
+            <Icon3 name="settings-sharp" size={22} color={Colors.foreground} />
           </TouchableOpacity>
         </View>
       ),

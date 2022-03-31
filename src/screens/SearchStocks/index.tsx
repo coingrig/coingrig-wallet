@@ -25,7 +25,7 @@ const SearchStocks = () => {
     }
     const query = await StockService.search(text);
     setData(query);
-  }, 500);
+  }, 300);
 
   const searchStock = async text => {
     debouncedSearch(text);

@@ -50,6 +50,16 @@ const apps = [
     module: true,
   },
   {
+    title: 'Portfolio Summary',
+    screen: 'SummaryScreen',
+    image: require('../assets/hub/pie-chart.png'),
+    keywords: 'pie, chart, summary',
+    categories: ['tools'],
+    description: 'Pie chart portfolio distribution',
+    enable: true,
+    module: true,
+  },
+  {
     title: 'hub.synthetics',
     screen: 'SyntheticScreen',
     image: require('../assets/hub/paper.png'),
