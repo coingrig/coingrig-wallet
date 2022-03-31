@@ -37,7 +37,7 @@ let theme = {
 if (colorScheme === 'dark') {
   theme = {
     black: '#353333',
-    foreground: '#f2eded', //4d3e36
+    foreground: '#f2eded', //f2eded
     background: '#353333',
     yellow: '#ded464',
     inverse: '#353333',

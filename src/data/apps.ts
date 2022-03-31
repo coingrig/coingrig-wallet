@@ -172,7 +172,7 @@ const apps = [
   {
     title: 'Donate to Ukraine',
     screen: 'https://donate.thedigital.gov.ua/',
-    image: {uri: 'https://assets.coingrig.com/images/flags/ua.png'},
+    image: {uri: 'https://assets.coingrig.com/images/ua.png'},
     keywords: 'ukraine',
     categories: ['home'],
     description: 'Help Ukraine with Bitcoin',

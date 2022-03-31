@@ -74,9 +74,7 @@ const HubScreen = () => {
           style={{
             fontSize: 14,
             color:
-              screen.title === item.title
-                ? Colors.background
-                : Colors.foreground,
+              screen.title === item.title ? Colors.background : Colors.lighter,
           }}>
           {t(item.title)}
         </Text>

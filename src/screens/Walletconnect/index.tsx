@@ -408,7 +408,7 @@ const WalletconnectScreen = observer(({route}) => {
           color={Colors.foreground}
           style={[
             styles.smallBtn,
-            {backgroundColor: Colors.darker, width: 280},
+            {backgroundColor: Colors.darker, width: 250},
           ]}
         />
       </Animatable.View>
