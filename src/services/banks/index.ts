@@ -4,6 +4,8 @@ import {BankStore, IBankAccount} from 'stores/bankStore';
 import endpoints from 'utils/endpoints';
 import axios from 'axios';
 import {FxStore} from 'stores/fxStore';
+import i18n from 'i18n';
+import {showMessage} from 'react-native-flash-message';
 
 class BanksService {
   accessToken: string | null = null;
@@ -48,14 +50,8 @@ class BanksService {
       method: 'get',
       url: endpoints.nordigen + '/accounts/' + id + '/details/',
     };
-    try {
-      const response = await this.request(config);
-      // console.log(response.data);
-      return response.data;
-    } catch (error) {
-      Logs.error(error);
-      return null;
-    }
+    const response = await this.request(config);
+    return response.data;
   };
 
   private getAccountBalance = async id => {
@@ -63,25 +59,20 @@ class BanksService {
       method: 'get',
       url: endpoints.nordigen + '/accounts/' + id + '/balances/',
     };
-    try {
-      const response = await this.request(config);
-      Logs.info('Account Balance : ', JSON.stringify(response.data));
-      const data = response.data.balances;
-      let balance = data.find((o: any) => {
-        return (
-          o.balanceType === 'expected' && Math.sign(o.balanceAmount.amount) >= 0
-        );
+    const response = await this.request(config);
+    Logs.info('Account Balance : ', JSON.stringify(response.data));
+    const data = response.data.balances;
+    let balance = data.find((o: any) => {
+      return (
+        o.balanceType === 'expected' && Math.sign(o.balanceAmount.amount) >= 0
+      );
+    });
+    if (!balance) {
+      balance = data.find((o: any) => {
+        return o.balanceType === 'interimAvailable';
       });
-      if (!balance) {
-        balance = data.find((o: any) => {
-          return o.balanceType === 'interimAvailable';
-        });
-      }
-      return balance || 0;
-    } catch (error) {
-      Logs.error(error);
-      return null;
     }
+    return balance || 0;
   };
 
   addDays = days => {
@@ -119,12 +110,33 @@ class BanksService {
   };
 
   updateAccountsBalance = async () => {
+    const accountsToDelete = [];
     for (let index = 0; index < BankStore.bankAccounts.length; index++) {
       const account = {...BankStore.bankAccounts[index]};
-      const {balance}: any = await this.getBankAccountData(account.id);
-      account.amount =
-        parseFloat(balance.balanceAmount.amount) + account.offset! || 0;
-      BankStore.updateAccount(account.id, account);
+      try {
+        const {balance}: any = await this.getBankAccountData(account.id);
+        account.amount =
+          parseFloat(balance.balanceAmount.amount) + account.offset! || 0;
+        BankStore.updateAccount(account.id, account);
+      } catch (error: any) {
+        const status = error?.response?.status ?? null;
+        if (status && [400, 401, 403, 409].includes(status)) {
+          Logs.info('Deleting expired account: ' + account?.bankName);
+          accountsToDelete.push(account.id);
+        } else {
+          Logs.error(error);
+        }
+      }
+    }
+    if (accountsToDelete.length > 0) {
+      for (let i = 0; i < accountsToDelete.length; i++) {
+        const id = accountsToDelete[i];
+        BankStore.deleteAccountById(id);
+      }
+      showMessage({
+        message: i18n.t('Deleted expired bank accounts!'),
+        type: 'danger',
+      });
     }
     this.updateTotalBalance();
   };
@@ -132,9 +144,12 @@ class BanksService {
   updateAccountsOffset = async (id, offset) => {
     const fOffset = parseFloat(offset);
     const account = {...BankStore.getAccountById(id)};
-    const {balance}: any = await this.getBankAccountData(id);
+    if (!account) {
+      return;
+    }
     try {
-      if (account) {
+      const {balance}: any = await this.getBankAccountData(id);
+      try {
         account.offset = fOffset ?? 0;
         account.amount =
           parseFloat(balance.balanceAmount.amount) + account.offset;
@@ -142,9 +157,21 @@ class BanksService {
         BankStore.updateAccount(id, account);
         console.log(account);
         this.updateTotalBalance();
+      } catch (error) {
+        Logs.error(error);
       }
-    } catch (error) {
-      Logs.error(error);
+    } catch (error: any) {
+      const status = error?.response?.status ?? null;
+      if (status && [400, 401, 403, 409].includes(status)) {
+        Logs.info('Deleting expired account: ' + account?.bankName);
+        BankStore.deleteAccountById(account.id);
+        showMessage({
+          message: i18n.t('Deleted expired bank accounts!'),
+          type: 'danger',
+        });
+      } else {
+        Logs.error(error);
+      }
     }
   };
 
@@ -175,9 +202,13 @@ class BanksService {
   };
 
   getBankAccountData = async (accountID: string) => {
-    const details = await this.getAccountDetails(accountID);
-    const balance = await this.getAccountBalance(accountID);
-    return {details, balance};
+    try {
+      const details = await this.getAccountDetails(accountID);
+      const balance = await this.getAccountBalance(accountID);
+      return {details, balance};
+    } catch (erorr) {
+      throw erorr;
+    }
   };
 
   fetchAccountsList = async (accountID: string) => {

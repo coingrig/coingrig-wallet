@@ -78,7 +78,6 @@ export default function CexDetails({route}) {
         item.icon,
       );
       if (saved) {
-        console.log('Done');
         await CexService.getBalance(item.id);
         CexStore.updateTotalBalance(CexStore.sumTotalBalance());
         showMessage({
@@ -92,11 +91,13 @@ export default function CexDetails({route}) {
     } catch (error) {
       LoadingModal.instance.current?.hide();
       deleteCex(true);
-      Logs.error(error);
-      showMessage({
-        message: t('Cannot authenticate'),
-        type: 'danger',
-      });
+      if (error !== 'Authorization error') {
+        Logs.error(error);
+        showMessage({
+          message: t('Cannot authenticate'),
+          type: 'danger',
+        });
+      }
     }
   };
 
