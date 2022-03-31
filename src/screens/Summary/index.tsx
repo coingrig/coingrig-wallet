@@ -16,34 +16,42 @@ import {formatPrice} from 'utils';
 export default function SummaryScreen() {
   const {t} = useTranslation();
   const sortedData = useMemo(() => {
+    const total =
+      WalletStore.totalBalance +
+      CexStore.totalBalance +
+      BankStore.totalBalance +
+      StockStore.totalBalance +
+      FiatStore.totalBalance;
+    console.log(total);
+    if (total === 0) {
+      return [
+        {
+          name: 'No money',
+          money: 1,
+          color: '#003F5C',
+        },
+      ];
+    }
     return [
       {
         name: 'Crypto',
         money: WalletStore.totalBalance + CexStore.totalBalance,
         color: '#003F5C',
-        legendFontColor: '#7F7F7F',
-        legendFontSize: 13,
       },
       {
         name: 'Bank',
-        money: BankStore.totalBalance,
+        money: BankStore.totalBalance || 0,
         color: '#58508D',
-        legendFontColor: '#7F7F7F',
-        legendFontSize: 15,
       },
       {
         name: 'Stocks',
-        money: StockStore.totalBalance,
+        money: StockStore.totalBalance || 0,
         color: '#BC5090',
-        legendFontColor: '#7F7F7F',
-        legendFontSize: 15,
       },
       {
         name: 'Cash',
-        money: FiatStore.totalBalance,
+        money: FiatStore.totalBalance || 0,
         color: '#FF6361',
-        legendFontColor: '#7F7F7F',
-        legendFontSize: 15,
       },
     ];
   }, []);
@@ -55,9 +63,12 @@ export default function SummaryScreen() {
       BankStore.totalBalance +
       StockStore.totalBalance +
       FiatStore.totalBalance;
+    if (total === 0) {
+      return '0%';
+    }
     let percent: any = (value / total) * 100;
-    percent = percent.toFixed(2);
-    return percent + '%';
+    percent = percent.toFixed(2) ?? 0;
+    return (percent || 0) + '%';
   };
 
   const renderColor = type => {

@@ -13,7 +13,8 @@ import {styles} from './styles';
 export const OtherMarkets = observer(() => {
   const {t} = useTranslation();
   return (
-    <View style={{flex: 1, marginHorizontal: 16, marginTop: 5}}>
+    <View
+      style={{flex: 1, marginHorizontal: 16, marginTop: 10, marginBottom: 0}}>
       <View
         style={[
           styles.subContainer,
@@ -82,7 +83,8 @@ export const OtherMarkets = observer(() => {
 export const USMarkets = observer(() => {
   const {t} = useTranslation();
   return (
-    <View style={{flex: 1, marginHorizontal: 16, marginTop: 5}}>
+    <View
+      style={{flex: 1, marginHorizontal: 16, marginTop: 5, marginBottom: 5}}>
       <View
         style={[
           styles.subContainer,
