@@ -44,7 +44,7 @@ class bankStore {
   });
 
   updateAccount = action((id: string, data: IBankAccount) => {
-    let pos = this.getAccountPosition(id);
+    const pos = this.getAccountPosition(id);
     if (pos !== -1) {
       this.bankAccounts[pos] = data;
     }
@@ -52,7 +52,7 @@ class bankStore {
   });
 
   updateAccountOffset = action((id: string, _offset: number) => {
-    let pos = this.getAccountPosition(id);
+    const pos = this.getAccountPosition(id);
     if (pos !== -1) {
       this.bankAccounts[pos].offset = _offset;
     }
@@ -72,7 +72,7 @@ class bankStore {
   };
 
   deleteAccountById = action((id: string) => {
-    let index = this.getAccountPosition(id);
+    const index = this.getAccountPosition(id);
     if (index !== -1) {
       this.bankAccounts.splice(index, 1);
       this.bankAccounts = this.bankAccounts.slice(0);

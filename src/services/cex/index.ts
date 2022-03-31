@@ -6,7 +6,7 @@ import {
 } from 'services/storage';
 import {CexStore} from 'stores/cexStore';
 import {MarketStore} from 'stores/market';
-import fx from 'services/fx';
+import {FxStore} from 'stores/fxStore';
 import CONFIG from 'config';
 import ccxt from 'ccxt';
 const coins = require('../../assets/tokens.json');
@@ -48,6 +48,9 @@ class CexService {
     }
     const b = await this.cex[cexID].fetchBalance();
     const balance: any = [];
+    if (!FxStore.isHydrated) {
+      await FxStore.hydrateStore();
+    }
     for (const [key, v] of Object.entries(b.total)) {
       if (v > 0) {
         const coin = coins.filter(
@@ -63,13 +66,13 @@ class CexService {
               totalValue: v,
               image: null,
             });
-          } else if (key.toLowerCase() === 'eur') {
+          } else if (FxStore.getRate(key) !== undefined) {
             balance.push({
               id: null,
               symbol: key,
               balance: v,
-              price: fx.rates.EUR,
-              totalValue: v / fx.rates.EUR,
+              price: FxStore.getRate(key) ?? 0,
+              totalValue: FxStore.toUsd(v, key) ?? 0,
               image: null,
             });
           } else {

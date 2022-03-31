@@ -4,6 +4,7 @@ import {Logs} from 'services/logs';
 import {BankStore, IBankAccount} from 'stores/bankStore';
 import endpoints from 'utils/endpoints';
 import axios from 'axios';
+import {FxStore} from 'stores/fxStore';
 
 class BanksService {
   accessToken: string | null = null;
@@ -149,19 +150,28 @@ class BanksService {
   };
 
   updateTotalBalance = async () => {
-    try {
-      let newBalance = 0;
-      for (let index = 0; index < BankStore.bankAccounts.length; index++) {
-        const account = {...BankStore.bankAccounts[index]};
-        const rate = fx.rates[account.currency!]
-          ? fx.rates[account.currency!]
-          : 1;
-        const convertedBalance = account.amount! / rate;
-        newBalance = convertedBalance + newBalance;
+    const updateAction = () => {
+      try {
+        let newBalance = 0;
+        for (let index = 0; index < BankStore.bankAccounts.length; index++) {
+          const account = {...BankStore.bankAccounts[index]};
+          const convertedBalance = FxStore.toUsd(
+            account.amount,
+            account.currency!,
+          );
+          if (convertedBalance !== undefined) {
+            newBalance = newBalance + convertedBalance;
+          }
+        }
+        BankStore.updateTotalBalance(newBalance);
+      } catch (error) {
+        Logs.error(error);
       }
-      BankStore.updateTotalBalance(newBalance);
-    } catch (error) {
-      Logs.error(error);
+    };
+    if (!FxStore.isHydrated) {
+      FxStore.hydrateStore().then(updateAction);
+    } else {
+      updateAction();
     }
   };
 

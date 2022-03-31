@@ -2,11 +2,12 @@ import {Logs} from 'services/logs';
 import {FiatStore} from 'stores/fiatStore';
 import endpoints from 'utils/endpoints';
 import axios from 'axios';
+import {FxStore} from 'stores/fxStore';
+import BanksService from 'services/banks';
+import {CexStore} from 'stores/cexStore';
 
 class FXService {
-  rates: any;
   constructor() {
-    this.rates = null;
     this.fetchFX();
   }
   fetchFX = async () => {
@@ -17,8 +18,11 @@ class FXService {
 
     axios(config)
       .then(response => {
-        this.rates = response.data.rates;
+        const rates = response.data.rates;
+        FxStore.setRates(rates);
+        BanksService.updateTotalBalance();
         FiatStore.updateAllBalances();
+        CexStore.updateFiatAccounts();
       })
       .catch(function (error) {
         Logs.error(error);

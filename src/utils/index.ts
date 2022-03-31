@@ -16,6 +16,7 @@ export const clearAllAppData = async () => {
   await clearPersistedStore('BankStore');
   await clearPersistedStore('FiatStore');
   await clearPersistedStore('StockStore');
+  await clearPersistedStore('FxStore');
   await StorageClearAll();
   await deleteUserPinCode();
   RNRestart.Restart();

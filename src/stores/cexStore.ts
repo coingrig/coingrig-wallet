@@ -2,6 +2,7 @@ import {action, makeAutoObservable} from 'mobx';
 import {hydrateStore, isHydrated, makePersistable} from 'mobx-persist-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BigNumber from 'bignumber.js';
+import {FxStore} from './fxStore';
 
 export type CexStoreType = {
   id: string;
@@ -53,6 +54,28 @@ class cexStore {
     this.totalBalance = balance;
   });
 
+  // Update fiat accounts from CEXs when the fiat exchange rate changes
+  updateFiatAccounts = action(() => {
+    for (let i = 0; i < this.cexs.length; i++) {
+      const cex = this.cexs[i];
+      for (let z = 0; z < cex.data.length; z++) {
+        const coin = cex.data[z];
+        // is not a coing, maybe it is a fiat account
+        if (coin.id === null) {
+          const rate = FxStore.getRate(coin.symbol);
+          // if a rate matches then treat it as a fiat account
+          if (rate !== undefined) {
+            this.cexs[i].data[z].price = FxStore.getRate(coin.symbol) ?? 0;
+            this.cexs[i].data[z].totalValue =
+              FxStore.toUsd(coin.balance, coin.symbol) ?? 0;
+          }
+        }
+      }
+    }
+    this.updateTotalBalance(this.sumTotalBalance());
+    this.cexs = this.cexs.slice(0);
+  });
+
   addCex = action((id, title, logo) => {
     const data = [];
     const check = this.getCexById(id);
@@ -71,7 +94,7 @@ class cexStore {
   };
 
   addCexData = action((id, data) => {
-    let pos = this._getCexPosition(id);
+    const pos = this._getCexPosition(id);
     if (pos !== -1) {
       this.cexs[pos].data = data;
     }
@@ -79,7 +102,7 @@ class cexStore {
   });
 
   deleteCexById = action((id: string) => {
-    let index = this._getCexPosition(id);
+    const index = this._getCexPosition(id);
     if (index !== -1) {
       this.cexs.splice(index, 1);
       this.cexs = this.cexs.slice(0);

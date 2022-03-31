@@ -10,6 +10,7 @@ import {useTranslation} from 'react-i18next';
 import {FiatStore} from 'stores/fiatStore';
 import {formatNoComma} from 'utils';
 import {ILogEvents, LogEvents} from 'utils/analytics';
+import {FxStore} from 'stores/fxStore';
 
 const editSheet: React.RefObject<any> = createRef();
 
@@ -58,7 +59,7 @@ export default function AddFiat() {
   return (
     <>
       <FlatList
-        data={Object.entries(fx.rates)}
+        data={Object.entries(FxStore.rates)}
         renderItem={renderItem}
         keyExtractor={item => item[0]}
         maxToRenderPerBatch={10}
@@ -105,16 +106,17 @@ export default function AddFiat() {
               balanceValue = '0';
             }
             const balance = parseFloat(balanceValue);
+            const usdBalance = FxStore.toUsd(balance, selected!);
             FiatStore.addAccount({
               id: Date.now().toLocaleString(),
               balance: balance,
               currency: selected || '',
-              name: accName,
-              usdBalance: balance / fx.rates[selected!],
+              name: accName.length > 0 ? accName : selected!,
+              usdBalance: usdBalance,
             });
-            FiatStore.updateTotalBalance(
-              FiatStore.totalBalance + balance / fx.rates[selected!],
-            );
+            if (usdBalance !== undefined) {
+              FiatStore.updateTotalBalance(FiatStore.totalBalance + usdBalance);
+            }
             editSheet.current?.setModalVisible(false);
             LogEvents(ILogEvents.ACTION, 'AddCash');
             navigation.goBack();
