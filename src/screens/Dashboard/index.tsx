@@ -198,7 +198,7 @@ const DashboardScreen = observer(() => {
                 color={'orange'}
               />
               <Brick
-                title={'Bank'}
+                title={'Banks'}
                 key={1}
                 size={30}
                 value={BankStore.totalBalance}

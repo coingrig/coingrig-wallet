@@ -26,7 +26,7 @@ const PortfolioScreen = observer(({route}) => {
   const flatListRef = React.useRef();
 
   useEffect(() => {
-    LogEvents(ILogEvents.SCREEN, 'Portfolio/' + t(screen.title));
+    LogEvents(ILogEvents.SCREEN, 'Portfolio/' + screen.title);
   }, []);
 
   useFocusEffect(
@@ -34,13 +34,12 @@ const PortfolioScreen = observer(({route}) => {
       if (!route.params) {
         return;
       }
-      if (route.params.tab === 'Bank') {
+      if (route.params.tab === 'Banks') {
         setScreen(Portfolios[3]);
         scrollRef.current?.scrollTo({
           x: 90,
           animated: true,
         });
-        LogEvents(ILogEvents.SCREEN, 'Portfolio/Banking');
       }
       if (route.params.tab === 'Crypto') {
         setScreen(Portfolios[0]);
@@ -48,8 +47,8 @@ const PortfolioScreen = observer(({route}) => {
           x: 0,
           animated: true,
         });
-        LogEvents(ILogEvents.SCREEN, 'Portfolio/Crypto');
       }
+      LogEvents(ILogEvents.SCREEN, 'Portfolio/' + route.params.tab);
       route.params.tab = null;
     }, [route.params]),
   );
@@ -108,7 +107,7 @@ const PortfolioScreen = observer(({route}) => {
               flatListRef.current?.scrollToIndex({animated: true, index: 0});
             }
           } catch (error) {}
-          LogEvents(ILogEvents.SCREEN, 'Portfolio/' + t(item.title));
+          LogEvents(ILogEvents.SCREEN, 'Portfolio/' + item.title);
         }}
         style={{
           backgroundColor:

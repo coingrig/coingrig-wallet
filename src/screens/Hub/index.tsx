@@ -20,7 +20,7 @@ const HubScreen = () => {
   const flatListRef = React.useRef();
 
   useEffect(() => {
-    LogEvents(ILogEvents.SCREEN, 'Hub/' + t(screen.title));
+    LogEvents(ILogEvents.SCREEN, 'Hub/' + screen.title);
   }, []);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const HubScreen = () => {
             animated: true,
           });
           flatListRef.current?.scrollToIndex({animated: false, index: 0});
-          LogEvents(ILogEvents.SCREEN, 'Hub/' + t(item.title));
+          LogEvents(ILogEvents.SCREEN, 'Hub/' + item.title);
         }}
         style={{
           backgroundColor:

@@ -22,7 +22,7 @@ const Portfolios = [
     enable: true,
   },
   {
-    title: 'Banking',
+    title: 'Banks',
     component: Banking,
     enable: true,
   },
