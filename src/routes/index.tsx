@@ -333,7 +333,7 @@ function NavigationStack({t}) {
         component={CryptoNewsScreen}
         options={{
           headerShown: true,
-          headerTitle: t('title.news'),
+          headerTitle: t('title.crypto_news'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
@@ -383,7 +383,7 @@ function NavigationStack({t}) {
         component={StockNewsScreen}
         options={{
           headerShown: true,
-          headerTitle: t('title.news'),
+          headerTitle: t('title.stock_news'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
