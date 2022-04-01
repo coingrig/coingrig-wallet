@@ -43,6 +43,7 @@ const CEXs = observer(() => {
       subtitle={item.subtitle || ''}
       value={item.balance + ' ' + item.symbol || ''}
       subvalue={item.totalValue || ''}
+      showAvatar={null}
     />
   );
   const listHeader = () => {

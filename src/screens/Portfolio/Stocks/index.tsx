@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import {useNavigation} from '@react-navigation/native';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
-import React, {useEffect, createRef, useState} from 'react';
+import React, {useEffect, createRef, useState, useMemo} from 'react';
 import {
   Alert,
   FlatList,
@@ -30,9 +30,11 @@ const Stocks = observer(() => {
   const navigation = useNavigation();
   const [selected, setselected] = useState<IStocks | null>(null);
   const [accBalance, setAccBalance] = useState('');
-  const {t} = useTranslation();
+  const [showAvatar, setShowAvatar] = useState(false);
 
+  const {t} = useTranslation();
   useEffect(() => {
+    setShowAvatar(true);
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
@@ -60,6 +62,7 @@ const Stocks = observer(() => {
       subtitle={item.name || ''}
       img={null}
       subimg={null}
+      showAvatar={showAvatar}
     />
   );
   const listHeader = () => {
@@ -78,7 +81,7 @@ const Stocks = observer(() => {
       <View style={{justifyContent: 'center', flex: 1}}>
         {StockStore.stocks.length > 0 ? (
           <FlatList
-            data={StockStore.stocks.slice()}
+            data={StockStore.stocks.slice() || []}
             renderItem={renderItem}
             keyExtractor={(item: any, index) =>
               item.id + index.toString() ?? ''

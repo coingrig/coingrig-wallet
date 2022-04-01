@@ -30,6 +30,7 @@ const Fiat = observer(() => {
   const {t} = useTranslation();
   const [selected, setselected] = useState<IFiatAccounts | null>(null);
   const [accBalance, setAccBalance] = useState('');
+  const [showAvatar, setShowAvatar] = useState(false);
 
   useEffect(() => {
     navigation.setOptions({
@@ -41,6 +42,7 @@ const Fiat = observer(() => {
         </TouchableOpacity>
       ),
     });
+    setShowAvatar(true);
   }, []);
 
   const renderItem = ({item}: {item: IFiatAccounts}) => (
@@ -62,6 +64,7 @@ const Fiat = observer(() => {
       subtitle={''}
       img={null}
       subimg={null}
+      showAvatar={showAvatar}
     />
   );
   const listHeader = () => {

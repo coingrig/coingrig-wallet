@@ -69,6 +69,7 @@ const Banking = observer(() => {
       value={item.amount + ' ' + item.currency || ''}
       subvalue={item.name || ''}
       subimg={null}
+      showAvatar={null}
     />
   );
   const listHeader = () => {

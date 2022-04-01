@@ -15,6 +15,7 @@ const AccountItem = (props: {
   subvalue: string;
   subimg: string | null;
   onPress?: any;
+  showAvatar: boolean | null;
 }) => {
   const renderImg = () => {
     if (props.subimg) {
@@ -86,9 +87,9 @@ const AccountItem = (props: {
           <View style={styles.logo}>
             {props.img ? (
               renderImg()
-            ) : (
+            ) : props.showAvatar ? (
               <UserAvatar size={30} name={props.title} />
-            )}
+            ) : null}
           </View>
           <View style={styles.mcontainer}>
             <Text
