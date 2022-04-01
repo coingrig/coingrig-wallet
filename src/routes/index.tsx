@@ -458,7 +458,7 @@ function NavigationStack({t}) {
         component={AddBank}
         options={{
           headerShown: true,
-          headerTitle: t('AddBank'),
+          headerTitle: t('Select Bank'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
