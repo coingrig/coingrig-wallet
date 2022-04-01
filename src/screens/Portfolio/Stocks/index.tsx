@@ -151,7 +151,7 @@ const Stocks = observer(() => {
                 text: t('settings.yes'),
                 onPress: async () => {
                   StockStore.deleteStockById(selected.id);
-                  StockStore.updateAllBalances(StockStore.sumTotalBalance());
+                  StockStore.updateAllBalances();
                   editSheet.current?.setModalVisible(false);
                 },
               },
