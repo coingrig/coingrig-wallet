@@ -15,12 +15,11 @@ const coins = require('../../assets/tokens.json');
 
 const SearchScreen = ({route}) => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
   const [data, setData] = useState(coins);
   const [showScreen, setShowScreen] = useState(false);
   const [searchText, setSearchText] = useState('');
   const transitionEnded = useTransitionEnd(navigation);
-
-  const {t} = useTranslation();
 
   useEffect(() => {
     if (transitionEnded) {
