@@ -155,6 +155,7 @@ const Fiat = observer(() => {
                 text: t('settings.yes'),
                 onPress: async () => {
                   FiatStore.deleteAccountById(selected?.id);
+                  FiatStore.updateTotalBalance(FiatStore.sumTotalBalance());
                   editSheet.current?.setModalVisible(false);
                 },
               },

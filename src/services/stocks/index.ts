@@ -84,18 +84,19 @@ class StockService {
 
   updateBalance = async (stockID: string, stock: IStocks) => {
     StockStore.updateStock(stockID, stock);
+    StockStore.updateTotalBalance(StockStore.sumTotalBalance());
   };
 
   updateAllStocks = async () => {
+    const symbolList = StockStore.getSymbolList();
+    if (symbolList.length === 0) {
+      return;
+    }
     const now = Date.now();
     if (now - this.lastFetch! < CONFIG.BALANCE_TIMEOUT * 1000) {
       return;
     }
     this.lastFetch = now;
-    const symbolList = StockStore.getSymbolList();
-    if (symbolList.length === 0) {
-      return;
-    }
     const newStockData = await this.getStocks(symbolList);
     newStockData.forEach(stock => {
       StockStore.updatePrices(

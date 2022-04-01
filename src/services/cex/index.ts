@@ -155,14 +155,14 @@ class CexService {
   }
 
   async getAllBalances() {
-    const now = Date.now();
-    if (now - this.lastFetch! < CONFIG.BALANCE_TIMEOUT * 1000) {
-      return;
-    }
-    this.lastFetch = now;
-    try {
-      const cexList = CexStore.cexs;
-      if (cexList.length > 0) {
+    const cexList = CexStore.cexs;
+    if (cexList.length > 0) {
+      const now = Date.now();
+      if (now - this.lastFetch! < CONFIG.BALANCE_TIMEOUT * 1000) {
+        return;
+      }
+      this.lastFetch = now;
+      try {
         for (let index = 0; index < cexList.length; index++) {
           try {
             const item = cexList[index];
@@ -173,11 +173,11 @@ class CexService {
         }
         Logs.info('Total CEX balance', CexStore.sumTotalBalance());
         CexStore.updateTotalBalance(CexStore.sumTotalBalance());
-      } else {
-        CexStore.updateTotalBalance(0);
+      } catch (error) {
+        Logs.error(error);
       }
-    } catch (error) {
-      Logs.error(error);
+    } else {
+      CexStore.updateTotalBalance(0);
     }
   }
 

@@ -138,11 +138,6 @@ class CryptoService {
   };
 
   getAccountBalance = async () => {
-    const now = Date.now();
-    if (now - this.lastFetchedBalance! < CONFIG.BALANCE_TIMEOUT * 1000) {
-      return true;
-    }
-    this.lastFetchedBalance = now;
     try {
       if (MarketStore.coins.length <= 10) {
         const coins = await MarketStore.getTopCoins(COINS_MIN);
@@ -150,6 +145,11 @@ class CryptoService {
           return false;
         }
       }
+      const now = Date.now();
+      if (now - this.lastFetchedBalance! < CONFIG.BALANCE_TIMEOUT * 1000) {
+        return true;
+      }
+      this.lastFetchedBalance = now;
       Logs.info('Refreshing general balance');
       const coninIds = WalletStore.getCoinCIDList() || [];
       const tokenBalances = await this.getBulkTokenBalance(
