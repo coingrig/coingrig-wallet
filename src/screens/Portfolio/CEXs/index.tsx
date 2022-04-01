@@ -92,7 +92,7 @@ const CEXs = observer(() => {
               item.cid + item.chain + index.toString() ?? ''
             }
             maxToRenderPerBatch={10}
-            initialNumToRender={10}
+            initialNumToRender={6}
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={listHeader()}
             style={{marginHorizontal: 10}}

@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import {useIsFocused, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
-import React, {useEffect, createRef, useState, useMemo} from 'react';
+import React, {useEffect, createRef, useState} from 'react';
 import {
   Alert,
   FlatList,
@@ -87,7 +87,7 @@ const Stocks = observer(() => {
               item.id + index.toString() ?? ''
             }
             maxToRenderPerBatch={10}
-            initialNumToRender={10}
+            initialNumToRender={6}
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={listHeader()}
             style={{marginHorizontal: 10}}

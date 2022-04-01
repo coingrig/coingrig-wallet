@@ -260,7 +260,7 @@ const Banking = observer(() => {
               item.id + index.toString() ?? ''
             }
             maxToRenderPerBatch={10}
-            initialNumToRender={10}
+            initialNumToRender={6}
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={listHeader()}
             style={{marginHorizontal: 10}}
