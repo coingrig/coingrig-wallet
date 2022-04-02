@@ -17,7 +17,7 @@ export default function CEXScreen() {
   return (
     <ScrollView contentContainerStyle={styles.scrollview}>
       <View style={{marginHorizontal: 16}}>
-        <Separator title={t('ACCOUNTS').toUpperCase()} />
+        <Separator title={t('portfolio.cexs.accounts').toUpperCase()} />
         <CardList
           data={CEX_LIST.filter(item => item.enable === true)}
           title={null}

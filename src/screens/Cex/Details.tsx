@@ -81,7 +81,7 @@ export default function CexDetails({route}) {
         await CexService.getBalance(item.id);
         CexStore.updateTotalBalance(CexStore.sumTotalBalance());
         showMessage({
-          message: t('Done'),
+          message: t('portfolio.cexs.message.cex_saved'),
           type: 'success',
         });
         LoadingModal.instance.current?.hide();
@@ -94,7 +94,7 @@ export default function CexDetails({route}) {
       if (error !== 'Authorization error') {
         Logs.error(error);
         showMessage({
-          message: t('Cannot authenticate'),
+          message: t('portfolio.cexs.message.cex_error'),
           type: 'danger',
         });
       }
@@ -105,7 +105,7 @@ export default function CexDetails({route}) {
     if (apiKeyText.length > 10 && secretText.length > 10) {
       return (
         <TouchableOpacity onPress={saveCex} style={styles.fab2}>
-          <Text>Save</Text>
+          <Text>{t('portfolio.cexs.save_btn')}</Text>
         </TouchableOpacity>
       );
     } else {
@@ -127,7 +127,7 @@ export default function CexDetails({route}) {
     CexService.getAllBalances();
     if (!reload) {
       showMessage({
-        message: t('CEX Deleted'),
+        message: t('portfolio.cexs.message.cex_deleted'),
         type: 'success',
       });
       navigation.goBack();
@@ -162,15 +162,21 @@ export default function CexDetails({route}) {
         />
         <View style={{margin: 15}}>
           <Text style={{color: Colors.lighter, marginBottom: 3}}>
-            {'Connector'}
+            {t('portfolio.cexs.connector')}
           </Text>
-          <Text style={styles.title}>{'Connect to' + ' ' + item.title}</Text>
+          <Text style={styles.title}>
+            {t('portfolio.cexs.connect_to') + ' ' + item.title}
+          </Text>
           {/* <Text style={styles.desc}>{'Track your assets'}</Text> */}
         </View>
       </View>
       <View>
         <Text style={styles.pastedesc}>
-          {t('Paste the Keys or Scan the QR Code')}
+          {t(
+            item.qr
+              ? 'portfolio.cexs.instruction_qr'
+              : 'portfolio.cexs.instruction',
+          )}
         </Text>
         <View style={styles.containercard}>
           <View style={styles.key}>
@@ -181,7 +187,9 @@ export default function CexDetails({route}) {
             </Text>
             {!exists ? (
               <TouchableOpacity onPress={pasteApiKey}>
-                <Text style={{color: '#027AFE'}}>PASTE</Text>
+                <Text style={{color: '#027AFE'}}>
+                  {t('portfolio.cexs.paste_btn')}
+                </Text>
               </TouchableOpacity>
             ) : null}
           </View>
@@ -193,7 +201,9 @@ export default function CexDetails({route}) {
             </Text>
             {!exists ? (
               <TouchableOpacity onPress={pasteSecret}>
-                <Text style={{color: '#027AFE'}}>PASTE</Text>
+                <Text style={{color: '#027AFE'}}>
+                  {t('portfolio.cexs.paste_btn')}
+                </Text>
               </TouchableOpacity>
             ) : null}
           </View>
@@ -202,14 +212,13 @@ export default function CexDetails({route}) {
           onPress={() => openLink(item.link)}
           style={styles.externalLink}>
           <Text style={{color: Colors.foreground}}>
-            {t('Where I find the API Keys ?')}
+            {t('portfolio.cexs.link_api')}
           </Text>
           <Icon2 name="external-link" size={20} color="gray" />
         </TouchableOpacity>
         <Text
           style={{color: Colors.lighter, marginHorizontal: 20, fontSize: 13}}>
-          IMPORTANT: The keys have the permission to ONLY read your balance.
-          Your keys remains on your phone in an encrypted storage.
+          {t('portfolio.cexs.security')}
         </Text>
       </View>
       {exists ? renderDelete() : renderSaveOrQr()}

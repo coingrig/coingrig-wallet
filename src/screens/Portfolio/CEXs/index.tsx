@@ -49,7 +49,7 @@ const CEXs = observer(() => {
   const listHeader = () => {
     return (
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <Text style={styles.subLeft}>{'Tokens'}</Text>
+        <Text style={styles.subLeft}>{t('portfolio.cexs.tokens')}</Text>
         <Text style={styles.subRight}>
           {formatPrice(CexStore.totalBalance, true) || 0.0}
         </Text>
