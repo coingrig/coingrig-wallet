@@ -22,6 +22,7 @@ import ActionSheet from 'react-native-actions-sheet';
 import {SmallButton} from 'components/smallButton';
 import {useTranslation} from 'react-i18next';
 import {SIZE} from 'utils/constants';
+import {Logs} from 'services/logs';
 
 const editSheet: React.RefObject<any> = createRef();
 
@@ -148,7 +149,7 @@ const Fiat = observer(() => {
             Alert.alert('Delete', t('portfolio.fiat.delete_title'), [
               {
                 text: t('settings.cancel'),
-                onPress: () => console.log('Cancel Pressed'),
+                onPress: () => Logs.info('Cancel Pressed'),
                 style: 'cancel',
               },
               {

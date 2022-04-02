@@ -23,6 +23,7 @@ import {SmallButton} from 'components/smallButton';
 import {IStocks, StockStore} from 'stores/StockStore';
 import {SIZE} from 'utils/constants';
 import {useTranslation} from 'react-i18next';
+import {Logs} from 'services/logs';
 
 const editSheet: React.RefObject<any> = createRef();
 
@@ -68,7 +69,7 @@ const Stocks = observer(() => {
   const listHeader = () => {
     return (
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <Text style={styles.subLeft}>{'Stocks'}</Text>
+        <Text style={styles.subLeft}>{t('portfolio.stocks.title')}</Text>
         <Text style={styles.subRight}>
           {formatPrice(StockStore.totalBalance, true) || 0.0}
         </Text>
@@ -141,10 +142,10 @@ const Stocks = observer(() => {
             paddingTop: 15,
           }}
           onPress={() => {
-            Alert.alert('Delete', t('Are you sure you want to delete ?'), [
+            Alert.alert('Delete', t('portfolio.stocks.delete_title'), [
               {
                 text: t('settings.cancel'),
-                onPress: () => console.log('Cancel Pressed'),
+                onPress: () => Logs.info('Cancel Pressed'),
                 style: 'cancel',
               },
               {
@@ -160,10 +161,10 @@ const Stocks = observer(() => {
           <Icon name="trash" size={20} color={Colors.red} />
         </TouchableOpacity>
         <Text style={styles.editTitle}>
-          {t('wallet.edit') + ' ' + selected?.symbol}
+          {t('portfolio.stocks.edit_title') + ' ' + selected?.symbol}
         </Text>
         <Text style={styles.modalsubtitle}>
-          {t('Enter the number of shares')}
+          {t('portfolio.stocks.edit_amount')}
         </Text>
         <TextInput
           placeholder={'0'}
@@ -174,7 +175,7 @@ const Stocks = observer(() => {
           onChangeText={t => setAccBalance(t)}
         />
         <SmallButton
-          text={t('swap.slippage_save')}
+          text={t('portfolio.stocks.update')}
           onPress={() => {
             let balance = formatNoComma(accBalance);
             if (!balance) {

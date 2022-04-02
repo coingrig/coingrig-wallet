@@ -47,6 +47,18 @@
       "portfolio.fiat.update": "Update",
       "portfolio.fiat.add_title": "Add an account",
       "portfolio.fiat.account_name": "Name of account",
+      "portfolio.stocks.title": "Stocks",
+      "portfolio.stocks.delete_title": "Are you sure you want to delete?",
+      "portfolio.stocks.edit_title": "Edit",
+      "portfolio.stocks.edit_amount": "Enter the number of shares",
+      "portfolio.stocks.add_confirmation": "Do you want to add it to your portfolio?",
+      "portfolio.stocks.add_description": "Search in thousands of Stocks, ETFs and other instruments",
+      "portfolio.stocks.add_search": "Search",
+      "portfolio.stocks.save": "Save",
+      "portfolio.stocks.update": "Update",
+
+
+
 
       "setup.your_recovery_phrase": "Your recovery phrase",
       "setup.copy_these_words": "Copy these words in the right order and save them somewhere safe",

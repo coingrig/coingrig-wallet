@@ -12,6 +12,7 @@ import {useTranslation} from 'react-i18next';
 import {styles} from './styles';
 import debounce from 'lodash.debounce';
 import {ILogEvents, LogEvents} from 'utils/analytics';
+import {Logs} from 'services/logs';
 
 const SearchStocks = () => {
   const navigation = useNavigation();
@@ -36,10 +37,10 @@ const SearchStocks = () => {
   };
 
   const addStock = async item => {
-    Alert.alert(item.symbol, t('Do you want to add it to your portfolio ?'), [
+    Alert.alert(item.symbol, t('portfolio.stocks.add_confirmation'), [
       {
         text: t('settings.cancel'),
-        onPress: () => console.log('Cancel Pressed'),
+        onPress: () => Logs.info('Cancel Pressed'),
         style: 'cancel',
       },
       {
@@ -73,7 +74,7 @@ const SearchStocks = () => {
             textAlign: 'center',
             fontSize: 13,
           }}>
-          Search in thousands of Stocks, ETFs and other instruments
+          {t('portfolio.stocks.add_description')}
         </Text>
       </View>
     );
@@ -127,7 +128,7 @@ const SearchStocks = () => {
           autoCorrect={false}
           placeholderTextColor={'gray'}
           onChangeText={text => searchStock(text)}
-          placeholder={t('Search')}
+          placeholder={t('portfolio.stocks.add_search')}
         />
 
         <TouchableOpacity
