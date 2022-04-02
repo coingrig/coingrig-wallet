@@ -126,7 +126,7 @@ const CEXs = observer(() => {
                 opacity: 0.2,
                 height: 50,
               }}>
-              {t('Connect your CEX')}
+              {t('portfolio.empty_your_cexs')}
             </Text>
           </View>
         )}

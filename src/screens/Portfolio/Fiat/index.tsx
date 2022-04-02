@@ -70,7 +70,7 @@ const Fiat = observer(() => {
   const listHeader = () => {
     return (
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <Text style={styles.subLeft}>{'Accounts'}</Text>
+        <Text style={styles.subLeft}>{t('portfolio.fiat.title')}</Text>
         <Text style={styles.subRight}>
           {formatPrice(FiatStore.totalBalance, true) || 0.0}
         </Text>
@@ -123,7 +123,7 @@ const Fiat = observer(() => {
                 opacity: 0.2,
                 height: 50,
               }}>
-              {t('Track your cash')}
+              {t('portfolio.empty_your_cash')}
             </Text>
           </View>
         )}
@@ -145,7 +145,7 @@ const Fiat = observer(() => {
             paddingTop: 15,
           }}
           onPress={() => {
-            Alert.alert('Delete', t('Are you sure you want to delete ?'), [
+            Alert.alert('Delete', t('portfolio.fiat.delete_title'), [
               {
                 text: t('settings.cancel'),
                 onPress: () => console.log('Cancel Pressed'),
@@ -164,10 +164,10 @@ const Fiat = observer(() => {
           <Icon name="trash" size={20} color={Colors.red} />
         </TouchableOpacity>
         <Text style={styles.editTitle}>
-          {t('wallet.edit') + ' ' + selected?.name}
+          {t('portfolio.fiat.edit_title') + ' ' + selected?.name}
         </Text>
         <Text style={styles.modalsubtitle}>
-          {t('Update the amount in') + ' ' + selected?.currency}
+          {t('portfolio.fiat.edit_amount') + ' ' + selected?.currency}
         </Text>
         <TextInput
           placeholder={'0'}
@@ -178,7 +178,7 @@ const Fiat = observer(() => {
           onChangeText={t => setAccBalance(t)}
         />
         <SmallButton
-          text={t('swap.slippage_save')}
+          text={t('portfolio.fiat.save')}
           onPress={() => {
             let balance = formatNoComma(accBalance);
             if (!balance) {

@@ -121,7 +121,7 @@ const Stocks = observer(() => {
                 opacity: 0.2,
                 height: 50,
               }}>
-              {t('Track your stocks')}
+              {t('portfolio.empty_your_stocks')}
             </Text>
           </View>
         )}

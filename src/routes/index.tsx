@@ -483,7 +483,7 @@ function NavigationStack({t}) {
         component={AddFiat}
         options={{
           headerShown: true,
-          headerTitle: t('Select Currency'),
+          headerTitle: t('portfolio.fiat.select_title'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios

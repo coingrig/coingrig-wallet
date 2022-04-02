@@ -80,9 +80,9 @@ export default function AddFiat() {
         // gestureEnabled={true}
         // headerAlwaysVisible
         containerStyle={styles.editContainer}>
-        <Text style={styles.editTitle}>{t('Add Cash')}</Text>
+        <Text style={styles.editTitle}>{t('portfolio.fiat.add_title')}</Text>
         <TextInput
-          placeholder="Account name"
+          placeholder={t('portfolio.fiat.account_name')}
           placeholderTextColor={'gray'}
           autoCorrect={false}
           style={styles.editInput}
@@ -98,7 +98,7 @@ export default function AddFiat() {
           onChangeText={v => setAccBalance(v)}
         />
         <SmallButton
-          text={t('swap.slippage_save')}
+          text={t('portfolio.fiat.save')}
           onPress={() => {
             let balanceValue = formatNoComma(accBalance);
             if (!balanceValue) {

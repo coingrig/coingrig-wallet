@@ -111,7 +111,7 @@ const NFTs = observer(() => {
               opacity: 0.2,
               height: 50,
             }}>
-            {t('Your NFTs')}
+            {t('portfolio.empty_your_nfts')}
           </Text>
         </View>
       );

@@ -294,7 +294,7 @@ const Banking = observer(() => {
                 opacity: 0.2,
                 height: 50,
               }}>
-              {t('Connect your Bank')}
+              {t('portfolio.empty_your_banks')}
             </Text>
           </View>
         )}
