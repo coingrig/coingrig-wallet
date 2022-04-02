@@ -38,6 +38,21 @@
       "portfolio.empty_your_cash": "Track your cash",
       "portfolio.empty_your_cexs": "Connect your CEX",
       "portfolio.empty_your_banks": "Connect your Bank",
+      "portfolio.banks.select_country": "Select Country",
+      "portfolio.banks.select_bank": "Select Bank",
+      "portfolio.banks.accounts": "Accounts",
+      "portfolio.banks.bank_account": "Bank Account",
+      "portfolio.banks.bank": "Bank: ",
+      "portfolio.banks.iban": "IBAN: ",
+      "portfolio.banks.currency": "Currency: ",
+      "portfolio.banks.expiration_date": "Access expiration date: ",
+      "portfolio.banks.access_read_only": "Access type: Read Only",
+      "portfolio.banks.share_iban_btn": "Share IBAN",
+      "portfolio.banks.delete_confirmation": "Remove account",
+      "portfolio.banks.delete_account_btn": "Remove account",
+      "portfolio.banks.delete_description": "Are you sure you want to remove this account?",
+      "portfolio.banks.edit_offset_title": "Edit offset",
+      "portfolio.banks.edit_offset_description": "Offset your account balance",
       "portfolio.fiat.title": "Accounts",
       "portfolio.fiat.select_title": "Select Currency",
       "portfolio.fiat.delete_title": "Are you sure you want to delete?",
@@ -56,9 +71,6 @@
       "portfolio.stocks.add_search": "Search",
       "portfolio.stocks.save": "Save",
       "portfolio.stocks.update": "Update",
-
-
-
 
       "setup.your_recovery_phrase": "Your recovery phrase",
       "setup.copy_these_words": "Copy these words in the right order and save them somewhere safe",

@@ -75,7 +75,7 @@ const Banking = observer(() => {
   const listHeader = () => {
     return (
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <Text style={styles.subLeft}>{'Accounts'}</Text>
+        <Text style={styles.subLeft}>{t('portfolio.banks.accounts')}</Text>
         <Text style={styles.subRight}>
           {formatPrice(BankStore.totalBalance, true) || 0.0}
         </Text>
@@ -85,8 +85,8 @@ const Banking = observer(() => {
 
   const deleteAccount = async acc => {
     Alert.alert(
-      t('Remove account'),
-      t('Are you sure you want to remove this account'),
+      t('portfolio.banks.delete_confirmation'),
+      t('portfolio.banks.delete_description'),
       [
         {
           text: t('settings.cancel'),
@@ -108,9 +108,11 @@ const Banking = observer(() => {
   const renderOffset = () => {
     return (
       <>
-        <Text style={styles.editTitle}>{t('wallet.edit') + ' offset'}</Text>
+        <Text style={styles.editTitle}>
+          {t('portfolio.banks.edit_offset_title')}
+        </Text>
         <Text style={styles.modalsubtitle}>
-          {t('Offset your account balance')}
+          {t('portfolio.banks.edit_offset_description')}
         </Text>
         <TextInput
           placeholder={'0'}
@@ -171,7 +173,7 @@ const Banking = observer(() => {
             fontFamily: 'RobotoSlab-Bold',
             color: Colors.foreground,
           }}>
-          {selected?.ownerName || 'Bank Account'}
+          {selected?.ownerName || t('portfolio.banks.bank_account')}
         </Text>
 
         <View style={{marginHorizontal: 16}}>
@@ -181,7 +183,7 @@ const Banking = observer(() => {
               fontSize: 16,
               color: Colors.foreground,
             }}>
-            {'Bank: ' + selected?.bankName}
+            {t('portfolio.banks.bank') + selected?.bankName}
           </Text>
           <Text
             style={{
@@ -190,7 +192,7 @@ const Banking = observer(() => {
               marginVertical: 5,
               color: Colors.foreground,
             }}>
-            {'IBAN: ' + selected?.iban}
+            {t('portfolio.banks.iban') + selected?.iban}
           </Text>
           <Text
             style={{
@@ -198,11 +200,11 @@ const Banking = observer(() => {
               fontSize: 16,
               color: Colors.foreground,
             }}>
-            {'Currency: ' + selected?.currency}
+            {t('portfolio.banks.currency') + selected?.currency}
           </Text>
         </View>
         <SmallButton
-          text={t('Share IBAN')}
+          text={t('portfolio.banks.share_iban_btn')}
           onPress={() => shareIban(selected?.iban)}
           color={Colors.background}
           // eslint-disable-next-line react-native/no-inline-styles
@@ -214,7 +216,7 @@ const Banking = observer(() => {
           }}
         />
         <SmallButton
-          text={t('Remove account')}
+          text={t('portfolio.banks.delete_account_btn')}
           onPress={() => {
             deleteAccount(selected?.id!);
           }}
@@ -234,7 +236,7 @@ const Banking = observer(() => {
             color: Colors.lighter,
             marginTop: 10,
           }}>
-          {'Access expiration date: ' + selected?.expire!}
+          {t('portfolio.banks.expiration_date') + selected?.expire!}
         </Text>
         <Text
           style={{
@@ -243,7 +245,7 @@ const Banking = observer(() => {
             color: Colors.lighter,
             marginTop: 5,
           }}>
-          {'Access type: Read Only'}
+          {t('portfolio.banks.access_read_only')}
         </Text>
       </>
     );

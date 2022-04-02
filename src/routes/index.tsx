@@ -43,7 +43,6 @@ import styles from './styles';
 import SyntheticScreen from 'screens/Synthetic';
 import CEXScreen from 'screens/Cex';
 import CexDetails from 'screens/Cex/Details';
-import BankingScreen from 'screens/Banking';
 import AddBank from 'screens/Banking/AddBank';
 import SelectCountry from 'screens/Banking/SelectCountry';
 import AddFiat from 'screens/Fiat';
@@ -429,36 +428,11 @@ function NavigationStack({t}) {
         }}
       />
       <Stack.Screen
-        name="BankingScreen"
-        component={BankingScreen}
-        options={{
-          headerShown: true,
-          headerTitle: t('title.banking'),
-          headerStyle: {
-            backgroundColor: Colors.darker,
-            shadowColor: 'transparent', // ios
-            elevation: 0, // android
-          },
-          headerTintColor: Colors.foreground,
-          headerBackTitleVisible: false,
-          headerBackTitleStyle: {
-            fontFamily: 'RobotoSlab-Regular',
-          },
-          headerTitleStyle: {
-            fontWeight: '400',
-
-            fontFamily: 'RobotoSlab-Regular',
-            fontSize: 19,
-            justifyContent: 'center',
-          },
-        }}
-      />
-      <Stack.Screen
         name="AddBankScreen"
         component={AddBank}
         options={{
           headerShown: true,
-          headerTitle: t('Select Bank'),
+          headerTitle: t('portfolio.banks.select_bank'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
@@ -508,7 +482,7 @@ function NavigationStack({t}) {
         component={SelectCountry}
         options={{
           headerShown: true,
-          headerTitle: t('Select Country'),
+          headerTitle: t('portfolio.banks.select_country'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
