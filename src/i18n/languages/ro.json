@@ -58,6 +58,7 @@
       "dashboard.coming_soon": "În curând",
       "dashboard.info1": "Avalanche Chain",
       "dashboard.info2": "Cronos Chain",
+      "dashboard.quick_actions": "Acțiuni rapide",
       
       "wallet.wallet": "Portofel",
       "wallet.send": "Trimite",
@@ -101,6 +102,8 @@
       "market.gainers": "Câștiători",
       "market.losers": "Pierzători",
       "market.provider": "Datele de piață oferite de CoinGecko",
+      "market.us_markets": "Piețele din SUA",
+      "market.other_markets": "Alte piețe",
 
       "settings.backup_phrase": "Copiază fraza secretă",
       "settings.settings": "Setări",
@@ -235,7 +238,14 @@
       "hub.category.shops": "Magazine",
       "hub.category.dapps": "DApps",
       "hub.category.games": "Jocuri",
-
+      "hub.discover_coins": "Descoperiți monede",
+      "hub.ico_calendar": "Calendar ICO",
+      "hub.economic_calendar": "Calendar economic",
+      "hub.donate_ukraine": "Donează pentru Ucraina",
+      "hub.donate_ukraine.description": "Ajută Ucraina cu Crypto",
+      "hub.portfolio_sumamry": "Rezumatul portofoliului",
+      "hub.portfolio_sumamry.description": "Grafic cu distribuirea portofoliului",
+      
       "swap.you_pay": "Plătești",
       "swap.you_get": "Primești",
       "swap.slippage": "Slippage",

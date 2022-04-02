@@ -58,6 +58,7 @@
       "dashboard.coming_soon": "Bientôt disponible",
       "dashboard.info1": "Avalanche Chain",
       "dashboard.info2": "Cronos Chain",
+      "dashboard.quick_actions": "Actions rapides",
       
       "wallet.wallet": "Portefeuille",
       "wallet.send": "Envoyer",
@@ -101,6 +102,8 @@
       "market.gainers": "Gagnants",
       "market.losers": "Perdants",
       "market.provider": "Données de marché fournies par CoinGecko",
+      "market.us_markets": "Marchés américains",
+      "market.other_markets": "Autres marchés",
 
       "settings.backup_phrase": "Sauvegardez votre phrase de récupération",
       "settings.settings": "Paramètres",
@@ -235,6 +238,13 @@
       "hub.category.shops": "Boutiques",
       "hub.category.dapps": "DApps",
       "hub.category.games": "Jeux",
+      "hub.discover_coins": "Découvrir des cryptomonnaies",
+      "hub.ico_calendar": "Calendrier ICO",
+      "hub.economic_calendar": "Calendrier économique",
+      "hub.donate_ukraine": "Faire un don à l'Ukraine",
+      "hub.donate_ukraine.description": "Aidez l'Ukraine avec Crypto",
+      "hub.portfolio_sumamry": "Résumé du portefeuille",
+      "hub.portfolio_sumamry.description": "Répartition du portefeuille",
 
       "swap.you_pay": "Vous payez",
       "swap.you_get": "Vous recevez",

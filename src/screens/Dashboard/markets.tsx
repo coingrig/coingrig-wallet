@@ -26,7 +26,7 @@ export const OtherMarkets = observer(() => {
           color={Colors.lighter}
           style={styles.icons}
         />
-        <Text style={styles.subtitle}>{t('Other Markets')}</Text>
+        <Text style={styles.subtitle}>{t('market.other_markets')}</Text>
       </View>
       <TwoBricks
         symbol1=".IXIC:INDEXNASDAQ"
@@ -96,7 +96,7 @@ export const USMarkets = observer(() => {
           color={Colors.lighter}
           style={styles.icons}
         />
-        <Text style={styles.subtitle}>{t('US Markets')}</Text>
+        <Text style={styles.subtitle}>{t('market.us_markets')}</Text>
       </View>
       <TwoBricks
         symbol1=".INX:INDEXSP"
