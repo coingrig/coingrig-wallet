@@ -357,7 +357,7 @@ function NavigationStack({t}) {
         component={SummaryScreen}
         options={{
           headerShown: true,
-          headerTitle: t('Summary'),
+          headerTitle: t('summary.title'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios

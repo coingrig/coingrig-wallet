@@ -348,6 +348,14 @@
       "feedback.disclaimer": "Vos commentaires sont anonymes, ne partagez pas d'informations sensibles sur vous-même ou votre compte!",
       "feedback.message.empty_form": "Veuillez sélectionner un type de commentaire et saisir un message!",
       "feedback.message.sent": "Message envoyé!",
-      "feedback.message.failed_send": "Impossible d'envoyer le message, réessayez plus tard!"
-  }
+      "feedback.message.failed_send": "Impossible d'envoyer le message, réessayez plus tard!",
+    
+      "summary.title": "Résumé",
+      "summary.distribution": "Distribution",
+      "summary.category.no_money": "Aucun actif",
+      "summary.category.crypto": "Crypto",
+      "summary.category.banks": "Comptes bancaires",
+      "summary.category.stocks": "Actions",
+      "summary.category.cash": "Espèces"
+    }
 }

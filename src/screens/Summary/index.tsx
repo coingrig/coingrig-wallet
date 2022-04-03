@@ -154,10 +154,10 @@ export default function SummaryScreen() {
             fontWeight: 'bold',
             marginTop: 20,
           }}>
-          Distribution
+          {t('summary.distribution')}
         </Text>
         <View style={styles.item}>
-          <Text style={styles.itemtext}>{t('Crypto')}</Text>
+          <Text style={styles.itemtext}>{t('summary.category.crypto')}</Text>
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.textr}>
               {calcPercentage(WalletStore.totalBalance + CexStore.totalBalance)}
@@ -169,7 +169,7 @@ export default function SummaryScreen() {
           </View>
         </View>
         <View style={styles.item}>
-          <Text style={styles.itemtext}>{t('Bank')}</Text>
+          <Text style={styles.itemtext}>{t('summary.category.banks')}</Text>
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.textr}>
               {calcPercentage(BankStore.totalBalance)}
@@ -181,7 +181,7 @@ export default function SummaryScreen() {
           </View>
         </View>
         <View style={styles.item}>
-          <Text style={styles.itemtext}>{t('Stocks')}</Text>
+          <Text style={styles.itemtext}>{t('summary.category.stocks')}</Text>
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.textr}>
               {calcPercentage(StockStore.totalBalance)}
@@ -193,7 +193,7 @@ export default function SummaryScreen() {
           </View>
         </View>
         <View style={styles.item}>
-          <Text style={styles.itemtext}>{t('Cash')}</Text>
+          <Text style={styles.itemtext}>{t('summary.category.cash')}</Text>
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.textr}>
               {calcPercentage(FiatStore.totalBalance)}

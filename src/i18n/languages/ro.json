@@ -348,6 +348,14 @@
       "feedback.disclaimer": "Feedback-ul dvs. este anonim, nu distribuiți informații sensibile despre dvs. sau despre contul dvs.!",
       "feedback.message.empty_form": "Vă rugăm să selectați un tip de feedback și să introduceți un mesaj!",
       "feedback.message.sent": "Mesajul de a fost trimis!",
-      "feedback.message.failed_send": "Nu se poate trimite mesajul, încercați din nou mai târziu!"
+      "feedback.message.failed_send": "Nu se poate trimite mesajul, încercați din nou mai târziu!",
+
+      "summary.title": "Rezumat",
+      "summary.distribution": "Distribuție",
+      "summary.category.no_money": "Fără active",
+      "summary.category.crypto": "Crypto",
+      "summary.category.banks": "Conturi bancare",
+      "summary.category.stocks": "Stocuri",
+      "summary.category.cash": "Numerar"
   }
 }
