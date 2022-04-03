@@ -32,6 +32,7 @@ class CryptoService {
     if (!storedKeys) {
       return {};
     }
+
     return JSON.parse(storedKeys);
   };
 
@@ -47,11 +48,11 @@ class CryptoService {
     }
     const url =
       endpoints.opensea + '/assets?format=json&limit=50&owner=' + ETHAddress;
-    var config = {
+    const config: any = {
       method: 'get',
       url: url,
       headers: {
-        'X-API-KEY': '790d4e9223714481a11633acbda338de',
+        'X-API-KEY': CONFIG.OPENSEA_KEY,
       },
     };
     Logs.info('Fetching NFTs from', url);
@@ -236,7 +237,7 @@ class CryptoService {
   // };
 
   getCoinDetails = symbol => {
-    var config = {
+    const config: any = {
       method: 'get',
       url: endpoints.coingecko + '/coins/' + symbol + '?sparkline=true',
     };
@@ -262,7 +263,7 @@ class CryptoService {
         this.CHAIN_ID_MAP[item.chain]
       }/address/${item.walletAddress}/balances_v2/?key=${CONFIG.COVALENT_KEY}`;
       Logs.info(url);
-      var config = {
+      const config: any = {
         method: 'get',
         url: url,
         timeout: 2000,

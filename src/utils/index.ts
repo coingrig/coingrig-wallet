@@ -100,7 +100,7 @@ export const openLink = async url => {
         forceCloseOnRedirection: false,
       });
     } else {
-      Linking.openURL(url);
+      await Linking.openURL(url);
     }
   } catch (error) {
     Logs.error(error);
