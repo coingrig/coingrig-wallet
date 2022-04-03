@@ -182,9 +182,9 @@
       "language.french": "Français",
       "language.romanian": "Roumaine",
 
-      "onboarding.text1": "Privé, non dépositaire.\nVos clés, votre crypto.",
-      "onboarding.text2": "Acheter avec carte de crédit.\nEnvoyez et recevez tout actif.",
-      "onboarding.text3": "Un portefeuille pour tous.\n1M+ d'actifs.",
+      "onboarding.text1": "Privé, non dépositaire.\nVos données restent sur votre téléphone.",
+      "onboarding.text2": "Acheter avec carte de crédit.\nÉchangez plus de 1M+ d'actifs via plus de 30 DEX.",
+      "onboarding.text3": "Suivez vos actifs détenus dans des CEX, des actions, des banques et plus encore.",
       "onboarding.next": "Suivant",
 
       "tx.destination_address": "Adresse de destination",
