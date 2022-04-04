@@ -76,7 +76,7 @@ const HubScreen = () => {
             color:
               screen.title === item.title ? Colors.background : Colors.lighter,
           }}>
-          {t(item.title)}
+          {t(item.description)}
         </Text>
       </TouchableOpacity>
     );
