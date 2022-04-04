@@ -158,11 +158,7 @@ const Banking = observer(() => {
             paddingTop: 15,
           }}
           onPress={() => setShowOffset(true)}>
-          <Icon
-            name="circle-edit-outline"
-            size={20}
-            color={Colors.foreground}
-          />
+          <Icon name="circle-edit-outline" size={22} color={Colors.blue} />
         </TouchableOpacity>
         <Text
           style={{

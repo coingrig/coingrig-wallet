@@ -33,6 +33,7 @@ let theme = {
   green: '#5cb85c',
   bubble: '#f7f2e6',
   tabborder: '#f5f3ed',
+  blue: '#007bff',
 };
 if (colorScheme === 'dark') {
   theme = {
@@ -67,6 +68,7 @@ if (colorScheme === 'dark') {
     green: '#5cb85c',
     bubble: '#2e2c2c',
     tabborder: '#302f2f',
+    blue: '#0a84ff',
   };
 }
 
