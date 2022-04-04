@@ -69,7 +69,7 @@
       "portfolio.cexs.instruction": "Lipiți cheile",
       "portfolio.cexs.instruction_qr": "Lipiți cheile sau scanați codul QR",
       "portfolio.cexs.link_api": "Unde găsesc cheile API?",
-      "portfolio.cexs.security": "IMPORTANT: Cheile au permisiunea de a citi NUMAI soldul dvs. Cheile dvs. rămân pe telefon într-un spațiu de stocare criptat.",
+      "portfolio.cexs.security": "IMPORTANT: Cheile au DOAR permisiunea de a citi soldul dvs. Cheile dvs. rămân pe telefon într-un spațiu de stocare criptat.",
       "portfolio.cexs.message.cex_saved": "Terminat",
       "portfolio.cexs.message.cex_error": "Nu se poate autentifica",
       "portfolio.cexs.message.cex_deleted": "CEX șters",
@@ -249,8 +249,8 @@
       "hub.modules": "Module",
       "hub.external_links": "Linkuri externe",
       "hub.featured": "Descoperă",
-      "hub.featured.title": "Conectat la 30 DEXuri",
-      "hub.featured.description": "Coingrig Swap poate interoga și utiliza mai multe DEX-uri pentru a găsi schimbul cu cel mai bun preț pentru tine.",
+      "hub.featured.title": "Soldul dvs. din CEX-uri și bănci",
+      "hub.featured.description": "Coingrig afișează acum soldul bancar din Exchange-uri centralizate, băncile tradiționale și digitale.", 
       "hub.shortcuts": "Comenzi rapide",
       "hub.shortcuts.description": "Comenzi rapide pentru nevoile dvs",
       "hub.swap": "Swap",
@@ -362,7 +362,7 @@
       "summary.category.no_money": "Fără active",
       "summary.category.crypto": "Crypto",
       "summary.category.banks": "Conturi bancare",
-      "summary.category.stocks": "Stocuri",
+      "summary.category.stocks": "Acțiuni",
       "summary.category.cash": "Numerar"
   }
 }
