@@ -122,7 +122,9 @@ export default function ImportWalletScreen({}) {
                 }),
               );
             }}>
-            <Text style={{color: Colors.lighter, textAlign: 'center'}}>{t('navigation.back')}</Text>
+            <Text style={{color: Colors.lighter, textAlign: 'center'}}>
+              {t('navigation.back')}
+            </Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
