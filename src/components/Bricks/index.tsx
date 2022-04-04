@@ -32,7 +32,7 @@ const Brick = (props: any) => {
             adjustsFontSizeToFit
             numberOfLines={2}
             style={[styles.coinName, {color: Colors.background}]}>
-            {t('Others')}
+            {t('portfolio.categories.other')}
           </Text>
           <Text adjustsFontSizeToFit numberOfLines={1} style={styles.endBrick}>
             {formatPrice(props.value, true) || 0}

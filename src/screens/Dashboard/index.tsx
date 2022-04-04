@@ -190,7 +190,7 @@ const DashboardScreen = observer(() => {
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={{paddingHorizontal: 10}}>
               <Brick
-                title={'Crypto'}
+                title={t('portfolio.categories.crypto')}
                 key={0}
                 size={35}
                 value={WalletStore.totalBalance + CexStore.totalBalance}
@@ -198,7 +198,7 @@ const DashboardScreen = observer(() => {
                 color={'orange'}
               />
               <Brick
-                title={'Banks'}
+                title={t('portfolio.categories.banks')}
                 key={1}
                 size={30}
                 value={BankStore.totalBalance}

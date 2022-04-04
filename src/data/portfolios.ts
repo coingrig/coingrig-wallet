@@ -9,31 +9,37 @@ const Portfolios = [
   {
     title: 'Crypto',
     component: Crypto,
+    description: 'portfolio.categories.crypto',
     enable: true,
   },
   {
     title: 'NFTs',
     component: NFTs,
+    description: 'portfolio.categories.nfts',
     enable: true,
   },
   {
     title: 'CEXs',
     component: CEXs,
+    description: 'portfolio.categories.cexs',
     enable: true,
   },
   {
     title: 'Banks',
     component: Banking,
+    description: 'portfolio.categories.banks',
     enable: true,
   },
   {
     title: 'Stocks',
     component: Stocks,
+    description: 'portfolio.categories.stocks',
     enable: true,
   },
   {
     title: 'Cash',
     component: Fiat,
+    description: 'portfolio.categories.cash',
     enable: true,
   },
 ];
