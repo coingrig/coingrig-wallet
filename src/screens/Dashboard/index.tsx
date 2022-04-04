@@ -196,6 +196,7 @@ const DashboardScreen = observer(() => {
                 value={WalletStore.totalBalance + CexStore.totalBalance}
                 icon={'bitcoin'}
                 color={'orange'}
+                tab={'Crypto'}
               />
               <Brick
                 title={t('portfolio.categories.banks')}
@@ -204,6 +205,7 @@ const DashboardScreen = observer(() => {
                 value={BankStore.totalBalance}
                 icon={'bank'}
                 color={'#2c8af2'}
+                tab={'Banks'}
               />
               <Brick
                 title={'_END_'}
@@ -212,6 +214,7 @@ const DashboardScreen = observer(() => {
                 icon={'menu'}
                 size={32}
                 color={Colors.background}
+                tab={'Stocks'}
               />
             </ScrollView>
             <USMarkets />
