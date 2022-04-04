@@ -29,7 +29,7 @@ const editSheet: React.RefObject<any> = createRef();
 const Fiat = observer(() => {
   const navigation = useNavigation();
   const {t} = useTranslation();
-  const [selected, setselected] = useState<IFiatAccounts | null>(null);
+  const [selected, setSelected] = useState<IFiatAccounts | null>(null);
   const [accBalance, setAccBalance] = useState('');
   const [showAvatar, setShowAvatar] = useState(false);
 
@@ -51,7 +51,7 @@ const Fiat = observer(() => {
       key={item.id}
       disable={false}
       onPress={() => {
-        setselected(item);
+        setSelected(item);
         setAccBalance((item?.balance ?? '').toString());
         editSheet.current?.setModalVisible(true);
       }}
@@ -155,7 +155,7 @@ const Fiat = observer(() => {
               {
                 text: t('settings.yes'),
                 onPress: async () => {
-                  FiatStore.deleteAccountById(selected?.id);
+                  FiatStore.deleteAccountById(selected?.id as string);
                   FiatStore.updateTotalBalance(FiatStore.sumTotalBalance());
                   editSheet.current?.setModalVisible(false);
                 },
@@ -176,7 +176,7 @@ const Fiat = observer(() => {
           placeholderTextColor={'gray'}
           style={styles.editInput}
           value={accBalance}
-          onChangeText={t => setAccBalance(t)}
+          onChangeText={v => setAccBalance(v)}
         />
         <SmallButton
           text={t('portfolio.fiat.save')}
@@ -192,7 +192,6 @@ const Fiat = observer(() => {
             editSheet.current?.setModalVisible(false);
           }}
           color="#f2eded"
-          // eslint-disable-next-line react-native/no-inline-styles
           style={{
             backgroundColor: '#2e2c2c',
             width: '70%',

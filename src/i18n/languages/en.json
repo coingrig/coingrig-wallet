@@ -1,7 +1,7 @@
 {
   "translation" :{
       "brand.message": "The Next-Gen Crypto Wallet",
-
+      "navigation.back": "Back",
       "title.crypto_news": "Crypto News",
       "title.stock_news": "Stock News",
       "title.add_custom_token": "Add Custom Token",
@@ -17,10 +17,10 @@
       "message.error.incorrect_pin": "Your pin is not valid!",
       "message.error.unable_to_create_wallets": "Unable to create wallets!",
       "message.error.unable_to_import_wallets": "Unable to import wallets!",
-      
+
       "message.wallet.token.added": "A new asset was added to your portfolio",
       "message.wallet.token.already_exists": "This asset already exists in your portfolio",
-      
+
       "message.error.wallet_connect.chain_not_supported": "This chain is not supported",
       "message.error.wallet_connect.chain_not_signable": "This chain can not be signed",
 
@@ -110,7 +110,7 @@
       "dashboard.info1": "Avalanche Chain",
       "dashboard.info2": "Cronos Chain",
       "dashboard.quick_actions": "Quick Actions",
-      
+
       "wallet.wallet": "Wallet",
       "wallet.send": "Send",
       "wallet.transactions": "Transactions",

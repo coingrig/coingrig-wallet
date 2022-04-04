@@ -7,6 +7,8 @@ import {
   StyleSheet,
   ScrollView,
   DeviceEventEmitter,
+  TextInput,
+  TouchableOpacity,
 } from 'react-native';
 import {useNavigation, CommonActions} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -24,11 +26,11 @@ export default function ImportWalletScreen({}) {
   const {t} = useTranslation();
   const navigation = useNavigation();
   const [copiedText, setCopiedText] = React.useState('');
-  const [isDisabled, setIsDisabled] = React.useState(true);
+  // const [isDisabled, setIsDisabled] = React.useState(true);
   const fetchCopiedText = async () => {
     const text = await Clipboard.getString();
     setCopiedText(text);
-    setIsDisabled(false);
+    // setIsDisabled(false);
   };
   const importNewWallet = async () => {
     try {
@@ -80,9 +82,16 @@ export default function ImportWalletScreen({}) {
             {t('setup.paste_recovery_phrase')}
           </Text>
           <View style={styles.mnemonicsContainer}>
-            <Text selectable style={styles.mnemonics}>
-              {copiedText}
-            </Text>
+            <TextInput
+              style={styles.mnemonics}
+              multiline={true}
+              scrollEnabled={true}
+              autoCorrect={false}
+              autoCapitalize={'none'}
+              autoCompleteType={'off'}
+              value={copiedText}
+              onChangeText={v => setCopiedText(v)}
+            />
           </View>
           <SmallButton
             text={t('setup.paste')}
@@ -97,9 +106,24 @@ export default function ImportWalletScreen({}) {
             text={t('setup.import_wallet')}
             backgroundColor={Colors.foreground}
             color={Colors.background}
-            disabled={isDisabled}
             onPress={() => importNewWallet()}
           />
+          <TouchableOpacity
+            style={{
+              marginTop: 5,
+              paddingVertical: 5,
+              width: 100,
+            }}
+            onPress={() => {
+              navigation.dispatch(
+                CommonActions.reset({
+                  index: 1,
+                  routes: [{name: 'StartScreen'}],
+                }),
+              );
+            }}>
+            <Text style={{color: Colors.lighter, textAlign: 'center'}}>{t('navigation.back')}</Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </ScrollView>
@@ -122,7 +146,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    paddingBottom: 30,
+    paddingBottom: 20,
   },
   mnemonicsContainer: {
     marginTop: 40,
@@ -131,16 +155,18 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: Colors.foreground,
     borderStyle: 'dashed',
-    minHeight: 130,
+    minHeight: 100,
     justifyContent: 'center',
   },
   mnemonics: {
-    textAlign: 'center',
+    // textAlign: 'center',
     lineHeight: 25,
     fontSize: 19,
     letterSpacing: 1,
     color: Colors.foreground,
     fontFamily: 'RobotoSlab-Regular',
+    height: 100,
+    textAlignVertical: 'top',
   },
   subtitle: {
     marginBottom: 10,
@@ -158,7 +184,7 @@ const styles = StyleSheet.create({
   },
   paragraphBottom: {
     marginBottom: 20,
-    fontSize: 16,
+    fontSize: 15,
     width: '100%',
     textAlign: 'center',
     alignSelf: 'center',

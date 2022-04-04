@@ -1,7 +1,7 @@
 {
   "translation" :{
       "brand.message": "The Next-Gen Crypto Wallet",
-
+      "navigation.back": "Inapoi",
       "title.crypto_news": "Știri crypto",
       "title.stock_news": "Știri",
       "title.add_custom_token": "Adaugă token custom",
@@ -17,10 +17,10 @@
       "message.error.incorrect_pin": "Pin invalid",
       "message.error.unable_to_create_wallets": "Nu am putut genera portofelul",
       "message.error.unable_to_import_wallets": "Nu am putut importa portofelul",
-      
+
       "message.wallet.token.added": "Un nou activ a fost adăugat în portofoliu",
       "message.wallet.token.already_exists": "Acest activ există deja în portofoliu",
-      
+
       "message.error.wallet_connect.chain_not_supported": "Acest blockchain nu este suportat",
       "message.error.wallet_connect.chain_not_signable": "Acest blockchain nu poate fi semnat",
 
@@ -110,7 +110,7 @@
       "dashboard.info1": "Avalanche Chain",
       "dashboard.info2": "Cronos Chain",
       "dashboard.quick_actions": "Acțiuni rapide",
-      
+
       "wallet.wallet": "Portofel",
       "wallet.send": "Trimite",
       "wallet.transactions": "Tranzacții",
@@ -145,7 +145,7 @@
       "coindetails.not_available": "Activ indisponibil",
       "coindetails.already_note": "Acest activ este deja prezent în portofoliu!\nPuteți adăuga activul ca Portofel Extern și să editați balanța manual.",
       "coindetails.already_title": "Prezent în portofoliu",
-      
+
       "market.market": "Piața",
       "market.assets": "Active",
       "market.search_placeholder": "Caută în mii de active",
@@ -202,7 +202,7 @@
 
       "search.add_asset": "Adaugă token",
       "search.search_assets": "Caută în active",
-      
+
       "custom_token.network_error": "Nu se pot obține datele contractului. Vă rugăm să verificați adresa contractului și rețeaua.",
       "custom_token.select_network": "Selectați rețeaua:",
       "custom_token.contract_address": "Adresa Smart Contract",
@@ -296,7 +296,7 @@
       "hub.donate_ukraine.description": "Ajută Ucraina cu Crypto",
       "hub.portfolio_sumamry": "Rezumatul portofoliului",
       "hub.portfolio_sumamry.description": "Grafic cu distribuirea portofoliului",
-      
+
       "swap.you_pay": "Plătești",
       "swap.you_get": "Primești",
       "swap.slippage": "Slippage",
@@ -329,7 +329,7 @@
       "nft.sales": "Vânzări",
       "nft.symbol": "Simbol",
       "nft.total_supply": "Volum total",
-      
+
       "token_connect.title": "TokenConnect",
       "token_connect.error.invalid_link_configuration": "Link-ul folosit nu este valid!",
       "token_connect.swapintro_one": "Pentru schimbul dorit, următorul token trebuie adăugat în portofoliu",

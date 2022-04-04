@@ -1,7 +1,7 @@
 {
   "translation" :{
       "brand.message": "Le Crypto Wallet Next-Gen",
-
+      "navigation.back": "Back",
       "title.crypto_news": "Nouvelles Crypto",
       "title.stock_news": "Nouvelles",
       "title.add_custom_token": "Ajouter Token Personnalisé",
@@ -17,10 +17,10 @@
       "message.error.incorrect_pin": "Votre code n'est pas valide!",
       "message.error.unable_to_create_wallets": "Impossible de créer les portefeuilles!",
       "message.error.unable_to_import_wallets": "Impossible de importer les portefeuilles!",
-      
+
       "message.wallet.token.added": "Un nouvel actif a été ajouté à votre portefeuille",
       "message.wallet.token.already_exists": "Cet actif existe déjà dans votre portefeuille",
-      
+
       "message.error.wallet_connect.chain_not_supported": "Cette chaîne n'est pas prise en charge",
       "message.error.wallet_connect.chain_not_signable": "Cette chaîne ne peut pas être signée",
 
@@ -110,7 +110,7 @@
       "dashboard.info1": "Avalanche Chain",
       "dashboard.info2": "Cronos Chain",
       "dashboard.quick_actions": "Actions rapides",
-      
+
       "wallet.wallet": "Portefeuille",
       "wallet.send": "Envoyer",
       "wallet.transactions": "Transactions",
@@ -145,7 +145,7 @@
       "coindetails.not_available": "Pas disponible",
       "coindetails.already_note": "Cet actif est déjà dans votre portefeuille!\nVous pouvez ajouter l'actif en tant que Portefeuille Externe et modifier le solde manuellement.",
       "coindetails.already_title": "Déjà dans votre portefeuille",
-      
+
       "market.market": "Marché",
       "market.assets": "Actifs",
       "market.search_placeholder": "Recherchez dans des milliers d'actifs",
@@ -245,7 +245,7 @@
       "hub.featured.title": "Connecté à 30 DEXs",
       "hub.featured.description": "Coingrig Swap peut interroger et utiliser plusieurs DEX pour trouver le swap avec le meilleur prix pour vous.",
       "hub.shortcuts": "Raccourcis",
-      "hub.shortcuts.description": "Des raccourcis pour vos besoins",      
+      "hub.shortcuts.description": "Des raccourcis pour vos besoins",
       "hub.swap": "Swap",
       "hub.index": "Coingrig Index",
       "hub.earn": "Gagner des intérêts",
@@ -349,7 +349,7 @@
       "feedback.message.empty_form": "Veuillez sélectionner un type de commentaire et saisir un message!",
       "feedback.message.sent": "Message envoyé!",
       "feedback.message.failed_send": "Impossible d'envoyer le message, réessayez plus tard!",
-    
+
       "summary.title": "Résumé",
       "summary.distribution": "Distribution",
       "summary.category.no_money": "Aucun actif",

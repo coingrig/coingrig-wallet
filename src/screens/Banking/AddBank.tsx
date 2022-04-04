@@ -98,9 +98,6 @@ export default function AddBank({route}) {
   };
 
   const setupAccounts = async () => {
-    //
-    // show loading spinner, please wait!!!
-    //
     try {
       const accounts = await BanksService.fetchAccountsList(
         accData.buildLink.id,
