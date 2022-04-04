@@ -16,7 +16,7 @@ export default function Featured() {
       <CardImage
         //@ts-ignore
         onClick={() => navigation.navigate('SwapScreen')}
-        imageURI={'https://coingrig.com/images/assets/coinsi.png'}
+        imageURI={'https://assets.coingrig.com/images/balance.png'}
         category={t('hub.featured').toUpperCase()}
         title={t('hub.featured.title')}
         desc={t('hub.featured.description')}
