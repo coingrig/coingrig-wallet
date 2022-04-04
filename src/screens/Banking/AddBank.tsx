@@ -17,6 +17,7 @@ import {useNavigation} from '@react-navigation/native';
 import {LoadingModal} from 'services/loading';
 import {sleep} from 'utils';
 import {ILogEvents, LogEvents} from 'utils/analytics';
+import Config from '../../config';
 
 let accData: any = null;
 
@@ -82,8 +83,9 @@ export default function AddBank({route}) {
     accData = null;
     setLoading(true);
     try {
-      const bankID = 'SANDBOXFINANCE_SFIN0000';
-      // const bankID = item.id;
+      const bankID = Config.BANKING_SANDBOX
+        ? 'SANDBOXFINANCE_SFIN0000'
+        : item.id;
       const aggrement = await BanksService.getAggrement(bankID);
       const buildLink = await BanksService.createAuthLink(bankID, aggrement.id);
       accData = {aggrement, buildLink, item};
