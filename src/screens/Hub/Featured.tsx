@@ -15,7 +15,9 @@ export default function Featured() {
     <ScrollView contentContainerStyle={[styles.scrollview, {paddingTop: 10}]}>
       <CardImage
         //@ts-ignore
-        onClick={() => navigation.navigate('SwapScreen')}
+        onClick={() => {
+          navigation.navigate('PortfolioScreen', {tab: 'Banks'});
+        }}
         imageURI={'https://assets.coingrig.com/images/balance.png'}
         category={t('hub.featured').toUpperCase()}
         title={t('hub.featured.title')}
