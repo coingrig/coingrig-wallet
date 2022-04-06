@@ -92,19 +92,19 @@ const CoinDetailScreen = observer(({route}) => {
   const getData = async () => {
     // get data from coingecko
     const data = await CryptoService.getCoinDetails(route.params.coin);
-    let mappedPlatforms: any = [];
+    const mappedPlatforms: any = [];
     for (const [key, value] of Object.entries(data.platforms)) {
       // Sanity check, the data comes with a "":"" pair
       if (key === '' || value === '') {
         continue;
       }
       // Is this chain supported?
-      let platformChain = CryptoService.getSupportedChainbyName(key);
+      const platformChain = CryptoService.getSupportedChainbyName(key);
       if (platformChain === '') {
         continue;
       }
       // Is the wallet already registered?
-      let existingWallets = WalletStore.wallets.filter(
+      const existingWallets = WalletStore.wallets.filter(
         o =>
           o.chain === platformChain &&
           (o.contract === value || o.symbol === data.symbol.toUpperCase()),
@@ -266,21 +266,23 @@ const CoinDetailScreen = observer(({route}) => {
           )}
           <Text style={styles.txtBg}>{t('coindetails.last_7_days')}</Text>
         </View>
-        {addToPortfolio()}
-        <View style={styles.viewStats}>
-          <Text style={styles.subTitle} numberOfLines={1}>
-            {coinData?.name ?? '-' + ' ' + t('coindetails.stats')}
-          </Text>
-          {coinData?.image ? (
-            <FastImage
-              style={styles.logoimg}
-              source={{
-                uri: coinData?.image.large,
-                priority: FastImage.priority.normal,
-                cache: FastImage.cacheControl.immutable,
-              }}
-            />
-          ) : null}
+        <View style={{backgroundColor: Colors.darker}}>
+          {addToPortfolio()}
+          <View style={styles.viewStats}>
+            <Text style={styles.subTitle} numberOfLines={1}>
+              {coinData?.name ?? '-' + ' ' + t('coindetails.stats')}
+            </Text>
+            {coinData?.image ? (
+              <FastImage
+                style={styles.logoimg}
+                source={{
+                  uri: coinData?.image.large,
+                  priority: FastImage.priority.normal,
+                  cache: FastImage.cacheControl.immutable,
+                }}
+              />
+            ) : null}
+          </View>
         </View>
         <View style={styles.viewStatsDetail}>
           <View style={styles.item}>
