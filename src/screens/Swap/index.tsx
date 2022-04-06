@@ -203,7 +203,7 @@ const SwapScreen = props => {
     _sellAmount,
     exact = false,
   ) => {
-    let params: any = {
+    const params: any = {
       buyToken: _buyToken,
       sellToken: _sellToken,
       sellAmount: _sellAmount,
@@ -214,6 +214,9 @@ const SwapScreen = props => {
       if (CONFIG.SWAP_FEE !== 0) {
         params.buyTokenPercentageFee = CONFIG.SWAP_FEE;
         params.feeRecipient = CONFIG.FEE_RECIPIENT;
+      }
+      if (CONFIG.AFFILIATE_ADDRESS) {
+        params.affiliateAddress = CONFIG.AFFILIATE_ADDRESS;
       }
     }
     try {
@@ -241,7 +244,7 @@ const SwapScreen = props => {
       swapChain,
     );
     const buyWallet = WalletStore.getWalletByCoinId(buyTokenSymbol, swapChain);
-    let sellAmount = toWei(
+    const sellAmount = toWei(
       formatNoComma(sellAmmount),
       sellWallet?.decimals,
     ).toString();
@@ -335,7 +338,7 @@ const SwapScreen = props => {
       // Trading an ERC20 token, an allowance must be first set!
       Logs.info('Checking allowance');
       // Check if the contract has sufficient allowance
-      let w3client = await CryptoService.getWeb3Client(swapChain);
+      const w3client = await CryptoService.getWeb3Client(swapChain);
       if (!w3client) {
         LoadingModal.instance.current?.hide();
         showMessage({
@@ -345,7 +348,7 @@ const SwapScreen = props => {
         setStatus('preview');
         return;
       }
-      let contract = new w3client!.eth.Contract(
+      const contract = new w3client!.eth.Contract(
         ERC20_ABI,
         quoteInfo.sellTokenAddress,
       );
@@ -396,7 +399,7 @@ const SwapScreen = props => {
         buyTokenSymbol,
         swapChain,
       );
-      let sellAmount = toWei(
+      const sellAmount = toWei(
         formatNoComma(sellAmmount),
         sellWallet?.decimals,
       ).toString();
@@ -502,7 +505,7 @@ const SwapScreen = props => {
   const executeSwap = async () => {
     LoadingModal.instance.current?.show();
     try {
-      let w3client = await CryptoService.getWeb3Client(swapChain);
+      const w3client = await CryptoService.getWeb3Client(swapChain);
       if (!w3client) {
         showMessage({
           message: t('swap.error.swap_chain_not_supported'),
@@ -546,12 +549,12 @@ const SwapScreen = props => {
   };
 
   const prepareApproval = async (contract, quoteDetails) => {
-    let action = await contract.methods.approve(
+    const action = await contract.methods.approve(
       quoteDetails.allowanceTarget,
       quoteDetails.sellAmount,
     );
     setAllowanceAction(action);
-    let gasEstimate = await action.estimateGas();
+    const gasEstimate = await action.estimateGas();
     setAllowanceFee(gasEstimate);
   };
 
