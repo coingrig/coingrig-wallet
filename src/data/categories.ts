@@ -50,12 +50,12 @@ const HubCatgories = [
     component: DApps,
     enable: true,
   },
-  {
-    title: 'Games',
-    description: 'hub.category.games',
-    component: Games,
-    enable: true,
-  },
+  // {
+  //   title: 'Games',
+  //   description: 'hub.category.games',
+  //   component: Games,
+  //   enable: true,
+  // },
 ];
 
 export default HubCatgories;
