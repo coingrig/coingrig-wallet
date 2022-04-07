@@ -28,6 +28,7 @@ export default function TwoBricks({
         marginBottom: 5,
       }}>
       <TouchableOpacity
+        disabled
         onPress={() =>
           openLink(
             symbol1 === 'CL=F' || symbol1 === 'GC=F'
@@ -90,6 +91,7 @@ export default function TwoBricks({
         </View>
       </TouchableOpacity>
       <TouchableOpacity
+        disabled
         onPress={() =>
           openLink(
             symbol2 === 'CL=F' || symbol2 === 'GC=F'

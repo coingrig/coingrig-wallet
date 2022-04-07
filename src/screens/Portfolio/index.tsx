@@ -31,7 +31,7 @@ const PortfolioScreen = observer(({route}) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      if (!route.params) {
+      if (!route.params || route.params.tab === null) {
         return;
       }
       if (route.params.tab === 'Banks') {

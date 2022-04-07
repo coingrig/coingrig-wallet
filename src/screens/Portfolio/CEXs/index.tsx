@@ -14,6 +14,7 @@ import {CexStore} from 'stores/cexStore';
 import {Logs} from 'services/logs';
 import {useTranslation} from 'react-i18next';
 import {SIZE} from 'utils/constants';
+import {showMessage} from 'react-native-flash-message';
 
 const CEXs = observer(() => {
   const navigation = useNavigation();
@@ -32,11 +33,18 @@ const CEXs = observer(() => {
     CexService.getAllBalances();
   }, []);
 
+  const showMsg = () => {
+    showMessage({
+      message: t('portfolio.trading_soon'),
+      type: 'warning',
+    });
+  };
+
   const renderItem = ({item}: {item: any}) => (
     <AccountItem
       key={item.id}
-      disable={true}
-      onPress={null}
+      disable={false}
+      onPress={showMsg}
       title={item.symbol || ''}
       img={item.logo || ''}
       subimg={item.image || null}
