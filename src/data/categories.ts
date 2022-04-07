@@ -1,7 +1,7 @@
 import Card from 'screens/Hub/Card';
 import DApps from 'screens/Hub/DApps';
 import Defi from 'screens/Hub/Defi';
-import Games from 'screens/Hub/Games';
+// import Games from 'screens/Hub/Games';
 import Shops from 'screens/Hub/Shops';
 import Tools from 'screens/Hub/Tools';
 import Featured from '../screens/Hub/Featured';
