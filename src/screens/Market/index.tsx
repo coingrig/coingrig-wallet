@@ -151,15 +151,6 @@ const MarketScreen = observer(() => {
     fetchCoins();
   }, []);
 
-  // const handleScroll = (event: any) => {
-  //   let opac = 1 - event.nativeEvent.contentOffset.y * 0.004;
-  //   if (opac > 1 || opac < 0) {
-  //     return;
-  //   }
-  //   setImgOpac(1 - event.nativeEvent.contentOffset.y * 0.004);
-  //   // setImgHeight(220 - event.nativeEvent.contentOffset.y);
-  // };
-
   const renderList = () => {
     return (
       <FlatList
