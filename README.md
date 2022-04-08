@@ -3,7 +3,7 @@
 Next-Gen Crypto Wallet. A powerful crypto wallet for everyone with unique features.
 
 You are granted a limited non-exclusive license to inspect and study the code in this repository.  
-You may not use this code in a commercial scope, please read our licence.  
+You may not use this code in a commercial scope, please read our license.  
 
 ### Building Locally
 
