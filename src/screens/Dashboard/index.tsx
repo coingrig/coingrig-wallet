@@ -226,7 +226,9 @@ const DashboardScreen = observer(() => {
                 color={Colors.lighter}
                 style={styles.icons}
               />
-              <Text style={styles.subtitle}>{t('dashboard.top_3_coins')}</Text>
+              <Text style={[styles.subtitle, {marginBottom: 6}]}>
+                {t('dashboard.top_3_coins')}
+              </Text>
             </View>
             <ListPrices />
             <OtherMarkets />
