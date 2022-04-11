@@ -15,6 +15,7 @@ import {observer} from 'mobx-react-lite';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import Icon3 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon4 from 'react-native-vector-icons/Feather';
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import {useTranslation} from 'react-i18next';
 import Svg, {Path} from 'react-native-svg';
@@ -404,7 +405,7 @@ const WalletScreen = observer(({route}) => {
             <TouchableOpacity
               onPress={() => deleteWallet(wallet)}
               style={styles.deleteBtn}>
-              <Icon name="trash" size={20} color="white" />
+              <Icon4 name="trash-2" size={20} color="white" />
             </TouchableOpacity>
           </View>
         ) : null}
