@@ -25,9 +25,8 @@ const SplashScreen: FC = () => {
   const navigation = useNavigation();
   const {i18n} = useTranslation();
 
-  ConfigStore.initializeConfig();
-
   useEffect(() => {
+    ConfigStore.initializeConfig();
     check();
   }, []);
 
@@ -57,8 +56,8 @@ const SplashScreen: FC = () => {
   };
 
   const checkPin = async () => {
-    let hasPin = await hasUserSetPinCode();
-    let isInit = await StorageGetItem(CONFIG.INIT_KEY, false);
+    const hasPin = await hasUserSetPinCode();
+    const isInit = await StorageGetItem(CONFIG.INIT_KEY, false);
     CONFIG.navigation = navigation;
     if (hasPin && isInit) {
       navigation.dispatch(
