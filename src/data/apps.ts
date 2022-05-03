@@ -179,6 +179,17 @@ const apps = [
     enable: true,
     module: false,
   },
+  {
+    title: 'Buy and sell Crypto',
+    screen:
+      'https://guardarian.com/?ref_link=e6620ef3-de0b-4278-9120-b731cc1cf686',
+    image: require('../assets/hub/guardarian.png'),
+    keywords: 'buy, crypto, sell',
+    categories: ['featured'],
+    description: 'www.guardarian.com',
+    enable: true,
+    module: false,
+  },
 ];
 
 export default apps;
