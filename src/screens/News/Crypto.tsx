@@ -3,11 +3,11 @@ import {Loader} from 'components/loader';
 import * as React from 'react';
 import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import axios from 'axios';
-import * as rssParser from 'react-native-rss-parser';
-import {openLink} from 'utils';
+import {formatTime, openLink} from 'utils';
 import {ILogEvents, LogEvents} from 'utils/analytics';
 import endpoints from 'utils/endpoints';
 import {styles} from './styles';
+import FastImage from 'react-native-fast-image';
 
 export default function CryptoNewsScreen() {
   const [news, setNews] = React.useState([]);
@@ -25,8 +25,9 @@ export default function CryptoNewsScreen() {
     axios(config)
       .then(async response => {
         try {
-          const parsed = await rssParser.parse(response.data);
-          setNews(parsed.items);
+          // console.log(response.data.Data);
+          // const parsed = await rssParser.parse(response.data);
+          setNews(response.data.Data);
         } catch (err) {}
       })
       .catch(function (error) {
@@ -35,15 +36,38 @@ export default function CryptoNewsScreen() {
   };
 
   const renderItem = ({item}) => {
-    const splitTitle = item.title.split('- ');
     return (
       <TouchableOpacity
-        onPress={() => openLink(item.links[0].url)}
-        style={styles.item}>
-        <Text style={styles.source}>{splitTitle[splitTitle.length - 1]}</Text>
-        <Text style={styles.title}>{splitTitle[splitTitle.length - 2]}</Text>
-        <Text style={styles.published}>{item.published}</Text>
+        onPress={() => openLink(item.url)}
+        style={styles.itemCrypto}>
+        <FastImage
+          style={styles.listImg}
+          source={{
+            uri: item.imageurl,
+            priority: FastImage.priority.normal,
+            cache: FastImage.cacheControl.immutable,
+          }}
+        />
+        <View style={{flex: 1}}>
+          <Text style={styles.source}>{item.source_info.name}</Text>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.published}>{formatTime(item.published_on)}</Text>
+        </View>
       </TouchableOpacity>
+    );
+  };
+
+  const listFooter = () => {
+    return (
+      <View style={{margin: 15}}>
+        <Text
+          style={[
+            styles.published,
+            {fontSize: 10, textAlign: 'center', margin: 0},
+          ]}>
+          Powered by CryptoCompare
+        </Text>
+      </View>
     );
   };
 
@@ -59,8 +83,9 @@ export default function CryptoNewsScreen() {
           maxToRenderPerBatch={5}
           initialNumToRender={10}
           showsVerticalScrollIndicator={false}
-          style={{paddingTop: 0}}
-          // ListHeaderComponent={listHeader()}
+          style={{paddingTop: 5}}
+          contentContainerStyle={{paddingBottom: 50}}
+          ListFooterComponent={listFooter()}
         />
       );
     }
