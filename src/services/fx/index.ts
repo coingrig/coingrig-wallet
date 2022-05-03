@@ -11,9 +11,14 @@ class FXService {
     this.fetchFX();
   }
   fetchFX = async () => {
-    var config = {
+    const config: any = {
       method: 'get',
       url: endpoints.fx,
+      headers: {
+        'Cache-Control': 'no-cache',
+        Pragma: 'no-cache',
+        Expires: '0',
+      },
     };
 
     axios(config)
