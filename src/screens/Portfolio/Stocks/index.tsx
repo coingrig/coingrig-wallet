@@ -94,7 +94,8 @@ const Stocks = observer(() => {
             style={{marginHorizontal: 10}}
           />
         ) : (
-          <View
+          <TouchableOpacity
+            onPress={() => navigation.navigate('SearchStocks')}
             style={{
               marginTop: 0,
               marginHorizontal: 16,
@@ -124,7 +125,7 @@ const Stocks = observer(() => {
               }}>
               {t('portfolio.empty_your_stocks')}
             </Text>
-          </View>
+          </TouchableOpacity>
         )}
       </View>
       <ActionSheet

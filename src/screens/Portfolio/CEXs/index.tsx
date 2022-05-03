@@ -106,7 +106,8 @@ const CEXs = observer(() => {
             style={{marginHorizontal: 10}}
           />
         ) : (
-          <View
+          <TouchableOpacity
+            onPress={() => navigation.navigate('CEXScreen')}
             style={{
               marginTop: 0,
               marginHorizontal: 16,
@@ -136,7 +137,7 @@ const CEXs = observer(() => {
               }}>
               {t('portfolio.empty_your_cexs')}
             </Text>
-          </View>
+          </TouchableOpacity>
         )}
       </View>
     </View>
