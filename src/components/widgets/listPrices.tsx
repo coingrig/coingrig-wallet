@@ -6,6 +6,7 @@ import SmallCard from '../smallCard';
 import {MarketStore} from 'stores/market';
 import {useNavigation} from '@react-navigation/native';
 import {Colors} from 'utils/colors';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 export const ListPrices = observer(() => {
   const navigation = useNavigation();
   return (
@@ -27,13 +28,14 @@ export const ListPrices = observer(() => {
               data={i.sparkline_in_7d.price}
               image={i.image}
               change={i.price_change_percentage_24h}
-              onPress={() =>
+              onPress={() => {
                 navigation.navigate('CoinDetailScreen', {
                   coin: i.id,
                   title: i.symbol,
                   showAdd: false,
-                })
-              }
+                });
+                LogEvents(ILogEvents.CLICK, 'Top3Crypto');
+              }}
             />
           ))
         : null}
