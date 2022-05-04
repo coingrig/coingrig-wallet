@@ -33,6 +33,12 @@ const HubCatgories = [
     enable: true,
   },
   {
+    title: 'DApps',
+    description: 'hub.category.dapps',
+    component: DApps,
+    enable: true,
+  },
+  {
     title: 'Card',
     description: 'hub.category.card',
     component: Card,
@@ -42,12 +48,6 @@ const HubCatgories = [
     title: 'Shops',
     description: 'hub.category.shops',
     component: Shops,
-    enable: true,
-  },
-  {
-    title: 'DApps',
-    description: 'hub.category.dapps',
-    component: DApps,
     enable: true,
   },
   // {

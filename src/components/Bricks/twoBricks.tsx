@@ -68,7 +68,7 @@ export default function TwoBricks({
             {title1}
           </Text>
         </View>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text
             style={{fontSize: 14, marginTop: 5, color: Colors.lighter}}
             numberOfLines={1}
@@ -80,6 +80,7 @@ export default function TwoBricks({
             style={{
               fontSize: 14,
               marginTop: 5,
+              textAlign: 'right',
               color: subValue1.startsWith('-') ? Colors.red : Colors.green,
               marginLeft: 10,
             }}
@@ -132,7 +133,7 @@ export default function TwoBricks({
             {title2}
           </Text>
         </View>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text
             style={{fontSize: 14, marginTop: 5, color: Colors.lighter}}
             numberOfLines={1}
@@ -143,6 +144,7 @@ export default function TwoBricks({
           <Text
             style={{
               fontSize: 14,
+              textAlign: 'right',
               marginTop: 5,
               color: subValue2.startsWith('-') ? Colors.red : Colors.green,
               marginLeft: 10,

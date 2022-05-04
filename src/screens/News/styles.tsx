@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
   listImg: {
     width: 45,
     height: 45,
-    marginRight: 10,
+    marginRight: 15,
     justifyContent: 'center',
     alignSelf: 'center',
     // marginVertical: 10,

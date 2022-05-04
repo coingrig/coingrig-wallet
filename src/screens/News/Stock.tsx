@@ -59,8 +59,8 @@ export default function StockNewsScreen() {
           maxToRenderPerBatch={5}
           initialNumToRender={10}
           showsVerticalScrollIndicator={false}
-          style={{paddingTop: 0}}
-          // ListHeaderComponent={listHeader()}
+          style={{paddingTop: 5}}
+          contentContainerStyle={{paddingBottom: 50}}
         />
       );
     }
