@@ -186,7 +186,7 @@ const apps = [
     image: require('../assets/hub/guardarian.png'),
     keywords: 'buy, crypto, sell',
     categories: ['dapps'],
-    description: 'www.guardarian.com',
+    description: 'guardarian.com',
     enable: true,
     module: false,
   },
