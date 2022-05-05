@@ -178,6 +178,13 @@ const SettingScreen = observer(() => {
             <Text style={styles.textItem}>{t('settings.feedback')}</Text>
             <Icon name="arrow-forward" size={20} color="gray" />
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => openLink('https://governance.coingrig.com')}>
+            <Icon2 name="vote-yea" size={20} color={Colors.foreground} />
+            <Text style={styles.textItem}>{t('Governance')}</Text>
+            <Icon name="arrow-forward" size={20} color="gray" />
+          </TouchableOpacity>
         </View>
         <Text
           // eslint-disable-next-line react-native/no-inline-styles

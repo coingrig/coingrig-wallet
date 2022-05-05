@@ -7,6 +7,7 @@ import {
   TextInput,
   Platform,
   KeyboardAvoidingView,
+  Linking,
 } from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
@@ -30,7 +31,7 @@ export default function LanguageScreen() {
   const [feedbackType, setFeedbackType] = useState('');
   const [message, setMessage] = useState('');
 
-  let getColor = mode => {
+  const getColor = mode => {
     if (feedbackType === mode) {
       if (feedbackType === FBCK_TYPE_POSITIVE) {
         return Colors.green;
@@ -43,7 +44,7 @@ export default function LanguageScreen() {
     return Colors.foreground;
   };
 
-  let sendFeedback = async () => {
+  const sendFeedback = async () => {
     if (feedbackType === '' || message === '') {
       return showMessage({
         message: t('feedback.message.empty_form'),
@@ -94,72 +95,88 @@ export default function LanguageScreen() {
         contentContainerStyle={styles.scrollview}
         keyboardShouldPersistTaps="always"
         showsVerticalScrollIndicator={false}>
-        <View style={styles.row}>
-          <Text style={styles.subtitle}>{t('feedback.write_to_us')}</Text>
-        </View>
-        <View style={styles.row}>
-          <TouchableOpacity
-            style={styles.item}
-            onPress={() => setFeedbackType(FBCK_TYPE_POSITIVE)}>
-            <Icon2
-              name="thumbs-up"
-              size={27}
-              style={styles.image}
-              color={getColor(FBCK_TYPE_POSITIVE)}
+        <View style={{flex: 2}}>
+          <View style={styles.row}>
+            <Text style={styles.subtitle}>{t('feedback.write_to_us')}</Text>
+          </View>
+          <View style={styles.row}>
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => setFeedbackType(FBCK_TYPE_POSITIVE)}>
+              <Icon2
+                name="thumbs-up"
+                size={27}
+                style={styles.image}
+                color={getColor(FBCK_TYPE_POSITIVE)}
+              />
+              <Text style={styles.textItem} adjustsFontSizeToFit>
+                {t('feedback.i_like')}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => setFeedbackType(FBCK_TYPE_NEGATIVE)}>
+              <Icon2
+                name="thumbs-down"
+                size={27}
+                style={styles.image}
+                color={getColor(FBCK_TYPE_NEGATIVE)}
+              />
+              <Text style={styles.textItem}>{t('feedback.i_hate')}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => setFeedbackType(FBCK_TYPE_IDEA)}>
+              <Icon2
+                name="flag"
+                size={27}
+                style={styles.image}
+                color={getColor(FBCK_TYPE_IDEA)}
+              />
+              <Text style={styles.textItem}>{t('feedback.i_want')}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.row}>
+            <TextInput
+              style={styles.textInput}
+              editable={true}
+              placeholder={t('feedback.your_feedback_here')}
+              numberOfLines={4}
+              scrollEnabled
+              // returnKeyType="done"
+              placeholderTextColor="gray"
+              multiline
+              value={message}
+              onChangeText={text => setMessage(text)}
             />
-            <Text style={styles.textItem} adjustsFontSizeToFit>
-              {t('feedback.i_like')}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.item}
-            onPress={() => setFeedbackType(FBCK_TYPE_NEGATIVE)}>
-            <Icon2
-              name="thumbs-down"
-              size={27}
-              style={styles.image}
-              color={getColor(FBCK_TYPE_NEGATIVE)}
+          </View>
+          <View style={styles.centerRow}>
+            <SmallButton
+              text={t('feedback.submit')}
+              onPress={() => {
+                sendFeedback();
+              }}
+              color="#f2eded"
+              style={styles.submitButton}
             />
-            <Text style={styles.textItem}>{t('feedback.i_hate')}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.item}
-            onPress={() => setFeedbackType(FBCK_TYPE_IDEA)}>
-            <Icon2
-              name="flag"
-              size={27}
-              style={styles.image}
-              color={getColor(FBCK_TYPE_IDEA)}
-            />
-            <Text style={styles.textItem}>{t('feedback.i_want')}</Text>
-          </TouchableOpacity>
+          </View>
+          <View style={styles.centerRow}>
+            <Text style={styles.warningText}>{t('feedback.disclaimer')}</Text>
+          </View>
         </View>
-        <View style={styles.row}>
-          <TextInput
-            style={styles.textInput}
-            editable={true}
-            placeholder={t('feedback.your_feedback_here')}
-            numberOfLines={4}
-            scrollEnabled
-            // returnKeyType="done"
-            placeholderTextColor="gray"
-            multiline
-            value={message}
-            onChangeText={text => setMessage(text)}
-          />
-        </View>
-        <View style={styles.centerRow}>
+        <View style={styles.bcontainer}>
           <SmallButton
-            text={t('feedback.submit')}
-            onPress={() => {
-              sendFeedback();
-            }}
-            color="#f2eded"
-            style={styles.submitButton}
+            onPress={() => Linking.openURL('https://twitter.com/coingrig')}
+            text="Twitter"
+            color={Colors.foreground}
+            style={styles.bbutton}
           />
-        </View>
-        <View style={styles.centerRow}>
-          <Text style={styles.warningText}>{t('feedback.disclaimer')}</Text>
+          <SmallButton
+            onPress={() => Linking.openURL('https://governance.coingrig.com/')}
+            text="Governance"
+            color={Colors.foreground}
+            style={styles.bbutton}
+          />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

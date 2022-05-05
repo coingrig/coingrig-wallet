@@ -8,6 +8,20 @@ export const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
   },
+  bcontainer: {
+    flex: 1,
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingBottom: 0,
+    borderTopWidth: 1,
+    borderTopColor: Colors.border,
+  },
+  bbutton: {
+    backgroundColor: Colors.background,
+    borderColor: Colors.foreground,
+    borderWidth: 1,
+  },
   centerRow: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -17,6 +31,7 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
     marginHorizontal: 15,
     paddingTop: 0,
+    justifyContent: 'space-around',
   },
   textItem: {
     marginTop: 10,
