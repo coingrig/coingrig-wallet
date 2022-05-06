@@ -22,11 +22,14 @@ class StockService {
     ];
     try {
       const url = endpoints.stocks + 'quote/quote?symbols=' + query;
-      const config = {
+      const config: any = {
         method: 'get',
         url: url,
         headers: {
           ApiKey: CONFIG.COINGRIG_KEY,
+          'Cache-Control': 'no-cache',
+          Pragma: 'no-cache',
+          Expires: '0',
         },
       };
       const response = await axios(config);
@@ -43,11 +46,14 @@ class StockService {
   getStocks = async query => {
     try {
       const url = endpoints.stocks + 'quote/quote?symbols=' + query;
-      const config = {
+      const config: any = {
         method: 'get',
         url: url,
         headers: {
           ApiKey: CONFIG.COINGRIG_KEY,
+          'Cache-Control': 'no-cache',
+          Pragma: 'no-cache',
+          Expires: '0',
         },
       };
       const response = await axios(config);
@@ -60,11 +66,14 @@ class StockService {
   search = async query => {
     try {
       const url = endpoints.stocks + 'search/search?q=' + query;
-      const config = {
+      const config: any = {
         method: 'get',
         url: url,
         headers: {
           ApiKey: CONFIG.COINGRIG_KEY,
+          'Cache-Control': 'no-cache',
+          Pragma: 'no-cache',
+          Expires: '0',
         },
       };
       const response = await axios(config);

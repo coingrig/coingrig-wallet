@@ -91,7 +91,7 @@ class configStore {
 
   checkForUpdatedConfig = action(() => {
     //
-    var config = {
+    var config: any = {
       method: 'get',
       responseType: 'json',
       url: endpoints.app,
