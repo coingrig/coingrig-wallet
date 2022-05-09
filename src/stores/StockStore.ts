@@ -50,7 +50,7 @@ class stockStore {
   });
 
   updateStock = action((id: string, data: IStocks) => {
-    let pos = this.getStockPosition(id);
+    const pos = this.getStockPosition(id);
     if (pos !== -1) {
       this.stocks[pos] = data;
     }
@@ -58,7 +58,7 @@ class stockStore {
   });
 
   updatePrices = action((id: string, price: number, change: number) => {
-    let pos = this.getStockPosition(id);
+    const pos = this.getStockPosition(id);
     if (pos !== -1) {
       this.stocks[pos].change = change;
       this.stocks[pos].price = price;
@@ -78,7 +78,7 @@ class stockStore {
   };
 
   deleteStockById = action((id: string) => {
-    let index = this.getStockPosition(id);
+    const index = this.getStockPosition(id);
     if (index !== -1) {
       this.stocks.splice(index, 1);
       this.stocks = this.stocks.slice(0);
