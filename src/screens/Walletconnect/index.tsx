@@ -22,6 +22,7 @@ import {SmallButton} from 'components/smallButton';
 import FastImage from 'react-native-fast-image';
 import {Logs} from 'services/logs';
 import {BigButton} from 'components/bigButton';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const actionCamera: React.RefObject<any> = createRef();
 
@@ -31,6 +32,7 @@ const WalletconnectScreen = observer(({route}) => {
   useEffect((): any => {
     if (route.params && route.params.uri) {
       let uri = route.params.uri;
+      uri = decodeURIComponent(uri);
       const data: any = {uri};
       data.redirect = '';
       data.autosign = false;
@@ -38,12 +40,13 @@ const WalletconnectScreen = observer(({route}) => {
         // Display error message
       }
     }
+    LogEvents(ILogEvents.SCREEN, 'WalletConnect');
     return WalletConnectService.closeSession;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSuccess = e => {
-    let uri = e.data;
+    const uri = e.data;
     const data: any = {uri};
     data.redirect = '';
     data.autosign = false;
@@ -263,18 +266,18 @@ const WalletconnectScreen = observer(({route}) => {
   const acceptRequest = async (method: any) => {
     try {
       // Get the coresponding wallet for the chain
-      let chainType =
+      const chainType =
         CryptoService.CHAIN_ID_TYPE_MAP[WalletconnectStore.chainId];
       // Get the coin descriptor for the chain native asset
-      let cryptoWalletDescriptor = WalletStore.getWalletByCoinId(
+      const cryptoWalletDescriptor = WalletStore.getWalletByCoinId(
         CryptoService.getChainNativeAsset(chainType),
         chainType,
       );
       // Get the chain private key for signature
-      let chainKeys = await CryptoService.getChainPrivateKeys();
-      let chainAddress = WalletStore.getWalletAddressByChain(chainType);
+      const chainKeys = await CryptoService.getChainPrivateKeys();
+      const chainAddress = WalletStore.getWalletAddressByChain(chainType);
       // Build the crypto wallet to send the transaction with
-      let cryptoWallet = WalletFactory.getWallet(
+      const cryptoWallet = WalletFactory.getWallet(
         Object.assign({}, cryptoWalletDescriptor, {
           walletAddress: chainAddress,
           privKey: chainKeys.ETH,
@@ -286,7 +289,7 @@ const WalletconnectScreen = observer(({route}) => {
           error: t('message.error.wallet_connect.chain_not_supported'),
         });
       }
-      let signingManager = cryptoWallet.getSigningManager();
+      const signingManager = cryptoWallet.getSigningManager();
       if (!signingManager) {
         WalletConnectService.rejectRequest({
           id: WalletconnectStore.transactionData.id!,
@@ -298,19 +301,21 @@ const WalletconnectScreen = observer(({route}) => {
       let result: any = '';
 
       if (method === WALLETCONNECT_STATUS.SIGN_TRANSACTION) {
-        let params = WalletconnectStore.transactionData.params[0]!;
-        let tx = await signingManager.signTransaction(params);
+        const params = WalletconnectStore.transactionData.params[0]!;
+        const tx = await signingManager.signTransaction(params);
         result = tx;
       }
 
       if (method === WALLETCONNECT_STATUS.SEND_TRANSACTION) {
-        let params = WalletconnectStore.transactionData.params[0]!;
-        let tx = await signingManager.signTransaction(params);
+        const params = WalletconnectStore.transactionData.params[0]!;
+        const tx = await signingManager.signTransaction(params);
         result = await cryptoWallet.postRawTxSend(tx);
       }
 
       if (method === WALLETCONNECT_STATUS.SIGN_TYPED_DATA) {
-        let params = JSON.parse(WalletconnectStore.transactionData.params[1]!);
+        const params = JSON.parse(
+          WalletconnectStore.transactionData.params[1]!,
+        );
         result = await signingManager.signTypedData(params);
       }
 
@@ -368,7 +373,8 @@ const WalletconnectScreen = observer(({route}) => {
       return null;
     }
     // if chain not supported display warning and CLOSE button
-    let chainType = CryptoService.CHAIN_ID_TYPE_MAP[WalletconnectStore.chainId];
+    const chainType =
+      CryptoService.CHAIN_ID_TYPE_MAP[WalletconnectStore.chainId];
     if (!chainType) {
       WalletConnectService.rejectSession();
       showMessage({
@@ -402,7 +408,7 @@ const WalletconnectScreen = observer(({route}) => {
           color={Colors.foreground}
           style={[
             styles.smallBtn,
-            {backgroundColor: Colors.darker, width: 280},
+            {backgroundColor: Colors.darker, width: 250},
           ]}
         />
       </Animatable.View>

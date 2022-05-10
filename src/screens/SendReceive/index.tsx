@@ -53,6 +53,7 @@ const SendReceiveScreen = ({route}) => {
           coin={route.params.coin}
           chain={route.params.chain}
           address={address}
+          to={route.params.to ?? null}
           coinDescriptor={coinDescriptor}
         />
       ) : (
@@ -75,7 +76,11 @@ const SendReceiveScreen = ({route}) => {
           name === 'receive' ? setIsReceive(true) : setIsReceive(false)
         }>
         <Segment name="receive" content={t('tx.receive')} />
-        <Segment name="send" content={t('tx.send')} />
+        <Segment
+          name="send"
+          content={t('tx.send')}
+          disabled={route.params.nft ? true : false}
+        />
       </SegmentedControl>
       {renderContainer()}
     </ScrollView>

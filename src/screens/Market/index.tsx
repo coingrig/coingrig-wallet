@@ -18,6 +18,7 @@ import {COINS_MAX} from '../../utils/constants';
 import {styles} from './styles';
 import {showMessage} from 'react-native-flash-message';
 import FastImage from 'react-native-fast-image';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const MarketScreen = observer(() => {
   const FILTER_ALL = 'all';
@@ -43,6 +44,7 @@ const MarketScreen = observer(() => {
       ),
     });
     fetchCoins();
+    LogEvents(ILogEvents.SCREEN, 'CryptoMarket');
   }, []);
 
   const fetchCoins = async () => {
@@ -70,14 +72,14 @@ const MarketScreen = observer(() => {
           navigation.navigate('CoinDetailScreen', {
             coin: item.id,
             title: item.symbol,
-            showAdd: true,
+            showAdd: false,
           })
         }
       />
     );
   };
 
-  let getCoinsData = (): MarketCapCoinType[] => {
+  const getCoinsData = (): MarketCapCoinType[] => {
     let list = MarketStore.coins ?? [];
     if (searchFilter !== FILTER_ALL) {
       list = MarketStore.coins.filter((o: MarketCapCoinType) => {
@@ -96,7 +98,7 @@ const MarketScreen = observer(() => {
     return list;
   };
 
-  let getCoinFilterStyle = type => {
+  const getCoinFilterStyle = type => {
     if (searchFilter === type) {
       return styles.appButtonContainerSelected;
     }
@@ -116,7 +118,7 @@ const MarketScreen = observer(() => {
           }}
         />
         <View style={styles.subtitleContainer}>
-          <Text style={styles.subtitle}>{t('market.assets')}</Text>
+          <Text style={styles.subtitle}>{t('portfolio.my_assets')}</Text>
           <View style={styles.pillsContainer}>
             <TouchableOpacity
               style={getCoinFilterStyle(FILTER_ALL)}
@@ -150,15 +152,6 @@ const MarketScreen = observer(() => {
     setRefreshing(true);
     fetchCoins();
   }, []);
-
-  // const handleScroll = (event: any) => {
-  //   let opac = 1 - event.nativeEvent.contentOffset.y * 0.004;
-  //   if (opac > 1 || opac < 0) {
-  //     return;
-  //   }
-  //   setImgOpac(1 - event.nativeEvent.contentOffset.y * 0.004);
-  //   // setImgHeight(220 - event.nativeEvent.contentOffset.y);
-  // };
 
   const renderList = () => {
     return (

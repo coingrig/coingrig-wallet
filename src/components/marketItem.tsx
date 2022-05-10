@@ -68,9 +68,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   coinSymbol: {
-    fontSize: 13,
+    fontSize: 12,
     marginBottom: 5,
-    fontFamily: 'RobotoSlab-Regular',
     color: Colors.lighter,
   },
   mcontainer: {
@@ -82,7 +81,7 @@ const styles = StyleSheet.create({
   coinName: {
     fontSize: 15,
     marginBottom: 2,
-    fontFamily: 'RobotoSlab-Bold',
+    fontWeight: 'bold',
     color: Colors.foreground,
   },
   price: {

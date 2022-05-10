@@ -67,7 +67,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 10,
-    backgroundColor: Colors.darker,
+    // backgroundColor: Colors.darker,
     paddingVertical: 5,
   },
   coingecko: {
@@ -79,7 +79,7 @@ export const styles = StyleSheet.create({
   },
   viewStatsDetail: {
     paddingHorizontal: 20,
-    backgroundColor: Colors.darker,
+    // backgroundColor: Colors.darker,
     marginVertical: 1,
     paddingBottom: 20,
   },
@@ -97,12 +97,14 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 0,
+    backgroundColor: Colors.darker,
   },
   linechart: {
     justifyContent: 'center',
     height: 160,
     marginTop: 0,
     paddingHorizontal: 0,
+    backgroundColor: Colors.darker,
   },
   chart: {
     paddingRight: 0,
@@ -133,7 +135,7 @@ export const styles = StyleSheet.create({
   subTitle: {
     flex: 1,
     fontSize: 18,
-    fontFamily: 'RobotoSlab-Bold',
+    fontWeight: 'bold',
     color: Colors.foreground,
     marginLeft: 20,
   },

@@ -1,4 +1,4 @@
-var axios = require('axios');
+import axios from 'axios';
 import {action, makeAutoObservable} from 'mobx';
 import {makePersistable} from 'mobx-persist-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -57,7 +57,7 @@ class configStore {
   }
 
   initializeConfig = action(async () => {
-    let isInit = await StorageGetItem(CONFIG.INIT_KEY, false);
+    const isInit = await StorageGetItem(CONFIG.INIT_KEY, false);
     if (!isInit) {
       this.setConfig(DEFAULT_CONFIG);
       this.checkForUpdatedConfig();
@@ -72,7 +72,7 @@ class configStore {
     defaultValue: any = null,
   ): any {
     let v = defaultValue;
-    let m = this.settings.find(o => o.key === module);
+    const m = this.settings.find(o => o.key === module);
     if (m) {
       v = m.properties.hasOwnProperty(property)
         ? m.properties[property]
@@ -91,7 +91,7 @@ class configStore {
 
   checkForUpdatedConfig = action(() => {
     //
-    var config = {
+    var config: any = {
       method: 'get',
       responseType: 'json',
       url: endpoints.app,

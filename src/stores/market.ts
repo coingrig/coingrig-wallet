@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction} from 'mobx';
+import {action, makeAutoObservable, runInAction} from 'mobx';
 import {makePersistable} from 'mobx-persist-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getAllCoins, getCoins} from '@coingrig/core';
@@ -14,15 +14,20 @@ export type MarketCapCoinType = {
 
 class marketStore {
   coins: MarketCapCoinType[] = [];
+  markets: {} = {};
 
   constructor() {
     makeAutoObservable(this);
     makePersistable(this, {
       name: 'MarketStore',
-      properties: ['coins'],
+      properties: ['coins', 'markets'],
       storage: AsyncStorage,
     });
   }
+
+  setMarkets = action(marketsData => {
+    this.markets = marketsData;
+  });
 
   getCoinsByList = async (list: string[]) => {
     return getCoins(list);
