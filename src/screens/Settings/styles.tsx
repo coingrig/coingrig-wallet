@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
     marginHorizontal: 15,
     paddingTop: 20,
+    paddingBottom: 40,
   },
   paragraph: {
     textAlign: 'center',

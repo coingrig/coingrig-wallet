@@ -1,222 +1,214 @@
-/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useCallback, useEffect, useState} from 'react';
-import {
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-  RefreshControl,
-  Image,
-} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useEffect, useRef, useState} from 'react';
+import {Text, View, TouchableOpacity, ScrollView, FlatList} from 'react-native';
 import {useTranslation} from 'react-i18next';
-import Icon from 'react-native-vector-icons/Ionicons';
-import {SegmentedControl, Segment} from 'react-native-resegmented-control';
-import WalletListItem from 'components/walletlistitem';
-import NFTCard from 'components/NFT/Card';
 import {Colors} from 'utils/colors';
 import {observer} from 'mobx-react-lite';
 import {styles} from './styles';
-import {showMessage} from 'react-native-flash-message';
-import {IWallet, WalletStore} from 'stores/wallet';
-import {CryptoService} from 'services/crypto';
+import {WalletStore} from 'stores/wallet';
 import {formatPrice} from 'utils';
-import BigList from 'react-native-big-list';
-import endpoints from 'utils/endpoints';
+import Portfolios from 'data/portfolios';
+import {BankStore} from 'stores/bankStore';
+import {FiatStore} from 'stores/fiatStore';
+import {CexStore} from 'stores/cexStore';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {SmallLogo} from 'routes';
+import {StockStore} from 'stores/StockStore';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
-const PortfolioScreen = observer(() => {
+const PortfolioScreen = observer(({route}) => {
   const navigation = useNavigation();
   const {t} = useTranslation();
-  const [refreshing, setRefreshing] = useState(false);
-  const [showNFTs, setShowNFTs] = useState(false);
-  const [nfts, setNFTs] = useState<any[]>([]);
-  const [showHeader, setShowHeader] = useState(false);
+  const scrollRef: any = useRef();
+  const [screen, setScreen] = useState(Portfolios[0]);
+  const [shadowHeader, setShadowHeader] = useState(false);
+  const flatListRef = React.useRef();
 
   useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('SearchScreen', {onlySupported: true})
-          }
-          style={styles.moreBtn}>
-          <Icon name="add-circle" size={25} color={Colors.foreground} />
-        </TouchableOpacity>
-      ),
-    });
-    fetchNFTs();
+    LogEvents(ILogEvents.SCREEN, 'Portfolio/' + screen.title);
   }, []);
 
-  const fetchCoins = async () => {
-    const fetchedCoins = await CryptoService.getAccountBalance();
-    fetchNFTs();
-    if (!fetchedCoins) {
-      showMessage({
-        message: t('message.error.remote_servers_not_available'),
-        type: 'warning',
+  useFocusEffect(
+    React.useCallback(() => {
+      if (!route.params || route.params.tab === null) {
+        return;
+      }
+      if (route.params.tab === 'Banks') {
+        setScreen(Portfolios[3]);
+        scrollRef.current?.scrollTo({
+          x: 90,
+          animated: true,
+        });
+      }
+      if (route.params.tab === 'Crypto') {
+        setScreen(Portfolios[0]);
+        scrollRef.current?.scrollTo({
+          x: 0,
+          animated: true,
+        });
+      }
+      LogEvents(ILogEvents.SCREEN, 'Portfolio/' + route.params.tab);
+      route.params.tab = null;
+    }, [route.params]),
+  );
+
+  useEffect(() => {
+    if (shadowHeader) {
+      navigation.setOptions({
+        headerTitle: () => (
+          <Text
+            style={{
+              fontSize: 24,
+              fontWeight: 'bold',
+              fontFamily: 'RobotoSlab-Bold',
+              color: Colors.foreground,
+            }}>
+            {formatPrice(
+              WalletStore.totalBalance +
+                BankStore.totalBalance +
+                FiatStore.totalBalance +
+                CexStore.totalBalance +
+                StockStore.totalBalance,
+              true,
+            ) || 0.0}
+          </Text>
+        ),
+      });
+    } else {
+      navigation.setOptions({
+        headerTitle: () => <SmallLogo />,
       });
     }
-    setRefreshing(false);
-  };
+  }, [
+    navigation,
+    shadowHeader,
+    WalletStore.totalBalance,
+    BankStore.totalBalance,
+    FiatStore.totalBalance,
+    CexStore.totalBalance,
+    StockStore.totalBalance,
+  ]);
 
-  const fetchNFTs = async () => {
-    // eslint-disable-next-line no-shadow
-    const NFTList: any = await CryptoService.getNFTs();
-    setNFTs(NFTList);
-  };
-
-  const renderItem = ({item}: {item: IWallet}) => {
+  const bubble = (item, index) => {
     return (
-      <WalletListItem
-        key={item.cid}
-        coin={item}
-        onPress={() =>
-          //@ts-ignore
-          navigation.navigate('WalletScreen', {
-            coin: item.cid,
-            symbol: item.symbol,
-            chain: item.chain,
-          })
-        }
-      />
+      <TouchableOpacity
+        key={item.title}
+        onPress={() => {
+          setScreen(item);
+          scrollRef.current?.scrollTo({
+            x: index * 30,
+            animated: true,
+          });
+          try {
+            if (shadowHeader) {
+              flatListRef.current?.scrollToIndex({animated: true, index: 1});
+            } else {
+              flatListRef.current?.scrollToIndex({animated: true, index: 0});
+            }
+          } catch (error) {}
+          LogEvents(ILogEvents.SCREEN, 'Portfolio/' + item.title);
+        }}
+        style={{
+          backgroundColor:
+            screen.title === item.title ? Colors.foreground : Colors.bubble,
+          flex: 1,
+          padding: 5,
+          paddingHorizontal: 15,
+          borderRadius: 15,
+          marginHorizontal: 3,
+          justifyContent: 'center',
+          alignContent: 'center',
+          alignItems: 'center',
+          minWidth: 70,
+        }}>
+        <Text
+          style={{
+            fontSize: 14,
+            color:
+              screen.title === item.title ? Colors.background : Colors.lighter,
+          }}>
+          {t(item.description)}
+        </Text>
+      </TouchableOpacity>
     );
   };
 
-  const listHeader = () => {
+  const header = () => {
     return (
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <Text style={styles.subLeft}>
-          {showNFTs ? t('portfolio.my_nfts') : t('portfolio.my_assets')}
-        </Text>
-        <Text style={styles.subRight}>
-          {showNFTs
-            ? t('Ethereum')
-            : formatPrice(WalletStore.totalBalance, true) || 0.0}
+        <Text style={styles.title} numberOfLines={1}>
+          {formatPrice(
+            WalletStore.totalBalance +
+              BankStore.totalBalance +
+              FiatStore.totalBalance +
+              CexStore.totalBalance +
+              StockStore.totalBalance,
+            true,
+          ) || 0.0}
         </Text>
       </View>
     );
   };
 
-  const onRefresh = useCallback(async () => {
-    setRefreshing(true);
-    fetchCoins();
-  }, []);
-
-  const renderNFTs = ({item}) => {
-    // console.log(item.image_url);
-    if (
-      item.image_url === null ||
-      item.image_url === '' ||
-      item.image_url.includes('svg')
-    ) {
-      item.image_url = endpoints.assets + '/images/no-nft.png';
-    }
-    return <NFTCard item={item} />;
-  };
-
-  const changeTab = name => {
-    name === 'NFTs' ? setShowNFTs(true) : setShowNFTs(false);
-    if (name === 'NFTs' && nfts.length === 0) {
-      fetchNFTs();
-    }
-    setShowHeader(false);
-  };
-
-  const renderList = () => {
-    if (!showNFTs) {
-      return (
-        <FlatList
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-              tintColor={Colors.lighter}
-              colors={[Colors.lighter]}
-            />
-          }
-          data={WalletStore.wallets}
-          renderItem={renderItem}
-          keyExtractor={(item: any, index) =>
-            item.cid + item.chain + index.toString() ?? ''
-          }
-          maxToRenderPerBatch={10}
-          initialNumToRender={10}
-          showsVerticalScrollIndicator={false}
-          ListHeaderComponent={listHeader()}
-          style={{marginHorizontal: 10}}
-          scrollEventThrottle={100}
-          onScroll={e => onScroll(e.nativeEvent.contentOffset.y)}
-        />
-      );
-    } else {
-      if (nfts.length > 0) {
-        return (
-          <BigList
-            data={nfts}
-            renderItem={renderNFTs}
-            itemHeight={200}
-            insetBottom={30}
-            headerHeight={50}
-            renderHeader={listHeader}
-            numColumns={2}
-            style={{marginHorizontal: 10}}
-            keyboardDismissMode="on-drag"
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(item: any) => item.id.toString() ?? ''}
-            scrollEventThrottle={100}
-            onScroll={e => onScroll(e.nativeEvent.contentOffset.y)}
-          />
-        );
-      } else {
-        return (
-          <View style={styles.nonft}>
-            <Image
-              style={styles.noNftImg}
-              source={require('assets/nft.png')}
-              resizeMode="contain"
-            />
-          </View>
-        );
-      }
-    }
+  const menu = () => {
+    return (
+      <View style={shadowHeader ? styles.headerShadow : styles.headerNoShadow}>
+        <ScrollView
+          ref={scrollRef}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{paddingRight: 20}}
+          style={{
+            paddingTop: 10,
+            paddingHorizontal: 12,
+            paddingBottom: 10,
+          }}>
+          {Portfolios.map((item, index) => bubble(item, index))}
+        </ScrollView>
+      </View>
+    );
   };
 
   const onScroll = y => {
-    if (y > 15) {
-      if (!showHeader) {
-        setShowHeader(true);
+    if (y > 50) {
+      if (!shadowHeader) {
+        setShadowHeader(true);
       }
-    } else if (y < 15) {
-      if (showHeader) {
-        setShowHeader(false);
+    } else if (y < 50) {
+      if (shadowHeader) {
+        setShadowHeader(false);
       }
     }
   };
 
+  const renderItem = ({index}) => {
+    if (index === 0) {
+      return header();
+    }
+    if (index === 1) {
+      return menu();
+    }
+    if (index === 2) {
+      return <screen.component />;
+    }
+    return null;
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={showHeader ? styles.headerShadow : null}>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={styles.title} numberOfLines={1}>
-            {t('portfolio.portfolio')}{' '}
-          </Text>
-          <View
-            style={{marginRight: 15, justifyContent: 'center', marginTop: 5}}>
-            <SegmentedControl
-              inactiveTintColor={Colors.lighter}
-              initialSelectedName="Tokens"
-              sliderStyle={{width: '47%'}}
-              style={{backgroundColor: Colors.darker, width: 140}}
-              onChangeValue={name => changeTab(name)}>
-              <Segment name="Tokens" content="Tokens" />
-              <Segment name="NFTs" content="NFTs" />
-            </SegmentedControl>
-          </View>
-        </View>
-      </View>
-      {renderList()}
-    </View>
+    <FlatList
+      data={[1, 2, 3]}
+      ref={flatListRef}
+      renderItem={renderItem}
+      keyboardShouldPersistTaps="always"
+      contentContainerStyle={{flexGrow: 1}}
+      style={styles.container}
+      stickyHeaderIndices={[1]}
+      scrollEventThrottle={200}
+      showsVerticalScrollIndicator={false}
+      keyExtractor={(item: any, index) => index.toString() ?? ''}
+      onScroll={e => onScroll(e.nativeEvent.contentOffset.y)}
+    />
   );
 });
 

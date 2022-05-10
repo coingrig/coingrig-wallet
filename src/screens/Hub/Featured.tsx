@@ -12,11 +12,13 @@ export default function Featured() {
   const navigation = useNavigation();
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollview}>
+    <ScrollView contentContainerStyle={[styles.scrollview, {paddingTop: 10}]}>
       <CardImage
         //@ts-ignore
-        onClick={() => navigation.navigate('SwapScreen')}
-        imageURI={'https://coingrig.com/images/assets/coinsi.png'}
+        onClick={() => {
+          navigation.navigate('PortfolioScreen', {tab: 'Banks'});
+        }}
+        imageURI={'https://assets.coingrig.com/images/balance.png'}
         category={t('hub.featured').toUpperCase()}
         title={t('hub.featured.title')}
         desc={t('hub.featured.description')}

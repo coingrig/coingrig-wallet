@@ -4,11 +4,19 @@ import {clearPersistedStore} from 'mobx-persist-store';
 import RNRestart from 'react-native-restart';
 import i18next from 'i18next';
 import BigNumber from 'bignumber.js';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
+import {Linking} from 'react-native';
+import {Logs} from 'services/logs';
 
 export const clearAllAppData = async () => {
   await clearPersistedStore('MarketStore');
   await clearPersistedStore('WalletStore');
   await clearPersistedStore('SettingsStore');
+  await clearPersistedStore('CexStore');
+  await clearPersistedStore('BankStore');
+  await clearPersistedStore('FiatStore');
+  await clearPersistedStore('StockStore');
+  await clearPersistedStore('FxStore');
   await StorageClearAll();
   await deleteUserPinCode();
   RNRestart.Restart();
@@ -54,7 +62,7 @@ export const formatNoComma = (nr: string) => {
 };
 
 export const convertExponential = (n: string | number) => {
-  let newNr = new BigNumber(n);
+  const newNr = new BigNumber(n);
   return newNr.toFixed(9);
 };
 
@@ -73,4 +81,70 @@ export const toEth = (amount, decimals) => {
 
 export const calcFee = (gas, gasPrice) => {
   return Number(new BigNumber(gas).multipliedBy(gasPrice));
+};
+
+export const openLink = async url => {
+  try {
+    if (await InAppBrowser.isAvailable()) {
+      await InAppBrowser.open(url, {
+        dismissButtonStyle: 'cancel',
+        readerMode: false,
+        animated: true,
+        modalPresentationStyle: 'automatic',
+        modalTransitionStyle: 'coverVertical',
+        modalEnabled: true,
+        enableBarCollapsing: false,
+        showTitle: true,
+        enableUrlBarHiding: true,
+        enableDefaultShare: true,
+        forceCloseOnRedirection: false,
+      });
+    } else {
+      await Linking.openURL(url);
+    }
+  } catch (error) {
+    Logs.error(error);
+  }
+};
+
+export const formatTime = UNIX_timestamp => {
+  var a = new Date(UNIX_timestamp * 1000);
+  var months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  var sec = a.getSeconds();
+  var time =
+    date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+  return time;
+};
+
+export const getChainByCoin = coin => {
+  switch (coin) {
+    case 'ETH':
+      return 'ETH';
+    case 'BNB':
+      return 'BSC';
+    case 'MATIC':
+      return 'POLYGON';
+    case 'BTC':
+      return 'BTC';
+    default:
+      return null;
+  }
 };

@@ -4,7 +4,6 @@ import {Colors} from 'utils/colors';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    overflow: 'hidden',
   },
   change: {
     fontSize: 18,
@@ -19,10 +18,14 @@ export const styles = StyleSheet.create({
       width: 0,
       height: 1,
     },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.1,
     shadowRadius: 1.41,
 
     elevation: 2,
+  },
+  headerNoShadow: {
+    backgroundColor: Colors.background,
+    zIndex: 10,
   },
   textInputStyle: {
     borderBottomWidth: 1,
@@ -41,6 +44,19 @@ export const styles = StyleSheet.create({
     marginTop: 0,
     marginLeft: 15,
     flex: 1,
+  },
+  balance: {
+    fontSize: 17,
+    fontFamily: 'RobotoSlab-Bold',
+    fontWeight: 'bold',
+    letterSpacing: -0.5,
+    justifyContent: 'center',
+    color: Colors.foreground,
+    marginTop: 2,
+    flex: 0.5,
+    paddingRight: 16,
+    textAlign: 'right',
+    alignSelf: 'center',
   },
   subtitle: {
     fontSize: 16,
@@ -81,7 +97,7 @@ export const styles = StyleSheet.create({
     color: Colors.lighter,
     marginBottom: 10,
     marginLeft: 10,
-    marginTop: 20,
+    marginTop: 10,
   },
   subRight: {
     fontSize: 15,
@@ -89,7 +105,7 @@ export const styles = StyleSheet.create({
     color: Colors.lighter,
     marginBottom: 10,
     marginRight: 10,
-    marginTop: 20,
+    marginTop: 10,
   },
   appButtonText: {
     fontSize: 11,
@@ -155,28 +171,30 @@ export const styles = StyleSheet.create({
   nftTitle: {
     fontSize: 23,
     color: Colors.foreground,
-    fontFamily: 'RobotoSlab-Bold',
+    // fontFamily: 'RobotoSlab-Bold',
+    fontWeight: 'bold',
   },
   nftTitleDesc: {
     fontSize: 17,
     color: Colors.foreground,
-    fontFamily: 'RobotoSlab-Bold',
+    // fontFamily: 'RobotoSlab-Bold',
+    fontWeight: 'bold',
     marginTop: 15,
   },
   nftDesc: {
     fontSize: 15,
     color: Colors.foreground,
-    fontFamily: 'RobotoSlab-Regular',
+    // fontFamily: 'RobotoSlab-Regular',
     marginTop: 10,
   },
   nftDesc2: {
     fontSize: 14,
     color: Colors.foreground,
-    fontFamily: 'RobotoSlab-Light',
+    // fontFamily: 'RobotoSlab-Light',
     marginTop: 20,
   },
   nonft: {
-    flex: 0.9,
+    marginTop: -50,
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',
@@ -185,5 +203,44 @@ export const styles = StyleSheet.create({
     height: 180,
     tintColor: 'gray',
     opacity: 0.4,
+  },
+  editContainer: {
+    // height: 300,
+    margin: 10,
+    backgroundColor: Colors.background,
+  },
+  editTitle: {
+    fontSize: 20,
+    textAlign: 'center',
+    marginTop: 25,
+    fontFamily: 'RobotoSlab-Bold',
+    color: Colors.foreground,
+  },
+  editInput: {
+    color: 'black',
+    backgroundColor: 'white',
+    height: 45,
+    width: '70%',
+    borderRadius: 30,
+    alignSelf: 'center',
+    textAlign: 'center',
+    borderWidth: 1,
+    borderColor: Colors.border,
+    fontSize: 17,
+    marginVertical: 3,
+  },
+  modalsubtitle: {
+    textAlign: 'center',
+    fontSize: 14,
+    color: Colors.lighter,
+    marginBottom: 20,
+    marginTop: 10,
+  },
+  modaldelete: {
+    textAlign: 'center',
+    fontSize: 13,
+    color: Colors.red,
+    marginBottom: 10,
+    marginTop: 10,
   },
 });

@@ -1,0 +1,11 @@
+diff --git a/node_modules/ccxt/js/base/Precise.js b/node_modules/ccxt/js/base/Precise.js
+index bf80d9d..187cece 100644
+--- a/node_modules/ccxt/js/base/Precise.js
++++ b/node_modules/ccxt/js/base/Precise.js
+@@ -1,5 +1,5 @@
+ 'use strict'
+-
++const BigInt = require('big-integer');
+ const zero = BigInt (0)
+ const minusOne = BigInt (-1)
+ const base = BigInt (10)
