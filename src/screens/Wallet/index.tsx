@@ -31,6 +31,7 @@ import endpoints from 'utils/endpoints';
 import ActionSheet from 'react-native-actions-sheet';
 import {SmallButton} from 'components/smallButton';
 import {ILogEvents, LogEvents} from 'utils/analytics';
+import CONFIG from 'config';
 
 const editSheet: React.RefObject<any> = createRef();
 
@@ -180,7 +181,13 @@ const WalletScreen = observer(({route}) => {
       coin = 'BSC_BNB';
     }
     const link =
-      endpoints.ramper + '&userAddress=' + address + '&swapAsset=' + coin;
+      endpoints.ramper +
+      '&hostApiKey=' +
+      CONFIG.RAMP_KEY +
+      '&userAddress=' +
+      address +
+      '&swapAsset=' +
+      coin;
     LogEvents(ILogEvents.CLICK, 'BuyCrypto');
     openLink(link);
   };
@@ -200,7 +207,6 @@ const WalletScreen = observer(({route}) => {
           <Text
             style={[
               styles.unconfValue,
-              // eslint-disable-next-line react-native/no-inline-styles
               {
                 color: unconfTxValue! >= 0 ? Colors.green : Colors.red,
               },
