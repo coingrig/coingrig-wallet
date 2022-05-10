@@ -25,6 +25,7 @@ export const styles = StyleSheet.create({
     height: 10,
     backgroundColor: 'red',
     zIndex: 10,
+    left: 5,
     borderRadius: 10,
   },
   bottomContainer: {
@@ -75,7 +76,7 @@ export const styles = StyleSheet.create({
     maxWidth: '40%',
   },
   balance: {
-    fontSize: 20,
+    fontSize: 19,
     fontFamily: 'RobotoSlab-Regular',
     textAlign: 'center',
     color: Colors.lighter,
@@ -104,7 +105,7 @@ export const styles = StyleSheet.create({
     height: 17,
   },
   moreBtn: {
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
     justifyContent: 'space-around',
     paddingRight: 15,
   },

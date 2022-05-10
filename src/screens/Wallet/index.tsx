@@ -14,6 +14,8 @@ import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
+import Icon3 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon4 from 'react-native-vector-icons/Feather';
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import {useTranslation} from 'react-i18next';
 import Svg, {Path} from 'react-native-svg';
@@ -28,6 +30,8 @@ import {SettingsStore} from 'stores/settings';
 import endpoints from 'utils/endpoints';
 import ActionSheet from 'react-native-actions-sheet';
 import {SmallButton} from 'components/smallButton';
+import {ILogEvents, LogEvents} from 'utils/analytics';
+import CONFIG from 'config';
 
 const editSheet: React.RefObject<any> = createRef();
 
@@ -77,6 +81,7 @@ const WalletScreen = observer(({route}) => {
         </View>
       ),
     });
+    LogEvents(ILogEvents.SCREEN, 'Wallet');
   }, []);
 
   // useEffect(() => {
@@ -176,8 +181,14 @@ const WalletScreen = observer(({route}) => {
       coin = 'BSC_BNB';
     }
     const link =
-      endpoints.ramper + '&userAddress=' + address + '&swapAsset=' + coin;
-    // console.log(link);
+      endpoints.ramper +
+      '&hostApiKey=' +
+      CONFIG.RAMP_KEY +
+      '&userAddress=' +
+      address +
+      '&swapAsset=' +
+      coin;
+    LogEvents(ILogEvents.CLICK, 'BuyCrypto');
     openLink(link);
   };
 
@@ -196,9 +207,8 @@ const WalletScreen = observer(({route}) => {
           <Text
             style={[
               styles.unconfValue,
-              // eslint-disable-next-line react-native/no-inline-styles
               {
-                color: unconfTxValue! > 0 ? '#5cb85c' : '#d9534f',
+                color: unconfTxValue! >= 0 ? Colors.green : Colors.red,
               },
             ]}>
             {unconfTxValue || 0} {route.params.symbol}
@@ -267,11 +277,10 @@ const WalletScreen = observer(({route}) => {
                 editSheet.current?.setModalVisible(true);
               }}
               style={styles.roundBtn}>
-              <Icon2
-                name="edit"
-                size={20}
+              <Icon3
+                name="circle-edit-outline"
+                size={23}
                 color={Colors.background}
-                style={{marginLeft: 3}}
               />
             </TouchableOpacity>
             <Text style={styles.roundb}>{t('wallet.edit')}</Text>
@@ -402,7 +411,7 @@ const WalletScreen = observer(({route}) => {
             <TouchableOpacity
               onPress={() => deleteWallet(wallet)}
               style={styles.deleteBtn}>
-              <Icon name="trash" size={20} color="white" />
+              <Icon4 name="trash-2" size={20} color="white" />
             </TouchableOpacity>
           </View>
         ) : null}
@@ -422,7 +431,7 @@ const WalletScreen = observer(({route}) => {
             placeholderTextColor={'gray'}
             style={styles.editInput}
             value={customBalance}
-            onChangeText={t => setCustomBalance(t)}
+            onChangeText={v => setCustomBalance(v)}
           />
           <SmallButton
             text={t('swap.slippage_save')}
@@ -440,6 +449,7 @@ const WalletScreen = observer(({route}) => {
               backgroundColor: '#2e2c2c',
               width: '70%',
               marginTop: 20,
+              marginBottom: 20,
             }}
           />
         </ActionSheet>

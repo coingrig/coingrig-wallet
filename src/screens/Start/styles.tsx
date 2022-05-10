@@ -23,7 +23,8 @@ export const styles = StyleSheet.create({
     zIndex: -5,
   },
   logo: {
-    // fontFamily: 'RobotoSlab-Light',
+    // fontFamily: 'RobotoSlab-Bold',
+    // fontWeight: 'bold',
     fontSize: 19,
     letterSpacing: 1,
     marginTop: 20,

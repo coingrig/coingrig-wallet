@@ -40,7 +40,7 @@ const actionCamera: React.RefObject<any> = createRef();
 export function SendContainer(props: any) {
   const {t} = useTranslation();
   const navigation = useNavigation();
-  const [destination, setDestination] = useState<string>('');
+  const [destination, setDestination] = useState<string>(props.to);
   const [value, setValue] = useState('');
   const [wallet, setWallet] = useState<any>();
   const [fees, setFees] = useState<any>();
@@ -68,8 +68,8 @@ export function SendContainer(props: any) {
    * Prepare/Setup wallet for transaction
    */
   const setupWallet = async () => {
-    let chainKeys = await CryptoService.getChainPrivateKeys();
-    let descriptor = Object.assign({}, props.coinDescriptor, {
+    const chainKeys = await CryptoService.getChainPrivateKeys();
+    const descriptor = Object.assign({}, props.coinDescriptor, {
       privKey: chainKeys[props.coinDescriptor.chain],
       walletAddress: WalletStore.getWalletAddressByChain(
         props.coinDescriptor.chain,
@@ -118,7 +118,7 @@ export function SendContainer(props: any) {
         return;
       }
       const chainNativeAsset = CryptoService.getChainNativeAsset(props.chain);
-      let fFiat =
+      const fFiat =
         _fees.regular.getFeeValue() *
         WalletStore.getWalletByCoinId(chainNativeAsset, props.chain)?.price!;
       setFeeFiat(fFiat);
@@ -184,7 +184,7 @@ export function SendContainer(props: any) {
     LoadingModal.instance.current?.show();
     await sleep(200);
     try {
-      let tx = await wallet.postTxSend(fees.regular);
+      const tx = await wallet.postTxSend(fees.regular);
       LoadingModal.instance.current?.hide();
       if (tx) {
         showMessage({
@@ -241,7 +241,7 @@ export function SendContainer(props: any) {
             </TouchableOpacity>
           </View>
 
-          <View style={styles.inputView}>
+          <View style={styles.inputViewsub}>
             <TextInput
               style={styles.input}
               onChangeText={v => setAmount(v)}

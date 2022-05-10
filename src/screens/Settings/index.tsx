@@ -4,20 +4,19 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
-  Linking,
   Alert,
   Switch,
 } from 'react-native';
-import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import ActionSheet from 'react-native-actions-sheet';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {showMessage} from 'react-native-flash-message';
 import {SettingsStore} from 'stores/settings';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 import {Colors} from 'utils/colors';
-import {clearAllAppData} from 'utils';
+import {clearAllAppData, openLink} from 'utils';
 import {SmallButton} from 'components/smallButton';
 import CONFIG from 'config';
 import {styles} from './styles';
@@ -60,32 +59,6 @@ const SettingScreen = observer(() => {
         },
       ],
     );
-  };
-
-  const openLink = async url => {
-    try {
-      if (await InAppBrowser.isAvailable()) {
-        await InAppBrowser.open(url, {
-          // iOS Properties
-          dismissButtonStyle: 'cancel',
-          readerMode: false,
-          animated: true,
-          modalPresentationStyle: 'automatic',
-          modalTransitionStyle: 'coverVertical',
-          modalEnabled: true,
-          enableBarCollapsing: false,
-          // Android Properties
-          showTitle: true,
-          enableUrlBarHiding: true,
-          enableDefaultShare: true,
-          forceCloseOnRedirection: false,
-        });
-      } else {
-        Linking.openURL(url);
-      }
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const badge = () => <View style={styles.badge} />;
@@ -198,18 +171,37 @@ const SettingScreen = observer(() => {
             <Text style={styles.textItem}>{t('settings.credits')}</Text>
             <Icon name="arrow-forward" size={20} color="gray" />
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => navigation.navigate('FeedbackScreen')}>
+            <Icon2 name="star-half-alt" size={20} color={Colors.foreground} />
+            <Text style={styles.textItem}>{t('settings.feedback')}</Text>
+            <Icon name="arrow-forward" size={20} color="gray" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => openLink('https://governance.coingrig.com')}>
+            <Icon2 name="vote-yea" size={20} color={Colors.foreground} />
+            <Text style={styles.textItem}>{t('Governance')}</Text>
+            <Icon name="arrow-forward" size={20} color="gray" />
+          </TouchableOpacity>
         </View>
         <Text
           // eslint-disable-next-line react-native/no-inline-styles
           style={{marginVertical: 20, color: Colors.foreground}}>
           {t('settings.version')}: {CONFIG.APP_VERSION}
         </Text>
-        <TouchableOpacity
-          style={styles.itemDelete}
-          onPress={() => deleteWallets()}>
-          <Icon name="trash-bin" size={23} color="white" />
-          <Text style={styles.textDelete}>{t('settings.delete_wallets')}</Text>
-        </TouchableOpacity>
+        <SmallButton
+          text={t('settings.delete_wallets')}
+          onPress={() => deleteWallets()}
+          color="#f2eded"
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{
+            backgroundColor: Colors.red,
+            width: '100%',
+            borderColor: Colors.red,
+          }}
+        />
       </ScrollView>
       <ActionSheet
         //@ts-ignore

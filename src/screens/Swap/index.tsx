@@ -34,6 +34,7 @@ import {Logs} from 'services/logs';
 import {useTransitionEnd} from 'utils/hooks/useTransitionEnd';
 import BigNumber from 'bignumber.js';
 import CONFIG from 'config';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const ERC20_ABI = [
   {
@@ -141,6 +142,8 @@ const SwapScreen = props => {
       setKeyboardEnabled(false);
     });
 
+    LogEvents(ILogEvents.SCREEN, 'Swap');
+
     return () => {
       showSubscription.remove();
       willShowSubscription.remove();
@@ -166,7 +169,7 @@ const SwapScreen = props => {
         } else {
           setBuyToken('-');
           setBuyTokenSymbol(t('swap.select'));
-          setBuyTokenLogo(endpoints.assets + 'images/plus.png');
+          setBuyTokenLogo(endpoints.assets + '/images/plus.png');
         }
         setBuyAmount('');
       }
@@ -200,7 +203,7 @@ const SwapScreen = props => {
     _sellAmount,
     exact = false,
   ) => {
-    let params: any = {
+    const params: any = {
       buyToken: _buyToken,
       sellToken: _sellToken,
       sellAmount: _sellAmount,
@@ -211,6 +214,9 @@ const SwapScreen = props => {
       if (CONFIG.SWAP_FEE !== 0) {
         params.buyTokenPercentageFee = CONFIG.SWAP_FEE;
         params.feeRecipient = CONFIG.FEE_RECIPIENT;
+      }
+      if (CONFIG.AFFILIATE_ADDRESS) {
+        params.affiliateAddress = CONFIG.AFFILIATE_ADDRESS;
       }
     }
     try {
@@ -238,7 +244,7 @@ const SwapScreen = props => {
       swapChain,
     );
     const buyWallet = WalletStore.getWalletByCoinId(buyTokenSymbol, swapChain);
-    let sellAmount = toWei(
+    const sellAmount = toWei(
       formatNoComma(sellAmmount),
       sellWallet?.decimals,
     ).toString();
@@ -299,7 +305,7 @@ const SwapScreen = props => {
     setBuyToken('-');
     setBuyTokenSymbol(t('swap.select'));
     setBuyAmount('');
-    setBuyTokenLogo(endpoints.assets + 'images/plus.png');
+    setBuyTokenLogo(endpoints.assets + '/images/plus.png');
   };
 
   const changeChain = newChain => {
@@ -332,7 +338,7 @@ const SwapScreen = props => {
       // Trading an ERC20 token, an allowance must be first set!
       Logs.info('Checking allowance');
       // Check if the contract has sufficient allowance
-      let w3client = await CryptoService.getWeb3Client(swapChain);
+      const w3client = await CryptoService.getWeb3Client(swapChain);
       if (!w3client) {
         LoadingModal.instance.current?.hide();
         showMessage({
@@ -342,7 +348,7 @@ const SwapScreen = props => {
         setStatus('preview');
         return;
       }
-      let contract = new w3client!.eth.Contract(
+      const contract = new w3client!.eth.Contract(
         ERC20_ABI,
         quoteInfo.sellTokenAddress,
       );
@@ -393,7 +399,7 @@ const SwapScreen = props => {
         buyTokenSymbol,
         swapChain,
       );
-      let sellAmount = toWei(
+      const sellAmount = toWei(
         formatNoComma(sellAmmount),
         sellWallet?.decimals,
       ).toString();
@@ -499,7 +505,7 @@ const SwapScreen = props => {
   const executeSwap = async () => {
     LoadingModal.instance.current?.show();
     try {
-      let w3client = await CryptoService.getWeb3Client(swapChain);
+      const w3client = await CryptoService.getWeb3Client(swapChain);
       if (!w3client) {
         showMessage({
           message: t('swap.error.swap_chain_not_supported'),
@@ -538,16 +544,17 @@ const SwapScreen = props => {
       LoadingModal.instance.current?.hide();
       setStatus('preview');
       CryptoService.getAccountBalance();
+      LogEvents(ILogEvents.ACTION, 'Swap');
     }
   };
 
   const prepareApproval = async (contract, quoteDetails) => {
-    let action = await contract.methods.approve(
+    const action = await contract.methods.approve(
       quoteDetails.allowanceTarget,
       quoteDetails.sellAmount,
     );
     setAllowanceAction(action);
-    let gasEstimate = await action.estimateGas();
+    const gasEstimate = await action.estimateGas();
     setAllowanceFee(gasEstimate);
   };
 
@@ -767,8 +774,8 @@ const SwapScreen = props => {
                   placeholder="0"
                   placeholderTextColor={Colors.lighter}
                   value={sellAmmount}
-                  onChangeText={t => {
-                    setSellAmount(t);
+                  onChangeText={v => {
+                    setSellAmount(v);
                     resetToPreview();
                   }}
                 />
@@ -819,7 +826,7 @@ const SwapScreen = props => {
           autoFocus
           defaultValue={String(slippage * 100)}
           value={slippageText.toString()}
-          onChangeText={t => setSlippageText(t)}
+          onChangeText={v => setSlippageText(v)}
         />
         <Dialog.Button
           label={t('swap.slippage_cancel')}

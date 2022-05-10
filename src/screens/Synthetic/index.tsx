@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {CoinsAvatar} from 'components/coinsAvatar';
@@ -11,6 +12,7 @@ import {Colors} from 'utils/colors';
 import {styles} from './styles';
 import {SYNTH_LIST} from 'utils/constants';
 import {useTranslation} from 'react-i18next';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 export default function SyntheticScreen() {
   const navigation = useNavigation();
@@ -24,6 +26,7 @@ export default function SyntheticScreen() {
         </TouchableOpacity>
       ),
     });
+    LogEvents(ILogEvents.SCREEN, 'Synthetics');
   }, []);
 
   const openLink = async () => {
