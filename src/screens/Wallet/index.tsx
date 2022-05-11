@@ -81,7 +81,7 @@ const WalletScreen = observer(({route}) => {
         </View>
       ),
     });
-    LogEvents(ILogEvents.SCREEN, 'Wallet');
+    LogEvents(ILogEvents.SCREEN, 'WalletDetails');
   }, []);
 
   // useEffect(() => {

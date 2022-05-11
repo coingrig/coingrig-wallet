@@ -19,7 +19,7 @@ import {Logs} from 'services/logs';
 import StockService from 'services/stocks';
 import {MarketStore} from 'stores/market';
 import {COINS_MIN} from 'utils/constants';
-import {ILogEvents, LogEvents} from 'utils/analytics';
+import {initMixPanel} from 'utils/analytics';
 
 const SplashScreen: FC = () => {
   const navigation = useNavigation();
@@ -43,7 +43,6 @@ const SplashScreen: FC = () => {
       i18n.changeLanguage(lng);
     } else {
       const local = RNLocalize.getLocales();
-      Logs.info('Phone local: ', local);
       if (local.length > 0 && local[0].languageCode) {
         i18n.changeLanguage(local[0].languageCode);
       }
@@ -52,7 +51,7 @@ const SplashScreen: FC = () => {
     StockService.getMarkets();
     await checkPin();
     SS.hide();
-    LogEvents(ILogEvents.APP_START, 'Start');
+    initMixPanel();
   };
 
   const checkPin = async () => {
