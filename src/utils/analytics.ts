@@ -44,7 +44,7 @@ export const LogEvents = async (type: ILogEvents, name: string) => {
   try {
     if (__DEV__) {
       Analytics.trackEvent('DEV-' + type, {name: name});
-      mixpanel.track(type, {name: name});
+      // mixpanel.track(type, {name: name});
       Logs.debug('Analytics: DEV-' + type, {name: name});
     } else {
       Analytics.trackEvent(type, {name: name});

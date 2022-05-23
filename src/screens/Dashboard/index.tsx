@@ -41,7 +41,6 @@ import {ILogEvents, LogEvents} from 'utils/analytics';
 // import CustomModal from 'components/Modal';
 
 const marketData = apps.filter(app => app.categories?.includes('home'));
-LogEvents(ILogEvents.SCREEN, 'Dashboard');
 
 const DashboardScreen = observer(() => {
   const {t} = useTranslation();
@@ -101,6 +100,10 @@ const DashboardScreen = observer(() => {
       });
     }
   }, [shadowHeader]);
+
+  useEffect(() => {
+    LogEvents(ILogEvents.SCREEN, 'Dashboard');
+  }, []);
 
   const badge = () => <View style={styles.badge} />;
 
