@@ -15,7 +15,7 @@ export default function InviteScreen() {
           borderRadius: 10,
           padding: 10,
           justifyContent: 'center',
-          marginBottom: 10,
+          marginBottom: 15,
         }}>
         <Text
           style={{
@@ -68,8 +68,8 @@ export default function InviteScreen() {
               color: Colors.lighter,
               textAlign: 'center',
             }}>
-            3. For each Swap your friend make, you will directly receive 0.5% of
-            the swapped token on your wallet address
+            3. For each in app Swap your friend make, you will directly receive
+            0.5% of the swapped token on your wallet address
           </Text>
         </View>
       </View>
@@ -112,7 +112,7 @@ export default function InviteScreen() {
           position: 'absolute',
           right: -150,
           bottom: -100,
-          opacity: 0.1,
+          opacity: 0.15,
         }}
         source={{
           uri: 'https://cdn-icons.flaticon.com/png/512/3620/premium/3620659.png?token=exp=1654193770~hmac=6f0b0b30a5e5437b34f28c56da7b42c2',
