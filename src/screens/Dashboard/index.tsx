@@ -38,6 +38,7 @@ import CardList from 'components/CardList';
 import apps from 'data/apps';
 import {OtherMarkets, USMarkets} from './markets';
 import {ILogEvents, LogEvents} from 'utils/analytics';
+import FastImage from 'react-native-fast-image';
 // import CustomModal from 'components/Modal';
 
 const marketData = apps.filter(app => app.categories?.includes('home'));
@@ -222,6 +223,45 @@ const DashboardScreen = observer(() => {
                 tab={'Stocks'}
               />
             </ScrollView>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('InviteScreen')}
+              style={{
+                flex: 1,
+                marginHorizontal: 16,
+                marginTop: 16,
+                borderRadius: 10,
+                borderWidth: 3,
+                borderStyle: 'dashed',
+                borderColor: Colors.border,
+                backgroundColor: Colors.card,
+                justifyContent: 'center',
+                height: 90,
+              }}>
+              <Text
+                style={{
+                  fontSize: 17,
+                  textAlign: 'left',
+                  fontWeight: 'bold',
+                  marginLeft: 15,
+                  color: Colors.foreground,
+                  width: 200,
+                }}>
+                Invite a friend and earn up to $1000
+              </Text>
+              <FastImage
+                style={{
+                  width: 50,
+                  height: 50,
+                  position: 'absolute',
+                  right: 15,
+                }}
+                source={{
+                  uri: 'https://cdn-icons-png.flaticon.com/512/2725/2725443.png',
+                  priority: FastImage.priority.normal,
+                  cache: FastImage.cacheControl.immutable,
+                }}
+              />
+            </TouchableOpacity>
             <USMarkets />
             <View
               style={[styles.subContainer, {marginTop: 0, marginBottom: 5}]}>

@@ -48,6 +48,7 @@ import SelectCountry from 'screens/Banking/SelectCountry';
 import AddFiat from 'screens/Fiat';
 import SearchStocks from 'screens/SearchStocks';
 import SummaryScreen from 'screens/Summary';
+import InviteScreen from 'components/Invite';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -773,6 +774,31 @@ function NavigationStack({t}) {
         options={{
           headerShown: true,
           headerTitle: t('title.settings'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="InviteScreen"
+        component={InviteScreen}
+        options={{
+          headerShown: true,
+          headerTitle: t('Referal'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
