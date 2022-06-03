@@ -35,6 +35,7 @@ import {useTransitionEnd} from 'utils/hooks/useTransitionEnd';
 import BigNumber from 'bignumber.js';
 import CONFIG from 'config';
 import {ILogEvents, LogEvents} from 'utils/analytics';
+import {ConfigStore} from 'stores/config';
 
 const ERC20_ABI = [
   {
@@ -531,6 +532,10 @@ const SwapScreen = props => {
         message: t('swap.message.swap_executed'),
         type: 'success',
       });
+      const refFee =
+        (Number(sellAmmount) * quote.price * CONFIG.SWAP_FEE).toFixed(5) ?? 0;
+      ConfigStore.updateFee(refFee);
+
       navigation.goBack();
     } catch (ex) {
       Logs.error(ex);
@@ -638,7 +643,17 @@ const SwapScreen = props => {
           </Text>
         </View>
         <View style={styles.detailItem}>
-          <Text style={{color: Colors.lighter}}>{t('swap.coingrig_fee')}</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Icon
+              name="gift"
+              size={17}
+              color={Colors.lighter}
+              onPress={() => console.log('olla')}
+            />
+            <Text style={{color: Colors.lighter, marginLeft: 5}}>
+              {ConfigStore.isDonation ? t('Donation') : t('swap.coingrig_fee')}
+            </Text>
+          </View>
           <Text style={{color: Colors.foreground}}>
             {status === 'swap' ? CONFIG.SWAP_FEE * 100 + '%' : '-'}
           </Text>

@@ -797,8 +797,17 @@ function NavigationStack({t}) {
         name="InviteScreen"
         component={InviteScreen}
         options={{
+          presentation: 'modal',
+          headerBackImage: () => (
+            <Icon
+              name="close"
+              size={30}
+              color={Colors.foreground}
+              style={{paddingLeft: 10}}
+            />
+          ),
           headerShown: true,
-          headerTitle: t('Referal'),
+          headerTitle: t(''),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios

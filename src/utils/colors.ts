@@ -34,6 +34,7 @@ let theme = {
   bubble: '#f7f2e6',
   tabborder: '#f5f3ed',
   blue: '#007bff',
+  dash: '#f2f0e6',
 };
 if (colorScheme === 'dark') {
   theme = {
@@ -69,6 +70,7 @@ if (colorScheme === 'dark') {
     bubble: '#2e2c2c',
     tabborder: '#302f2f',
     blue: '#0a84ff',
+    dash: '#302f2f',
   };
 }
 

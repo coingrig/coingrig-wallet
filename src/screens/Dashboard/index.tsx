@@ -232,26 +232,28 @@ const DashboardScreen = observer(() => {
                 borderRadius: 10,
                 borderWidth: 3,
                 borderStyle: 'dashed',
-                borderColor: Colors.border,
+                borderColor: Colors.dash,
                 backgroundColor: Colors.card,
                 justifyContent: 'center',
-                height: 90,
+                height: 80,
               }}>
               <Text
                 style={{
-                  fontSize: 17,
+                  fontSize: 15,
                   textAlign: 'left',
-                  fontWeight: 'bold',
+                  fontWeight: '600',
                   marginLeft: 15,
+                  lineHeight: 20,
                   color: Colors.foreground,
-                  width: 200,
+                  width: 220,
                 }}>
-                Invite a friend and earn up to $1000
+                Earn up to <Text style={{color: 'orange'}}>$1000</Text> from
+                each friend you invite
               </Text>
               <FastImage
                 style={{
-                  width: 50,
-                  height: 50,
+                  width: 45,
+                  height: 45,
                   position: 'absolute',
                   right: 15,
                 }}

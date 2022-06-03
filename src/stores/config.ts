@@ -44,17 +44,49 @@ const DEFAULT_CONFIG = {
 class configStore {
   lastConfigTime: string;
   settings: any;
+  feeAddress: string;
+  isDonation: boolean;
+  feeAmount: number;
 
   constructor() {
     this.lastConfigTime = '';
     this.settings = [];
+    this.feeAddress = CONFIG.FEE_RECIPIENT;
+    this.isDonation = true;
+    this.feeAmount = 0;
     makeAutoObservable(this);
     makePersistable(this, {
       name: 'ConfigStore',
-      properties: ['lastConfigTime', 'settings'],
+      properties: [
+        'lastConfigTime',
+        'settings',
+        'feeAddress',
+        'isDonation',
+        'feeAmount',
+      ],
       storage: AsyncStorage,
     });
   }
+
+  setFeeAddress = action(address => {
+    this.feeAddress = address;
+    this.isDonation = false;
+  });
+
+  resetFeeAddress = action(() => {
+    this.feeAddress = CONFIG.FEE_RECIPIENT;
+    this.isDonation = true;
+  });
+
+  updateFee = action(amount => {
+    if (!this.isDonation) {
+      if (this.feeAmount > CONFIG.MAX_REF_FEE) {
+        this.resetFeeAddress();
+      } else {
+        this.feeAmount = this.feeAmount + amount;
+      }
+    }
+  });
 
   initializeConfig = action(async () => {
     const isInit = await StorageGetItem(CONFIG.INIT_KEY, false);

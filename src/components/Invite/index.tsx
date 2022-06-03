@@ -4,9 +4,21 @@ import React from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Colors} from 'utils/colors';
 import FastImage from 'react-native-fast-image';
+import Share from 'react-native-share';
 import {SmallButton} from 'components/smallButton';
+import {SIZE} from 'utils/constants';
+import {WalletStore} from 'stores/wallet';
 
 export default function InviteScreen() {
+  const shareAddress = async () => {
+    await Share.open({
+      title: '',
+      message:
+        'https://coingrig.com/invite?ref=' +
+        WalletStore.getWalletAddressByChain('ETH'),
+    });
+  };
+
   return (
     <ScrollView contentContainerStyle={{flex: 1}}>
       <View
@@ -26,7 +38,8 @@ export default function InviteScreen() {
             color: Colors.foreground,
             // width: 280,
           }}>
-          Earn up to $1000 from each friend you invite
+          Earn up to <Text style={{color: 'orange'}}>$1000</Text> from each
+          friend you invite
         </Text>
 
         <View
@@ -75,7 +88,7 @@ export default function InviteScreen() {
       </View>
       <View>
         <SmallButton
-          onPress={() => null}
+          onPress={shareAddress}
           text="Share Invitation Link"
           color={Colors.background}
           style={{
@@ -107,15 +120,15 @@ export default function InviteScreen() {
       </View>
       <FastImage
         style={{
-          width: 350,
-          height: 350,
+          width: SIZE.width - 70,
+          height: SIZE.width - 70,
           position: 'absolute',
-          right: -150,
+          right: 35,
           bottom: -100,
           opacity: 0.15,
         }}
         source={{
-          uri: 'https://cdn-icons.flaticon.com/png/512/3620/premium/3620659.png?token=exp=1654193770~hmac=6f0b0b30a5e5437b34f28c56da7b42c2',
+          uri: 'https://cdn-icons-png.flaticon.com/512/1139/1139982.png',
           priority: FastImage.priority.normal,
           cache: FastImage.cacheControl.immutable,
         }}
