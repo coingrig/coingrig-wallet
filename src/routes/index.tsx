@@ -49,6 +49,7 @@ import AddFiat from 'screens/Fiat';
 import SearchStocks from 'screens/SearchStocks';
 import SummaryScreen from 'screens/Summary';
 import InviteScreen from 'components/Invite';
+import WebScreen from 'screens/Web';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -796,6 +797,40 @@ function NavigationStack({t}) {
       <Stack.Screen
         name="InviteScreen"
         component={InviteScreen}
+        options={{
+          presentation: 'modal',
+          headerBackImage: () => (
+            <Icon
+              name="close"
+              size={30}
+              color={Colors.foreground}
+              style={{paddingLeft: 10}}
+            />
+          ),
+          headerShown: true,
+          headerTitle: t(''),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="WebScreen"
+        component={WebScreen}
         options={{
           presentation: 'modal',
           headerBackImage: () => (

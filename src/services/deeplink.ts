@@ -57,6 +57,9 @@ class DeepLinkService {
       case 'screen':
         this.goToScreen(data);
         break;
+      case 'web':
+        this.startWeb(data[1]);
+        break;
       default:
         break;
     }
@@ -97,6 +100,15 @@ class DeepLinkService {
       CONFIG.navigation.navigate('WalletconnectScreen', {
         uri: WCuri,
       });
+      this.data = null;
+    } catch (error) {
+      Logs.error(error);
+    }
+  }
+
+  startWeb(url: any) {
+    try {
+      CONFIG.navigation.navigate('WebScreen', {url});
       this.data = null;
     } catch (error) {
       Logs.error(error);
@@ -192,6 +204,10 @@ class DeepLinkService {
     if (urlToParse.includes('wc?uri=')) {
       const wc = urlToParse.replace('https://link.coingrig.com/wc?uri=', '');
       urlToParse = ['wc', wc];
+    } else if (urlToParse.includes('web?url=')) {
+      // https://link.coingrig.com/web?url=https://medium.com/bloated-mvp/a16z-is-gaslighting-us-ea4161de2969
+      const url = urlToParse.replace('https://link.coingrig.com/web?url=', '');
+      urlToParse = ['web', url];
     } else {
       urlToParse = urlToParse.replace('https://link.coingrig.com/', '');
       urlToParse = urlToParse.split('/');
