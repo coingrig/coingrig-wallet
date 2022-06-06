@@ -10,6 +10,8 @@ export const ASSET_TYPE_COIN = 'coin';
 export const ASSET_TYPE_TOKEN = 'token';
 export const ASSET_TYPE_NFT = 'nft';
 
+export const ZEROX_FEE_PROXY = '0xdb6f1920a889355780af7570773609bd8cb1f498';
+
 // symbol === chain
 export const COIN_LIST: IWallet[] = [
   {

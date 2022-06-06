@@ -449,7 +449,7 @@ class CryptoService {
     const config: any = {
       method: 'get',
       url:
-        'https://api.debank.com/history/list?page_count=10000&start_time=' +
+        'https://api.debank.com/history/list?page_count=100&start_time=' +
         startTime +
         '&token_id=&user_addr=' +
         userAddress +
@@ -469,7 +469,7 @@ class CryptoService {
     const config: any = {
       method: 'get',
       url:
-        'https://api.debank.com/history/list?page_count=10000&start_time=' +
+        'https://api.debank.com/history/list?page_count=100&start_time=' +
         startTime +
         '&token_id=&user_addr=' +
         userAddress,

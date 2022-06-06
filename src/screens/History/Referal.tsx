@@ -9,6 +9,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/Feather';
 import {Loader} from 'components/loader';
 import {useNavigation} from '@react-navigation/native';
+import {WalletStore} from 'stores/wallet';
+import {ZEROX_FEE_PROXY} from 'utils/constants';
 
 export default function ReferalHistory({route}) {
   const [txList, setTxList] = useState([]);
@@ -22,19 +24,15 @@ export default function ReferalHistory({route}) {
 
   const fetchData = async () => {
     const referal = route.params.referal;
-    // const userAddress = WalletStore.getWalletAddressByChain('ETH');
-    const data = await CryptoService.getReferalHistory(
-      0,
-      '0x46904fc4fb455bcc1e07a0e8511f6ed027630e42',
-    );
+    const userAddress = WalletStore.getWalletAddressByChain('ETH');
+    const data = await CryptoService.getReferalHistory(0, userAddress);
     const newDict = {...tokenDict, ...data.data.token_dict};
     setTokenDict(newDict);
     let list = data.data.history_list;
     if (referal) {
       list = list.filter(
         item =>
-          item.cate_id === 'receive' &&
-          item.other_addr === '0xdb6f1920a889355780af7570773609bd8cb1f498',
+          item.cate_id === 'receive' && item.other_addr === ZEROX_FEE_PROXY,
       );
     }
     if (list.length === 0) {
