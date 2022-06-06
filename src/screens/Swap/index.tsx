@@ -642,22 +642,23 @@ const SwapScreen = props => {
               : '-'}
           </Text>
         </View>
-        <View style={styles.detailItem}>
+        <TouchableOpacity
+          style={styles.detailItem}
+          onPress={() => console.log('olla')}>
           <View style={{flexDirection: 'row'}}>
             <Icon
-              name="gift"
+              name={ConfigStore.isDonation ? 'gift' : 'person'}
               size={17}
               color={Colors.lighter}
-              onPress={() => console.log('olla')}
             />
             <Text style={{color: Colors.lighter, marginLeft: 5}}>
-              {ConfigStore.isDonation ? t('Donation') : t('swap.coingrig_fee')}
+              {ConfigStore.isDonation ? t('Donation (Fee)') : t('Referral Fee')}
             </Text>
           </View>
           <Text style={{color: Colors.foreground}}>
             {status === 'swap' ? CONFIG.SWAP_FEE * 100 + '%' : '-'}
           </Text>
-        </View>
+        </TouchableOpacity>
         <View style={styles.detailItem}>
           <Text style={{color: Colors.lighter}}>{t('swap.allowance')}</Text>
           <Text style={{color: Colors.foreground}}>

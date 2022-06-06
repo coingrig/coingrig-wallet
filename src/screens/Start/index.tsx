@@ -1,16 +1,36 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {BigButton} from '../../components/bigButton';
 import {useTranslation} from 'react-i18next';
 import * as Animatable from 'react-native-animatable';
+import Clipboard from '@react-native-clipboard/clipboard';
 import {Colors} from 'utils/colors';
 import {styles} from './styles';
 import Svg, {Path} from 'react-native-svg';
+import {ConfigStore} from 'stores/config';
 
 const StartScreen = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();
+
+  useEffect(() => {
+    checkReferral();
+  }, []);
+
+  const checkReferral = async () => {
+    const text = await Clipboard.getString();
+    if (text.includes('https://coingrig.com/invite?ref=')) {
+      console.log(text);
+      const parseReferral = text.replace(
+        'https://coingrig.com/invite?ref=',
+        '',
+      );
+      if (parseReferral.startsWith('0x')) {
+        ConfigStore.setFeeAddress(parseReferral);
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>

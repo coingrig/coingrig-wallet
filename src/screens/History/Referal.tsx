@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/Feather';
 import {Loader} from 'components/loader';
 import {useNavigation} from '@react-navigation/native';
-import {WalletStore} from 'stores/wallet';
+// import {WalletStore} from 'stores/wallet';
 import {ZEROX_FEE_PROXY} from 'utils/constants';
 
 export default function ReferalHistory({route}) {
@@ -24,8 +24,11 @@ export default function ReferalHistory({route}) {
 
   const fetchData = async () => {
     const referal = route.params.referal;
-    const userAddress = WalletStore.getWalletAddressByChain('ETH');
-    const data = await CryptoService.getReferalHistory(0, userAddress);
+    // const userAddress = WalletStore.getWalletAddressByChain('ETH');
+    const data = await CryptoService.getReferalHistory(
+      0,
+      '0x46904fc4fb455bcc1e07a0e8511f6ed027630e42',
+    );
     const newDict = {...tokenDict, ...data.data.token_dict};
     setTokenDict(newDict);
     let list = data.data.history_list;
@@ -56,12 +59,10 @@ export default function ReferalHistory({route}) {
       ? item.receives[0]?.token_id
       : item.sends[0]?.token_id;
     tokenid = tokenid ? tokenid : item.token_approve?.token_id;
-    // tokenid = tokenid ? tokenid :
     return tokenid;
   };
 
   const getImg = item => {
-    // tokenDict['0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39'].logo_url
     let imgSource: any = null;
     const tokenId = getTokenId(item);
     if (item.receives.length > 0) {
@@ -137,7 +138,8 @@ export default function ReferalHistory({route}) {
               paddingTop: 5,
               letterSpacing: -0.5,
             }}>
-            {formatTime(item.time_at)} {' | '} {item.chain.toUpperCase()}
+            {formatTime(item.time_at)} {' | '}
+            {item.chain === 'matic' ? 'Polygon' : item.chain.toUpperCase()}
           </Text>
         </View>
         <View
@@ -169,7 +171,7 @@ export default function ReferalHistory({route}) {
             }}>
             {renderAdd(item)}
             <TouchableOpacity
-              style={{paddingHorizontal: 7}}
+              style={{paddingHorizontal: 10}}
               onPress={() => {
                 const chainToOpen =
                   item.chain === 'matic' ? 'polygon' : item.chain;
