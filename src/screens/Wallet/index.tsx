@@ -71,11 +71,7 @@ const WalletScreen = observer(({route}) => {
             <TouchableOpacity
               onPress={() => showTransactions()}
               style={styles.moreBtn}>
-              <Icon
-                name="list-circle-outline"
-                size={25}
-                color={Colors.foreground}
-              />
+              <Icon name="list" size={24} color={Colors.foreground} />
             </TouchableOpacity>
           )}
         </View>
@@ -167,7 +163,13 @@ const WalletScreen = observer(({route}) => {
       route.params.symbol,
       route.params.chain,
     );
-    openLink(CryptoService.getBlockExplorer(w?.chain!));
+    if (route.params.chain === 'BTC') {
+      openLink(CryptoService.getBlockExplorer(w?.chain!));
+    } else {
+      const convChain =
+        route.params.chain === 'POLYGON' ? 'matic' : route.params.chain;
+      navigation.navigate('HistoryScreen', {chain: convChain.toLowerCase()});
+    }
   };
 
   const buySellAction = () => {

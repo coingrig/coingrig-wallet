@@ -2573,7 +2573,7 @@ asynckit@^0.4.0:
 
 "asyncstorage-down@https://github.com/coingrig/asyncstorage-down.git":
   version "4.2.0"
-  resolved "git+ssh://git@github.com/coingrig/asyncstorage-down.git#653e6f0006cd99998b546d2ed76ba227d03a9696"
+  resolved "https://github.com/coingrig/asyncstorage-down.git#653e6f0006cd99998b546d2ed76ba227d03a9696"
   dependencies:
     abstract-leveldown "2.6.1"
     argsarray "0.0.1"

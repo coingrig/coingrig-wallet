@@ -8,8 +8,11 @@ import Share from 'react-native-share';
 import {SmallButton} from 'components/smallButton';
 import {SIZE} from 'utils/constants';
 import {WalletStore} from 'stores/wallet';
+import {useNavigation} from '@react-navigation/native';
 
 export default function InviteScreen() {
+  const navigation = useNavigation();
+
   const shareAddress = async () => {
     await Share.open({
       title: '',
@@ -99,8 +102,8 @@ export default function InviteScreen() {
         />
 
         <SmallButton
-          onPress={() => null}
-          text="My Earnings"
+          onPress={() => navigation.navigate('ReferalHistory', {referal: true})}
+          text="Latest Earnings"
           color={Colors.foreground}
           style={{
             backgroundColor: Colors.background,
