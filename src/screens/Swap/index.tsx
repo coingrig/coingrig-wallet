@@ -27,7 +27,15 @@ import {BigButton} from 'components/bigButton';
 import SwapCoin from 'components/SwapCoin';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
-import {calcFee, formatFee, formatNoComma, sleep, toEth, toWei} from 'utils';
+import {
+  calcFee,
+  formatFee,
+  formatNoComma,
+  openLink,
+  sleep,
+  toEth,
+  toWei,
+} from 'utils';
 import endpoints from 'utils/endpoints';
 import {LoadingModal} from 'services/loading';
 import {Logs} from 'services/logs';
@@ -644,15 +652,17 @@ const SwapScreen = props => {
         </View>
         <TouchableOpacity
           style={styles.detailItem}
-          onPress={() => console.log('olla')}>
+          onPress={() =>
+            openLink('https://docs.coingrig.com/about/about-coingrig')
+          }>
           <View style={{flexDirection: 'row'}}>
             <Icon
-              name={ConfigStore.isDonation ? 'gift' : 'person'}
+              name="information-circle-outline"
               size={17}
               color={Colors.lighter}
             />
             <Text style={{color: Colors.lighter, marginLeft: 5}}>
-              {ConfigStore.isDonation ? t('Donation (Fee)') : t('Referral Fee')}
+              {t('swap.coingrig_fee')}
             </Text>
           </View>
           <Text style={{color: Colors.foreground}}>
