@@ -20,10 +20,10 @@ const StartScreen = () => {
 
   const checkReferral = async () => {
     const text = await Clipboard.getString();
-    if (text.includes('https://coingrig.com/invite?ref=')) {
-      console.log(text);
+    console.log(text);
+    if (text.includes('https://coingrig.com/invite/?ref=')) {
       const parseReferral = text.replace(
-        'https://coingrig.com/invite?ref=',
+        'https://coingrig.com/invite/?ref=',
         '',
       );
       if (parseReferral.startsWith('0x')) {
