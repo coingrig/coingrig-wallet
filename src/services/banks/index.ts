@@ -120,7 +120,7 @@ class BanksService {
         BankStore.updateAccount(account.id, account);
       } catch (error: any) {
         const status = error?.response?.status ?? null;
-        if (status && [400, 401, 403, 409].includes(status)) {
+        if (status && [400, 401].includes(status)) {
           Logs.info('Deleting expired account: ' + account?.bankName);
           accountsToDelete.push(account.id);
         } else {
