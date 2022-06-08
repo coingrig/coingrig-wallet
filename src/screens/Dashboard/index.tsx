@@ -241,14 +241,15 @@ const DashboardScreen = observer(() => {
                 style={{
                   fontSize: 15,
                   textAlign: 'left',
-                  fontWeight: '600',
+                  fontWeight: '500',
                   marginLeft: 15,
                   lineHeight: 20,
                   color: Colors.foreground,
                   width: 220,
                 }}>
-                Earn up to <Text style={{color: 'orange'}}>$1000</Text> from
-                each friend you invite
+                Earn up to{' '}
+                <Text style={{color: 'orange', fontWeight: 'bold'}}>$1000</Text>{' '}
+                from each friend you invite
               </Text>
               <FastImage
                 style={{

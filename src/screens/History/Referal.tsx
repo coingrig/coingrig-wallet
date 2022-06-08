@@ -11,6 +11,7 @@ import {Loader} from 'components/loader';
 import {useNavigation} from '@react-navigation/native';
 // import {WalletStore} from 'stores/wallet';
 import {ZEROX_FEE_PROXY} from 'utils/constants';
+import BigNumber from 'bignumber.js';
 
 export default function ReferalHistory({route}) {
   const [txList, setTxList] = useState([]);
@@ -109,6 +110,10 @@ export default function ReferalHistory({route}) {
     );
   };
 
+  const formatAmount = amount => {
+    return new BigNumber(amount.toString()).toFixed(10);
+  };
+
   const renderItem = ({item}) => {
     return (
       <View
@@ -157,7 +162,7 @@ export default function ReferalHistory({route}) {
               textAlign: 'right',
             }}
             numberOfLines={1}>
-            {item.receives[0].amount}
+            {formatAmount(item.receives[0].amount)}
           </Text>
           <View
             style={{

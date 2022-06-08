@@ -29,8 +29,9 @@ export default function InviteScreen() {
           backgroundColor: Colors.darker,
           borderRadius: 10,
           padding: 10,
+          paddingVertical: 15,
           justifyContent: 'center',
-          marginBottom: 15,
+          marginBottom: 20,
         }}>
         <Text
           style={{
