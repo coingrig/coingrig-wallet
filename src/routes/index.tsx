@@ -52,6 +52,7 @@ import InviteScreen from 'components/Invite';
 import WebScreen from 'screens/Web';
 import HistoryScreen from 'screens/History';
 import ReferalHistory from 'screens/History/Referal';
+import TradeScreen from 'screens/Trade';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -487,6 +488,31 @@ function NavigationStack({t}) {
         options={{
           headerShown: true,
           headerTitle: t('portfolio.banks.select_country'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="TradeScreen"
+        component={TradeScreen}
+        options={{
+          headerShown: true,
+          headerTitle: t('Trade'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
