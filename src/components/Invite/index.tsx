@@ -60,7 +60,7 @@ export default function InviteScreen() {
         <View style={{margin: 5, marginVertical: 10}}>
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 14,
               color: Colors.lighter,
               textAlign: 'center',
             }}>
@@ -70,7 +70,7 @@ export default function InviteScreen() {
         <View style={{margin: 5, marginVertical: 10}}>
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 14,
               color: Colors.lighter,
               textAlign: 'center',
             }}>
@@ -81,7 +81,7 @@ export default function InviteScreen() {
         <View style={{margin: 5, marginVertical: 10}}>
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 14,
               color: Colors.lighter,
               textAlign: 'center',
             }}>
