@@ -228,7 +228,8 @@ const DashboardScreen = observer(() => {
               style={{
                 flex: 1,
                 marginHorizontal: 16,
-                marginTop: 16,
+                marginTop: 20,
+                marginBottom: 5,
                 borderRadius: 10,
                 borderWidth: 3,
                 borderStyle: 'dashed',
