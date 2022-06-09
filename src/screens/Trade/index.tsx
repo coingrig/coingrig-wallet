@@ -12,7 +12,9 @@ export default function TradeScreen({route}) {
   const [isSell, setIsSell] = useState(false);
 
   useEffect(() => {
-    console.log(route.params);
+    alert(
+      'De verificat fiecare coin in parte daca merge cumparat pe ambii provideri',
+    );
     // const w = WalletStore.getWalletByCoinId(
     //     route.params.symbol,
     //     route.params.chain,
