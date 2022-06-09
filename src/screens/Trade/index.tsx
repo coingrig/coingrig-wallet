@@ -26,9 +26,21 @@ export default function TradeScreen({route}) {
 
   const renderContainer = () => {
     if (isSell) {
-      return <SellComponent />;
+      return (
+        <SellComponent
+          coin={route.params.symbol}
+          chain={route.params.chain}
+          price={route.params.price}
+        />
+      );
     } else {
-      return <BuyComponent />;
+      return (
+        <BuyComponent
+          coin={route.params.symbol}
+          chain={route.params.chain}
+          price={route.params.price}
+        />
+      );
     }
   };
 

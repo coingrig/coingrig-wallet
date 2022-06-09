@@ -174,6 +174,10 @@ const WalletScreen = observer(({route}) => {
     navigation.navigate('TradeScreen', {
       symbol: route.params.symbol,
       chain: route.params.chain,
+      price: WalletStore.getWalletByCoinId(
+        route.params.symbol,
+        route.params.chain,
+      )?.price,
     });
     // const w = WalletStore.getWalletByCoinId(
     //   route.params.symbol,
