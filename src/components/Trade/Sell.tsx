@@ -59,6 +59,7 @@ export default function SellComponent({coin, chain, price}) {
       });
       return;
     }
+    chain = chain === 'POLYGON' ? 'MATIC' : chain;
     const link = await sellFromGuardarian(amount, currency, coin, chain);
     Linking.openURL(link);
   };
@@ -100,8 +101,8 @@ export default function SellComponent({coin, chain, price}) {
             onPress={async () => {
               if (keyboardEnabled) {
                 Keyboard.dismiss();
+                await sleep(500);
               }
-              await sleep(500);
               fiatSheet.current?.show();
             }}>
             <Image
@@ -129,10 +130,10 @@ export default function SellComponent({coin, chain, price}) {
         <SmallButton
           text={t('USD')}
           onPress={() => sell('guardarian', 'USD')}
-          color={Colors.foreground}
+          color={Colors.background}
           // eslint-disable-next-line react-native/no-inline-styles
           style={{
-            backgroundColor: Colors.background,
+            backgroundColor: Colors.foreground,
             borderColor: Colors.foreground,
             borderWidth: 1,
             width: '70%',
@@ -141,10 +142,10 @@ export default function SellComponent({coin, chain, price}) {
         <SmallButton
           text={t('EUR')}
           onPress={() => sell('guardarian', 'EUR')}
-          color={Colors.foreground}
+          color={Colors.background}
           // eslint-disable-next-line react-native/no-inline-styles
           style={{
-            backgroundColor: Colors.background,
+            backgroundColor: Colors.foreground,
             borderColor: Colors.foreground,
             borderWidth: 1,
             width: '70%',
@@ -153,10 +154,10 @@ export default function SellComponent({coin, chain, price}) {
         <SmallButton
           text={t('GBP')}
           onPress={() => sell('guardarian', 'GBP')}
-          color={Colors.foreground}
+          color={Colors.background}
           // eslint-disable-next-line react-native/no-inline-styles
           style={{
-            backgroundColor: Colors.background,
+            backgroundColor: Colors.foreground,
             borderColor: Colors.foreground,
             borderWidth: 1,
             width: '70%',

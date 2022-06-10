@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     marginTop: 0,
     marginBottom: 0,
     // borderColor: Colors.brick,
-    minHeight: 90,
+    minHeight: 100,
     marginHorizontal: 15,
     backgroundColor: Colors.card,
     flexDirection: 'column',

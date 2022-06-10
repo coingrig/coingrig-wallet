@@ -53,15 +53,7 @@ export default function TradeScreen({route}) {
           name === 'sell' ? setIsSell(true) : setIsSell(false)
         }>
         <Segment name="buy" content={t('Buy')} />
-        <Segment
-          name="sell"
-          content={
-            route.params.symbol === 'MATIC'
-              ? t('Sell (Not available)')
-              : t('Sell')
-          }
-          disabled={route.params.symbol === 'MATIC'}
-        />
+        <Segment name="sell" content={t('Sell')} />
       </SegmentedControl>
       {renderContainer()}
     </ScrollView>

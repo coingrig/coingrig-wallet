@@ -59,6 +59,7 @@ export default function BuyComponent({coin, chain, price}) {
       openLink(link);
     } else {
       fiatSheet.current?.hide();
+      chain = chain === 'POLYGON' ? 'MATIC' : chain;
       const link = await buyFromGuardarian(val, currency, coin, address, chain);
       openLink(link);
     }
@@ -72,33 +73,27 @@ export default function BuyComponent({coin, chain, price}) {
   };
 
   const Guardarian = () => {
-    if (coin !== 'MATIC') {
-      return (
-        <TouchableOpacity
-          style={styles.card}
-          onPress={async () => {
-            if (keyboardEnabled) {
-              Keyboard.dismiss();
-            }
+    return (
+      <TouchableOpacity
+        style={styles.card}
+        onPress={async () => {
+          if (keyboardEnabled) {
+            Keyboard.dismiss();
             await sleep(500);
-            fiatSheet.current?.show();
-          }}>
-          <Image
-            source={RampProviders.guardarian.image}
-            style={{width: 50, height: 50, borderRadius: 100}}
-          />
-          <Text style={styles.providerText}>
-            {RampProviders.guardarian.name}
-          </Text>
-          <Image
-            source={RampProviders.guardarian.methods}
-            style={{width: 100, height: 15}}
-          />
-        </TouchableOpacity>
-      );
-    } else {
-      return null;
-    }
+          }
+          fiatSheet.current?.show();
+        }}>
+        <Image
+          source={RampProviders.guardarian.image}
+          style={{width: 50, height: 50, borderRadius: 100}}
+        />
+        <Text style={styles.providerText}>{RampProviders.guardarian.name}</Text>
+        <Image
+          source={RampProviders.guardarian.methods}
+          style={{width: 100, height: 15}}
+        />
+      </TouchableOpacity>
+    );
   };
 
   const Ramp = () => {
@@ -158,10 +153,10 @@ export default function BuyComponent({coin, chain, price}) {
         <SmallButton
           text={t('USD')}
           onPress={() => buy('guardarian', 'USD')}
-          color={Colors.foreground}
+          color={Colors.background}
           // eslint-disable-next-line react-native/no-inline-styles
           style={{
-            backgroundColor: Colors.background,
+            backgroundColor: Colors.foreground,
             borderColor: Colors.foreground,
             borderWidth: 1,
             width: '70%',
@@ -170,10 +165,10 @@ export default function BuyComponent({coin, chain, price}) {
         <SmallButton
           text={t('EUR')}
           onPress={() => buy('guardarian', 'EUR')}
-          color={Colors.foreground}
+          color={Colors.background}
           // eslint-disable-next-line react-native/no-inline-styles
           style={{
-            backgroundColor: Colors.background,
+            backgroundColor: Colors.foreground,
             borderColor: Colors.foreground,
             borderWidth: 1,
             width: '70%',
@@ -182,10 +177,10 @@ export default function BuyComponent({coin, chain, price}) {
         <SmallButton
           text={t('GBP')}
           onPress={() => buy('guardarian', 'GBP')}
-          color={Colors.foreground}
+          color={Colors.background}
           // eslint-disable-next-line react-native/no-inline-styles
           style={{
-            backgroundColor: Colors.background,
+            backgroundColor: Colors.foreground,
             borderColor: Colors.foreground,
             borderWidth: 1,
             width: '70%',
