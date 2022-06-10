@@ -46,7 +46,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     flexDirection: 'row',
-    height: 60,
+    height: 70,
     alignItems: 'center',
     marginBottom: 5,
     justifyContent: 'space-between',

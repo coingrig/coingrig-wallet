@@ -17,9 +17,6 @@ export default function TradeScreen({route}) {
     navigation.setOptions({
       headerTitle: route.params.symbol.toUpperCase(),
     });
-    alert(
-      'De verificat fiecare coin in parte daca merge cumparat pe ambii provideri',
-    );
   }, [navigation, route.params]);
 
   const renderContainer = () => {
