@@ -8,7 +8,6 @@ export const styles = StyleSheet.create({
     fontSize: 50,
     fontWeight: 'bold',
     letterSpacing: -1,
-    // width: 200,
   },
   inputView: {
     flex: 1,
@@ -23,7 +22,6 @@ export const styles = StyleSheet.create({
     marginHorizontal: 15,
     backgroundColor: Colors.card,
     flexDirection: 'column',
-    alignItems: 'center',
     justifyContent: 'center',
   },
   title: {

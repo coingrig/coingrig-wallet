@@ -6,16 +6,16 @@ import {
   Image,
   ScrollView,
   Keyboard,
+  Linking,
 } from 'react-native';
 import React, {createRef, useEffect, useState} from 'react';
 import {styles} from './styles';
 import {useTranslation} from 'react-i18next';
 import {Colors} from 'utils/colors';
-import {buyFromGuardarian, buyFromRamp, RampProviders} from 'services/ramp';
+import {RampProviders, sellFromGuardarian} from 'services/ramp';
 import ActionSheet from 'react-native-actions-sheet';
 import {SmallButton} from 'components/smallButton';
-import {formatNoComma, openLink, sleep} from 'utils';
-import {WalletStore} from 'stores/wallet';
+import {formatNoComma, sleep} from 'utils';
 import {showMessage} from 'react-native-flash-message';
 
 const fiatSheet: React.RefObject<any> = createRef();
@@ -23,7 +23,7 @@ const fiatSheet: React.RefObject<any> = createRef();
 export default function SellComponent({coin, chain, price}) {
   const {t} = useTranslation();
   const [keyboardEnabled, setKeyboardEnabled] = useState(false);
-  const [amount, setAmount] = useState('$100');
+  const [amount, setAmount] = useState('0');
   const [conversion, setConversion] = useState(0);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function SellComponent({coin, chain, price}) {
       setKeyboardEnabled(false);
     });
 
-    formatAmount('$100');
+    formatAmount('0');
 
     return () => {
       showSubscription.remove();
@@ -43,32 +43,30 @@ export default function SellComponent({coin, chain, price}) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const buy = async (provider, currency) => {
-    const val = amount.replace('$', '');
-    if (Number(val) < 50) {
+  const sell = async (provider, currency) => {
+    fiatSheet.current?.hide();
+    if (Number(conversion) < 50) {
       showMessage({
         message: 'Minimum $50',
         type: 'warning',
       });
       return;
     }
-    const w = WalletStore.getWalletByCoinId(coin, chain);
-    const address = WalletStore.getWalletAddressByChain(w?.chain!);
-    if (provider === 'ramp') {
-      const link = await buyFromRamp(val, currency, coin, address);
-      openLink(link);
-    } else {
-      fiatSheet.current?.hide();
-      const link = await buyFromGuardarian(val, currency, coin, address, chain);
-      openLink(link);
+    if (Number(conversion) > 2000) {
+      showMessage({
+        message: 'Maximum $2000',
+        type: 'warning',
+      });
+      return;
     }
+    const link = await sellFromGuardarian(amount, currency, coin, chain);
+    Linking.openURL(link);
   };
 
   const formatAmount = v => {
-    const val = v.replace('$', '');
-    const formattedValue: any = formatNoComma(val);
-    setConversion(Number(formattedValue) / price);
-    setAmount('$' + formattedValue);
+    const formattedValue: any = formatNoComma(v);
+    setConversion(Number(formattedValue) * price);
+    setAmount(formattedValue);
   };
 
   return (
@@ -79,7 +77,7 @@ export default function SellComponent({coin, chain, price}) {
             style={styles.input}
             onChangeText={v => formatAmount(v)}
             value={amount}
-            placeholder={'$0'}
+            placeholder={'0'}
             keyboardType={'numeric'}
             numberOfLines={1}
             returnKeyType="done"
@@ -89,10 +87,10 @@ export default function SellComponent({coin, chain, price}) {
             textAlign="center"
             autoCorrect={false}
             allowFontScaling={true}
-            autoFocus={true}
           />
-          <Text style={{color: Colors.lighter, fontSize: 12}}>
-            {'\u2248 ' + conversion.toFixed(4) + ' ' + coin}
+          <Text
+            style={{color: Colors.lighter, fontSize: 12, textAlign: 'center'}}>
+            {'\u2248 ' + conversion.toFixed(2) + ' USD'}
           </Text>
         </View>
         <Text style={styles.title}>Select Provider:</Text>
@@ -130,7 +128,7 @@ export default function SellComponent({coin, chain, price}) {
         <Text style={styles.editTitle}>{t('Choose currency')}</Text>
         <SmallButton
           text={t('USD')}
-          onPress={() => buy('guardarian', 'USD')}
+          onPress={() => sell('guardarian', 'USD')}
           color={Colors.foreground}
           // eslint-disable-next-line react-native/no-inline-styles
           style={{
@@ -142,7 +140,7 @@ export default function SellComponent({coin, chain, price}) {
         />
         <SmallButton
           text={t('EUR')}
-          onPress={() => buy('guardarian', 'EUR')}
+          onPress={() => sell('guardarian', 'EUR')}
           color={Colors.foreground}
           // eslint-disable-next-line react-native/no-inline-styles
           style={{
@@ -154,7 +152,7 @@ export default function SellComponent({coin, chain, price}) {
         />
         <SmallButton
           text={t('GBP')}
-          onPress={() => buy('guardarian', 'GBP')}
+          onPress={() => sell('guardarian', 'GBP')}
           color={Colors.foreground}
           // eslint-disable-next-line react-native/no-inline-styles
           style={{

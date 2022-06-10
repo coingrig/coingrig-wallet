@@ -51,8 +51,32 @@ export const buyFromGuardarian = async (
   }
 };
 
-export const sellFromGuardarian = () => {
-  // instance: null,
+export const sellFromGuardarian = async (val, currency, coin, chain) => {
+  var data = JSON.stringify({
+    from_amount: val,
+    from_currency: coin,
+    to_currency: currency,
+    from_network: chain,
+  });
+
+  var config: any = {
+    method: 'post',
+    url: 'https://api-payments.guardarian.com/v1/transaction',
+    headers: {
+      accept: '*/*',
+      'x-api-key': CONFIG.GUARDARIAN_KEY,
+      'Content-Type': 'application/json',
+    },
+    data: data,
+  };
+  try {
+    const r = await axios(config);
+    console.log(r.data);
+    return r.data.redirect_url;
+  } catch (error) {
+    Logs.error(error);
+    return null;
+  }
 };
 
 export const buyFromRamp = (val, currency, coin, address) => {
@@ -78,58 +102,3 @@ export const buyFromRamp = (val, currency, coin, address) => {
 export const sellFromRamp = () => {
   // instance: null,
 };
-
-// var axios = require("axios");
-// var data = JSON.stringify({
-//   from_amount: 1,
-//   from_currency: "ETH",
-//   to_currency: "USD",
-//   from_network: "ETH",
-// });
-
-// var config = {
-//   method: "post",
-//   url: "https://api-payments.guardarian.com/v1/transaction",
-//   headers: {
-//     accept: "*/*",
-//     "x-api-key": "19a1cd64-7d28-4702-8386-b4fad179ef2c",
-//     "Content-Type": "application/json",
-//   },
-//   data: data,
-// };
-
-// axios(config)
-//   .then(function (response) {
-//     console.log(JSON.stringify(response.data));
-//   })
-//   .catch(function (error) {
-//     console.log(error);
-//   });
-
-// var axios = require("axios");
-// var data = JSON.stringify({
-//   from_amount: 100,
-//   from_currency: "EUR",
-//   to_currency: "ETH",
-//   to_network: "ETH",
-//   payout_address: "0x34277D9b97451a36dBb806E2B7F50fc877B0B726",
-// });
-
-// var config = {
-//   method: "post",
-//   url: "https://api-payments.guardarian.com/v1/transaction",
-//   headers: {
-//     accept: "*/*",
-//     "x-api-key": "19a1cd64-7d28-4702-8386-b4fad179ef2c",
-//     "Content-Type": "application/json",
-//   },
-//   data: data,
-// };
-
-// axios(config)
-//   .then(function (response) {
-//     console.log(JSON.stringify(response.data));
-//   })
-//   .catch(function (error) {
-//     console.log(error);
-//   });

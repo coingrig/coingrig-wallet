@@ -71,6 +71,52 @@ export default function BuyComponent({coin, chain, price}) {
     setAmount('$' + formattedValue);
   };
 
+  const Guardarian = () => {
+    if (coin !== 'MATIC') {
+      return (
+        <TouchableOpacity
+          style={styles.card}
+          onPress={async () => {
+            if (keyboardEnabled) {
+              Keyboard.dismiss();
+            }
+            await sleep(500);
+            fiatSheet.current?.show();
+          }}>
+          <Image
+            source={RampProviders.guardarian.image}
+            style={{width: 50, height: 50, borderRadius: 100}}
+          />
+          <Text style={styles.providerText}>
+            {RampProviders.guardarian.name}
+          </Text>
+          <Image
+            source={RampProviders.guardarian.methods}
+            style={{width: 100, height: 15}}
+          />
+        </TouchableOpacity>
+      );
+    } else {
+      return null;
+    }
+  };
+
+  const Ramp = () => {
+    return (
+      <TouchableOpacity style={styles.card} onPress={() => buy('ramp', 'USD')}>
+        <Image
+          source={RampProviders.ramp.image}
+          style={{width: 50, height: 50, borderRadius: 100}}
+        />
+        <Text style={styles.providerText}>{RampProviders.ramp.name}</Text>
+        <Image
+          source={RampProviders.ramp.methods}
+          style={{width: 100, height: 15}}
+        />
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <ScrollView keyboardShouldPersistTaps={'handled'}>
       <View style={{flexDirection: 'column'}}>
@@ -89,48 +135,16 @@ export default function BuyComponent({coin, chain, price}) {
             textAlign="center"
             autoCorrect={false}
             allowFontScaling={true}
-            autoFocus={true}
           />
-          <Text style={{color: Colors.lighter, fontSize: 12}}>
+          <Text
+            style={{color: Colors.lighter, fontSize: 12, textAlign: 'center'}}>
             {'\u2248 ' + conversion.toFixed(4) + ' ' + coin}
           </Text>
         </View>
         <Text style={styles.title}>Select Provider:</Text>
         <View style={{marginHorizontal: 16, marginVertical: 10}}>
-          <TouchableOpacity
-            style={styles.card}
-            onPress={async () => {
-              if (keyboardEnabled) {
-                Keyboard.dismiss();
-              }
-              await sleep(500);
-              fiatSheet.current?.show();
-            }}>
-            <Image
-              source={RampProviders.guardarian.image}
-              style={{width: 50, height: 50, borderRadius: 100}}
-            />
-            <Text style={styles.providerText}>
-              {RampProviders.guardarian.name}
-            </Text>
-            <Image
-              source={RampProviders.guardarian.methods}
-              style={{width: 100, height: 15}}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.card}
-            onPress={() => buy('ramp', 'USD')}>
-            <Image
-              source={RampProviders.ramp.image}
-              style={{width: 50, height: 50, borderRadius: 100}}
-            />
-            <Text style={styles.providerText}>{RampProviders.ramp.name}</Text>
-            <Image
-              source={RampProviders.ramp.methods}
-              style={{width: 100, height: 15}}
-            />
-          </TouchableOpacity>
+          <Guardarian />
+          <Ramp />
         </View>
       </View>
       <ActionSheet

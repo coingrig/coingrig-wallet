@@ -6,25 +6,21 @@ import {styles} from './styles';
 import {useTranslation} from 'react-i18next';
 import SellComponent from 'components/Trade/Sell';
 import BuyComponent from 'components/Trade/Buy';
+import {useNavigation} from '@react-navigation/native';
 
 export default function TradeScreen({route}) {
+  const navigation = useNavigation();
   const {t} = useTranslation();
   const [isSell, setIsSell] = useState(false);
 
   useEffect(() => {
+    navigation.setOptions({
+      headerTitle: route.params.symbol.toUpperCase(),
+    });
     alert(
       'De verificat fiecare coin in parte daca merge cumparat pe ambii provideri',
     );
-    // const w = WalletStore.getWalletByCoinId(
-    //     route.params.symbol,
-    //     route.params.chain,
-    //   );
-    //   const address = WalletStore.getWalletAddressByChain(w?.chain!);
-    //   let coin = route.params.symbol.toUpperCase();
-    //   if (coin === 'BNB') {
-    //     coin = 'BSC_BNB';
-    //   }
-  }, [route.params]);
+  }, [navigation, route.params]);
 
   const renderContainer = () => {
     if (isSell) {
@@ -60,7 +56,15 @@ export default function TradeScreen({route}) {
           name === 'sell' ? setIsSell(true) : setIsSell(false)
         }>
         <Segment name="buy" content={t('Buy')} />
-        <Segment name="sell" content={t('Sell')} />
+        <Segment
+          name="sell"
+          content={
+            route.params.symbol === 'MATIC'
+              ? t('Sell (Not available)')
+              : t('Sell')
+          }
+          disabled={route.params.symbol === 'MATIC'}
+        />
       </SegmentedControl>
       {renderContainer()}
     </ScrollView>
