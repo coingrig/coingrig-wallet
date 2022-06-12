@@ -364,6 +364,18 @@
       "summary.category.crypto": "Crypto",
       "summary.category.banks": "Conturi bancare",
       "summary.category.stocks": "Acțiuni",
-      "summary.category.cash": "Numerar"
+      "summary.category.cash": "Numerar",
+
+      "history.title": "Istoric",
+      "history.unkown_token": "Necunoscut",
+      "history.category.unknown": "Necunoscut",
+      "history.category.swap": "Schimb",
+      "history.category.referral": "Recomandare",
+      "history.category.send": "Trimis",
+      "history.category.approve": "Aprobare",
+      "history.category.receive": "Primit",
+      "history.referral.title": "Ultimele venituri",
+      "history.referal.no_data": "Fără câștiguri",
+      "history.no_data": "Fără tranzacții"
   }
 }

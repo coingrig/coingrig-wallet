@@ -8,16 +8,18 @@ import FastImage from 'react-native-fast-image';
 import {capitalizeFirstLetter, formatTime, openLink} from 'utils';
 import {Loader} from 'components/loader';
 import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 
 export default function HistoryScreen({route}) {
   const [txList, setTxList] = useState([]);
   const [tokenDict, setTokenDict] = useState({});
   const [empty, setEmpty] = useState(false);
   const navigation = useNavigation();
+  const {t} = useTranslation();
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: route.params.chain.toUpperCase() + ' ' + 'History',
+      headerTitle: route.params.chain.toUpperCase() + ' ' + t('history.title'),
     });
     fetchData();
   }, []);
@@ -48,7 +50,7 @@ export default function HistoryScreen({route}) {
   const getTokenName = item => {
     const token = tokenDict[getTokenId(item)];
     if (!token) {
-      return 'Unknown';
+      return t('history.unkown_token');
     }
     const name = token.symbol ? token.symbol : token.name;
     return name;
@@ -96,19 +98,30 @@ export default function HistoryScreen({route}) {
       item.cate_id === 'receive' &&
       item.other_addr === '0xdb6f1920a889355780af7570773609bd8cb1f498'
     ) {
-      return 'Referal Commision';
+      return t('history.category.referral');
     }
-    return isSwap(item)
-      ? 'Swap'
-      : item.cate_id === null
-      ? item.tx.name
-      : item.cate_id;
+    if (isSwap(item)) {
+      return t('history.category.swap');
+    }
+    if (item.cate_id === null) {
+      return item.tx.name;
+    }
+    switch (item.cate_id) {
+      case 'approve':
+        return t('history.category.approve');
+      case 'send':
+        return t('history.category.send');
+      case 'receive':
+        return t('history.category.receive');
+      default:
+        return item.cate_id;
+    }
   };
 
   const renderItem = ({item}) => {
     // console.log(tokenDict[getTokenId(item)]);
     let category = getCat(item);
-    category = category ? category : 'Unknown';
+    category = category ? category : t('history.category.unknown');
 
     return (
       <TouchableOpacity
@@ -186,7 +199,7 @@ export default function HistoryScreen({route}) {
       ) : (
         <Text
           style={{textAlign: 'center', fontSize: 20, color: Colors.lighter}}>
-          No Transactions
+          {t('history.referal.no_data')}
         </Text>
       )}
     </View>

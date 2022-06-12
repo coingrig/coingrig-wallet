@@ -364,6 +364,18 @@
       "summary.category.crypto": "Crypto",
       "summary.category.banks": "Bank accounts",
       "summary.category.stocks": "Stocks",
-      "summary.category.cash": "Cash"
+      "summary.category.cash": "Cash",
+
+      "history.title": "History",
+      "history.unkown_token": "Unknown",
+      "history.category.unknown": "Unknown",
+      "history.category.swap": "Swap",
+      "history.category.referral": "Referral",
+      "history.category.send": "Send",
+      "history.category.approve": "Approve",
+      "history.category.receive": "Receive",
+      "history.referral.title": "Latest Earnings",
+      "history.referal.no_data": "No Earnings",
+      "history.no_data": "No Transactions"
   }
 }

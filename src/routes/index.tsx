@@ -827,7 +827,7 @@ function NavigationStack({t}) {
         component={HistoryScreen}
         options={{
           headerShown: true,
-          headerTitle: t('History'),
+          headerTitle: t('history.title'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
@@ -852,7 +852,7 @@ function NavigationStack({t}) {
         component={ReferalHistory}
         options={{
           headerShown: true,
-          headerTitle: t('Latest Earnings'),
+          headerTitle: t('history.referral.title'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios

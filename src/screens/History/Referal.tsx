@@ -12,12 +12,14 @@ import {useNavigation} from '@react-navigation/native';
 // import {WalletStore} from 'stores/wallet';
 import {ZEROX_FEE_PROXY} from 'utils/constants';
 import BigNumber from 'bignumber.js';
+import {useTranslation} from 'react-i18next';
 
 export default function ReferalHistory({route}) {
   const [txList, setTxList] = useState([]);
   const [tokenDict, setTokenDict] = useState({});
   const [empty, setEmpty] = useState(false);
   const navigation = useNavigation();
+  const {t} = useTranslation();
 
   useEffect(() => {
     fetchData();
@@ -49,7 +51,7 @@ export default function ReferalHistory({route}) {
   const getTokenName = item => {
     const token = tokenDict[getTokenId(item)];
     if (!token) {
-      return 'Unknown';
+      return t('history.unkown_token');
     }
     const name = token.symbol ? token.symbol : token.name;
     return name;
@@ -219,7 +221,7 @@ export default function ReferalHistory({route}) {
       ) : (
         <Text
           style={{textAlign: 'center', fontSize: 20, color: Colors.lighter}}>
-          No Earnings
+          {t('history.no_data')}
         </Text>
       )}
     </View>
