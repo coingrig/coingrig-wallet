@@ -12,7 +12,9 @@ import {useNavigation} from '@react-navigation/native';
 export default function HistoryScreen({route}) {
   const [txList, setTxList] = useState([]);
   const [tokenDict, setTokenDict] = useState({});
+  const [empty, setEmpty] = useState(false);
   const navigation = useNavigation();
+
   useEffect(() => {
     navigation.setOptions({
       headerTitle: route.params.chain.toUpperCase() + ' ' + 'History',
@@ -30,7 +32,11 @@ export default function HistoryScreen({route}) {
     if (chain) {
       list = list.filter(item => item.chain === chain);
     }
-    setTxList(list);
+    if (list.length === 0) {
+      setEmpty(true);
+    } else {
+      setTxList(list);
+    }
   };
 
   const isSwap = item => {
@@ -175,8 +181,13 @@ export default function HistoryScreen({route}) {
           ListHeaderComponent={null}
           ListFooterComponent={() => <View style={{height: 30}} />}
         />
-      ) : (
+      ) : !empty ? (
         <Loader />
+      ) : (
+        <Text
+          style={{textAlign: 'center', fontSize: 20, color: Colors.lighter}}>
+          No Transactions
+        </Text>
       )}
     </View>
   );
