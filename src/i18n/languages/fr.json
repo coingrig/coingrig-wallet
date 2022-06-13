@@ -376,6 +376,15 @@
       "history.category.receive": "Reçu",
       "history.referral.title": "Derniers revenus",
       "history.referal.no_data": "Aucun gain",
-      "history.no_data": "Aucune transaction"
+      "history.no_data": "Aucune transaction",
+
+      "referral.title": "Inviter un ami",
+      "referral.earn_up_to": "Gagnez jusqu'à",
+      "referral.earn_from_friend": "de chaque ami que vous invitez",
+      "referral.info1": "1. Envoyez le lien d'invitation à votre ami",
+      "referral.info2": "2. Votre ami doit installer et configurer l'application Coingrig en utilisant votre lien d'invitation sur son téléphone portable",
+      "referral.info3": "3. Pour chaque Swap dans l'application effectué par votre ami, vous recevrez directement 0,5 % du token échangé sur votre adresse de portefeuille",
+      "referral.share_btn": "Partager le lien d'invitation",
+      "referral.toc": "Conditions d'utilisation"
     }
 }

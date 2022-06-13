@@ -376,6 +376,15 @@
       "history.category.receive": "Primit",
       "history.referral.title": "Ultimele venituri",
       "history.referal.no_data": "Fără câștiguri",
-      "history.no_data": "Fără tranzacții"
+      "history.no_data": "Fără tranzacții",
+
+      "referral.title": "Invitați un prieten",
+      "referral.earn_up_to": "Câștigați până la",
+      "referral.earn_from_friend": "de la fiecare prieten pe care îl invitați",
+      "referral.info1": "1. Trimite linkul de invitație prietenului tău",
+      "referral.info2": "2. Prietenul tău trebuie să instaleze și să configureze aplicația Coingrig folosind linkul de invitație de pe telefonul său mobil",
+      "referral.info3": "3. Pentru fiecare Swap în aplicație pe care îl face prietenul tău, vei primi direct 0,5% din tokenul schimbat pe adresa portofelului tău",
+      "referral.share_btn": "Partajați linkul de invitație",
+      "referral.toc": "Termeni și condiții"
   }
 }

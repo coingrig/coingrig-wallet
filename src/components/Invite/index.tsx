@@ -9,9 +9,11 @@ import {SmallButton} from 'components/smallButton';
 import {SIZE} from 'utils/constants';
 import {WalletStore} from 'stores/wallet';
 import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 
 export default function InviteScreen() {
   const navigation = useNavigation();
+  const {t} = useTranslation();
 
   const shareAddress = async () => {
     await Share.open({
@@ -42,8 +44,9 @@ export default function InviteScreen() {
             color: Colors.foreground,
             // width: 280,
           }}>
-          Earn up to <Text style={{color: 'orange'}}>$1000</Text> from each
-          friend you invite
+          {t('referral.earn_up_to')}{' '}
+          <Text style={{color: 'orange'}}>$1000</Text>{' '}
+          {t('referral.earn_from_friend')}
         </Text>
 
         <View
@@ -64,7 +67,7 @@ export default function InviteScreen() {
               color: Colors.lighter,
               textAlign: 'center',
             }}>
-            1. Send the invitation link to your friend
+            {t('referral.info1')}
           </Text>
         </View>
         <View style={{margin: 5, marginVertical: 10}}>
@@ -74,8 +77,7 @@ export default function InviteScreen() {
               color: Colors.lighter,
               textAlign: 'center',
             }}>
-            2. Your friend need to install and setup Coingrig app using your
-            invitation link
+            {t('referral.info2')}
           </Text>
         </View>
         <View style={{margin: 5, marginVertical: 10}}>
@@ -85,15 +87,14 @@ export default function InviteScreen() {
               color: Colors.lighter,
               textAlign: 'center',
             }}>
-            3. For each in app Swap your friend make, you will directly receive
-            0.5% of the swapped token on your wallet address
+            {t('referral.info3')}
           </Text>
         </View>
       </View>
       <View>
         <SmallButton
           onPress={shareAddress}
-          text="Share Invitation Link"
+          text={t('referral.share_btn')}
           color={Colors.background}
           style={{
             backgroundColor: Colors.foreground,
@@ -103,8 +104,10 @@ export default function InviteScreen() {
         />
 
         <SmallButton
-          onPress={() => navigation.navigate('ReferalHistory', {referal: true})}
-          text="Latest Earnings"
+          onPress={() =>
+            navigation.navigate('ReferralHistory', {referal: true})
+          }
+          text={t('history.referral.title')}
           color={Colors.foreground}
           style={{
             backgroundColor: Colors.background,
@@ -119,7 +122,7 @@ export default function InviteScreen() {
             marginVertical: 10,
             color: Colors.lighter,
           }}>
-          Terms & Conditions
+          {t('referral.toc')}
         </Text>
       </View>
       <FastImage

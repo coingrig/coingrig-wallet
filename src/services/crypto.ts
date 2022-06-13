@@ -465,7 +465,7 @@ class CryptoService {
         return error;
       });
   };
-  getReferalHistory = async (startTime, userAddress) => {
+  getReferralHistory = async (startTime, userAddress) => {
     const config: any = {
       method: 'get',
       url:

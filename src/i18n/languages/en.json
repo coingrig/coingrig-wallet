@@ -376,6 +376,15 @@
       "history.category.receive": "Receive",
       "history.referral.title": "Latest Earnings",
       "history.referal.no_data": "No Earnings",
-      "history.no_data": "No Transactions"
+      "history.no_data": "No Transactions",
+
+      "referral.title": "Invite a friend",
+      "referral.earn_up_to": "Earn up to",
+      "referral.earn_from_friend": "from each friend you invite",
+      "referral.info1": "1. Send the invitation link to your friend",
+      "referral.info2": "2. Your friend needs to install and setup Coingrig app using your invitation link on his mobile phone",
+      "referral.info3": "3. For each in app Swap your friend makes, you will directly receive 0.5% of the swapped token on your wallet address",
+      "referral.share_btn": "Share Invitation Link",
+      "referral.toc": "Terms & Conditions"
   }
 }

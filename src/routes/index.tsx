@@ -51,7 +51,7 @@ import SummaryScreen from 'screens/Summary';
 import InviteScreen from 'components/Invite';
 import WebScreen from 'screens/Web';
 import HistoryScreen from 'screens/History';
-import ReferalHistory from 'screens/History/Referal';
+import ReferralHistory from 'screens/History/Referral';
 import TradeScreen from 'screens/Trade';
 
 const Stack = createStackNavigator();
@@ -848,8 +848,8 @@ function NavigationStack({t}) {
         }}
       />
       <Stack.Screen
-        name="ReferalHistory"
-        component={ReferalHistory}
+        name="ReferralHistory"
+        component={ReferralHistory}
         options={{
           headerShown: true,
           headerTitle: t('history.referral.title'),
@@ -877,7 +877,7 @@ function NavigationStack({t}) {
         component={InviteScreen}
         options={{
           headerShown: true,
-          headerTitle: t(''),
+          headerTitle: t('referral.title'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios

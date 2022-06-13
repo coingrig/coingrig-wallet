@@ -14,7 +14,7 @@ import {ZEROX_FEE_PROXY} from 'utils/constants';
 import BigNumber from 'bignumber.js';
 import {useTranslation} from 'react-i18next';
 
-export default function ReferalHistory({route}) {
+export default function ReferralHistory({route}) {
   const [txList, setTxList] = useState([]);
   const [tokenDict, setTokenDict] = useState({});
   const [empty, setEmpty] = useState(false);
@@ -28,7 +28,7 @@ export default function ReferalHistory({route}) {
   const fetchData = async () => {
     const referal = route.params.referal;
     // const userAddress = WalletStore.getWalletAddressByChain('ETH');
-    const data = await CryptoService.getReferalHistory(
+    const data = await CryptoService.getReferralHistory(
       0,
       '0x46904fc4fb455bcc1e07a0e8511f6ed027630e42',
     );

@@ -248,9 +248,9 @@ const DashboardScreen = observer(() => {
                   color: Colors.foreground,
                   width: 220,
                 }}>
-                Earn up to{' '}
+                {t('referral.earn_up_to')}{' '}
                 <Text style={{color: 'orange', fontWeight: 'bold'}}>$1000</Text>{' '}
-                from each friend you invite
+                {t('referral.earn_from_friend')}
               </Text>
               <FastImage
                 style={{
