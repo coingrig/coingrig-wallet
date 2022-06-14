@@ -9,6 +9,7 @@ import {Colors} from 'utils/colors';
 import {styles} from './styles';
 import Svg, {Path} from 'react-native-svg';
 import {ConfigStore} from 'stores/config';
+import {showMessage} from 'react-native-flash-message';
 
 const StartScreen = () => {
   const navigation = useNavigation();
@@ -28,6 +29,10 @@ const StartScreen = () => {
       );
       if (parseReferral.startsWith('0x')) {
         ConfigStore.setFeeAddress(parseReferral);
+        showMessage({
+          message: 'Referral: ' + parseReferral,
+          type: 'info',
+        });
       }
     }
   };
