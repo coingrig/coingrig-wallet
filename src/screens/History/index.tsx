@@ -25,19 +25,23 @@ export default function HistoryScreen({route}) {
   }, []);
 
   const fetchData = async () => {
-    const chain = route.params.chain;
-    const userAddress = WalletStore.getWalletAddressByChain('ETH');
-    const data = await CryptoService.getChainHistory(0, userAddress, chain);
-    const newDict = {...tokenDict, ...data.data.token_dict};
-    setTokenDict(newDict);
-    let list = data.data.history_list;
-    if (chain) {
-      list = list.filter(item => item.chain === chain);
-    }
-    if (list.length === 0) {
+    try {
+      const chain = route.params.chain;
+      const userAddress = WalletStore.getWalletAddressByChain('ETH');
+      const data = await CryptoService.getChainHistory(0, userAddress, chain);
+      const newDict = {...tokenDict, ...data.data.token_dict};
+      setTokenDict(newDict);
+      let list = data.data.history_list;
+      if (chain) {
+        list = list.filter(item => item.chain === chain);
+      }
+      if (list.length === 0) {
+        setEmpty(true);
+      } else {
+        setTxList(list);
+      }
+    } catch (error) {
       setEmpty(true);
-    } else {
-      setTxList(list);
     }
   };
 
@@ -199,7 +203,7 @@ export default function HistoryScreen({route}) {
       ) : (
         <Text
           style={{textAlign: 'center', fontSize: 20, color: Colors.lighter}}>
-          {t('history.referal.no_data')}
+          {t('history.no_data')}
         </Text>
       )}
     </View>

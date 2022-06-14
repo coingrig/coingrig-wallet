@@ -260,7 +260,7 @@ const DashboardScreen = observer(() => {
                   right: 15,
                 }}
                 source={{
-                  uri: 'https://cdn-icons-png.flaticon.com/512/2725/2725443.png',
+                  uri: 'https://assets.coingrig.com/images/star.png',
                   priority: FastImage.priority.normal,
                   cache: FastImage.cacheControl.immutable,
                 }}

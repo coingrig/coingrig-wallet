@@ -135,7 +135,7 @@ export default function InviteScreen() {
           opacity: 0.15,
         }}
         source={{
-          uri: 'https://cdn-icons-png.flaticon.com/512/1139/1139982.png',
+          uri: 'https://assets.coingrig.com/images/gift.png',
           priority: FastImage.priority.normal,
           cache: FastImage.cacheControl.immutable,
         }}
