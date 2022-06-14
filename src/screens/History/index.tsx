@@ -9,6 +9,7 @@ import {capitalizeFirstLetter, formatTime, openLink} from 'utils';
 import {Loader} from 'components/loader';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 export default function HistoryScreen({route}) {
   const [txList, setTxList] = useState([]);
@@ -22,6 +23,7 @@ export default function HistoryScreen({route}) {
       headerTitle: route.params.chain.toUpperCase() + ' ' + t('history.title'),
     });
     fetchData();
+    LogEvents(ILogEvents.SCREEN, 'History');
   }, []);
 
   const fetchData = async () => {

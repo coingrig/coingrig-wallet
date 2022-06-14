@@ -7,6 +7,7 @@ import {useTranslation} from 'react-i18next';
 import SellComponent from 'components/Trade/Sell';
 import BuyComponent from 'components/Trade/Buy';
 import {useNavigation} from '@react-navigation/native';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 export default function TradeScreen({route}) {
   const navigation = useNavigation();
@@ -21,6 +22,7 @@ export default function TradeScreen({route}) {
 
   const renderContainer = () => {
     if (isSell) {
+      LogEvents(ILogEvents.SCREEN, 'SellTrade');
       return (
         <SellComponent
           coin={route.params.symbol}
@@ -29,6 +31,7 @@ export default function TradeScreen({route}) {
         />
       );
     } else {
+      LogEvents(ILogEvents.SCREEN, 'BuyTrade');
       return (
         <BuyComponent
           coin={route.params.symbol}

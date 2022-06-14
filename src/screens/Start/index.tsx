@@ -10,6 +10,7 @@ import {styles} from './styles';
 import Svg, {Path} from 'react-native-svg';
 import {ConfigStore} from 'stores/config';
 import {showMessage} from 'react-native-flash-message';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const StartScreen = () => {
   const navigation = useNavigation();
@@ -33,6 +34,7 @@ const StartScreen = () => {
           message: 'Referral: ' + parseReferral,
           type: 'info',
         });
+        LogEvents(ILogEvents.ACTION, 'AccountFromReferral');
       }
     }
   };

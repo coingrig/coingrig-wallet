@@ -13,6 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import {ZEROX_FEE_PROXY} from 'utils/constants';
 import BigNumber from 'bignumber.js';
 import {useTranslation} from 'react-i18next';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 export default function ReferralHistory({route}) {
   const [txList, setTxList] = useState([]);
@@ -23,6 +24,7 @@ export default function ReferralHistory({route}) {
 
   useEffect(() => {
     fetchData();
+    LogEvents(ILogEvents.SCREEN, 'ReferralEarnings');
   }, []);
 
   const fetchData = async () => {

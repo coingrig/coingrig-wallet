@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, Text} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Colors} from 'utils/colors';
 import FastImage from 'react-native-fast-image';
@@ -11,10 +11,15 @@ import {WalletStore} from 'stores/wallet';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {openLink} from 'utils';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 export default function InviteScreen() {
   const navigation = useNavigation();
   const {t} = useTranslation();
+
+  useEffect(() => {
+    LogEvents(ILogEvents.SCREEN, 'Invite');
+  }, []);
 
   const shareAddress = async () => {
     await Share.open({
@@ -23,6 +28,7 @@ export default function InviteScreen() {
         'https://coingrig.com/invite?ref=' +
         WalletStore.getWalletAddressByChain('ETH'),
     });
+    LogEvents(ILogEvents.CLICK, 'ShareReferral');
   };
 
   return (

@@ -17,6 +17,7 @@ import ActionSheet from 'react-native-actions-sheet';
 import {SmallButton} from 'components/smallButton';
 import {formatNoComma, sleep} from 'utils';
 import {showMessage} from 'react-native-flash-message';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const fiatSheet: React.RefObject<any> = createRef();
 
@@ -62,6 +63,7 @@ export default function SellComponent({coin, chain, price}) {
     chain = chain === 'POLYGON' ? 'MATIC' : chain;
     const link = await sellFromGuardarian(amount, currency, coin, chain);
     Linking.openURL(link);
+    LogEvents(ILogEvents.CLICK, 'SellProvider');
   };
 
   const formatAmount = v => {

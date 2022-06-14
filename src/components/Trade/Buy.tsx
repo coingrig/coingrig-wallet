@@ -17,6 +17,7 @@ import {SmallButton} from 'components/smallButton';
 import {formatNoComma, openLink, sleep} from 'utils';
 import {WalletStore} from 'stores/wallet';
 import {showMessage} from 'react-native-flash-message';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const fiatSheet: React.RefObject<any> = createRef();
 
@@ -63,6 +64,7 @@ export default function BuyComponent({coin, chain, price}) {
       const link = await buyFromGuardarian(val, currency, coin, address, chain);
       openLink(link);
     }
+    LogEvents(ILogEvents.CLICK, 'BuyProvider');
   };
 
   const formatAmount = v => {
