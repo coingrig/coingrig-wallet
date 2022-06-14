@@ -10,6 +10,7 @@ import {SIZE} from 'utils/constants';
 import {WalletStore} from 'stores/wallet';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
+import {openLink} from 'utils';
 
 export default function InviteScreen() {
   const navigation = useNavigation();
@@ -116,6 +117,7 @@ export default function InviteScreen() {
           }}
         />
         <Text
+          onPress={() => openLink('https://docs.coingrig.com/')}
           style={{
             fontSize: 13,
             textAlign: 'center',
