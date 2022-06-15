@@ -48,7 +48,7 @@ export default function BuyComponent({coin, chain, price}) {
     const val = amount.replace('$', '');
     if (Number(val) < 50) {
       showMessage({
-        message: 'Minimum $50',
+        message: t('trade.minimum') + ' $50',
         type: 'warning',
       });
       return;
@@ -138,7 +138,7 @@ export default function BuyComponent({coin, chain, price}) {
             {'\u2248 ' + conversion.toFixed(4) + ' ' + coin}
           </Text>
         </View>
-        <Text style={styles.title}>Select Provider:</Text>
+        <Text style={styles.title}>{t('trade.select_provider')}</Text>
         <View style={{marginHorizontal: 16, marginVertical: 10}}>
           <Guardarian />
           <Ramp />
@@ -151,7 +151,7 @@ export default function BuyComponent({coin, chain, price}) {
         // gestureEnabled={true}
         headerAlwaysVisible
         containerStyle={styles.editContainer}>
-        <Text style={styles.editTitle}>{t('Choose currency')}</Text>
+        <Text style={styles.editTitle}>{t('trade.select_currency')}</Text>
         <SmallButton
           text={t('USD')}
           onPress={() => buy('guardarian', 'USD')}

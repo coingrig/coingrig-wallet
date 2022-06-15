@@ -87,9 +87,7 @@ const SettingScreen = observer(() => {
             style={styles.item}
             onPress={() => navigation.navigate('InviteScreen')}>
             <Icon name="gift" size={23} color={Colors.foreground} />
-            <Text style={styles.textItem}>
-              {t('history.category.referral')}
-            </Text>
+            <Text style={styles.textItem}>{t('referral.title')}</Text>
             <Icon name="arrow-forward" size={20} color="gray" />
           </TouchableOpacity>
           <TouchableOpacity

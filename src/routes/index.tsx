@@ -512,7 +512,7 @@ function NavigationStack({t}) {
         component={TradeScreen}
         options={{
           headerShown: true,
-          headerTitle: t('Trade'),
+          headerTitle: t('trade.title'),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios

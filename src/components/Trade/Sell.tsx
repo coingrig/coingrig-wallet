@@ -48,14 +48,14 @@ export default function SellComponent({coin, chain, price}) {
     fiatSheet.current?.hide();
     if (Number(conversion) < 50) {
       showMessage({
-        message: 'Minimum $50',
+        message: t('trade.minimum') + ' $50',
         type: 'warning',
       });
       return;
     }
     if (Number(conversion) > 2000) {
       showMessage({
-        message: 'Maximum $2000',
+        message: t('trade.maximum') + ' $2000',
         type: 'warning',
       });
       return;
@@ -96,7 +96,7 @@ export default function SellComponent({coin, chain, price}) {
             {'\u2248 ' + conversion.toFixed(2) + ' USD'}
           </Text>
         </View>
-        <Text style={styles.title}>Select Provider:</Text>
+        <Text style={styles.title}>{t('trade.select_provider')}</Text>
         <View style={{marginHorizontal: 16, marginVertical: 10}}>
           <TouchableOpacity
             style={styles.card}
@@ -128,7 +128,7 @@ export default function SellComponent({coin, chain, price}) {
         // gestureEnabled={true}
         headerAlwaysVisible
         containerStyle={styles.editContainer}>
-        <Text style={styles.editTitle}>{t('Choose currency')}</Text>
+        <Text style={styles.editTitle}>{t('trade.select_currency')}</Text>
         <SmallButton
           text={t('USD')}
           onPress={() => sell('guardarian', 'USD')}
