@@ -3,6 +3,7 @@ import {Migration as M01} from './migrations/01_1.1.0';
 import {Migration as M02} from './migrations/02_1.2.0';
 import {StorageGetItem, StorageSetItem} from './storage';
 import CONFIG from '../config';
+import {Platform} from 'react-native';
 
 const MIGRATION_KEY = CONFIG.MIGRATION_KEY;
 
@@ -15,12 +16,17 @@ class MigrationService {
   constructor() {}
 
   migrationRequired = async () => {
-    let isInit = await StorageGetItem('@init', false);
+    const isInit = await StorageGetItem('@init', false);
     if (!isInit) {
       return false;
     }
+    const buildNumber =
+      Platform.OS === 'android'
+        ? CONFIG.BUILD_NUMBER_ANDROID
+        : CONFIG.BUILD_NUMBER_IOS;
     this.installedMigration = await StorageGetItem(MIGRATION_KEY, false);
-    this.currentMigrationVersion = CONFIG.BUILD_NUMBER ?? 0;
+    this.installedMigration = parseInt(this.installedMigration, 10);
+    this.currentMigrationVersion = buildNumber ?? 0;
     // If current build number is larger than last stored build number
     // we will check if a migration is required
     if (this.installedMigration >= this.currentMigrationVersion) {
@@ -45,9 +51,13 @@ class MigrationService {
     }
     // Once all migrations have completed, we save our build number
     // so that we no longer need to run migrations checks again
-    StorageSetItem(MIGRATION_KEY, CONFIG.BUILD_NUMBER.toString(), false);
+    const buildNumber =
+      Platform.OS === 'android'
+        ? CONFIG.BUILD_NUMBER_ANDROID
+        : CONFIG.BUILD_NUMBER_IOS;
+    StorageSetItem(MIGRATION_KEY, buildNumber.toString(), false);
   };
 }
 
-let service = new MigrationService();
+const service = new MigrationService();
 export {service as MigrationService};

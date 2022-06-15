@@ -166,6 +166,8 @@
 
       "settings.backup_phrase": "Backup your recovery phrase",
       "settings.settings": "Settings",
+      "settings.update": "Update available",
+      "settings.update_app": "Update now!",
       "settings.wallet": "Wallet",
       "settings.walletconnect": "WalletConnect",
       "settings.about": "About",

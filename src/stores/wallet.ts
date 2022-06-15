@@ -7,6 +7,7 @@ import {StorageSetItem} from '../services/storage';
 import CONFIG from 'config';
 import {WalletFactory, WalletGenerator} from '@coingrig/core';
 import {generateWallet} from '@coingrig/wallet-generator';
+import {Platform} from 'react-native';
 
 export interface IWalletAddresses {
   chain: string;
@@ -272,13 +273,12 @@ class WalletStoreModule {
       CONFIG.mnemonic = mnemonic;
       await StorageSetItem(STORED_MNEMONIC, mnemonic, true);
       StorageSetItem(CONFIG.INIT_KEY, 'init', false);
-
+      const buildNumber =
+        Platform.OS === 'android'
+          ? CONFIG.BUILD_NUMBER_ANDROID
+          : CONFIG.BUILD_NUMBER_IOS;
       // Store migration key to current app version
-      StorageSetItem(
-        CONFIG.MIGRATION_KEY,
-        CONFIG.BUILD_NUMBER.toString(),
-        false,
-      );
+      StorageSetItem(CONFIG.MIGRATION_KEY, buildNumber.toString(), false);
 
       return true;
     } catch (error) {

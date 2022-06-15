@@ -39,6 +39,7 @@ import apps from 'data/apps';
 import {OtherMarkets, USMarkets} from './markets';
 import {ILogEvents, LogEvents} from 'utils/analytics';
 import FastImage from 'react-native-fast-image';
+import {ConfigStore} from 'stores/config';
 // import CustomModal from 'components/Modal';
 
 const marketData = apps.filter(app => app.categories?.includes('home'));
@@ -66,14 +67,16 @@ const DashboardScreen = observer(() => {
           <TouchableOpacity
             onPress={() => navigation.navigate('SettingScreen')}
             style={styles.moreBtn}>
-            {SettingsStore.mnemonicBackupDone ? null : badge()}
+            {SettingsStore.mnemonicBackupDone && !ConfigStore.requiresUpdate
+              ? null
+              : badge()}
             <Icon3 name="settings-sharp" size={23} color={Colors.foreground} />
           </TouchableOpacity>
         </View>
       ),
     });
     fetchBalance();
-  }, [SettingsStore.mnemonicBackupDone]);
+  }, [SettingsStore.mnemonicBackupDone, ConfigStore.requiresUpdate]);
 
   useEffect(() => {
     if (shadowHeader) {

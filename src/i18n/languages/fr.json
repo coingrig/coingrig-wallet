@@ -166,6 +166,8 @@
 
       "settings.backup_phrase": "Sauvegardez votre phrase de récupération",
       "settings.settings": "Paramètres",
+      "settings.update": "Mise à jour disponible",
+      "settings.update_app": "Mettez à jour maintenant!",
       "settings.wallet": "Portefeuille",
       "settings.walletconnect": "WalletConnect",
       "settings.about": "À propos",

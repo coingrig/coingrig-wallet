@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import endpoints from 'utils/endpoints';
 import {StorageGetItem} from 'services/storage';
 import CONFIG from 'config';
+import {Platform} from 'react-native';
 
 export const CONFIG_MODULES = {
   APP: 'app',
@@ -67,6 +68,22 @@ class configStore {
       storage: AsyncStorage,
     });
   }
+
+  // Getters
+  get requiresUpdate() {
+    let current = 0;
+    let req = 0;
+    if (Platform.OS === 'android') {
+      current = CONFIG.BUILD_NUMBER_ANDROID;
+      req = this.getModuleProperty('app', 'android_version', current);
+    }
+    if (Platform.OS === 'ios') {
+      current = CONFIG.BUILD_NUMBER_IOS;
+      req = this.getModuleProperty('app', 'ios_version', current);
+    }
+    return current < req;
+  }
+  //
 
   setFeeAddress = action(address => {
     this.feeAddress = address;
