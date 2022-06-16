@@ -18,7 +18,7 @@ export default function Featured() {
         onClick={() => {
           navigation.navigate('PortfolioScreen', {tab: 'Banks'});
         }}
-        imageURI={'https://assets.coingrig.com/images/balance.png'}
+        imageURI={'https://assets.coingrig.com/images/ukrainefee.png?mic'}
         category={t('hub.featured').toUpperCase()}
         title={t('hub.featured.title')}
         desc={t('hub.featured.description')}
