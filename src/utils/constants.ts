@@ -12,6 +12,11 @@ export const ASSET_TYPE_NFT = 'nft';
 
 export const ZEROX_FEE_PROXY = '0xdb6f1920a889355780af7570773609bd8cb1f498';
 
+export const APPLE_UPDATE_LINK =
+  'https://apps.apple.com/us/app/coingrig-crypto-btc-wallet/id1583464451';
+export const GOOGLE_UPDATE_LINK =
+  'https://play.google.com/store/apps/details?id=com.coingrig';
+
 // symbol === chain
 export const COIN_LIST: IWallet[] = [
   {

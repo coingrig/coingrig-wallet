@@ -24,6 +24,7 @@ import CONFIG from 'config';
 import {styles} from './styles';
 import {observer} from 'mobx-react-lite';
 import {ConfigStore} from 'stores/config';
+import {APPLE_UPDATE_LINK, GOOGLE_UPDATE_LINK} from 'utils/constants';
 
 const actionSheetRef = createRef();
 
@@ -77,10 +78,10 @@ const SettingScreen = observer(() => {
           onPress={() => {
             let link = '';
             if (Platform.OS === 'android') {
-              link = CONFIG.GOOGLE_UPDATE_LINK;
+              link = GOOGLE_UPDATE_LINK;
             }
             if (Platform.OS === 'ios') {
-              link = CONFIG.APPLE_UPDATE_LINK;
+              link = APPLE_UPDATE_LINK;
             }
             Linking.canOpenURL(link).then(
               supported => {
