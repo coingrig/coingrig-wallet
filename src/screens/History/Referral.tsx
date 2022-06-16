@@ -9,11 +9,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/Feather';
 import {Loader} from 'components/loader';
 import {useNavigation} from '@react-navigation/native';
-// import {WalletStore} from 'stores/wallet';
 import {ZEROX_FEE_PROXY} from 'utils/constants';
 import BigNumber from 'bignumber.js';
 import {useTranslation} from 'react-i18next';
 import {ILogEvents, LogEvents} from 'utils/analytics';
+import {WalletStore} from 'stores/wallet';
 
 export default function ReferralHistory({route}) {
   const [txList, setTxList] = useState([]);
@@ -29,11 +29,8 @@ export default function ReferralHistory({route}) {
 
   const fetchData = async () => {
     const referal = route.params.referal;
-    // const userAddress = WalletStore.getWalletAddressByChain('ETH');
-    const data = await CryptoService.getReferralHistory(
-      0,
-      '0x46904fc4fb455bcc1e07a0e8511f6ed027630e42',
-    );
+    const userAddress = WalletStore.getWalletAddressByChain('ETH');
+    const data = await CryptoService.getReferralHistory(0, userAddress);
     const newDict = {...tokenDict, ...data.data.token_dict};
     setTokenDict(newDict);
     let list = data.data.history_list;
@@ -223,7 +220,7 @@ export default function ReferralHistory({route}) {
       ) : (
         <Text
           style={{textAlign: 'center', fontSize: 20, color: Colors.lighter}}>
-          {t('history.no_data')}
+          {t('history.referal.no_data')}
         </Text>
       )}
     </View>
