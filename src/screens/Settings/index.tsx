@@ -67,7 +67,7 @@ const SettingScreen = observer(() => {
 
   const badge = () => <View style={styles.badge} />;
 
-  const update = () => {
+  const renderUpdate = () => {
     return !ConfigStore.requiresUpdate ? null : (
       <View>
         <Text style={styles.subtitle}>
@@ -103,13 +103,28 @@ const SettingScreen = observer(() => {
     );
   };
 
+  const renderReferral = () => {
+    if (!ConfigStore.getModuleProperty('referral', 'enabled', false)) {
+      return null;
+    }
+    return (
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => navigation.navigate('InviteScreen')}>
+        <Icon name="gift" size={23} color={Colors.foreground} />
+        <Text style={styles.textItem}>{t('referral.title')}</Text>
+        <Icon name="arrow-forward" size={20} color="gray" />
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.scrollview}
         showsVerticalScrollIndicator={false}>
         <View>
-          {update()}
+          {renderUpdate()}
           <Text style={styles.subtitle}>
             {t('settings.wallet').toUpperCase()}
           </Text>
@@ -124,13 +139,7 @@ const SettingScreen = observer(() => {
             <Text style={styles.textItem}>{t('settings.backup_phrase')}</Text>
             <Icon name="arrow-forward" size={20} color="gray" />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.item}
-            onPress={() => navigation.navigate('InviteScreen')}>
-            <Icon name="gift" size={23} color={Colors.foreground} />
-            <Text style={styles.textItem}>{t('referral.title')}</Text>
-            <Icon name="arrow-forward" size={20} color="gray" />
-          </TouchableOpacity>
+          {renderReferral()}
           <TouchableOpacity
             style={styles.item}
             onPress={() => navigation.navigate('LanguageScreen')}>

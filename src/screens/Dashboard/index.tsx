@@ -166,6 +166,57 @@ const DashboardScreen = observer(() => {
     }
   };
 
+  const renderReferral = () => {
+    if (!ConfigStore.getModuleProperty('referral', 'enabled', false)) {
+      return null;
+    }
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate('InviteScreen')}
+        style={{
+          flex: 1,
+          marginHorizontal: 16,
+          marginTop: 20,
+          marginBottom: 5,
+          borderRadius: 10,
+          borderWidth: 3,
+          borderStyle: 'dashed',
+          borderColor: Colors.dash,
+          backgroundColor: Colors.card,
+          justifyContent: 'center',
+          height: 80,
+        }}>
+        <Text
+          style={{
+            fontSize: 15,
+            textAlign: 'left',
+            fontWeight: '500',
+            marginLeft: 15,
+            lineHeight: 20,
+            color: Colors.foreground,
+            width: 220,
+          }}>
+          {t('referral.earn_up_to')}{' '}
+          <Text style={{color: 'orange', fontWeight: 'bold'}}>$1000</Text>{' '}
+          {t('referral.earn_from_friend')}
+        </Text>
+        <FastImage
+          style={{
+            width: 45,
+            height: 45,
+            position: 'absolute',
+            right: 15,
+          }}
+          source={{
+            uri: 'https://assets.coingrig.com/images/star.png',
+            priority: FastImage.priority.normal,
+            cache: FastImage.cacheControl.immutable,
+          }}
+        />
+      </TouchableOpacity>
+    );
+  };
+
   const preRender = () => {
     if (WalletStore.wallets.length === 0) {
       return Loader();
@@ -226,49 +277,7 @@ const DashboardScreen = observer(() => {
                 tab={'Stocks'}
               />
             </ScrollView>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('InviteScreen')}
-              style={{
-                flex: 1,
-                marginHorizontal: 16,
-                marginTop: 20,
-                marginBottom: 5,
-                borderRadius: 10,
-                borderWidth: 3,
-                borderStyle: 'dashed',
-                borderColor: Colors.dash,
-                backgroundColor: Colors.card,
-                justifyContent: 'center',
-                height: 80,
-              }}>
-              <Text
-                style={{
-                  fontSize: 15,
-                  textAlign: 'left',
-                  fontWeight: '500',
-                  marginLeft: 15,
-                  lineHeight: 20,
-                  color: Colors.foreground,
-                  width: 220,
-                }}>
-                {t('referral.earn_up_to')}{' '}
-                <Text style={{color: 'orange', fontWeight: 'bold'}}>$1000</Text>{' '}
-                {t('referral.earn_from_friend')}
-              </Text>
-              <FastImage
-                style={{
-                  width: 45,
-                  height: 45,
-                  position: 'absolute',
-                  right: 15,
-                }}
-                source={{
-                  uri: 'https://assets.coingrig.com/images/star.png',
-                  priority: FastImage.priority.normal,
-                  cache: FastImage.cacheControl.immutable,
-                }}
-              />
-            </TouchableOpacity>
+            {renderReferral()}
             <USMarkets />
             <View
               style={[styles.subContainer, {marginTop: 0, marginBottom: 5}]}>
