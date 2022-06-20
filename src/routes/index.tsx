@@ -877,7 +877,7 @@ function NavigationStack({t}) {
         component={InviteScreen}
         options={{
           headerShown: true,
-          headerTitle: t('referral.title'),
+          headerTitle: t(''),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
