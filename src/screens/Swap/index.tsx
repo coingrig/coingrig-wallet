@@ -222,7 +222,7 @@ const SwapScreen = props => {
       params.takerAddress = chainAddress;
       if (CONFIG.SWAP_FEE !== 0) {
         params.buyTokenPercentageFee = CONFIG.SWAP_FEE;
-        params.feeRecipient = CONFIG.FEE_RECIPIENT;
+        params.feeRecipient = ConfigStore.feeAddress;
       }
       if (CONFIG.AFFILIATE_ADDRESS) {
         params.affiliateAddress = CONFIG.AFFILIATE_ADDRESS;

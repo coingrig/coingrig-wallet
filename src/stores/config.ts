@@ -6,6 +6,7 @@ import endpoints from 'utils/endpoints';
 import {StorageGetItem} from 'services/storage';
 import CONFIG from 'config';
 import {Platform} from 'react-native';
+import {Logs} from 'services/logs';
 
 export const CONFIG_MODULES = {
   APP: 'app',
@@ -106,7 +107,8 @@ class configStore {
       if (this.feeAmount > CONFIG.MAX_REF_FEE) {
         this.resetFeeAddress();
       } else {
-        this.feeAmount = this.feeAmount + amount;
+        this.feeAmount = Number(this.feeAmount) + Number(amount);
+        Logs.info('Referral Fees:', this.feeAmount);
       }
     }
   });
