@@ -123,7 +123,9 @@ export default function InviteScreen() {
           }}
         />
         <Text
-          onPress={() => openLink('https://docs.coingrig.com/')}
+          onPress={() =>
+            openLink('https://docs.coingrig.com/other/referral-system')
+          }
           style={{
             fontSize: 13,
             textAlign: 'center',

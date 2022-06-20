@@ -653,7 +653,7 @@ const SwapScreen = props => {
         <TouchableOpacity
           style={styles.detailItem}
           onPress={() =>
-            openLink('https://docs.coingrig.com/about/about-coingrig')
+            openLink('https://docs.coingrig.com/other/coingrig-fees')
           }>
           <View style={{flexDirection: 'row'}}>
             <Icon

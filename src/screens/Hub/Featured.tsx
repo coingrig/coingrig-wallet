@@ -9,6 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 import {ConfigStore} from 'stores/config';
 import i18n from 'i18n/index';
 import CONFIG from '../../config';
+import {openLink} from 'utils';
 
 export default function Featured() {
   const {t} = useTranslation();
@@ -60,7 +61,7 @@ export default function Featured() {
         const url = action.params.url;
         const supported = await Linking.canOpenURL(url);
         if (supported) {
-          return Linking.openURL(url);
+          return openLink(url);
         }
         return;
       }

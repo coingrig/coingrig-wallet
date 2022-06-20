@@ -39,6 +39,12 @@ const DEFAULT_CONFIG = {
         display_news: false,
       },
     },
+    {
+      key: 'referral',
+      properties: {
+        enabled: false,
+      },
+    },
   ],
 };
 
