@@ -12,7 +12,7 @@ class FXService {
   }
   fetchFX = async () => {
     const config: any = {
-      method: 'get',
+      method: 'post',
       url: endpoints.fx,
       headers: {
         'Cache-Control': 'no-cache',
