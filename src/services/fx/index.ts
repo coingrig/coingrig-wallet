@@ -8,7 +8,15 @@ import {CexStore} from 'stores/cexStore';
 
 class FXService {
   constructor() {
-    this.fetchFX();
+    try {
+      if (!FxStore.isHydrated) {
+        FxStore.hydrateStore().then(this.fetchFX);
+      } else {
+        this.fetchFX();
+      }
+    } catch (error) {
+      Logs.error(error);
+    }
   }
   fetchFX = async () => {
     const config: any = {

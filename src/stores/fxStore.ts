@@ -1,6 +1,7 @@
 import {action, makeAutoObservable} from 'mobx';
 import {hydrateStore, isHydrated, makePersistable} from 'mobx-persist-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Logs} from 'services/logs';
 
 class fxStore {
   rates: any = {};
@@ -23,6 +24,10 @@ class fxStore {
   }
 
   setRates = action((rates: any) => {
+    Logs.info('Call Set FX Rates');
+    // if (JSON.stringify(this.rates) === JSON.stringify(rates)) {
+    //   Logs.info('Same FX Rates');
+    // }
     this.rates = rates;
   });
 
