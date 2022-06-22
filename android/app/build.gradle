@@ -134,7 +134,7 @@ android {
         applicationId "com.coingrig"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 77
+        versionCode 78
         versionName "1.3.11"
         missingDimensionStrategy 'react-native-camera', 'general'
 
