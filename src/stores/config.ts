@@ -5,6 +5,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import endpoints from 'utils/endpoints';
 import {StorageGetItem} from 'services/storage';
 import CONFIG from 'config';
+import {Platform} from 'react-native';
+import {Logs} from 'services/logs';
 
 export const CONFIG_MODULES = {
   APP: 'app',
@@ -38,23 +40,78 @@ const DEFAULT_CONFIG = {
         display_news: false,
       },
     },
+    {
+      key: 'referral',
+      properties: {
+        enabled: false,
+      },
+    },
   ],
 };
 
 class configStore {
   lastConfigTime: string;
   settings: any;
+  feeAddress: string;
+  isDonation: boolean;
+  feeAmount: number;
 
   constructor() {
     this.lastConfigTime = '';
     this.settings = [];
+    this.feeAddress = CONFIG.FEE_RECIPIENT;
+    this.isDonation = true;
+    this.feeAmount = 0;
     makeAutoObservable(this);
     makePersistable(this, {
       name: 'ConfigStore',
-      properties: ['lastConfigTime', 'settings'],
+      properties: [
+        'lastConfigTime',
+        'settings',
+        'feeAddress',
+        'isDonation',
+        'feeAmount',
+      ],
       storage: AsyncStorage,
     });
   }
+
+  // Getters
+  get requiresUpdate() {
+    let current = 0;
+    let req = 0;
+    if (Platform.OS === 'android') {
+      current = CONFIG.BUILD_NUMBER_ANDROID;
+      req = this.getModuleProperty('app', 'android_version', current);
+    }
+    if (Platform.OS === 'ios') {
+      current = CONFIG.BUILD_NUMBER_IOS;
+      req = this.getModuleProperty('app', 'ios_version', current);
+    }
+    return current < req;
+  }
+  //
+
+  setFeeAddress = action(address => {
+    this.feeAddress = address;
+    this.isDonation = false;
+  });
+
+  resetFeeAddress = action(() => {
+    this.feeAddress = CONFIG.FEE_RECIPIENT;
+    this.isDonation = true;
+  });
+
+  updateFee = action(amount => {
+    if (!this.isDonation) {
+      if (this.feeAmount > CONFIG.MAX_REF_FEE) {
+        this.resetFeeAddress();
+      } else {
+        this.feeAmount = Number(this.feeAmount) + Number(amount);
+        Logs.info('Referral Fees:', this.feeAmount);
+      }
+    }
+  });
 
   initializeConfig = action(async () => {
     const isInit = await StorageGetItem(CONFIG.INIT_KEY, false);

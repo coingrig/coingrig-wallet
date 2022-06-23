@@ -7,6 +7,7 @@ import {StorageSetItem} from '../services/storage';
 import CONFIG from 'config';
 import {WalletFactory, WalletGenerator} from '@coingrig/core';
 import {generateWallet} from '@coingrig/wallet-generator';
+import {Platform} from 'react-native';
 
 export interface IWalletAddresses {
   chain: string;
@@ -68,7 +69,7 @@ class WalletStoreModule {
   });
 
   deleteWalletByCoinId = action((symbol: string, chain: string) => {
-    let index = this._getWalletPosition(symbol, chain);
+    const index = this._getWalletPosition(symbol, chain);
     if (index !== -1) {
       this.wallets.splice(index, 1);
       this.wallets = this.wallets.slice(0);
@@ -81,7 +82,7 @@ class WalletStoreModule {
   });
 
   getWalletAddressByChain = (chain: String) => {
-    let found = this.walletAddresses.find((o: IWalletAddresses) => {
+    const found = this.walletAddresses.find((o: IWalletAddresses) => {
       return o.chain === chain;
     });
     if (found) {
@@ -133,7 +134,7 @@ class WalletStoreModule {
   };
 
   setName = action((symbol: string, chain: String, name: string) => {
-    let pos = this._getWalletPosition(symbol, chain);
+    const pos = this._getWalletPosition(symbol, chain);
     if (pos !== -1) {
       this.wallets[pos].name = name;
     }
@@ -141,7 +142,7 @@ class WalletStoreModule {
   });
 
   setBalance = action((symbol: string, chain: String, balance: number) => {
-    let pos = this._getWalletPosition(symbol, chain);
+    const pos = this._getWalletPosition(symbol, chain);
     if (pos !== -1) {
       this.wallets[pos].balance = balance;
       this.wallets[pos].value =
@@ -152,7 +153,7 @@ class WalletStoreModule {
 
   setUnconfirmedBalance = action(
     (symbol: string, chain: String, balance: number) => {
-      let pos = this._getWalletPosition(symbol, chain);
+      const pos = this._getWalletPosition(symbol, chain);
       if (pos !== -1) {
         this.wallets[pos].unconfirmedBalance = balance;
       }
@@ -161,7 +162,7 @@ class WalletStoreModule {
   );
 
   setPrice = action((symbol: string, chain: String, price: number) => {
-    let pos = this._getWalletPosition(symbol, chain);
+    const pos = this._getWalletPosition(symbol, chain);
     if (pos !== -1) {
       this.wallets[pos].price = price;
       this.wallets[pos].value =
@@ -177,10 +178,10 @@ class WalletStoreModule {
   }
 
   createWallets = async (mnemonic: string, coinList: any[] = []) => {
-    let keys = await CryptoService.getChainPrivateKeys();
+    const keys = await CryptoService.getChainPrivateKeys();
     try {
       for (const coinDescriptor of coinList) {
-        let coin = coinDescriptor.symbol;
+        const coin = coinDescriptor.symbol;
         let privKey = keys[coinDescriptor.chain];
         let newWallet: any = null;
         const chainType =
@@ -217,7 +218,7 @@ class WalletStoreModule {
         if (!address) {
           // If the chain being setup is an ETH based chain
           // then use the ETH address
-          let ethAddress = this.getWalletAddressByChain('ETH')!;
+          const ethAddress = this.getWalletAddressByChain('ETH')!;
           if (
             (coinDescriptor.chain === 'BSC' ||
               coinDescriptor.chain === 'POLYGON') &&
@@ -242,7 +243,7 @@ class WalletStoreModule {
                 walletAddress: address!,
               });
             } catch (error) {
-              let xpub = await WalletGenerator.generateWalletXpub(
+              const xpub = await WalletGenerator.generateWalletXpub(
                 coin,
                 mnemonic,
               );
@@ -259,7 +260,7 @@ class WalletStoreModule {
           }
         }
         let _config = Object.assign({}, coinDescriptor);
-        let wallet = WalletFactory.getWallet(_config);
+        const wallet = WalletFactory.getWallet(_config);
         const ballance = await wallet.getBalance();
         _config = Object.assign({}, _config, {
           balance: ballance.getValue(),
@@ -272,13 +273,12 @@ class WalletStoreModule {
       CONFIG.mnemonic = mnemonic;
       await StorageSetItem(STORED_MNEMONIC, mnemonic, true);
       StorageSetItem(CONFIG.INIT_KEY, 'init', false);
-
+      const buildNumber =
+        Platform.OS === 'android'
+          ? CONFIG.BUILD_NUMBER_ANDROID
+          : CONFIG.BUILD_NUMBER_IOS;
       // Store migration key to current app version
-      StorageSetItem(
-        CONFIG.MIGRATION_KEY,
-        CONFIG.BUILD_NUMBER.toString(),
-        false,
-      );
+      StorageSetItem(CONFIG.MIGRATION_KEY, buildNumber.toString(), false);
 
       return true;
     } catch (error) {

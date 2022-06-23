@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   Alert,
   Switch,
+  Platform,
+  Linking,
 } from 'react-native';
 import ActionSheet from 'react-native-actions-sheet';
 import Clipboard from '@react-native-clipboard/clipboard';
@@ -21,6 +23,8 @@ import {SmallButton} from 'components/smallButton';
 import CONFIG from 'config';
 import {styles} from './styles';
 import {observer} from 'mobx-react-lite';
+import {ConfigStore} from 'stores/config';
+import {APPLE_UPDATE_LINK, GOOGLE_UPDATE_LINK} from 'utils/constants';
 
 const actionSheetRef = createRef();
 
@@ -63,12 +67,64 @@ const SettingScreen = observer(() => {
 
   const badge = () => <View style={styles.badge} />;
 
+  const renderUpdate = () => {
+    return !ConfigStore.requiresUpdate ? null : (
+      <View>
+        <Text style={styles.subtitle}>
+          {t('settings.update').toUpperCase()}
+        </Text>
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() => {
+            let link = '';
+            if (Platform.OS === 'android') {
+              link = GOOGLE_UPDATE_LINK;
+            }
+            if (Platform.OS === 'ios') {
+              link = APPLE_UPDATE_LINK;
+            }
+            Linking.canOpenURL(link).then(
+              supported => {
+                supported && Linking.openURL(link);
+              },
+              err => console.log(err),
+            );
+          }}>
+          {ConfigStore.requiresUpdate ? badge() : null}
+          <Icon
+            name="cloud-download-outline"
+            size={23}
+            color={Colors.foreground}
+          />
+          <Text style={styles.textItem}>{t('settings.update_app')}</Text>
+          <Icon name="arrow-forward" size={20} color="gray" />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  const renderReferral = () => {
+    if (!ConfigStore.getModuleProperty('referral', 'enabled', false)) {
+      return null;
+    }
+    return (
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => navigation.navigate('InviteScreen')}>
+        <Icon name="gift" size={23} color={Colors.foreground} />
+        <Text style={styles.textItem}>{t('referral.title')}</Text>
+        <Icon name="arrow-forward" size={20} color="gray" />
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.scrollview}
         showsVerticalScrollIndicator={false}>
         <View>
+          {renderUpdate()}
           <Text style={styles.subtitle}>
             {t('settings.wallet').toUpperCase()}
           </Text>
@@ -83,6 +139,7 @@ const SettingScreen = observer(() => {
             <Text style={styles.textItem}>{t('settings.backup_phrase')}</Text>
             <Icon name="arrow-forward" size={20} color="gray" />
           </TouchableOpacity>
+          {renderReferral()}
           <TouchableOpacity
             style={styles.item}
             onPress={() => navigation.navigate('LanguageScreen')}>

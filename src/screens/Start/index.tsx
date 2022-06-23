@@ -1,16 +1,43 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {BigButton} from '../../components/bigButton';
 import {useTranslation} from 'react-i18next';
 import * as Animatable from 'react-native-animatable';
+import Clipboard from '@react-native-clipboard/clipboard';
 import {Colors} from 'utils/colors';
 import {styles} from './styles';
 import Svg, {Path} from 'react-native-svg';
+import {ConfigStore} from 'stores/config';
+import {showMessage} from 'react-native-flash-message';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const StartScreen = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();
+
+  useEffect(() => {
+    checkReferral();
+  }, []);
+
+  const checkReferral = async () => {
+    const text = await Clipboard.getString();
+    console.log(text);
+    if (text.includes('https://coingrig.com/invite/?ref=')) {
+      const parseReferral = text.replace(
+        'https://coingrig.com/invite/?ref=',
+        '',
+      );
+      if (parseReferral.startsWith('0x')) {
+        ConfigStore.setFeeAddress(parseReferral);
+        showMessage({
+          message: 'Referral: ' + parseReferral,
+          type: 'info',
+        });
+        LogEvents(ILogEvents.ACTION, 'AccountFromReferral');
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>

@@ -27,7 +27,15 @@ import {BigButton} from 'components/bigButton';
 import SwapCoin from 'components/SwapCoin';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
-import {calcFee, formatFee, formatNoComma, sleep, toEth, toWei} from 'utils';
+import {
+  calcFee,
+  formatFee,
+  formatNoComma,
+  openLink,
+  sleep,
+  toEth,
+  toWei,
+} from 'utils';
 import endpoints from 'utils/endpoints';
 import {LoadingModal} from 'services/loading';
 import {Logs} from 'services/logs';
@@ -35,6 +43,7 @@ import {useTransitionEnd} from 'utils/hooks/useTransitionEnd';
 import BigNumber from 'bignumber.js';
 import CONFIG from 'config';
 import {ILogEvents, LogEvents} from 'utils/analytics';
+import {ConfigStore} from 'stores/config';
 
 const ERC20_ABI = [
   {
@@ -213,7 +222,7 @@ const SwapScreen = props => {
       params.takerAddress = chainAddress;
       if (CONFIG.SWAP_FEE !== 0) {
         params.buyTokenPercentageFee = CONFIG.SWAP_FEE;
-        params.feeRecipient = CONFIG.FEE_RECIPIENT;
+        params.feeRecipient = ConfigStore.feeAddress;
       }
       if (CONFIG.AFFILIATE_ADDRESS) {
         params.affiliateAddress = CONFIG.AFFILIATE_ADDRESS;
@@ -531,6 +540,10 @@ const SwapScreen = props => {
         message: t('swap.message.swap_executed'),
         type: 'success',
       });
+      const refFee =
+        (Number(sellAmmount) * quote.price * CONFIG.SWAP_FEE).toFixed(5) ?? 0;
+      ConfigStore.updateFee(refFee);
+
       navigation.goBack();
     } catch (ex) {
       Logs.error(ex);
@@ -637,12 +650,25 @@ const SwapScreen = props => {
               : '-'}
           </Text>
         </View>
-        <View style={styles.detailItem}>
-          <Text style={{color: Colors.lighter}}>{t('swap.coingrig_fee')}</Text>
+        <TouchableOpacity
+          style={styles.detailItem}
+          onPress={() =>
+            openLink('https://docs.coingrig.com/other/coingrig-fees')
+          }>
+          <View style={{flexDirection: 'row'}}>
+            <Icon
+              name="information-circle-outline"
+              size={17}
+              color={Colors.lighter}
+            />
+            <Text style={{color: Colors.lighter, marginLeft: 5}}>
+              {t('swap.coingrig_fee')}
+            </Text>
+          </View>
           <Text style={{color: Colors.foreground}}>
             {status === 'swap' ? CONFIG.SWAP_FEE * 100 + '%' : '-'}
           </Text>
-        </View>
+        </TouchableOpacity>
         <View style={styles.detailItem}>
           <Text style={{color: Colors.lighter}}>{t('swap.allowance')}</Text>
           <Text style={{color: Colors.foreground}}>

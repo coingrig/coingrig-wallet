@@ -67,7 +67,7 @@ export default function CustomTokenScreen({route}) {
     }
     Logs.info(token);
     try {
-      let wallet = await CryptoService.prepareCustomToken(
+      const wallet = await CryptoService.prepareCustomToken(
         chain,
         clipboardToken,
         getTokenIcon(chain),
@@ -85,7 +85,7 @@ export default function CustomTokenScreen({route}) {
 
   const addToken = async () => {
     if (previewWallet !== null) {
-      let existingWallets = WalletStore.wallets.filter(
+      const existingWallets = WalletStore.wallets.filter(
         o =>
           o.chain === previewWallet.chain &&
           (o.contract === previewWallet.contract ||
@@ -98,6 +98,7 @@ export default function CustomTokenScreen({route}) {
           type: 'success',
         });
         CryptoService.getAccountBalance();
+        LogEvents(ILogEvents.ACTION, 'AddCustomToken');
         navigation.goBack();
       } else {
         Alert.alert('Info', t('message.wallet.token.already_exists'));
@@ -134,7 +135,7 @@ export default function CustomTokenScreen({route}) {
         default:
           break;
       }
-      let wallet = await CryptoService.prepareCustomToken(
+      const wallet = await CryptoService.prepareCustomToken(
         route.params.chain.toUpperCase(),
         route.params.token,
         getTokenIcon(route.params.chain.toUpperCase()),

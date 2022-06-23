@@ -166,6 +166,8 @@
 
       "settings.backup_phrase": "Sauvegardez votre phrase de récupération",
       "settings.settings": "Paramètres",
+      "settings.update": "Mise à jour disponible",
+      "settings.update_app": "Mettez à jour maintenant!",
       "settings.wallet": "Portefeuille",
       "settings.walletconnect": "WalletConnect",
       "settings.about": "À propos",
@@ -364,6 +366,35 @@
       "summary.category.crypto": "Crypto",
       "summary.category.banks": "Comptes bancaires",
       "summary.category.stocks": "Actions",
-      "summary.category.cash": "Espèces"
+      "summary.category.cash": "Espèces",
+
+      "history.title": "Historique",
+      "history.unkown_token": "Inconnu",
+      "history.category.unknown": "Inconnu",
+      "history.category.swap": "Swap",
+      "history.category.referral": "Référence",
+      "history.category.send": "Envoyé",
+      "history.category.approve": "Autorisation",
+      "history.category.receive": "Reçu",
+      "history.referral.title": "Derniers revenus",
+      "history.referal.no_data": "Aucun gain",
+      "history.no_data": "Aucune transaction",
+
+      "referral.title": "Inviter un ami",
+      "referral.earn_up_to": "Invitez vos amis pour gagner jusqu'à",
+      "referral.earn_from_friend": "de chacun",
+      "referral.info1": "1. Envoyez le lien d'invitation à votre ami",
+      "referral.info2": "2. Votre ami doit installer et configurer l'application Coingrig en utilisant votre lien d'invitation sur son téléphone portable",
+      "referral.info3": "3. Pour chaque Swap dans l'application effectué par votre ami, vous recevrez directement 0,5 % du token échangé sur votre adresse de portefeuille",
+      "referral.share_btn": "Partager le lien d'invitation",
+      "referral.toc": "Conditions d'utilisation",
+
+      "trade.title": "Trade",
+      "trade.buy": "Acheter",
+      "trade.select_provider": "Sélectionnez le fournisseur:",
+      "trade.select_currency": "Choisir la devise",
+      "commerce.minimum": "Minimum",
+      "trade.maximum": "Maximum",
+      "trade.sell": "Vendre"
     }
 }

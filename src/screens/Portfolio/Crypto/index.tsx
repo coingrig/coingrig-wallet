@@ -21,13 +21,15 @@ const Crypto = observer(() => {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('SearchScreen', {onlySupported: true})
-          }
-          style={styles.moreBtn}>
-          <Icon name="add-circle" size={25} color={Colors.foreground} />
-        </TouchableOpacity>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('SearchScreen', {onlySupported: true})
+            }
+            style={styles.moreBtn}>
+            <Icon name="add-circle" size={25} color={Colors.foreground} />
+          </TouchableOpacity>
+        </View>
       ),
     });
     fetchCoins();

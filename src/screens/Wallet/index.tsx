@@ -27,11 +27,9 @@ import {CryptoService} from 'services/crypto';
 import {Colors} from 'utils/colors';
 import {showMessage} from 'react-native-flash-message';
 import {SettingsStore} from 'stores/settings';
-import endpoints from 'utils/endpoints';
 import ActionSheet from 'react-native-actions-sheet';
 import {SmallButton} from 'components/smallButton';
 import {ILogEvents, LogEvents} from 'utils/analytics';
-import CONFIG from 'config';
 
 const editSheet: React.RefObject<any> = createRef();
 
@@ -71,11 +69,7 @@ const WalletScreen = observer(({route}) => {
             <TouchableOpacity
               onPress={() => showTransactions()}
               style={styles.moreBtn}>
-              <Icon
-                name="list-circle-outline"
-                size={25}
-                color={Colors.foreground}
-              />
+              <Icon name="list" size={24} color={Colors.foreground} />
             </TouchableOpacity>
           )}
         </View>
@@ -167,29 +161,43 @@ const WalletScreen = observer(({route}) => {
       route.params.symbol,
       route.params.chain,
     );
-    openLink(CryptoService.getBlockExplorer(w?.chain!));
+    if (route.params.chain === 'BTC') {
+      openLink(CryptoService.getBlockExplorer(w?.chain!));
+    } else {
+      const convChain =
+        route.params.chain === 'POLYGON' ? 'matic' : route.params.chain;
+      navigation.navigate('HistoryScreen', {chain: convChain.toLowerCase()});
+    }
   };
 
   const buySellAction = () => {
-    const w = WalletStore.getWalletByCoinId(
-      route.params.symbol,
-      route.params.chain,
-    );
-    const address = WalletStore.getWalletAddressByChain(w?.chain!);
-    let coin = route.params.symbol.toUpperCase();
-    if (coin === 'BNB') {
-      coin = 'BSC_BNB';
-    }
-    const link =
-      endpoints.ramper +
-      '&hostApiKey=' +
-      CONFIG.RAMP_KEY +
-      '&userAddress=' +
-      address +
-      '&swapAsset=' +
-      coin;
-    LogEvents(ILogEvents.CLICK, 'BuyCrypto');
-    openLink(link);
+    navigation.navigate('TradeScreen', {
+      symbol: route.params.symbol,
+      chain: route.params.chain,
+      price: WalletStore.getWalletByCoinId(
+        route.params.symbol,
+        route.params.chain,
+      )?.price,
+    });
+    // const w = WalletStore.getWalletByCoinId(
+    //   route.params.symbol,
+    //   route.params.chain,
+    // );
+    // const address = WalletStore.getWalletAddressByChain(w?.chain!);
+    // let coin = route.params.symbol.toUpperCase();
+    // if (coin === 'BNB') {
+    //   coin = 'BSC_BNB';
+    // }
+    // const link =
+    //   endpoints.ramper +
+    //   '&hostApiKey=' +
+    //   CONFIG.RAMP_KEY +
+    //   '&userAddress=' +
+    //   address +
+    //   '&swapAsset=' +
+    //   coin;
+    // LogEvents(ILogEvents.CLICK, 'BuyCrypto');
+    // openLink(link);
   };
 
   const renderUnconfirmedTx = () => {
@@ -231,7 +239,7 @@ const WalletScreen = observer(({route}) => {
             style={styles.roundBtn}>
             <Icon2 name="dollar" size={20} color={Colors.background} />
           </TouchableOpacity>
-          <Text style={styles.roundb}>{t('wallet.buysell')}</Text>
+          <Text style={styles.roundb}>{t('Trade')}</Text>
         </View>
       );
     }

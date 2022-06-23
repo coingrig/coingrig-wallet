@@ -105,7 +105,7 @@ class CryptoService {
         return endpoints.eth + 'tx/' + tx;
       case 'BSC':
         return endpoints.bsc + 'tx/' + tx;
-      case 'POLYGON':
+      case 'POLYGON' || 'MATIC':
         return endpoints.polygon + 'tx/' + tx;
       default:
         break;
@@ -443,6 +443,45 @@ class CryptoService {
       );
     }
     return wallet;
+  };
+
+  getChainHistory = async (startTime, userAddress, chain) => {
+    const config: any = {
+      method: 'get',
+      url:
+        'https://api.debank.com/history/list?page_count=100&start_time=' +
+        startTime +
+        '&token_id=&user_addr=' +
+        userAddress +
+        '&chain=' +
+        chain,
+    };
+    return axios(config)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        Logs.error(error);
+        return error;
+      });
+  };
+  getReferralHistory = async (startTime, userAddress) => {
+    const config: any = {
+      method: 'get',
+      url:
+        'https://api.debank.com/history/list?page_count=100&start_time=' +
+        startTime +
+        '&token_id=&user_addr=' +
+        userAddress,
+    };
+    return axios(config)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        Logs.error(error);
+        return error;
+      });
   };
 }
 

@@ -166,6 +166,8 @@
 
       "settings.backup_phrase": "Copiază fraza secretă",
       "settings.settings": "Setări",
+      "settings.update": "Actualizare disponibilă",
+      "settings.update_app": "Actualizează acum!",
       "settings.wallet": "Portofel",
       "settings.walletconnect": "WalletConnect",
       "settings.about": "Despre",
@@ -364,6 +366,35 @@
       "summary.category.crypto": "Crypto",
       "summary.category.banks": "Conturi bancare",
       "summary.category.stocks": "Acțiuni",
-      "summary.category.cash": "Numerar"
+      "summary.category.cash": "Numerar",
+
+      "history.title": "Istoric",
+      "history.unkown_token": "Necunoscut",
+      "history.category.unknown": "Necunoscut",
+      "history.category.swap": "Schimb",
+      "history.category.referral": "Recomandare",
+      "history.category.send": "Trimis",
+      "history.category.approve": "Aprobare",
+      "history.category.receive": "Primit",
+      "history.referral.title": "Ultimele venituri",
+      "history.referal.no_data": "Fără date",
+      "history.no_data": "Fără tranzacții",
+
+      "referral.title": "Invitați un prieten",
+      "referral.earn_up_to": "Invită-ți prietenii și câștigă până la",
+      "referral.earn_from_friend": "de la fiecare",      
+      "referral.info1": "1. Trimite linkul de invitație prietenului tău",
+      "referral.info2": "2. Prietenul tău trebuie să instaleze și să configureze aplicația Coingrig folosind linkul de invitație de pe telefonul său mobil",
+      "referral.info3": "3. Pentru fiecare Swap în aplicație pe care îl face prietenul tău, vei primi direct 0,5% din tokenul schimbat pe adresa portofelului tău",
+      "referral.share_btn": "Partajați linkul de invitație",
+      "referral.toc": "Termeni și condiții",
+
+      "trade.title": "Trade",
+      "trade.buy": "Cumpără",
+      "trade.select_provider": "Selectați furnizorul:",
+      "trade.select_currency": "Alegeți moneda",
+      "trade.minimum": "Minim",
+      "trade.maximum": "Maximum",
+      "trade.sell": "Vinde"
   }
 }
