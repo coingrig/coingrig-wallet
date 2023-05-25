@@ -22,7 +22,6 @@ export default function SummaryScreen() {
       BankStore.totalBalance +
       StockStore.totalBalance +
       FiatStore.totalBalance;
-    console.log(total);
     if (total === 0) {
       return [
         {

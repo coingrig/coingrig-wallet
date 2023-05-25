@@ -43,7 +43,6 @@ export const buyFromGuardarian = async (
   };
   try {
     const r = await axios(config);
-    console.log(r.data);
     return r.data.redirect_url;
   } catch (error) {
     Logs.error(error);
@@ -71,7 +70,6 @@ export const sellFromGuardarian = async (val, currency, coin, chain) => {
   };
   try {
     const r = await axios(config);
-    console.log(r.data);
     return r.data.redirect_url;
   } catch (error) {
     Logs.error(error);
@@ -95,7 +93,6 @@ export const buyFromRamp = (val, currency, coin, address) => {
     '&fiatCurrency=USD&fiatValue=' +
     val;
 
-  console.log(link);
   return link;
 };
 

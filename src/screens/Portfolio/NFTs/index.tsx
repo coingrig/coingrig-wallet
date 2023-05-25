@@ -47,7 +47,6 @@ const NFTs = observer(() => {
   };
 
   const renderNFTs = ({item}) => {
-    // console.log(item.image_url);
     if (
       item.image_url === null ||
       item.image_url === '' ||

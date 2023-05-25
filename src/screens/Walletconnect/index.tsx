@@ -169,55 +169,6 @@ const WalletconnectScreen = observer(({route}) => {
         </Text>
       </View>
     );
-    // TODO
-    // if (
-    //   WalletconnectStore.status === WALLETCONNECT_STATUS.SEND_TRANSACTION ||
-    //   WalletconnectStore.status === WALLETCONNECT_STATUS.SIGN_TRANSACTION ||
-    //   WalletconnectStore.status === WALLETCONNECT_STATUS.SIGN_TYPED_DATA
-    // ) {
-    //   let params = null;
-    //   try {
-    //     switch (WalletconnectStore.status) {
-    //       case WALLETCONNECT_STATUS.SEND_TRANSACTION:
-    //         params = WalletconnectStore.transactionData.params[0]!;
-    //         break;
-    //       case WALLETCONNECT_STATUS.SIGN_TRANSACTION:
-    //         params = WalletconnectStore.transactionData.params[0]!;
-    //         break;
-    //       case WALLETCONNECT_STATUS.SIGN_TYPED_DATA:
-    //         params = JSON.parse(WalletconnectStore.transactionData.params[1]!);
-    //         break;
-    //     }
-    //     if (params) {
-    //       console.log('------params------');
-    //       console.log(typeof params);
-    //       console.log(params);
-    //       return (
-    //         <View>
-    //           <Text>Tx details</Text>
-    //         </View>
-    //       );
-    //     } else {
-    //       return null;
-    //     }
-    //   } catch (error) {
-    //     Logs.error(error);
-    //     return null;
-    //   }
-    // } else {
-    //   return (
-    //     <View style={{marginHorizontal: 15}}>
-    //       <Text
-    //         style={{
-    //           textAlign: 'center',
-    //           fontSize: 12,
-    //           color: Colors.lighter,
-    //         }}>
-    //         {WalletconnectStore.peerMeta.description}
-    //       </Text>
-    //     </View>
-    //   );
-    // }
   };
 
   const renderPeerMeta = () => {

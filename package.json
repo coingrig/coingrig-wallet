@@ -51,7 +51,7 @@
     "bignumber.js": "^9.0.1",
     "browserify-sign": "^4.2.1",
     "browserify-zlib": "^0.2.0",
-    "ccxt": "1.77.36",
+    "ccxt": "1.95.43",
     "decimal.js": "10.3.1",
     "events": "^3.3.0",
     "https-browserify": "0.0.1",

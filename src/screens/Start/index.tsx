@@ -22,7 +22,6 @@ const StartScreen = () => {
 
   const checkReferral = async () => {
     const text = await Clipboard.getString();
-    console.log(text);
     if (text.includes('https://coingrig.com/invite/?ref=')) {
       const parseReferral = text.replace(
         'https://coingrig.com/invite/?ref=',

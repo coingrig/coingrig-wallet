@@ -85,8 +85,6 @@ class BanksService {
     const exp = this.addDays(accData.aggrement.access_valid_for_days || 90);
     try {
       const {balance, details}: any = await this.getBankAccountData(accountID);
-      // console.log('balance', balance);
-      // console.log('details', details);
       const bankAccount: IBankAccount = {
         id: accountID,
         iban: details.account.iban || null,
@@ -155,7 +153,6 @@ class BanksService {
           parseFloat(balance.balanceAmount.amount) + account.offset;
         account.amount = parseFloat(account.amount.toFixed(2));
         BankStore.updateAccount(id, account);
-        console.log(account);
         this.updateTotalBalance();
       } catch (error) {
         Logs.error(error);
@@ -218,7 +215,6 @@ class BanksService {
     };
     try {
       const response = await this.request(config);
-      // console.log(response.data);
       return response.data;
     } catch (error) {
       Logs.error(error);
@@ -229,7 +225,6 @@ class BanksService {
   createAuthLink = async (bankID: string, aggrementID: string) => {
     // will return accountID (id)
     const rid = this.getRandomID();
-    // console.log(rid);
     var data = JSON.stringify({
       redirect: endpoints.bank_redirect,
       institution_id: bankID,
@@ -244,7 +239,6 @@ class BanksService {
     };
     try {
       const response = await this.request(config);
-      // console.log(response.data);
       return response.data;
     } catch (error) {
       Logs.error('createAuthLink', error);
@@ -264,7 +258,6 @@ class BanksService {
     };
     try {
       const agreement = await this.request(config);
-      // console.log(agreement.data);
       return agreement.data;
     } catch (error) {
       Logs.error(error);
@@ -284,7 +277,6 @@ class BanksService {
     };
     try {
       const response = await this.request(config);
-      // console.log(response.data);
       return response.data;
     } catch (error) {
       Logs.error(error);
@@ -302,7 +294,6 @@ class BanksService {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + token,
     };
-    // console.log(config);
     return axios(config);
   };
 

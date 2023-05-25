@@ -206,7 +206,6 @@ class CryptoService {
             WalletStore.setPrice(wallet.symbol, wallet.chain, newPrice);
           }
           const balance = await cryptoWallet.getBalance();
-          console.log(wallet.symbol, balance, newPrice);
           const unconfirmedBalance = balance.getUnconfirmedBalance();
           WalletStore.setBalance(
             wallet.symbol,

@@ -70,7 +70,6 @@ export default function AddBank({route}) {
   };
 
   const getBanks = async () => {
-    // console.log(route.params.item.code);
     const list = await BanksService.getBanks(route.params.item.code);
     setBanks(list);
   };
@@ -121,7 +120,6 @@ export default function AddBank({route}) {
         // alert no accounts or no permissions
         LoadingModal.instance.current?.hide();
       }
-      //   console.log('----', accounts);
     } catch (error) {
       //alert error
       Logs.error(error);

@@ -25,7 +25,6 @@ export default function CryptoNewsScreen() {
     axios(config)
       .then(async response => {
         try {
-          // console.log(response.data.Data);
           // const parsed = await rssParser.parse(response.data);
           setNews(response.data.Data);
         } catch (err) {}

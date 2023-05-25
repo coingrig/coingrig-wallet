@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-export const saveToIPFS = async data => {
+export const saveToIPFS = async () => {
   try {
-    console.log('test', data);
     // const file = new Blob([JSON.stringify(data)], {
     //   type: 'application/json',
     // });
@@ -21,7 +20,6 @@ export const saveToIPFS = async data => {
 export const getIPFSMessage = async cid => {
   try {
     const r = await axios.get('https://cloudflare-ipfs.com/ipfs/' + cid);
-    console.log(r);
     return r;
   } catch (error) {
     console.log(error);
