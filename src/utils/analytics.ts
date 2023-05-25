@@ -4,7 +4,6 @@ import {Logs} from 'services/logs';
 import {Mixpanel} from 'mixpanel-react-native';
 import DeviceInfo from 'react-native-device-info';
 import CONFIG from 'config';
-// import {StorageGetItem} from 'services/storage';
 
 export enum ILogEvents {
   APP_START = 'AppStart',
@@ -20,23 +19,14 @@ export const initMixPanel = async () => {
   if (!mixpanel) {
     mixpanel = new Mixpanel(CONFIG.MIXPANEL_KEY);
     mixpanel.init();
-    // const isInit = await StorageGetItem('@init', false);
     const DID = DeviceInfo.getUniqueId();
     mixpanel.identify(DID);
     mixpanel.getPeople().set({$name: DID});
-    // if (!isInit) {
-    //   mixpanel.identify(DID);
-    //   mixpanel.getPeople().set({$name: DID});
-    // }
   }
 };
 
-export const updateProfile = (balance: number) => {
-  mixpanel.getPeople().set(ILogEvents.BALANCE, balance);
-};
-
 export const mixBalance = (balance: number) => {
-  mixpanel.getPeople().set(ILogEvents.BALANCE, balance);
+  Logs.debug('mixBalance:' + balance);
 };
 
 export const LogEvents = async (type: ILogEvents, name: string) => {
