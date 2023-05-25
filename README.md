@@ -1,9 +1,14 @@
 
 # 🅒🅖🅦 Coingrig Mobile Wallet
-Next-Gen Crypto Wallet. A powerful crypto wallet for everyone with unique features.
+Next-Generation Digital Wallet. A powerful digital wallet for everyone with unique features.
 
-You are granted a limited non-exclusive license to inspect and study the code in this repository.  
-You may not use this code in a commercial scope, please read our license.  
+🪙 Crypto, 🏦 Banking, 📈 Stocks and more.
+
+📱 You can install the app from AppStore and Google Play.
+
+Website: [coingrig.com](https://coingrig.com)
+
+
 
 ### Building Locally
 
@@ -61,10 +66,8 @@ This library has adopted a Code of Conduct that we expect project participants t
 
 ## License
 
-The Coingrig Wallet is licensed under the [License](LICENSE).
-
-If you are interested in a commercial starter kit please contact us.  
+The Coingrig Wallet is licensed under the MIT [License](LICENSE).
 
 Follow us on [Twitter](https://twitter.com/coingrig)
 
-Website [coingrig.com](https://coingrig.com)
+[coingrig.com](https://coingrig.com)
