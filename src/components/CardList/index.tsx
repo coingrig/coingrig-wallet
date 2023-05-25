@@ -7,11 +7,7 @@ import {styles} from './styles';
 
 const CardList = ({data, category, title}) => {
   return (
-    <View
-      style={[
-        styles.list,
-        {backgroundColor: category ? Colors.card : Colors.external},
-      ]}>
+    <View style={[styles.list, {backgroundColor: Colors.card}]}>
       <View style={{paddingVertical: category ? 16 : 0}}>
         {category ? (
           <Text style={{color: Colors.lighter, marginBottom: 5, fontSize: 14}}>
@@ -32,7 +28,7 @@ const CardList = ({data, category, title}) => {
         ) : null}
       </View>
       {data.map((item, index) => {
-        return CardListItem(item, index === data.length - 1);
+        return CardListItem(item, index, index === data.length - 1);
       })}
     </View>
   );

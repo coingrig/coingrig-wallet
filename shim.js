@@ -16,6 +16,10 @@ if (typeof process === 'undefined') {
   }
 }
 
+if (typeof BigInt === 'undefined') {
+  global.BigInt = require('big-integer');
+}
+
 process.browser = false;
 if (typeof Buffer === 'undefined') {
   global.Buffer = require('buffer').Buffer;

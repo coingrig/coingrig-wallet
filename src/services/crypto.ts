@@ -1,4 +1,4 @@
-var axios = require('axios');
+import axios from 'axios';
 import {COINS_MIN, STORED_CHAIN_KEYS} from 'utils/constants';
 import {MarketStore} from 'stores/market';
 import {IWallet, IWalletAddresses, WalletStore} from 'stores/wallet';
@@ -8,7 +8,6 @@ import {WalletFactory} from '@coingrig/core';
 import {StorageSetItem, StorageGetItem} from './storage';
 import endpoints from 'utils/endpoints';
 import CONFIG from 'config';
-
 class CryptoService {
   lastFetchedBalance = 0;
   CHAIN_ID_MAP = {
@@ -22,19 +21,25 @@ class CryptoService {
     137: 'POLYGON',
   };
 
+  nftList: any;
+
   setChainPrivateKeys = async keys => {
     return StorageSetItem(STORED_CHAIN_KEYS, JSON.stringify(keys), true);
   };
 
   getChainPrivateKeys = async () => {
-    let storedKeys: any = await StorageGetItem(STORED_CHAIN_KEYS, true);
+    const storedKeys: any = await StorageGetItem(STORED_CHAIN_KEYS, true);
     if (!storedKeys) {
       return {};
     }
+
     return JSON.parse(storedKeys);
   };
 
   getNFTs = async () => {
+    // if (this.nftList && this.nftList.length > 0) {
+    //   return this.nftList;
+    // }
     let ETHAddress;
     if (CONFIG.testNFTs) {
       ETHAddress = CONFIG.testNFTs;
@@ -43,16 +48,17 @@ class CryptoService {
     }
     const url =
       endpoints.opensea + '/assets?format=json&limit=50&owner=' + ETHAddress;
-    var config = {
+    const config: any = {
       method: 'get',
       url: url,
       headers: {
-        'X-API-KEY': '790d4e9223714481a11633acbda338de',
+        'X-API-KEY': CONFIG.OPENSEA_KEY,
       },
     };
     Logs.info('Fetching NFTs from', url);
     try {
       const response = await axios(config);
+      this.nftList = response.data.assets || [];
       return response.data.assets || [];
     } catch (error) {
       Logs.error(error);
@@ -99,7 +105,7 @@ class CryptoService {
         return endpoints.eth + 'tx/' + tx;
       case 'BSC':
         return endpoints.bsc + 'tx/' + tx;
-      case 'POLYGON':
+      case 'POLYGON' || 'MATIC':
         return endpoints.polygon + 'tx/' + tx;
       default:
         break;
@@ -108,24 +114,24 @@ class CryptoService {
 
   getWeb3Client = async chain => {
     // Get the coresponding wallet for the chain
-    let chainType = chain;
+    const chainType = chain;
     // Get the coin descriptor for the chain native asset
-    let cryptoWalletDescriptor = WalletStore.getWalletByCoinId(
+    const cryptoWalletDescriptor = WalletStore.getWalletByCoinId(
       this.getChainNativeAsset(chainType),
       chainType,
     );
     const chainAddress = WalletStore.getWalletAddressByChain(chainType);
     // Get the chain private key for signature
-    let chainKeys = await this.getChainPrivateKeys();
+    const chainKeys = await this.getChainPrivateKeys();
     // Build the crypto wallet to send the transaction with
-    let cryptoWallet = WalletFactory.getWallet(
+    const cryptoWallet = WalletFactory.getWallet(
       Object.assign({}, cryptoWalletDescriptor, {
         walletAddress: chainAddress,
         privKey: chainKeys.ETH,
       }),
     );
-    let signingManager = cryptoWallet.getSigningManager();
-    let w3client = signingManager?.client;
+    const signingManager = cryptoWallet.getSigningManager();
+    const w3client = signingManager?.client;
     if (!w3client) {
       return;
     }
@@ -133,28 +139,28 @@ class CryptoService {
   };
 
   getAccountBalance = async () => {
-    const now = Date.now();
-    if (now - this.lastFetchedBalance! < CONFIG.BALANCE_TIMEOUT * 1000) {
-      return true;
-    }
-    this.lastFetchedBalance = now;
     try {
       if (MarketStore.coins.length <= 10) {
-        let coins = await MarketStore.getTopCoins(COINS_MIN);
+        const coins = await MarketStore.getTopCoins(COINS_MIN);
         if (!coins) {
           return false;
         }
       }
+      const now = Date.now();
+      if (now - this.lastFetchedBalance! < CONFIG.BALANCE_TIMEOUT * 1000) {
+        return true;
+      }
+      this.lastFetchedBalance = now;
       Logs.info('Refreshing general balance');
       const coninIds = WalletStore.getCoinCIDList() || [];
       const tokenBalances = await this.getBulkTokenBalance(
         WalletStore.walletAddresses,
       );
       //@ts-ignore
-      let prices = await MarketStore.getCoinsByList(coninIds);
-      let chainKeys = await this.getChainPrivateKeys();
+      const prices = await MarketStore.getCoinsByList(coninIds);
+      const chainKeys = await this.getChainPrivateKeys();
       for (let i = 0; i < WalletStore.wallets.length; i++) {
-        let chain = WalletStore.wallets[i].chain;
+        const chain = WalletStore.wallets[i].chain;
         if (chain.startsWith('cg_')) {
           const w = WalletStore.wallets[i];
           let np = prices[w.cid!.toLowerCase()]?.usd ?? null;
@@ -162,16 +168,15 @@ class CryptoService {
           WalletStore.setPrice(w.symbol, w.chain, np);
           continue;
         }
-        let contract = WalletStore.wallets[i].contract?.toLowerCase() ?? null;
-        let wallet = Object.assign({}, WalletStore.wallets[i], {
+        const contract = WalletStore.wallets[i].contract?.toLowerCase() ?? null;
+        const wallet = Object.assign({}, WalletStore.wallets[i], {
           privKey: chainKeys[chain],
           walletAddress: WalletStore.getWalletAddressByChain(chain),
         });
         //
-        console.log(chain, WalletStore.getWalletAddressByChain(chain));
-        let cryptoWallet = WalletFactory.getWallet(wallet);
+        const cryptoWallet = WalletFactory.getWallet(wallet);
         // Check if it's a token
-        let token = tokenBalances.find(o => o.contract === contract);
+        const token = tokenBalances.find(o => o.contract === contract);
         if (contract && token !== undefined) {
           Logs.info('Balance from provider', wallet.symbol);
           WalletStore.setBalance(
@@ -187,7 +192,7 @@ class CryptoService {
           Logs.info('Getting balance from @core', wallet.symbol);
           // Not a token, then check regular coin balance
           // Don't update the price if none is available from the provider
-          let cidExists = wallet.cid ?? null;
+          const cidExists = wallet.cid ?? null;
           let newPrice: any = '';
           if (!cidExists) {
             newPrice = 0;
@@ -201,7 +206,6 @@ class CryptoService {
             WalletStore.setPrice(wallet.symbol, wallet.chain, newPrice);
           }
           const balance = await cryptoWallet.getBalance();
-          console.log(wallet.symbol, balance, newPrice);
           const unconfirmedBalance = balance.getUnconfirmedBalance();
           WalletStore.setBalance(
             wallet.symbol,
@@ -215,7 +219,6 @@ class CryptoService {
           );
         }
       }
-
       return true;
     } catch (error) {
       Logs.error(error);
@@ -223,8 +226,17 @@ class CryptoService {
     }
   };
 
+  // getCexBalance = async () => {
+  //   try {
+  //     await CexService.getAllBalances();
+  //   } catch (error) {
+  //     // what happen if user delete the keys after a while ?
+  //     Logs.error(error);
+  //   }
+  // };
+
   getCoinDetails = symbol => {
-    var config = {
+    const config: any = {
       method: 'get',
       url: endpoints.coingecko + '/coins/' + symbol + '?sparkline=true',
     };
@@ -240,7 +252,7 @@ class CryptoService {
   };
 
   getBulkTokenBalance = async (walletAddresses: IWalletAddresses[]) => {
-    let requests: Promise<any>[] = [];
+    const requests: Promise<any>[] = [];
     for (let index = 0; index < walletAddresses.length; index++) {
       const item = walletAddresses[index];
       if (!this.CHAIN_ID_MAP[item.chain]) {
@@ -250,7 +262,7 @@ class CryptoService {
         this.CHAIN_ID_MAP[item.chain]
       }/address/${item.walletAddress}/balances_v2/?key=${CONFIG.COVALENT_KEY}`;
       Logs.info(url);
-      var config = {
+      const config: any = {
         method: 'get',
         url: url,
         timeout: 2000,
@@ -258,12 +270,12 @@ class CryptoService {
 
       requests.push(axios(config));
     }
-    let tokens: any[] = [];
+    const tokens: any[] = [];
     try {
-      let results = await Promise.all(requests);
+      const results = await Promise.all(requests);
       for (let index = 0; index < results.length; index++) {
         const result = results[index];
-        let chainId = result.data.data.chain_id;
+        const chainId = result.data.data.chain_id;
         result.data.data.items.forEach(token => {
           tokens.push({
             chain: this.CHAIN_ID_TYPE_MAP[chainId],
@@ -327,7 +339,7 @@ class CryptoService {
   };
 
   prepareNewWallet = async (data, chain, contract, external) => {
-    let wallet: IWallet = {
+    const wallet: IWallet = {
       symbol: data.symbol.toUpperCase(),
       name: data.name,
       cid: data.id || data.symbol.toUpperCase(),
@@ -346,15 +358,15 @@ class CryptoService {
       version: CONFIG.NEW_ASSET_DESCRIPTOR_VERSION,
     };
     if (!external) {
-      let chainAddress = WalletStore.getWalletAddressByChain(wallet.chain);
-      let cryptoWallet = WalletFactory.getWallet(
+      const chainAddress = WalletStore.getWalletAddressByChain(wallet.chain);
+      const cryptoWallet = WalletFactory.getWallet(
         Object.assign({}, wallet, {walletAddress: chainAddress}),
       );
-      let decimals = await cryptoWallet.getDecimals();
+      const decimals = await cryptoWallet.getDecimals();
       // Adjust the wallet settings with decimals to prevent
       // requesting again the decimals when getting the balance
       cryptoWallet.config.decimals = decimals;
-      let balance = await cryptoWallet.getBalance();
+      const balance = await cryptoWallet.getBalance();
       wallet.decimals = decimals;
       wallet.balance = balance.confirmedBalance;
       wallet.unconfirmedBalance = balance.unconfirmedBalance;
@@ -364,7 +376,6 @@ class CryptoService {
         );
       }
     }
-    console.log(wallet);
     WalletStore.addWallet(wallet);
     this.getAccountBalance();
   };
@@ -375,11 +386,11 @@ class CryptoService {
     if (wallet?.type === 'external') {
       return true;
     }
-    let chainAddress = WalletStore.getWalletAddressByChain(wallet!.chain);
-    let cryptoWallet = WalletFactory.getWallet(
+    const chainAddress = WalletStore.getWalletAddressByChain(wallet!.chain);
+    const cryptoWallet = WalletFactory.getWallet(
       Object.assign({}, wallet, {walletAddress: chainAddress}),
     );
-    let balance = await cryptoWallet.getBalance();
+    const balance = await cryptoWallet.getBalance();
     WalletStore.setBalance(coin, chain, balance.getValue());
     WalletStore.setUnconfirmedBalance(
       coin,
@@ -390,7 +401,7 @@ class CryptoService {
   };
 
   prepareCustomToken = async (chain, contract, image) => {
-    let wallet: any = {
+    const wallet: any = {
       symbol: null,
       name: null,
       cid: null,
@@ -408,17 +419,17 @@ class CryptoService {
       walletAddress: null,
       version: CONFIG.NEW_ASSET_DESCRIPTOR_VERSION,
     };
-    let chainAddress = WalletStore.getWalletAddressByChain(wallet.chain);
-    let cryptoWallet = WalletFactory.getWallet(
+    const chainAddress = WalletStore.getWalletAddressByChain(wallet.chain);
+    const cryptoWallet = WalletFactory.getWallet(
       Object.assign({}, wallet, {walletAddress: chainAddress}),
     );
-    let decimals = await cryptoWallet.getDecimals();
+    const decimals = await cryptoWallet.getDecimals();
     // Adjust the wallet settings with decimals to prevent
     // requesting again the decimals when getting the balance
     cryptoWallet.config.decimals = decimals;
-    let balance = await cryptoWallet.getBalance();
-    let symbol = await cryptoWallet.getCurrencySymbol();
-    let name = await cryptoWallet.getCurrencyName();
+    const balance = await cryptoWallet.getBalance();
+    const symbol = await cryptoWallet.getCurrencySymbol();
+    const name = await cryptoWallet.getCurrencyName();
     wallet.symbol = symbol;
     wallet.name = name;
     wallet.decimals = decimals;
@@ -432,7 +443,46 @@ class CryptoService {
     }
     return wallet;
   };
+
+  getChainHistory = async (startTime, userAddress, chain) => {
+    const config: any = {
+      method: 'get',
+      url:
+        'https://api.debank.com/history/list?page_count=100&start_time=' +
+        startTime +
+        '&token_id=&user_addr=' +
+        userAddress +
+        '&chain=' +
+        chain,
+    };
+    return axios(config)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        Logs.error(error);
+        return error;
+      });
+  };
+  getReferralHistory = async (startTime, userAddress) => {
+    const config: any = {
+      method: 'get',
+      url:
+        'https://api.debank.com/history/list?page_count=100&start_time=' +
+        startTime +
+        '&token_id=&user_addr=' +
+        userAddress,
+    };
+    return axios(config)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        Logs.error(error);
+        return error;
+      });
+  };
 }
 
-let service = new CryptoService();
+const service = new CryptoService();
 export {service as CryptoService};

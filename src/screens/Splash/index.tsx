@@ -16,14 +16,17 @@ import {MigrationService} from 'services/migrations';
 import {ConfigStore} from 'stores/config';
 import CONFIG from 'config';
 import {Logs} from 'services/logs';
+import StockService from 'services/stocks';
+import {MarketStore} from 'stores/market';
+import {COINS_MIN} from 'utils/constants';
+import {initMixPanel} from 'utils/analytics';
 
 const SplashScreen: FC = () => {
   const navigation = useNavigation();
   const {i18n} = useTranslation();
 
-  ConfigStore.initializeConfig();
-
   useEffect(() => {
+    ConfigStore.initializeConfig();
     check();
   }, []);
 
@@ -40,18 +43,20 @@ const SplashScreen: FC = () => {
       i18n.changeLanguage(lng);
     } else {
       const local = RNLocalize.getLocales();
-      Logs.info('Phone local: ', local);
       if (local.length > 0 && local[0].languageCode) {
         i18n.changeLanguage(local[0].languageCode);
       }
     }
+    MarketStore.getTopCoins(COINS_MIN);
+    StockService.getMarkets();
     await checkPin();
     SS.hide();
+    initMixPanel();
   };
 
   const checkPin = async () => {
-    let hasPin = await hasUserSetPinCode();
-    let isInit = await StorageGetItem(CONFIG.INIT_KEY, false);
+    const hasPin = await hasUserSetPinCode();
+    const isInit = await StorageGetItem(CONFIG.INIT_KEY, false);
     CONFIG.navigation = navigation;
     if (hasPin && isInit) {
       navigation.dispatch(

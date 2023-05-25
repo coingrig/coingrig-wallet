@@ -9,6 +9,7 @@ import {WalletStore} from 'stores/wallet';
 import {useTranslation} from 'react-i18next';
 import {sleep} from 'utils';
 import {generateMnemonic} from '@coingrig/wallet-generator';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const SetPinScreen = ({route}) => {
   const navigation = useNavigation();
@@ -36,6 +37,7 @@ const SetPinScreen = ({route}) => {
       }
 
       createWallet(newMnemonic);
+      LogEvents(ILogEvents.SCREEN, 'CreateWallet');
       return;
     }
     navigation.dispatch(
@@ -44,6 +46,7 @@ const SetPinScreen = ({route}) => {
         routes: [{name: goTo}],
       }),
     );
+    LogEvents(ILogEvents.SCREEN, 'ImportWallet');
   };
 
   const createWallet = async mnemonic => {

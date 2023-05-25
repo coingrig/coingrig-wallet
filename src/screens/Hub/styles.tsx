@@ -4,9 +4,8 @@ import {Colors} from 'utils/colors';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    overflow: 'hidden',
   },
-  scrollview: {marginTop: 10, marginHorizontal: 16},
+  scrollview: {marginHorizontal: 16},
   title: {
     fontSize: 35,
     fontFamily: 'RobotoSlab-Bold',
@@ -45,10 +44,14 @@ export const styles = StyleSheet.create({
       width: 0,
       height: 1,
     },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.1,
     shadowRadius: 1.41,
 
     elevation: 2,
+  },
+  headerNoShadow: {
+    backgroundColor: Colors.background,
+    zIndex: 10,
   },
   brickTitle: {
     fontSize: 14,

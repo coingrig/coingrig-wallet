@@ -4,24 +4,27 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
-  Linking,
   Alert,
   Switch,
+  Platform,
+  Linking,
 } from 'react-native';
-import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import ActionSheet from 'react-native-actions-sheet';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {showMessage} from 'react-native-flash-message';
 import {SettingsStore} from 'stores/settings';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 import {Colors} from 'utils/colors';
-import {clearAllAppData} from 'utils';
+import {clearAllAppData, openLink} from 'utils';
 import {SmallButton} from 'components/smallButton';
 import CONFIG from 'config';
 import {styles} from './styles';
 import {observer} from 'mobx-react-lite';
+import {ConfigStore} from 'stores/config';
+import {APPLE_UPDATE_LINK, GOOGLE_UPDATE_LINK} from 'utils/constants';
 
 const actionSheetRef = createRef();
 
@@ -62,33 +65,58 @@ const SettingScreen = observer(() => {
     );
   };
 
-  const openLink = async url => {
-    try {
-      if (await InAppBrowser.isAvailable()) {
-        await InAppBrowser.open(url, {
-          // iOS Properties
-          dismissButtonStyle: 'cancel',
-          readerMode: false,
-          animated: true,
-          modalPresentationStyle: 'automatic',
-          modalTransitionStyle: 'coverVertical',
-          modalEnabled: true,
-          enableBarCollapsing: false,
-          // Android Properties
-          showTitle: true,
-          enableUrlBarHiding: true,
-          enableDefaultShare: true,
-          forceCloseOnRedirection: false,
-        });
-      } else {
-        Linking.openURL(url);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  const badge = () => <View style={styles.badge} />;
+
+  const renderUpdate = () => {
+    return !ConfigStore.requiresUpdate ? null : (
+      <View>
+        <Text style={styles.subtitle}>
+          {t('settings.update').toUpperCase()}
+        </Text>
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() => {
+            let link = '';
+            if (Platform.OS === 'android') {
+              link = GOOGLE_UPDATE_LINK;
+            }
+            if (Platform.OS === 'ios') {
+              link = APPLE_UPDATE_LINK;
+            }
+            Linking.canOpenURL(link).then(
+              supported => {
+                supported && Linking.openURL(link);
+              },
+              err => console.log(err),
+            );
+          }}>
+          {ConfigStore.requiresUpdate ? badge() : null}
+          <Icon
+            name="cloud-download-outline"
+            size={23}
+            color={Colors.foreground}
+          />
+          <Text style={styles.textItem}>{t('settings.update_app')}</Text>
+          <Icon name="arrow-forward" size={20} color="gray" />
+        </TouchableOpacity>
+      </View>
+    );
   };
 
-  const badge = () => <View style={styles.badge} />;
+  const renderReferral = () => {
+    if (!ConfigStore.getModuleProperty('referral', 'enabled', false)) {
+      return null;
+    }
+    return (
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => navigation.navigate('InviteScreen')}>
+        <Icon name="gift" size={23} color={Colors.foreground} />
+        <Text style={styles.textItem}>{t('referral.title')}</Text>
+        <Icon name="arrow-forward" size={20} color="gray" />
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -96,6 +124,7 @@ const SettingScreen = observer(() => {
         contentContainerStyle={styles.scrollview}
         showsVerticalScrollIndicator={false}>
         <View>
+          {renderUpdate()}
           <Text style={styles.subtitle}>
             {t('settings.wallet').toUpperCase()}
           </Text>
@@ -110,6 +139,7 @@ const SettingScreen = observer(() => {
             <Text style={styles.textItem}>{t('settings.backup_phrase')}</Text>
             <Icon name="arrow-forward" size={20} color="gray" />
           </TouchableOpacity>
+          {renderReferral()}
           <TouchableOpacity
             style={styles.item}
             onPress={() => navigation.navigate('LanguageScreen')}>
@@ -198,18 +228,37 @@ const SettingScreen = observer(() => {
             <Text style={styles.textItem}>{t('settings.credits')}</Text>
             <Icon name="arrow-forward" size={20} color="gray" />
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => navigation.navigate('FeedbackScreen')}>
+            <Icon2 name="star-half-alt" size={20} color={Colors.foreground} />
+            <Text style={styles.textItem}>{t('settings.feedback')}</Text>
+            <Icon name="arrow-forward" size={20} color="gray" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => openLink('https://governance.coingrig.com')}>
+            <Icon2 name="vote-yea" size={20} color={Colors.foreground} />
+            <Text style={styles.textItem}>{t('Governance')}</Text>
+            <Icon name="arrow-forward" size={20} color="gray" />
+          </TouchableOpacity>
         </View>
         <Text
           // eslint-disable-next-line react-native/no-inline-styles
           style={{marginVertical: 20, color: Colors.foreground}}>
           {t('settings.version')}: {CONFIG.APP_VERSION}
         </Text>
-        <TouchableOpacity
-          style={styles.itemDelete}
-          onPress={() => deleteWallets()}>
-          <Icon name="trash-bin" size={23} color="white" />
-          <Text style={styles.textDelete}>{t('settings.delete_wallets')}</Text>
-        </TouchableOpacity>
+        <SmallButton
+          text={t('settings.delete_wallets')}
+          onPress={() => deleteWallets()}
+          color="#f2eded"
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{
+            backgroundColor: Colors.red,
+            width: '100%',
+            borderColor: Colors.red,
+          }}
+        />
       </ScrollView>
       <ActionSheet
         //@ts-ignore

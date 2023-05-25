@@ -1,6 +1,13 @@
 /* eslint-disable no-undef */
 import {AppState, Platform} from 'react-native';
+import {BankStore} from 'stores/bankStore';
+import {CexStore} from 'stores/cexStore';
+import {FiatStore} from 'stores/fiatStore';
+import {StockStore} from 'stores/StockStore';
+import {WalletStore} from 'stores/wallet';
+import {mixBalance} from 'utils/analytics';
 import CONFIG from '../config';
+import {Logs} from './logs';
 
 class AppsStatesService {
   appStateSubscription: void;
@@ -34,6 +41,19 @@ class AppsStatesService {
           } else if (nextAppState === 'background') {
             inBackground = true;
             lastDate = Date.now();
+            try {
+              mixBalance(
+                Math.round(
+                  WalletStore.totalBalance +
+                    BankStore.totalBalance +
+                    FiatStore.totalBalance +
+                    CexStore.totalBalance +
+                    StockStore.totalBalance,
+                ),
+              );
+            } catch (error) {
+              Logs.error(error);
+            }
           }
         } catch (error) {
           inBackground = false;

@@ -1,0 +1,73 @@
+import {StyleSheet} from 'react-native';
+import {Colors} from 'utils/colors';
+
+export const styles = StyleSheet.create({
+  input: {
+    flex: 1,
+    color: Colors.foreground,
+    fontSize: 50,
+    fontWeight: 'bold',
+    letterSpacing: -1,
+  },
+  inputView: {
+    flex: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    textAlign: 'center',
+    borderRadius: 10,
+    marginTop: 0,
+    marginBottom: 0,
+    // borderColor: Colors.brick,
+    minHeight: 100,
+    marginHorizontal: 15,
+    backgroundColor: Colors.card,
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 15,
+    fontWeight: '600',
+    marginHorizontal: 16,
+    marginTop: 20,
+    color: Colors.foreground,
+  },
+  pill: {
+    backgroundColor: Colors.inputBackground,
+    marginRight: 16,
+    marginTop: 10,
+    borderColor: Colors.brick,
+    borderWidth: 1,
+    paddingVertical: 10,
+    borderRadius: 10,
+    flex: 1,
+  },
+  card: {
+    backgroundColor: Colors.card,
+    borderRadius: 10,
+    padding: 10,
+    flexDirection: 'row',
+    height: 70,
+    alignItems: 'center',
+    marginBottom: 5,
+    justifyContent: 'space-between',
+  },
+  providerText: {
+    marginLeft: 10,
+    fontSize: 14,
+    color: Colors.foreground,
+    flex: 1,
+  },
+  editContainer: {
+    // height: 300,
+    margin: 10,
+    backgroundColor: Colors.background,
+  },
+  editTitle: {
+    fontSize: 20,
+    textAlign: 'center',
+    marginTop: 25,
+    marginBottom: 20,
+    fontFamily: 'RobotoSlab-Bold',
+    color: Colors.foreground,
+  },
+});

@@ -14,6 +14,8 @@ import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
+import Icon3 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon4 from 'react-native-vector-icons/Feather';
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import {useTranslation} from 'react-i18next';
 import Svg, {Path} from 'react-native-svg';
@@ -25,9 +27,9 @@ import {CryptoService} from 'services/crypto';
 import {Colors} from 'utils/colors';
 import {showMessage} from 'react-native-flash-message';
 import {SettingsStore} from 'stores/settings';
-import endpoints from 'utils/endpoints';
 import ActionSheet from 'react-native-actions-sheet';
 import {SmallButton} from 'components/smallButton';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 const editSheet: React.RefObject<any> = createRef();
 
@@ -67,16 +69,13 @@ const WalletScreen = observer(({route}) => {
             <TouchableOpacity
               onPress={() => showTransactions()}
               style={styles.moreBtn}>
-              <Icon
-                name="list-circle-outline"
-                size={25}
-                color={Colors.foreground}
-              />
+              <Icon name="list" size={24} color={Colors.foreground} />
             </TouchableOpacity>
           )}
         </View>
       ),
     });
+    LogEvents(ILogEvents.SCREEN, 'WalletDetails');
   }, []);
 
   // useEffect(() => {
@@ -162,23 +161,43 @@ const WalletScreen = observer(({route}) => {
       route.params.symbol,
       route.params.chain,
     );
-    openLink(CryptoService.getBlockExplorer(w?.chain!));
+    if (route.params.chain === 'BTC') {
+      openLink(CryptoService.getBlockExplorer(w?.chain!));
+    } else {
+      const convChain =
+        route.params.chain === 'POLYGON' ? 'matic' : route.params.chain;
+      navigation.navigate('HistoryScreen', {chain: convChain.toLowerCase()});
+    }
   };
 
   const buySellAction = () => {
-    const w = WalletStore.getWalletByCoinId(
-      route.params.symbol,
-      route.params.chain,
-    );
-    const address = WalletStore.getWalletAddressByChain(w?.chain!);
-    let coin = route.params.symbol.toUpperCase();
-    if (coin === 'BNB') {
-      coin = 'BSC_BNB';
-    }
-    const link =
-      endpoints.ramper + '&userAddress=' + address + '&swapAsset=' + coin;
-    // console.log(link);
-    openLink(link);
+    navigation.navigate('TradeScreen', {
+      symbol: route.params.symbol,
+      chain: route.params.chain,
+      price: WalletStore.getWalletByCoinId(
+        route.params.symbol,
+        route.params.chain,
+      )?.price,
+    });
+    // const w = WalletStore.getWalletByCoinId(
+    //   route.params.symbol,
+    //   route.params.chain,
+    // );
+    // const address = WalletStore.getWalletAddressByChain(w?.chain!);
+    // let coin = route.params.symbol.toUpperCase();
+    // if (coin === 'BNB') {
+    //   coin = 'BSC_BNB';
+    // }
+    // const link =
+    //   endpoints.ramper +
+    //   '&hostApiKey=' +
+    //   CONFIG.RAMP_KEY +
+    //   '&userAddress=' +
+    //   address +
+    //   '&swapAsset=' +
+    //   coin;
+    // LogEvents(ILogEvents.CLICK, 'BuyCrypto');
+    // openLink(link);
   };
 
   const renderUnconfirmedTx = () => {
@@ -196,9 +215,8 @@ const WalletScreen = observer(({route}) => {
           <Text
             style={[
               styles.unconfValue,
-              // eslint-disable-next-line react-native/no-inline-styles
               {
-                color: unconfTxValue! > 0 ? '#5cb85c' : '#d9534f',
+                color: unconfTxValue! >= 0 ? Colors.green : Colors.red,
               },
             ]}>
             {unconfTxValue || 0} {route.params.symbol}
@@ -221,7 +239,7 @@ const WalletScreen = observer(({route}) => {
             style={styles.roundBtn}>
             <Icon2 name="dollar" size={20} color={Colors.background} />
           </TouchableOpacity>
-          <Text style={styles.roundb}>{t('wallet.buysell')}</Text>
+          <Text style={styles.roundb}>{t('Trade')}</Text>
         </View>
       );
     }
@@ -267,11 +285,10 @@ const WalletScreen = observer(({route}) => {
                 editSheet.current?.setModalVisible(true);
               }}
               style={styles.roundBtn}>
-              <Icon2
-                name="edit"
-                size={20}
+              <Icon3
+                name="circle-edit-outline"
+                size={23}
                 color={Colors.background}
-                style={{marginLeft: 3}}
               />
             </TouchableOpacity>
             <Text style={styles.roundb}>{t('wallet.edit')}</Text>
@@ -402,7 +419,7 @@ const WalletScreen = observer(({route}) => {
             <TouchableOpacity
               onPress={() => deleteWallet(wallet)}
               style={styles.deleteBtn}>
-              <Icon name="trash" size={20} color="white" />
+              <Icon4 name="trash-2" size={20} color="white" />
             </TouchableOpacity>
           </View>
         ) : null}
@@ -422,7 +439,7 @@ const WalletScreen = observer(({route}) => {
             placeholderTextColor={'gray'}
             style={styles.editInput}
             value={customBalance}
-            onChangeText={t => setCustomBalance(t)}
+            onChangeText={v => setCustomBalance(v)}
           />
           <SmallButton
             text={t('swap.slippage_save')}
@@ -440,6 +457,7 @@ const WalletScreen = observer(({route}) => {
               backgroundColor: '#2e2c2c',
               width: '70%',
               marginTop: 20,
+              marginBottom: 20,
             }}
           />
         </ActionSheet>

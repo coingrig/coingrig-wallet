@@ -26,6 +26,7 @@ import {BigButton} from 'components/bigButton';
 import {CryptoService} from 'services/crypto';
 import {WalletStore} from 'stores/wallet';
 import {Logs} from 'services/logs';
+import {ILogEvents, LogEvents} from 'utils/analytics';
 
 export default function CustomTokenScreen({route}) {
   const {t} = useTranslation();
@@ -41,6 +42,7 @@ export default function CustomTokenScreen({route}) {
       // coingrig://add/polygon/0x0c51f415cf478f8d08c246a6c6ee180c5dc3a012
       autoTokenData();
     }
+    LogEvents(ILogEvents.SCREEN, 'CustomToken');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -65,7 +67,7 @@ export default function CustomTokenScreen({route}) {
     }
     Logs.info(token);
     try {
-      let wallet = await CryptoService.prepareCustomToken(
+      const wallet = await CryptoService.prepareCustomToken(
         chain,
         clipboardToken,
         getTokenIcon(chain),
@@ -83,7 +85,7 @@ export default function CustomTokenScreen({route}) {
 
   const addToken = async () => {
     if (previewWallet !== null) {
-      let existingWallets = WalletStore.wallets.filter(
+      const existingWallets = WalletStore.wallets.filter(
         o =>
           o.chain === previewWallet.chain &&
           (o.contract === previewWallet.contract ||
@@ -96,6 +98,7 @@ export default function CustomTokenScreen({route}) {
           type: 'success',
         });
         CryptoService.getAccountBalance();
+        LogEvents(ILogEvents.ACTION, 'AddCustomToken');
         navigation.goBack();
       } else {
         Alert.alert('Info', t('message.wallet.token.already_exists'));
@@ -132,7 +135,7 @@ export default function CustomTokenScreen({route}) {
         default:
           break;
       }
-      let wallet = await CryptoService.prepareCustomToken(
+      const wallet = await CryptoService.prepareCustomToken(
         route.params.chain.toUpperCase(),
         route.params.token,
         getTokenIcon(route.params.chain.toUpperCase()),

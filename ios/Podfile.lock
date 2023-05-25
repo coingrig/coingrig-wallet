@@ -91,6 +91,12 @@ PODS:
   - lottie-react-native (4.0.3):
     - lottie-ios (~> 3.2.3)
     - React-Core
+  - Mixpanel-swift (3.2.5):
+    - Mixpanel-swift/Complete (= 3.2.5)
+  - Mixpanel-swift/Complete (3.2.5)
+  - MixpanelReactNative (1.4.1):
+    - Mixpanel-swift (= 3.2.5)
+    - React
   - OneSignalXCFramework (3.10.0)
   - OpenSSL-Universal (1.1.180)
   - Permission-Camera (3.0.5):
@@ -311,6 +317,8 @@ PODS:
     - React-Core
   - react-native-splash-screen (3.3.0):
     - React-Core
+  - react-native-webview (11.21.1):
+    - React-Core
   - React-perflogger (0.64.2)
   - React-RCTActionSheet (0.64.2):
     - React-Core/RCTActionSheetHeaders (= 0.64.2)
@@ -438,9 +446,9 @@ PODS:
     - React
   - RNVectorIcons (7.1.0):
     - React
-  - SDWebImage (5.12.3):
-    - SDWebImage/Core (= 5.12.3)
-  - SDWebImage/Core (5.12.3)
+  - SDWebImage (5.12.5):
+    - SDWebImage/Core (= 5.12.5)
+  - SDWebImage/Core (5.12.5)
   - SDWebImageWebPCoder (0.6.1):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.7)
@@ -480,6 +488,7 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - lottie-ios (from `../node_modules/lottie-ios`)
   - lottie-react-native (from `../node_modules/lottie-react-native`)
+  - MixpanelReactNative (from `../node_modules/mixpanel-react-native`)
   - Permission-Camera (from `../node_modules/react-native-permissions/ios/Camera`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
@@ -502,6 +511,7 @@ DEPENDENCIES:
   - react-native-restart (from `../node_modules/react-native-restart`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
+  - react-native-webview (from `../node_modules/react-native-webview`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -548,6 +558,7 @@ SPEC REPOS:
     - FlipperKit
     - libevent
     - libwebp
+    - Mixpanel-swift
     - OneSignalXCFramework
     - OpenSSL-Universal
     - SDWebImage
@@ -575,6 +586,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/lottie-ios"
   lottie-react-native:
     :path: "../node_modules/lottie-react-native"
+  MixpanelReactNative:
+    :path: "../node_modules/mixpanel-react-native"
   Permission-Camera:
     :path: "../node_modules/react-native-permissions/ios/Camera"
   RCT-Folly:
@@ -615,6 +628,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
+  react-native-webview:
+    :path: "../node_modules/react-native-webview"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -687,7 +702,7 @@ SPEC CHECKSUMS:
   coingrig-wallet-generator: 6720d1049ffcd4d2e1fa28b01bb4f8884acb4c26
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: e686045572151edef46010a6f819ade377dfeb4b
-  FBReactNativeSpec: 5a6b75a68b0b65cdcb7a94b7880e0b0f866bfd50
+  FBReactNativeSpec: 37de99801d270ffdb015ceab8cf244ed6ac0cdc2
   Flipper: d3da1aa199aad94455ae725e9f3aa43f3ec17021
   Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
   Flipper-Folly: 755929a4f851b2fb2c347d533a23f191b008554c
@@ -700,6 +715,8 @@ SPEC CHECKSUMS:
   libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
   lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
   lottie-react-native: 96361a9891cf651534ea35c4f85f33d4cf14ed13
+  Mixpanel-swift: 7a06cc6f0fa8617bc8bb0871cace42f7d779751e
+  MixpanelReactNative: 02d44e5f06d4484c60437457ff78f22859208fc8
   OneSignalXCFramework: 10648e60ff3d335fbffa62d9b44b700b56d49b51
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
   Permission-Camera: ac603073e4128e51e6ca3c39129778f05b4082fa
@@ -722,6 +739,7 @@ SPEC CHECKSUMS:
   react-native-restart: 733a51ad137f15b0f8dc34c4082e55af7da00979
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
+  react-native-webview: e6125da6d1cb245ff0692f545b0e5eb3572e12ab
   React-perflogger: 25373e382fed75ce768a443822f07098a15ab737
   React-RCTActionSheet: af7796ba49ffe4ca92e7277a5d992d37203f7da5
   React-RCTAnimation: 6a2e76ab50c6f25b428d81b76a5a45351c4d77aa
@@ -750,7 +768,7 @@ SPEC CHECKSUMS:
   RNSmartCode: b7410d659677d180a640e850e15eb4980d744d70
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   RNVectorIcons: bc69e6a278b14842063605de32bec61f0b251a59
-  SDWebImage: 53179a2dba77246efa8a9b85f5c5b21f8f43e38f
+  SDWebImage: 0905f1b7760fc8ac4198cae0036600d67478751e
   SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
   TouchID: ba4c656d849cceabc2e4eef722dea5e55959ecf4
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac

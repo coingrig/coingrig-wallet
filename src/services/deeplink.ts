@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
-import {Linking} from 'react-native';
+import {DeviceEventEmitter, Linking} from 'react-native';
 import {WalletStore} from 'stores/wallet';
+import {getChainByCoin} from 'utils';
 import CONFIG from '../config';
 import appStates from './appStates';
 import {CryptoService} from './crypto';
@@ -38,6 +39,9 @@ class DeepLinkService {
 
   handleDeepLink = data => {
     switch (data[0]) {
+      case 'closebrowser':
+        this.closeBrowser();
+        break;
       case 'add':
         this.addNewToken(data);
         break;
@@ -47,9 +51,48 @@ class DeepLinkService {
       case 'swap':
         this.startSwap(data);
         break;
+      case 'address':
+        this.sendAddress(data);
+        break;
+      case 'screen':
+        this.goToScreen(data);
+        break;
+      case 'web':
+        this.startWeb(data[1]);
+        break;
       default:
         break;
     }
+  };
+
+  goToScreen = (data: any) => {
+    if (data.length >= 2) {
+      const screen = data[1];
+      CONFIG.navigation.navigate(screen);
+    }
+    this.data = null;
+  };
+
+  sendAddress = (data: any) => {
+    if (data.length >= 3) {
+      const coin = data[1];
+      if (
+        coin.toUpperCase() === 'BTC' ||
+        coin.toUpperCase() === 'ETH' ||
+        coin.toUpperCase() === 'BNB' ||
+        coin.toUpperCase() === 'MATIC'
+      ) {
+        const address = data[2];
+        CONFIG.navigation.navigate('SendReceiveScreen', {
+          coin: coin.toUpperCase(),
+          chain: getChainByCoin(coin.toUpperCase()),
+          name: coin.toUpperCase(),
+          to: address,
+          receive: false,
+        });
+      }
+    }
+    this.data = null;
   };
 
   startWC(WCuri: any) {
@@ -57,6 +100,15 @@ class DeepLinkService {
       CONFIG.navigation.navigate('WalletconnectScreen', {
         uri: WCuri,
       });
+      this.data = null;
+    } catch (error) {
+      Logs.error(error);
+    }
+  }
+
+  startWeb(url: any) {
+    try {
+      CONFIG.navigation.navigate('WebScreen', {url});
       this.data = null;
     } catch (error) {
       Logs.error(error);
@@ -84,12 +136,12 @@ class DeepLinkService {
         await WalletStore.hydrateStore();
       }
 
-      let chain = data[1].toUpperCase();
-      let fromToken = data[2];
-      let toToken = data[3];
+      const chain = data[1].toUpperCase();
+      const fromToken = data[2];
+      const toToken = data[3];
 
-      let walletFrom = await checkTokenExists(chain, fromToken);
-      let walletTo = await checkTokenExists(chain, toToken);
+      const walletFrom = await checkTokenExists(chain, fromToken);
+      const walletTo = await checkTokenExists(chain, toToken);
 
       if (walletFrom && walletTo) {
         // We have both assets already in portfolio, redirect to swap
@@ -128,6 +180,10 @@ class DeepLinkService {
     }
   }
 
+  closeBrowser() {
+    DeviceEventEmitter.emit('closeBrowser');
+  }
+
   parseUrl = (urlToParse: any) => {
     urlToParse = urlToParse.url || urlToParse;
     if (!urlToParse) {
@@ -148,6 +204,10 @@ class DeepLinkService {
     if (urlToParse.includes('wc?uri=')) {
       const wc = urlToParse.replace('https://link.coingrig.com/wc?uri=', '');
       urlToParse = ['wc', wc];
+    } else if (urlToParse.includes('web?url=')) {
+      // https://link.coingrig.com/web?url=https://medium.com/bloated-mvp/a16z-is-gaslighting-us-ea4161de2969
+      const url = urlToParse.replace('https://link.coingrig.com/web?url=', '');
+      urlToParse = ['web', url];
     } else {
       urlToParse = urlToParse.replace('https://link.coingrig.com/', '');
       urlToParse = urlToParse.split('/');

@@ -10,11 +10,7 @@ class NotificationService {
     //Method for handling notifications received while app in foreground
     OneSignal.setNotificationWillShowInForegroundHandler(
       notificationReceivedEvent => {
-        console.log(
-          'OneSignal: notification will show in foreground:',
-          notificationReceivedEvent,
-        );
-        let notification = notificationReceivedEvent.getNotification();
+        const notification = notificationReceivedEvent.getNotification();
         Logs.info('notification: ', notification);
         const data = notification.additionalData;
         Logs.info('additionalData: ', data);

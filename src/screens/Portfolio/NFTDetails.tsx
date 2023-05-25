@@ -1,43 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, Text, Image, Linking, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import InAppBrowser from 'react-native-inappbrowser-reborn';
 import {styles} from './styles';
 import {Colors} from 'utils/colors';
-import {Logs} from 'services/logs';
 import {useNavigation} from '@react-navigation/native';
+import {openLink} from 'utils';
 
 const NFTScreen = props => {
   const {t} = useTranslation();
   const {item} = props.route.params;
   const navigation = useNavigation();
-
-  const openLink = async url => {
-    try {
-      if (await InAppBrowser.isAvailable()) {
-        await InAppBrowser.open(url, {
-          dismissButtonStyle: 'cancel',
-          readerMode: false,
-          animated: true,
-          modalPresentationStyle: 'automatic',
-          modalTransitionStyle: 'coverVertical',
-          modalEnabled: true,
-          enableBarCollapsing: false,
-          showTitle: true,
-          enableUrlBarHiding: true,
-          enableDefaultShare: true,
-          forceCloseOnRedirection: false,
-        });
-      } else {
-        Linking.openURL(url);
-      }
-    } catch (error) {
-      Logs.error(error);
-    }
-  };
 
   return (
     <ParallaxScrollView

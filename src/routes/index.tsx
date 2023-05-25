@@ -27,18 +27,32 @@ import SendReceiveScreen from 'screens/SendReceive';
 import WalletScreen from 'screens/Wallet';
 import MarketScreen from 'screens/Market';
 import PortfolioScreen from 'screens/Portfolio';
-import NewsScreen from 'screens/News';
+import CryptoNewsScreen from 'screens/News/Crypto';
+import StockNewsScreen from 'screens/News/Stock';
 import CoinDetailScreen from 'screens/CoinDetails';
 import OnBoardingScreen from 'screens/Onboarding';
 import WalletconnectScreen from 'screens/Walletconnect';
 import CustomTokenScreen from 'screens/CustomToken';
 import TokenConnectScreen from 'screens/TokenConnect';
 import NFTScreen from 'screens/Portfolio/NFTDetails';
+import FeedbackScreen from 'screens/Feedback';
 
 import {Colors} from 'utils/colors';
 import CONFIG from 'config';
 import styles from './styles';
 import SyntheticScreen from 'screens/Synthetic';
+import CEXScreen from 'screens/Cex';
+import CexDetails from 'screens/Cex/Details';
+import AddBank from 'screens/Banking/AddBank';
+import SelectCountry from 'screens/Banking/SelectCountry';
+import AddFiat from 'screens/Fiat';
+import SearchStocks from 'screens/SearchStocks';
+import SummaryScreen from 'screens/Summary';
+import InviteScreen from 'components/Invite';
+import WebScreen from 'screens/Web';
+import HistoryScreen from 'screens/History';
+import ReferralHistory from 'screens/History/Referral';
+import TradeScreen from 'screens/Trade';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -86,7 +100,7 @@ const TabLogo = (inverse = false) => {
   );
 };
 
-const SmallLogo = () => {
+export const SmallLogo = () => {
   return (
     <View
       style={{
@@ -119,10 +133,12 @@ function BottomTabs() {
         tabBarActiveTintColor: '#FFFFFF',
         tabBarActiveBackgroundColor: Colors.foreground,
         tabBarStyle: {
-          borderTopWidth: 0,
+          borderTopWidth: 1,
           elevation: 0,
-          height: Platform.OS === 'android' ? 55 : 75,
-          marginTop: 3,
+          height: Platform.OS === 'android' ? 60 : 80,
+          backgroundColor: Colors.background,
+          borderTopColor: Colors.tabborder,
+          paddingTop: 5,
         },
         tabBarItemStyle: {
           marginHorizontal: 20,
@@ -141,9 +157,9 @@ function BottomTabs() {
             );
           } else if (route.name === 'HubScreen') {
             return focused ? (
-              <Icon name="apps" size={24} color={Colors.inverse} />
+              <Icon name="layers" size={25} color={Colors.inverse} />
             ) : (
-              <Icon name="apps" size={24} color={Colors.foreground} />
+              <Icon name="layers" size={25} color={Colors.foreground} />
             );
           }
           return null;
@@ -181,7 +197,7 @@ function BottomTabs() {
           headerStyle: {
             shadowColor: 'transparent', // ios
             elevation: 0, // android
-            // backgroundColor: '#f5f1e4'
+            backgroundColor: Colors.background,
           },
           headerTintColor: Colors.foreground,
           headerTitleStyle: {
@@ -289,6 +305,14 @@ function NavigationStack({t}) {
         }}
       />
       <Stack.Screen
+        name="SearchStocks"
+        component={SearchStocks}
+        options={{
+          headerShown: false,
+          animationEnabled: false,
+        }}
+      />
+      <Stack.Screen
         name="ValidateWalletScreen"
         component={ValidateWalletScreen}
         options={styles.importWallet}
@@ -309,13 +333,223 @@ function NavigationStack({t}) {
         options={styles.walletscreen}
       />
       <Stack.Screen
-        name="NewsScreen"
-        component={NewsScreen}
+        name="CryptoNewsScreen"
+        component={CryptoNewsScreen}
         options={{
           headerShown: true,
-          headerTitle: t('title.news'),
+          headerTitle: t('title.crypto_news'),
           headerStyle: {
             backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="SummaryScreen"
+        component={SummaryScreen}
+        options={{
+          headerShown: true,
+          headerTitle: t('summary.title'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="StockNewsScreen"
+        component={StockNewsScreen}
+        options={{
+          headerShown: true,
+          headerTitle: t('title.stock_news'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="CEXScreen"
+        component={CEXScreen}
+        options={{
+          headerShown: true,
+          headerTitle: t('CEXs'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="AddBankScreen"
+        component={AddBank}
+        options={{
+          headerShown: true,
+          headerTitle: t('portfolio.banks.select_bank'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="AddFiat"
+        component={AddFiat}
+        options={{
+          headerShown: true,
+          headerTitle: t('portfolio.fiat.select_title'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="SelectCountryScreen"
+        component={SelectCountry}
+        options={{
+          headerShown: true,
+          headerTitle: t('portfolio.banks.select_country'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="TradeScreen"
+        component={TradeScreen}
+        options={{
+          headerShown: true,
+          headerTitle: t('trade.title'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="CexDetails"
+        component={CexDetails}
+        options={{
+          headerShown: false,
+          headerTransparent: true,
+          animationEnabled: false,
+          // headerTitle: t('hub.synthetics'),
+          headerBackImage: () => (
+            <Icon
+              name="close"
+              size={30}
+              color={Colors.foreground}
+              style={{paddingLeft: 10}}
+            />
+          ),
+          headerStyle: {
+            backgroundColor: 'transparent',
             shadowColor: 'transparent', // ios
             elevation: 0, // android
           },
@@ -420,6 +654,40 @@ function NavigationStack({t}) {
           headerTitleStyle: {
             fontWeight: '400',
 
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="FeedbackScreen"
+        component={FeedbackScreen}
+        options={{
+          presentation: 'modal',
+          headerTitleAlign: 'center',
+          headerBackImage: () => (
+            <Icon
+              name="close"
+              size={30}
+              color={Colors.foreground}
+              style={{paddingLeft: 10}}
+            />
+          ),
+          headerShown: true,
+          headerTitle: t('settings.feedback'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
             fontFamily: 'RobotoSlab-Regular',
             fontSize: 19,
             justifyContent: 'center',
@@ -535,6 +803,115 @@ function NavigationStack({t}) {
         options={{
           headerShown: true,
           headerTitle: t('title.settings'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="HistoryScreen"
+        component={HistoryScreen}
+        options={{
+          headerShown: true,
+          headerTitle: t('history.title'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="ReferralHistory"
+        component={ReferralHistory}
+        options={{
+          headerShown: true,
+          headerTitle: t('history.referral.title'),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="InviteScreen"
+        component={InviteScreen}
+        options={{
+          headerShown: true,
+          headerTitle: t(''),
+          headerStyle: {
+            backgroundColor: Colors.darker,
+            shadowColor: 'transparent', // ios
+            elevation: 0, // android
+          },
+          headerTintColor: Colors.foreground,
+          headerBackTitleVisible: false,
+          headerBackTitleStyle: {
+            fontFamily: 'RobotoSlab-Regular',
+          },
+          headerTitleStyle: {
+            fontWeight: '400',
+
+            fontFamily: 'RobotoSlab-Regular',
+            fontSize: 19,
+            justifyContent: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="WebScreen"
+        component={WebScreen}
+        options={{
+          presentation: 'modal',
+          headerBackImage: () => (
+            <Icon
+              name="close"
+              size={30}
+              color={Colors.foreground}
+              style={{paddingLeft: 10}}
+            />
+          ),
+          headerShown: true,
+          headerTitle: t(''),
           headerStyle: {
             backgroundColor: Colors.darker,
             shadowColor: 'transparent', // ios
