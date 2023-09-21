@@ -4,7 +4,8 @@ Next-Generation Digital Wallet. A powerful digital wallet for everyone with uniq
 
 🪙 Crypto, 🏦 Banking, 📈 Stocks and more.
 
-# 🏗 This project is not maintained anymore
+# This project is not maintained anymore. 
+## 🏗 You can still use it as a starter for your project.
 
 📱 You can install the app from AppStore and Google Play.
 
