@@ -4,6 +4,8 @@ Next-Generation Digital Wallet. A powerful digital wallet for everyone with uniq
 
 🪙 Crypto, 🏦 Banking, 📈 Stocks and more.
 
+# 🏗 This project is not maintained anymore
+
 📱 You can install the app from AppStore and Google Play.
 
 Website: [coingrig.com](https://coingrig.com)
